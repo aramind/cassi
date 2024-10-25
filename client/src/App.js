@@ -1,7 +1,11 @@
-import "./App.css";
+import { Typography } from "@mui/material";
 
 function App() {
-  return <div className="App">CASSI APP</div>;
+  return (
+    <>
+      <Typography>CASSI APP</Typography>
+    </>
+  );
 }
 
 export default App;
