@@ -66,3 +66,5 @@ const main = createTheme({
     narrowText: `"Abel", sans-serif`,
   },
 });
+
+export default main;
