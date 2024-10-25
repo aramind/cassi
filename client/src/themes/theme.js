@@ -58,12 +58,30 @@ const main = createTheme({
   },
   typography: {
     fontFamily: `"Palanquin", "Nunito Sans", "Roboto", sans-serif`,
-    mainHeader: `"Montserrat Alternates", "Palanquin", "Roboto", sans-serif`,
-    subHeader: `"Palanquin" , "Roboto", sans-serif`,
-    text: `"Palanquin", "Nunito Sans", "Roboto", sans-serif`,
-    accent: `"Poppins", "Roboto", sans-serif`,
-    smallText: `"Inter", sans-serif`,
-    narrowText: `"Abel", sans-serif`,
+    mainHeader: {
+      fontFamily: `"Montserrat Alternates", "Palanquin", "Roboto", sans-serif`,
+      fontSize: "1.5rem",
+      fontWeight: "bold",
+    },
+    subHeader: {
+      fontFamily: `"Poppins", "Roboto", sans-serif`,
+      fontSize: "1.2rem",
+    },
+    text: {
+      fontFamily: `"Palanquin", "Nunito Sans", "Roboto", sans-serif`,
+    },
+    accent: {
+      fontFamily: `"Nunito Sans", "Roboto", sans-serif`,
+    },
+    smallText: {
+      fontFamily: `"Inter", sans-serif`,
+      fontSize: "0.8rem",
+    },
+    narrowText: {
+      fontFamily: `"Abel", sans-serif`,
+      fontSize: "0.8rem",
+    },
+
     body1: {
       fontSize: "0.9rem",
       [`@media (min-width:600px)`]: {
@@ -104,6 +122,20 @@ const main = createTheme({
       },
       [`@media (min-width:960px)`]: {
         fontSize: "2rem",
+      },
+    },
+    components: {
+      MuiTypography: {
+        defaultProps: {
+          variantMapping: {
+            mainHeader: "h1",
+            subHeader: "h2",
+            text: "p",
+            accent: "span",
+            smallText: "span",
+            narrowText: "span",
+          },
+        },
       },
     },
   },
