@@ -13,7 +13,7 @@ const COLORS = {
   },
   myWhite: {
     dark: "#dbe0e6",
-    main: "#f8f94a",
+    main: "#f8f9fa",
     light: "#ffffff",
   },
   myBlack: {

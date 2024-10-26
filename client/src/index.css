@@ -5,3 +5,20 @@
   padding: 0;
   margin: 0;
 }
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* for testing */
+.outlined {
+  border: 1px solid red;
+}
+.outlined2 {
+  border: 1px solid blue;
+}
+.outlined3 {
+  border: 1px solid violet;
+}
