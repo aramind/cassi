@@ -85,7 +85,7 @@ const main = createTheme({
     },
     smallSubHeader: {
       fontFamily: `"Poppins", "Roboto", sans-serif`,
-      fontSize: "1.2rem",
+      fontSize: "0.9rem",
     },
     body1: {
       fontFamily: `"Palanquin", "Nunito Sans", "Roboto", sans-serif`,

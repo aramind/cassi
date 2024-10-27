@@ -3,6 +3,8 @@ import BodyContainer from "../../containers/BodyContainer";
 import {
   Box,
   Button,
+  Checkbox,
+  FormControlLabel,
   IconButton,
   InputAdornment,
   Stack,
@@ -29,6 +31,7 @@ const RegisterPage = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [agree, setAgree] = useState(false);
   const formMethods = {
     control,
     handleSubmit,
@@ -52,12 +55,13 @@ const RegisterPage = () => {
           <Stack width={{ xs: "90%", md: "500px" }} className=" centered ">
             <HeroImage
               bgcolor={(theme) => theme.palette.primary.light}
-              width={{ xs: "220px", md: "300px" }}
-              height={{ xs: "220px", md: "300px" }}
+              width={{ xs: "150px", md: "300px" }}
+              height={{ xs: "150px", md: "300px" }}
               src={`/assets/images/register.png`}
+              imageWidth={`70vw`}
             />
-            <Typography variant="mediumHeader">Get Started!</Typography>
-            <br />
+            <Typography variant="smallHeader">Get Started!</Typography>
+
             <Typography variant="smallSubHeader" textAlign="center">
               Sign up and start managing with ease!
             </Typography>
@@ -104,7 +108,24 @@ const RegisterPage = () => {
                   </Stack>
                 )}
               />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={agree}
+                    onChange={(e) => setAgree(e.target?.checked)}
+                    sx={{
+                      "& .MuiCheckbox-root": { padding: 0 },
+                    }}
+                  />
+                }
+                label={
+                  <Typography variant="body2" sx={{ ml: "8px" }}>
+                    I agree to the processing of my personal data provided
+                  </Typography>
+                }
+              />
             </Box>
+            <br />
             <Button
               fullWidth
               variant="contained"

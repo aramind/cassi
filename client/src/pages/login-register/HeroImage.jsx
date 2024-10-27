@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 
-const HeroImage = ({ bgcolor, width, height, src }) => {
+const HeroImage = ({ bgcolor, width, height, src, imageWidth = "100vw" }) => {
   return (
     <Box
       position="relative"
@@ -17,7 +17,7 @@ const HeroImage = ({ bgcolor, width, height, src }) => {
         component="img"
         src={src}
         alt="hero-image"
-        width={{ xs: "100vw", md: "auto" }}
+        width={{ xs: imageWidth, md: "auto" }}
         height={{ xs: "auto", md: "30vh" }}
         sx={{
           position: "absolute",
