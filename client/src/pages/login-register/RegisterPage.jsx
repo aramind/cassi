@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Button, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import HeroImage from "./HeroImage";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import registerSchema from "../../schemas/registerSchema";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledTextField from "../../components/controlled/ControlledTextField";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import TextFieldError from "../../components/controlled/TextFieldError";
 
 const RegisterPage = () => {
   const {
@@ -18,6 +28,7 @@ const RegisterPage = () => {
     resolver: yupResolver(registerSchema),
   });
 
+  const [showPassword, setShowPassword] = useState(false);
   const formMethods = {
     control,
     handleSubmit,
@@ -29,6 +40,11 @@ const RegisterPage = () => {
     console.log("Submitting ", data);
   };
 
+  //   onClickHandlers
+
+  const handleClickShowPassword = () => {
+    setShowPassword((show) => !show);
+  };
   return (
     <FormWrapper formMethods={formMethods}>
       <form noValidate>
@@ -46,13 +62,49 @@ const RegisterPage = () => {
               Sign up and start managing with ease!
             </Typography>
             <br />
-            <Stack spacing={1} width={1}>
+            <Box width={1}>
               <ControlledTextField name="email" label="Email" />
               <ControlledTextField
                 name="homeName"
                 label="Apartment/Unit/House Name"
               />
-            </Stack>
+              <Controller
+                name="password"
+                render={({ field }) => (
+                  <Stack>
+                    <TextField
+                      {...field}
+                      // value={field.value}
+                      id="password"
+                      label="Password"
+                      // variant="outlined"
+                      size="small"
+                      fullWidth
+                      error={!!errors?.password}
+                      type={showPassword ? "text" : "password"}
+                      slotProps={{
+                        input: {
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton onClick={handleClickShowPassword}>
+                                {showPassword ? (
+                                  <Visibility />
+                                ) : (
+                                  <VisibilityOff />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        },
+                      }}
+                    />
+                    <TextFieldError
+                      errorMessage={errors?.password?.message || ""}
+                    />
+                  </Stack>
+                )}
+              />
+            </Box>
             <Button
               fullWidth
               variant="contained"
