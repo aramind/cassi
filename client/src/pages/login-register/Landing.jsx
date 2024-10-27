@@ -3,6 +3,22 @@ import React from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import HeroImage from "./HeroImage";
 
+const ActionButton = ({ bgcolor, sxProps, text, onClickHandler }) => {
+  return (
+    <Button
+      variant="contained"
+      disableElevation
+      sx={{
+        bgcolor: bgcolor || "primary",
+        width: "160px",
+        ...sxProps,
+      }}
+    >
+      {text}
+    </Button>
+  );
+};
+
 const Landing = () => {
   return (
     <BodyContainer>
@@ -30,19 +46,15 @@ const Landing = () => {
         </Typography>
         <Box height="3rem"></Box>
         <Stack direction="row">
-          <Button
-            variant="contained"
-            disableElevation
-            sx={{
-              width: "160px",
+          <ActionButton
+            text="register"
+            sxProps={{
               zIndex: "20",
               ":hover": {
                 bgcolor: (theme) => theme.palette.primary.dark,
               },
             }}
-          >
-            Register
-          </Button>
+          />
           <Button
             variant="contained"
             sx={{
