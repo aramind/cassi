@@ -45,6 +45,11 @@ const COLORS = {
   },
 };
 
+const headerStyles = {
+  fontFamily: `"Montserrat Alternates", "Palanquin", "Roboto", sans-serif`,
+  fontWeight: "bold",
+};
+
 // theme
 
 const main = createTheme({
@@ -58,16 +63,42 @@ const main = createTheme({
   },
   typography: {
     fontFamily: `"Palanquin", "Nunito Sans", "Roboto", sans-serif`,
-    mainHeader: {
-      fontFamily: `"Montserrat Alternates", "Palanquin", "Roboto", sans-serif`,
-      fontSize: "1.5rem",
-      fontWeight: "bold",
+    largeHeader: {
+      fontSize: "5rem",
+      ...headerStyles,
     },
-    subHeader: {
+    mediumHeader: {
+      fontSize: "3rem",
+      ...headerStyles,
+    },
+    smallHeader: {
+      fontSize: "2rem",
+      ...headerStyles,
+    },
+    largeSubHeader: {
+      fontFamily: `"Poppins", "Roboto", sans-serif`,
+      fontSize: "2rem",
+    },
+    mediumSubHeader: {
+      fontFamily: `"Poppins", "Roboto", sans-serif`,
+      fontSize: "1.5rem",
+    },
+    smallSubHeader: {
       fontFamily: `"Poppins", "Roboto", sans-serif`,
       fontSize: "1.2rem",
     },
-    text: {
+    body1: {
+      fontFamily: `"Palanquin", "Nunito Sans", "Roboto", sans-serif`,
+      fontSize: "0.9rem",
+      [`@media (min-width:600px)`]: {
+        fontSize: "0.9rem",
+      },
+      [`@media (min-width:960px)`]: {
+        fontSize: "1rem",
+      },
+    },
+    body2: {
+      fontSize: "0.8rem",
       fontFamily: `"Palanquin", "Nunito Sans", "Roboto", sans-serif`,
     },
     accent: {
@@ -82,15 +113,6 @@ const main = createTheme({
       fontSize: "0.8rem",
     },
 
-    body1: {
-      fontSize: "0.9rem",
-      [`@media (min-width:600px)`]: {
-        fontSize: "0.9rem",
-      },
-      [`@media (min-width:960px)`]: {
-        fontSize: "1rem",
-      },
-    },
     subtitle2: {
       fontSize: "0.8rem",
       [`@media (min-width:960px)`]: {
@@ -128,9 +150,13 @@ const main = createTheme({
       MuiTypography: {
         defaultProps: {
           variantMapping: {
-            mainHeader: "h1",
-            subHeader: "h2",
-            text: "p",
+            largeHeader: "h1",
+            mediumHeader: "h2",
+            smallHeader: "h3",
+            largeSubHeader: "h4",
+            mediumSubHeader: "h5",
+            smallSubHeader: "h6",
+            body1: "body1",
             accent: "span",
             smallText: "span",
             narrowText: "span",
