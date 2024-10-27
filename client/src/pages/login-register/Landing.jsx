@@ -29,7 +29,7 @@ const Landing = () => {
           height={{ xs: "220px", md: "300px" }}
           src={`/assets/images/welcome2.png`}
         />
-        <Typography variant="mainHeader" sx={{ ...localStyles.title }}>
+        <Typography variant="largeHeader" sx={{ ...localStyles.title }}>
           CASSI
         </Typography>
         <Typography variant="smallText">
@@ -75,7 +75,6 @@ export default Landing;
 
 const localStyles = {
   title: {
-    fontSize: "5rem",
     color: (theme) => theme.palette.primary.dark,
   },
   text: {

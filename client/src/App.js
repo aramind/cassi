@@ -1,9 +1,9 @@
-import Landing from "./pages/login-register/Landing";
+import RegisterPage from "./pages/login-register/RegisterPage";
 
 function App() {
   return (
     <>
-      <Landing />
+      <RegisterPage />
     </>
   );
 }
