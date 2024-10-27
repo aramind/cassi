@@ -48,6 +48,10 @@ const RegisterPage = () => {
             <br />
             <Stack spacing={1} width={1}>
               <ControlledTextField name="email" label="Email" />
+              <ControlledTextField
+                name="homeName"
+                label="Apartment/Unit/House Name"
+              />
             </Stack>
             <Button
               fullWidth
