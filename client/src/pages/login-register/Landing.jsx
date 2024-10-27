@@ -55,21 +55,16 @@ const Landing = () => {
               },
             }}
           />
-          <Button
-            variant="contained"
-            sx={{
-              width: "160px",
-              bgcolor: (theme) => theme.palette.accent.main,
-              marginLeft: "-1rem",
+          <ActionButton
+            text="login"
+            bgcolor={(theme) => theme.palette.accent.main}
+            sxProps={{
+              zIndex: "21",
               ":hover": {
-                zIndex: "21",
                 bgcolor: (theme) => theme.palette.accent.dark,
               },
             }}
-            disableElevation
-          >
-            Login
-          </Button>
+          />
         </Stack>
       </Stack>
     </BodyContainer>
