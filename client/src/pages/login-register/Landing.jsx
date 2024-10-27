@@ -1,34 +1,18 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
-import zIndex from "@mui/material/styles/zIndex";
 import React from "react";
 import BodyContainer from "../../containers/BodyContainer";
+import HeroImage from "./HeroImage";
 
 const Landing = () => {
   return (
     <BodyContainer>
       <Stack width={{ xs: "100%", md: "500px" }} className=" centered ">
-        <Box
-          position="relative"
+        <HeroImage
+          bgcolor={(theme) => theme.palette.accent.light}
           width={{ xs: "220px", md: "300px" }}
           height={{ xs: "220px", md: "300px" }}
-          className="centered "
-          borderRadius="50%"
-          bgcolor={(theme) => theme.palette.accent.light}
-          mx="auto"
-          mb={2}
-        >
-          <Box
-            component="img"
-            src={`/assets/images/welcome2.png`}
-            alt="hero-image"
-            width={{ xs: "100vw", md: "auto" }}
-            height={{ xs: "auth", md: "30vh" }}
-            sx={{
-              position: "absolute",
-              objectFit: "cover",
-            }}
-          />
-        </Box>
+          src={`/assets/images/welcome2.png`}
+        />
         <Typography variant="mainHeader" sx={{ ...localStyles.title }}>
           CASSI
         </Typography>
