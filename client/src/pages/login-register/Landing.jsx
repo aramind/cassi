@@ -1,16 +1,11 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import zIndex from "@mui/material/styles/zIndex";
 import React from "react";
+import BodyContainer from "../../containers/BodyContainer";
 
 const Landing = () => {
   return (
-    <Box
-      minHeight="100vh"
-      minWidth="100vw"
-      bgcolor={(theme) => theme.palette.myWhite.main}
-      p={{ xs: 1, md: 2 }}
-      className=" centered"
-    >
+    <BodyContainer>
       <Stack width={{ xs: "100%", md: "500px" }} className=" centered ">
         <Box
           position="relative"
@@ -81,7 +76,7 @@ const Landing = () => {
           </Button>
         </Stack>
       </Stack>
-    </Box>
+    </BodyContainer>
   );
 };
 
