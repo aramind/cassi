@@ -19,6 +19,7 @@ import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledTextField from "../../components/controlled/ControlledTextField";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextFieldError from "../../components/controlled/TextFieldError";
+import NavigateLink from "./NavigateLink";
 
 const RegisterPage = () => {
   const {
@@ -134,6 +135,7 @@ const RegisterPage = () => {
             >
               register
             </Button>
+            <NavigateLink to={"login"} />
           </Stack>
         </BodyContainer>
       </form>
