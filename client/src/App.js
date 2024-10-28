@@ -1,9 +1,9 @@
-import RegisterPage from "./pages/login-register/RegisterPage";
+import LoginPage from "./pages/login-register/LoginPage";
 
 function App() {
   return (
     <>
-      <RegisterPage />
+      <LoginPage />
     </>
   );
 }

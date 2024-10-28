@@ -1,4 +1,8 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import loginSchema from "../../schemas/loginSchema";
+import FormWrapper from "../../wrappers/FormWrapper";
 import BodyContainer from "../../containers/BodyContainer";
 import {
   Box,
@@ -12,26 +16,23 @@ import {
   Typography,
 } from "@mui/material";
 import HeroImage from "./HeroImage";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import registerSchema from "../../schemas/registerSchema";
-import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledTextField from "../../components/controlled/ControlledTextField";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextFieldError from "../../components/controlled/TextFieldError";
 
-const RegisterPage = () => {
+const LoginPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [checked, setChecked] = useState(false);
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
-    resolver: yupResolver(registerSchema),
+    resolver: yupResolver(loginSchema),
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [agree, setAgree] = useState(false);
   const formMethods = {
     control,
     handleSubmit,
@@ -48,26 +49,26 @@ const RegisterPage = () => {
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
   };
+
   return (
     <FormWrapper formMethods={formMethods}>
       <form noValidate>
         <BodyContainer>
           <Stack width={{ xs: "90%", md: "500px" }} className=" centered ">
             <HeroImage
-              bgcolor={(theme) => theme.palette.primary.light}
+              bgcolor={(theme) => theme.palette.accent.light}
               width={{ xs: "150px", md: "300px" }}
               height={{ xs: "150px", md: "300px" }}
-              src={`/assets/images/register.png`}
+              src={`/assets/images/login.png`}
               imageWidth={`70vw`}
             />
-            <Typography variant="smallHeader">Get Started!</Typography>
+            <Typography variant="smallHeader">Welcome back!</Typography>
 
             <Typography variant="smallSubHeader" textAlign="center">
-              Sign up and start managing with ease!
+              Your assistant is ready --- let’s get back to managing your casa!
             </Typography>
             <br />
             <Box width={1}>
-              <ControlledTextField name="email" label="Email" />
               <ControlledTextField
                 name="homeName"
                 label="Apartment/Unit/House Name as username"
@@ -111,8 +112,8 @@ const RegisterPage = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={agree}
-                    onChange={(e) => setAgree(e.target?.checked)}
+                    checked={checked}
+                    onChange={(e) => setChecked(e.target?.checked)}
                     sx={{
                       "& .MuiCheckbox-root": { padding: 0 },
                     }}
@@ -120,7 +121,7 @@ const RegisterPage = () => {
                 }
                 label={
                   <Typography variant="body2" sx={{ ml: "8px" }}>
-                    I agree to the processing of my personal data provided
+                    Keep me logged in
                   </Typography>
                 }
               />
@@ -130,9 +131,9 @@ const RegisterPage = () => {
               fullWidth
               variant="contained"
               onClick={handleSubmit(onSubmit)}
-              sx={{ bgcolor: (theme) => theme.palette.primary.dark }}
+              sx={{ bgcolor: (theme) => theme.palette.accent.dark }}
             >
-              register
+              login
             </Button>
           </Stack>
         </BodyContainer>
@@ -141,4 +142,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
