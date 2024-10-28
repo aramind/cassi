@@ -10,6 +10,10 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
+        path: "",
+        element: <Landing />,
+      },
+      {
         path: "register",
         element: <RegisterPage />,
       },

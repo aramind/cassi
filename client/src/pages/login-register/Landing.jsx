@@ -2,6 +2,7 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import HeroImage from "./HeroImage";
+import { useNavigate } from "react-router-dom";
 
 const ActionButton = ({ bgcolor, sxProps, text, onClickHandler }) => {
   return (
@@ -13,6 +14,7 @@ const ActionButton = ({ bgcolor, sxProps, text, onClickHandler }) => {
         width: "160px",
         ...sxProps,
       }}
+      onClick={() => onClickHandler()}
     >
       {text}
     </Button>
@@ -20,6 +22,7 @@ const ActionButton = ({ bgcolor, sxProps, text, onClickHandler }) => {
 };
 
 const Landing = () => {
+  const navigate = useNavigate();
   return (
     <BodyContainer>
       <Stack width={{ xs: "100%", md: "500px" }} className=" centered ">
@@ -54,6 +57,7 @@ const Landing = () => {
                 bgcolor: (theme) => theme.palette.primary.dark,
               },
             }}
+            onClickHandler={() => navigate("/register")}
           />
           <ActionButton
             text="login"
@@ -64,6 +68,7 @@ const Landing = () => {
                 bgcolor: (theme) => theme.palette.accent.dark,
               },
             }}
+            onClickHandler={() => navigate("/login")}
           />
         </Stack>
       </Stack>
