@@ -19,6 +19,7 @@ import HeroImage from "./HeroImage";
 import ControlledTextField from "../../components/controlled/ControlledTextField";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextFieldError from "../../components/controlled/TextFieldError";
+import { NavLink } from "react-router-dom";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -135,6 +136,19 @@ const LoginPage = () => {
             >
               login
             </Button>
+            <Stack
+              direction="row"
+              width={1}
+              spacing={1}
+              justifyContent="space-between"
+              alignItems="center"
+              mt={1}
+            >
+              <Typography variant="smallText">
+                Don't have an account?
+              </Typography>
+              <NavLink to="/register">Register</NavLink>
+            </Stack>
           </Stack>
         </BodyContainer>
       </form>
