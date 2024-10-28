@@ -125,7 +125,7 @@ const RegisterPage = () => {
                 }
               />
             </Box>
-            <br />
+            <Box height="2.5rem" />
             <Button
               fullWidth
               variant="contained"
