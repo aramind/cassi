@@ -110,6 +110,8 @@ const LoginPage = () => {
                   </Stack>
                 )}
               />
+            </Box>
+            <Box width="100%" mt="-1.5rem">
               <FormControlLabel
                 control={
                   <Checkbox
