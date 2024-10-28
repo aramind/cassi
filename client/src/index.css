@@ -6,6 +6,34 @@
   margin: 0;
 }
 
+a {
+  text-decoration: underline;
+  color: #769381;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #769381;
+}
+
+.link:hover {
+  color: #9fb3a6;
+  text-decoration: underline;
+}
+
+.fullWandH {
+  width: 100%;
+  height: 100%;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
 .centered {
   display: flex;
   justify-content: center;

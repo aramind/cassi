@@ -127,7 +127,7 @@ const LoginPage = () => {
                 }
               />
             </Box>
-            <br />
+            <Box height="2.5rem" />
             <Button
               fullWidth
               variant="contained"
@@ -140,14 +140,18 @@ const LoginPage = () => {
               direction="row"
               width={1}
               spacing={1}
-              justifyContent="space-between"
+              justifyContent={{ xs: "space-between", md: "flex-start" }}
               alignItems="center"
               mt={1}
             >
               <Typography variant="smallText">
                 Don't have an account?
               </Typography>
-              <NavLink to="/register">Register</NavLink>
+              <NavLink to="/register" className="centered">
+                <Typography variant="smallText" className="link">
+                  Register
+                </Typography>
+              </NavLink>
             </Stack>
           </Stack>
         </BodyContainer>
