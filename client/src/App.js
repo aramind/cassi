@@ -1,9 +1,12 @@
-import LoginPage from "./pages/login-register/LoginPage";
+import { CssBaseline } from "@mui/material";
+import { RouterProvider } from "react-router-dom";
+import routes from "./routes";
 
 function App() {
   return (
     <>
-      <LoginPage />
+      <CssBaseline />
+      <RouterProvider router={routes.router} />
     </>
   );
 }
