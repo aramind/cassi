@@ -109,6 +109,8 @@ const RegisterPage = () => {
                   </Stack>
                 )}
               />
+            </Box>
+            <Box width="100%" mt="-1rem">
               <FormControlLabel
                 control={
                   <Checkbox
