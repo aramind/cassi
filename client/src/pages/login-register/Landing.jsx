@@ -63,9 +63,12 @@ const Landing = () => {
             text="login"
             bgcolor={(theme) => theme.palette.accent.main}
             sxProps={{
-              zIndex: "21",
+              marginLeft: "-2rem",
+              zIndex: "19",
+
               ":hover": {
                 bgcolor: (theme) => theme.palette.accent.dark,
+                zIndex: "21",
               },
             }}
             onClickHandler={() => navigate("/login")}
