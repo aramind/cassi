@@ -50,6 +50,10 @@ const headerStyles = {
   fontWeight: "bold",
 };
 
+const subHeaderStyles = {
+  fontFamily: `"Poppins", "Roboto", sans-serif`,
+};
+
 // theme
 
 const main = createTheme({
@@ -63,29 +67,65 @@ const main = createTheme({
   },
   typography: {
     fontFamily: `"Palanquin", "Nunito Sans", "Roboto", sans-serif`,
-    largeHeader: {
-      fontSize: "5rem",
+    h1: {
+      fontSize: "4rem",
+      [`@media (min-width:600px)`]: {
+        fontSize: "3.8rem",
+      },
+      [`@media (min-width:960px)`]: {
+        fontSize: "4rem",
+      },
       ...headerStyles,
     },
-    mediumHeader: {
+    h2: {
       fontSize: "3rem",
+      [`@media (min-width:600px)`]: {
+        fontSize: "2.8rem",
+      },
+      [`@media (min-width:960px)`]: {
+        fontSize: "3rem",
+      },
+      ...subHeaderStyles,
+    },
+    h3: {
+      fontSize: "3rem",
+      [`@media (min-width:600px)`]: {
+        fontSize: "2.8rem",
+      },
+      [`@media (min-width:960px)`]: {
+        fontSize: "3rem",
+      },
       ...headerStyles,
     },
-    smallHeader: {
+    h4: {
       fontSize: "2rem",
+      [`@media (min-width:600px)`]: {
+        fontSize: "1.8rem",
+      },
+      [`@media (min-width:960px)`]: {
+        fontSize: "2rem",
+      },
+      ...subHeaderStyles,
+    },
+    h5: {
+      fontSize: "2rem",
+      [`@media (min-width:600px)`]: {
+        fontSize: "1.8rem",
+      },
+      [`@media (min-width:960px)`]: {
+        fontSize: "2rem",
+      },
       ...headerStyles,
     },
-    largeSubHeader: {
-      fontFamily: `"Poppins", "Roboto", sans-serif`,
-      fontSize: "2rem",
-    },
-    mediumSubHeader: {
-      fontFamily: `"Poppins", "Roboto", sans-serif`,
-      fontSize: "1.5rem",
-    },
-    smallSubHeader: {
-      fontFamily: `"Poppins", "Roboto", sans-serif`,
-      fontSize: "0.9rem",
+    h6: {
+      fontSize: "1rem",
+      ...subHeaderStyles,
+      [`@media (min-width:600px)`]: {
+        fontSize: "0.9rem",
+      },
+      [`@media (min-width:960px)`]: {
+        fontSize: "1rem",
+      },
     },
     body1: {
       fontFamily: `"Palanquin", "Nunito Sans", "Roboto", sans-serif`,
@@ -98,11 +138,24 @@ const main = createTheme({
       },
     },
     body2: {
-      fontSize: "0.8rem",
       fontFamily: `"Palanquin", "Nunito Sans", "Roboto", sans-serif`,
+      fontSize: "0.7rem",
+      [`@media (min-width:600px)`]: {
+        fontSize: "0.7rem",
+      },
+      [`@media (min-width:960px)`]: {
+        fontSize: "0.8rem",
+      },
     },
     accent: {
       fontFamily: `"Nunito Sans", "Roboto", sans-serif`,
+      fontSize: "0.9rem",
+      [`@media (min-width:600px)`]: {
+        fontSize: "0.9rem",
+      },
+      [`@media (min-width:960px)`]: {
+        fontSize: "1rem",
+      },
     },
     smallText: {
       fontFamily: `"Inter", sans-serif`,
@@ -119,44 +172,18 @@ const main = createTheme({
         fontSize: "0.9rem",
       },
     },
-    h6: {
-      fontSize: "1.1rem",
-      [`@media (min-width:600px)`]: {
-        fontSize: "1.1rem",
-      },
-      [`@media (min-width:960px)`]: {
-        fontSize: "1.3rem",
-      },
-    },
-    h5: {
-      fontSize: "1.3rem",
-      [`@media (min-width:600px)`]: {
-        fontSize: "1.3rem",
-      },
-      [`@media (min-width:960px)`]: {
-        fontSize: "1.5rem",
-      },
-    },
-    h4: {
-      fontSize: "1.5rem",
-      [`@media (min-width:600px)`]: {
-        fontSize: "1.5rem",
-      },
-      [`@media (min-width:960px)`]: {
-        fontSize: "2rem",
-      },
-    },
     components: {
       MuiTypography: {
         defaultProps: {
           variantMapping: {
-            largeHeader: "h1",
-            mediumHeader: "h2",
-            smallHeader: "h3",
-            largeSubHeader: "h4",
-            mediumSubHeader: "h5",
-            smallSubHeader: "h6",
+            h1: "h1",
+            h2: "h2",
+            h3: "h3",
+            h4: "h4",
+            h5: "h5",
+            h6: "h6",
             body1: "body1",
+            body2: "body2",
             accent: "span",
             smallText: "span",
             narrowText: "span",
