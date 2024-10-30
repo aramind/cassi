@@ -63,9 +63,9 @@ const LoginPage = () => {
               src={`/assets/images/login.png`}
               imageWidth={`70vw`}
             />
-            <Typography variant="smallHeader">Welcome back!</Typography>
+            <Typography variant="h3">Welcome back!</Typography>
 
-            <Typography variant="smallSubHeader" textAlign="center">
+            <Typography variant="h6" textAlign="center">
               Your assistant is ready --- let’s get back to managing your casa!
             </Typography>
             <br />
