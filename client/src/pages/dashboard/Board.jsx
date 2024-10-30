@@ -1,11 +1,16 @@
-import { Stack, Typography } from "@mui/material";
+import { ButtonBase, Stack, Typography } from "@mui/material";
 import React from "react";
 
-const Board = ({ text }) => {
+const Board = ({ text, onClickHandler, width }) => {
   return (
-    <Stack>
-      <Typography variant="body1">{text}</Typography>
-    </Stack>
+    <ButtonBase
+      onClick={onClickHandler}
+      sx={{ width: width || "100%", display: "block" }}
+    >
+      <Stack>
+        <Typography variant="body1">{text}</Typography>
+      </Stack>
+    </ButtonBase>
   );
 };
 
