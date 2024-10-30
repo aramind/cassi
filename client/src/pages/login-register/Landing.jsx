@@ -32,15 +32,15 @@ const Landing = () => {
           height={{ xs: "220px", md: "300px" }}
           src={`/assets/images/welcome2.png`}
         />
-        <Typography variant="largeHeader" sx={{ ...localStyles.title }}>
+        <Typography variant="h1" sx={{ ...localStyles.title }}>
           CASSI
         </Typography>
-        <Typography variant="smallText">
+        <Typography variant="h6" textAlign="center">
           Convenient Assistant for Space Sharing Interactions
         </Typography>
         <Box height="3rem"></Box>
         <Typography
-          variant="subHeader"
+          variant="h6"
           textAlign="center"
           sx={{ ...localStyles.text }}
         >
@@ -51,10 +51,13 @@ const Landing = () => {
         <Stack direction="row">
           <ActionButton
             text="register"
+            bgcolor={(theme) => theme.palette.primary.main}
             sxProps={{
               zIndex: "20",
+
               ":hover": {
                 bgcolor: (theme) => theme.palette.primary.dark,
+                zIndex: "21",
               },
             }}
             onClickHandler={() => navigate("/register")}

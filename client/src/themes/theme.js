@@ -78,12 +78,12 @@ const main = createTheme({
       ...headerStyles,
     },
     h2: {
-      fontSize: "3rem",
+      fontSize: "2rem",
       [`@media (min-width:600px)`]: {
-        fontSize: "2.8rem",
+        fontSize: "1.8rem",
       },
       [`@media (min-width:960px)`]: {
-        fontSize: "3rem",
+        fontSize: "2rem",
       },
       ...subHeaderStyles,
     },
@@ -172,22 +172,29 @@ const main = createTheme({
         fontSize: "0.9rem",
       },
     },
-    components: {
-      MuiTypography: {
-        defaultProps: {
-          variantMapping: {
-            h1: "h1",
-            h2: "h2",
-            h3: "h3",
-            h4: "h4",
-            h5: "h5",
-            h6: "h6",
-            body1: "body1",
-            body2: "body2",
-            accent: "span",
-            smallText: "span",
-            narrowText: "span",
-          },
+  },
+  components: {
+    MuiTypography: {
+      defaultProps: {
+        variantMapping: {
+          h1: "h1",
+          h2: "h2",
+          h3: "h3",
+          h4: "h4",
+          h5: "h5",
+          h6: "h6",
+          body1: "body1",
+          body2: "body2",
+          accent: "span",
+          smallText: "span",
+          narrowText: "span",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontFamily: "Poppins",
         },
       },
     },
