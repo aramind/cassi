@@ -48,10 +48,12 @@ const COLORS = {
 const headerStyles = {
   fontFamily: `"Montserrat Alternates", "Palanquin", "Roboto", sans-serif`,
   fontWeight: "bold",
+  color: COLORS?.myBlack?.dark,
 };
 
 const subHeaderStyles = {
   fontFamily: `"Poppins", "Roboto", sans-serif`,
+  color: COLORS?.myBlack?.light,
 };
 
 // theme
