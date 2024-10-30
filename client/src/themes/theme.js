@@ -110,23 +110,23 @@ const main = createTheme({
       ...subHeaderStyles,
     },
     h5: {
+      fontSize: "1.5rem",
+      [`@media (min-width:600px)`]: {
+        fontSize: "1.2rem",
+      },
+      [`@media (min-width:960px)`]: {
+        fontSize: "1.5rem",
+      },
+      ...headerStyles,
+    },
+    h6: {
       fontSize: "1rem",
+      ...subHeaderStyles,
       [`@media (min-width:600px)`]: {
         fontSize: "0.9rem",
       },
       [`@media (min-width:960px)`]: {
         fontSize: "1rem",
-      },
-      ...headerStyles,
-    },
-    h6: {
-      fontSize: "0.9rem",
-      ...subHeaderStyles,
-      [`@media (min-width:600px)`]: {
-        fontSize: "0.7rem",
-      },
-      [`@media (min-width:960px)`]: {
-        fontSize: "0.9rem",
       },
     },
     body1: {
