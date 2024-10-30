@@ -61,9 +61,9 @@ const RegisterPage = () => {
               src={`/assets/images/register.png`}
               imageWidth={`70vw`}
             />
-            <Typography variant="smallHeader">Get Started!</Typography>
+            <Typography variant="h3">Get Started!</Typography>
 
-            <Typography variant="smallSubHeader" textAlign="center">
+            <Typography variant="h6" textAlign="center">
               Sign up and start managing with ease!
             </Typography>
             <br />
