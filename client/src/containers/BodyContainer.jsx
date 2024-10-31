@@ -7,7 +7,7 @@ const BodyContainer = ({ justifyContent, children }) => {
       bgcolor={(theme) => theme.palette.myWhite.main}
       p={{ xs: 1, md: 2 }}
       alignItems="center"
-      className="outlined"
+      // className="outlined"
       sx={{
         minHeight: "100vh",
         minWidth: "100vw",
