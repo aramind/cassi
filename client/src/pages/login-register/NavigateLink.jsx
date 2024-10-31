@@ -7,6 +7,8 @@ const NavigateLink = ({ to }) => {
     register: "Don't have an account?",
     login: "Do have an account?",
   };
+
+  console.log(to);
   return (
     <Stack
       direction="row"

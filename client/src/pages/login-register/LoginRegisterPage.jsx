@@ -1,22 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import HeroImage from "./HeroImage";
-import LoginForm from "./LoginForm";
 import NavigateLink from "./NavigateLink";
+import LoginRegisterForm from "./LoginRegisterForm";
 
 const LoginRegisterPage = ({ action }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [checked, setChecked] = useState(false);
-  const [formData, setFormData] = useState({});
-
   const values = {
     color: action === "login" ? "accent" : "primary",
     headerText: action === "login" ? "Welcome Back!" : "Get Started!",
@@ -28,9 +17,7 @@ const LoginRegisterPage = ({ action }) => {
       action === "login"
         ? "Keep me logged in"
         : "I agree to the processing of my personal data provided",
-  };
-  const handleClickShowPassword = () => {
-    setShowPassword((show) => !show);
+    navigateTo: action === "login" ? "register" : "login",
   };
 
   const defaultValues = {
@@ -54,10 +41,9 @@ const LoginRegisterPage = ({ action }) => {
         </Typography>
         <br />
         <Box width={1}>
-          <LoginForm setFormData={setFormData} />
+          <LoginRegisterForm action={action} buttonColor={values?.color} />
         </Box>
-
-        <NavigateLink to={action} />
+        <NavigateLink to={values?.navigateTo} />
       </Stack>
     </BodyContainer>
   );

@@ -1,6 +1,9 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
-import ControlledTextField from "../../components/controlled/ControlledTextField";
 import { Controller, useForm } from "react-hook-form";
+import registerSchema from "../../schemas/registerSchema";
+import loginSchema from "../../schemas/loginSchema";
+import FormWrapper from "../../wrappers/FormWrapper";
 import {
   Box,
   Button,
@@ -12,13 +15,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import loginSchema from "../../schemas/loginSchema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import FormWrapper from "../../wrappers/FormWrapper";
+import ControlledTextField from "../../components/controlled/ControlledTextField";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextFieldError from "../../components/controlled/TextFieldError";
 
-const LoginForm = ({ setFormData }) => {
+const LoginRegisterForm = ({ action, buttonColor }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
 
@@ -32,7 +33,7 @@ const LoginForm = ({ setFormData }) => {
     formState: { errors },
   } = useForm({
     mode: "onTouched",
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(action === "login" ? loginSchema : registerSchema),
   });
 
   const formMethods = {
@@ -44,13 +45,15 @@ const LoginForm = ({ setFormData }) => {
   const onSubmit = (data) => {
     alert("submitting...");
     console.log("Submitting ", data);
-    setFormData(data);
   };
 
   return (
     <FormWrapper formMethods={formMethods}>
       <form noValidate>
         <Box width="100%">
+          {action === "register" && (
+            <ControlledTextField name="email" label="Email" />
+          )}
           <ControlledTextField
             name="homeName"
             label="Apartment/Unit/House Name as username"
@@ -101,7 +104,9 @@ const LoginForm = ({ setFormData }) => {
             }
             label={
               <Typography variant="body2" sx={{ ml: "8px" }}>
-                Keep me logged in
+                {action === "login"
+                  ? "Keep me logged in"
+                  : "I agree to the processing of my personal data provided"}
               </Typography>
             }
           />
@@ -111,13 +116,15 @@ const LoginForm = ({ setFormData }) => {
           fullWidth
           variant="contained"
           onClick={handleSubmit(onSubmit)}
-          sx={{ bgcolor: (theme) => theme.palette.accent.dark }}
+          sx={{
+            bgcolor: (theme) => theme.palette[buttonColor]?.dark,
+          }}
         >
-          login
+          {action}
         </Button>
       </form>
     </FormWrapper>
   );
 };
 
-export default LoginForm;
+export default LoginRegisterForm;
