@@ -1,7 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
-import RegisterPage from "./pages/login-register/RegisterPage";
-import LoginPage from "./pages/login-register/LoginPage";
 import Landing from "./pages/login-register/Landing";
 import DashBoardMain from "./pages/dashboard/DashBoardMain";
 import LoginRegisterPage from "./pages/login-register/LoginRegisterPage";
@@ -17,11 +15,11 @@ const router = createBrowserRouter([
       },
       {
         path: "register",
-        element: <LoginRegisterPage action="login" />,
+        element: <LoginRegisterPage action="register" />,
       },
       {
         path: "login",
-        element: <LoginPage />,
+        element: <LoginRegisterPage action="login" />,
       },
       {
         path: "dashboard",
