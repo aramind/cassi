@@ -4,6 +4,7 @@ import { getCurrentDay, getCurrentDate } from "../../utils/date";
 import Board from "./Board";
 import { useNavigate } from "react-router-dom";
 import BodyContainer from "../../containers/BodyContainer";
+import Today from "../../components/Today";
 
 const randomEmojis = ["🪴", "🌻", "🌞", "🌈", "🌟 ", "🥳", "☕", "🐦"];
 const waveEmojis = ["👋🏻", "👋🏼", "👋🏽", "👋🏾", "👋🏿"];
@@ -45,7 +46,7 @@ const DashBoardMain = () => {
             {getItem(waveEmojis)} Happy {getCurrentDay}!{getItem(randomEmojis)}
           </Typography>
         </Stack>
-        <Typography variant="h6">Today is {getCurrentDate}.📅</Typography>
+        <Today />
         <Box height="4rem" />
         <Typography variant="h6">What do you wan't us to check?🤔</Typography>
         <br />
