@@ -25,7 +25,12 @@ const LoginRegisterPage = ({ action }) => {
   };
   return (
     <BodyContainer>
-      <Stack width={{ xs: "90%", md: "500px" }} className=" centered ">
+      <Stack
+        width={{ xs: "90%", md: "500px" }}
+        className="centered"
+        mx="auto"
+        my="auto"
+      >
         <HeroImage
           bgcolor={(theme) =>
             theme.palette[values?.color]?.light || defaultValues.color

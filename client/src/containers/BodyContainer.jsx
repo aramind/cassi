@@ -1,17 +1,30 @@
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React from "react";
 
-const BodyContainer = ({ children }) => {
+const BodyContainer = ({ justifyContent, children }) => {
   return (
-    <Box
-      minHeight="100vh"
-      minWidth="100vw"
+    <Stack
       bgcolor={(theme) => theme.palette.myWhite.main}
       p={{ xs: 1, md: 2 }}
-      className=" centered"
+      alignItems="center"
+      className="outlined"
+      sx={{
+        minHeight: "100vh",
+        minWidth: "100vw",
+        justifyContent: justifyContent || "center",
+      }}
     >
       {children}
-    </Box>
+    </Stack>
+    // <Box
+    //   minHeight="100vh"
+    //   minWidth="100vw"
+    //   bgcolor={(theme) => theme.palette.myWhite.main}
+    //   p={{ xs: 1, md: 2 }}
+    //   className=" centered"
+    // >
+    //   {children}
+    // </Box>
   );
 };
 

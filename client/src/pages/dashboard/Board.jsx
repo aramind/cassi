@@ -23,7 +23,17 @@ const Board = ({ text, onClickHandler, width, height, bgcolor }) => {
           },
         }}
       >
-        <Typography variant="h4">{text}</Typography>
+        <Typography
+          variant="h4"
+          width="100%"
+          sx={{
+            whiteSpace: "normal", // allows the text to wrap
+            wordBreak: "break-word", // breaks long words if necessary
+            overflowWrap: "break-word", // handles any overflow in long text
+          }}
+        >
+          {text}
+        </Typography>
       </Stack>
     </ButtonBase>
   );

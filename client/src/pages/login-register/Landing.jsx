@@ -25,7 +25,11 @@ const Landing = () => {
   const navigate = useNavigate();
   return (
     <BodyContainer>
-      <Stack width={{ xs: "100%", md: "500px" }} className=" centered ">
+      <Stack
+        width={{ xs: "100%", md: "500px" }}
+        className=" centered"
+        my="auto"
+      >
         <HeroImage
           bgcolor={(theme) => theme.palette.accent.light}
           width={{ xs: "220px", md: "300px" }}
