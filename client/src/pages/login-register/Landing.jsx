@@ -77,6 +77,7 @@ const Landing = () => {
             onClickHandler={() => navigate("/login")}
           />
         </Stack>
+        <Button onClick={() => navigate("/dashboard")}>DASHBOARD</Button>
       </Stack>
     </BodyContainer>
   );
