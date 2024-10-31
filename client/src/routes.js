@@ -4,6 +4,7 @@ import RegisterPage from "./pages/login-register/RegisterPage";
 import LoginPage from "./pages/login-register/LoginPage";
 import Landing from "./pages/login-register/Landing";
 import DashBoardMain from "./pages/dashboard/DashBoardMain";
+import LoginRegisterPage from "./pages/login-register/LoginRegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
       },
       {
         path: "register",
-        element: <RegisterPage />,
+        element: <LoginRegisterPage action="login" />,
       },
       {
         path: "login",
