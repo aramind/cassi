@@ -4,6 +4,7 @@ import PageHeader from "../../components/PageHeader";
 import { Stack } from "@mui/material";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
+import Tracker from "./Tracker";
 
 const TrackersPage = () => {
   const addTracker = () => {
@@ -11,7 +12,7 @@ const TrackersPage = () => {
   };
   return (
     <BodyContainer justifyContent="flex-start">
-      <Stack mt={2} alignItems="center">
+      <Stack mt={2} alignItems="center" width={1}>
         <PageHeader text="trackers " />
         <Today />
         <br />
@@ -22,6 +23,7 @@ const TrackersPage = () => {
           onClickHandler={addTracker}
         />
         <br />
+        <Tracker />
         <MyButton
           type="accent"
           text="add tracker"
