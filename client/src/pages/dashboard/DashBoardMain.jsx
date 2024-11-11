@@ -5,6 +5,7 @@ import Board from "./Board";
 import { useNavigate } from "react-router-dom";
 import BodyContainer from "../../containers/BodyContainer";
 import Today from "../../components/Today";
+import AnimatedBorderTrail from "../../components/AnimatedBorderTrail";
 
 const randomEmojis = ["🪴", "🌻", "🌞", "🌈", "🌟 ", "🥳", "☕", "🐦"];
 const waveEmojis = ["👋🏻", "👋🏼", "👋🏽", "👋🏾", "👋🏿"];
@@ -48,7 +49,13 @@ const DashBoardMain = () => {
         </Stack>
         <Today />
         <Box height="4rem" />
-        <Typography variant="h6">What do you wan't us to check?🤔</Typography>
+
+        <AnimatedBorderTrail duration="5s" trailColor="green" trailSize="lg">
+          <Typography variant="h6" textAlign="center">
+            What do you wan't us to check?🤔
+          </Typography>
+        </AnimatedBorderTrail>
+
         <br />
         <Stack
           direction="row"
