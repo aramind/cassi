@@ -1,6 +1,7 @@
 import React from "react";
 import { mockDB } from "../../mockDB/mockDB";
 import { Stack, Typography } from "@mui/material";
+import TrackersTables from "./TrackersTables";
 
 const tracker = mockDB?.trackers?.[0];
 const Tracker = () => {
@@ -17,6 +18,7 @@ const Tracker = () => {
       >
         {tracker?.description}
       </Typography>
+      <TrackersTables />
     </Stack>
   );
 };
