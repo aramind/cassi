@@ -10,6 +10,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from "@mui/material";
@@ -62,6 +63,18 @@ const formatColHeaders = (col) => {
 const TrackersTables = () => {
   const [rows, setRows] = useState(mockDB?.trackers?.[0]?.record);
 
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
   useEffect(() => {
     const processedRows = mockDB?.trackers?.[0]?.record?.map(
       (tracker, index) => ({
@@ -81,21 +94,34 @@ const TrackersTables = () => {
           <TableHead>
             <TableRow>
               {createColumns().map((column) => (
-                <TableCell>{column.headerName}</TableCell>
+                <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                  {column.headerName?.toUpperCase()}
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow>
-                {createColumns().map((col) => (
-                  <TableCell>{row[col?.field]}</TableCell>
-                ))}
-              </TableRow>
-            ))}
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => (
+                <TableRow>
+                  {createColumns().map((col) => (
+                    <TableCell align="center">{row[col?.field]}</TableCell>
+                  ))}
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </Paper>
   );
 };
