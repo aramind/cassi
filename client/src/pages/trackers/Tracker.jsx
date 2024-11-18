@@ -6,7 +6,7 @@ import TrackersTables from "./TrackersTables";
 const tracker = mockDB?.trackers?.[0];
 const Tracker = () => {
   return (
-    <Stack className="outlined" width={1}>
+    <Stack width={1}>
       <Typography></Typography>
       <Typography variant="h5" fontSize={{ xs: "1rem", md: "1.2rem" }}>
         {tracker?.title}

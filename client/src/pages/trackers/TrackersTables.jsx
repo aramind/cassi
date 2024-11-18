@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import RenderSelectUsers from "./RenderSelectUsers";
-import CenteredBox from "../../components/CenteredBox";
 import {
-  Box,
   Paper,
   Table,
   TableBody,
@@ -12,7 +9,6 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
 } from "@mui/material";
 import { mockDB } from "../../mockDB/mockDB";
 
@@ -35,29 +31,6 @@ const createColumns = () => {
     },
     { field: "comments", headerName: "comments" },
   ];
-};
-
-const formatColHeaders = (col) => {
-  const formattedColumns = col.map((c) => ({
-    ...c,
-    headerAlign: "center",
-    renderCell: c.renderCell
-      ? c.renderCell
-      : (params) => <CenteredBox>{params.value}</CenteredBox>,
-    editable: false,
-    renderHeader: () => (
-      <Typography
-        sx={{
-          fontWeight: "bold",
-          color: (theme) => theme.palette.primary.main,
-        }}
-      >
-        {c.headerName.toUpperCase()}
-      </Typography>
-    ),
-  }));
-
-  return formattedColumns;
 };
 
 const TrackersTables = () => {
