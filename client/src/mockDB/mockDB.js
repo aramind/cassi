@@ -3,6 +3,7 @@ export const mockDB = {
     { id: 1, name: "Monelen" },
     { id: 2, name: "Monica" },
     { id: 3, name: "Aubrey" },
+    { id: 4, name: "MaiMai" },
   ],
   trackers: [
     {

@@ -1,17 +1,48 @@
 import React, { useState } from "react";
-import ReusableSelect from "../../components/ReusableSelect";
 import { mockDB } from "../../mockDB/mockDB";
+import { colors } from "../../constants/colors";
 
-const users = mockDB?.users;
+const occupants = mockDB?.users || [];
+const backgroundColors = colors;
+
+const getBgColor = (occupant) => {
+  return backgroundColors[
+    occupants.indexOf(occupant) % backgroundColors.length
+  ];
+};
 const RenderSelectUsers = (row) => {
-  const [user, setUser] = useState(row?.user || "");
+  const [occupant, setOccupant] = useState(row?.user || "");
+
+  const handleSelectChange = (e) => {
+    const selectedOccupant = occupants.find(
+      (occupant) => occupant.name === e.target.value
+    );
+    setOccupant(selectedOccupant);
+  };
+
   return (
-    <ReusableSelect
-      labelId="user-selector"
-      id="user-selector"
-      value={user}
-      options={users}
-    />
+    <select
+      style={{
+        minWidth: "80px",
+        padding: "4px",
+        borderRadius: "6px",
+        backgroundColor: getBgColor(occupant), // Apply color to the select element
+      }}
+      aria-label="occupant-selector"
+      value={occupant?.name || ""}
+      onChange={handleSelectChange}
+    >
+      {occupants.map((occupant) => (
+        <option
+          key={occupant.id || occupant.name}
+          style={{
+            backgroundColor: "white",
+          }}
+        >
+          {occupant.name}
+        </option>
+      ))}
+    </select>
   );
 };
 

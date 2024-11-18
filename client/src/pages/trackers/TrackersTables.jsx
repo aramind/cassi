@@ -16,22 +16,20 @@ const setId = (tracker, index) => {
   return tracker?._id || index + 1;
 };
 
-const createColumns = () => {
-  return [
-    { field: "date", headerName: "date" },
-    {
-      field: "originalAssignee",
-      headerName: "assigned to",
-      renderCell: (params) => <RenderSelectUsers />,
-    },
-    {
-      field: "doneBy",
-      headerName: "completed by",
-      renderCell: (params) => <RenderSelectUsers />,
-    },
-    { field: "comments", headerName: "comments" },
-  ];
-};
+const columns = [
+  { field: "date", headerName: "date" },
+  {
+    field: "originalAssignee",
+    headerName: "assigned to",
+    renderCell: (params) => <RenderSelectUsers />,
+  },
+  {
+    field: "doneBy",
+    headerName: "completed by",
+    renderCell: (params) => <RenderSelectUsers />,
+  },
+  { field: "comments", headerName: "comments" },
+];
 
 const TrackersTables = () => {
   const [rows, setRows] = useState(mockDB?.trackers?.[0]?.record);
@@ -66,7 +64,7 @@ const TrackersTables = () => {
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              {createColumns().map((column) => (
+              {columns?.map((column) => (
                 <TableCell align="center" sx={{ fontWeight: "bold" }}>
                   {column.headerName?.toUpperCase()}
                 </TableCell>
@@ -78,8 +76,12 @@ const TrackersTables = () => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 <TableRow>
-                  {createColumns().map((col) => (
-                    <TableCell align="center">{row[col?.field]}</TableCell>
+                  {columns?.map((col) => (
+                    <TableCell align="center">
+                      {col.renderCell
+                        ? col.renderCell({ row })
+                        : row[col.field]}
+                    </TableCell>
                   ))}
                 </TableRow>
               ))}
