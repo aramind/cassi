@@ -4,6 +4,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
+const path = require("path");
 
 // env
 dotenv.config();
