@@ -10,11 +10,6 @@ const HouseSchema = new Schema({
     lowercase: true,
     unique: true,
   },
-  loginName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   password: {
     type: String,
     required: true,
@@ -22,12 +17,11 @@ const HouseSchema = new Schema({
   },
   name: {
     type: String,
-    required: true,
     trim: true,
+    unique: true,
   },
   address: {
     type: String,
-    required: true,
     trim: true,
   },
   houseType: {
