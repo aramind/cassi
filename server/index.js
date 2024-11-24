@@ -7,6 +7,9 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const path = require("path");
 
+// routers
+const authRouter = require("./src/routes/authRouter");
+
 // env
 dotenv.config();
 const { PORT = 3001, MONGO_CONNECT: DB } = process.env;
@@ -20,6 +23,9 @@ app.use([helmet(), express.json()]);
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("combined"));
 app.use(express.static(path.join(__dirname, "../client/build")));
+
+app.use("/v1/auth", authRouter);
+// authenticated routes
 
 // for the static site
 app.get("*", (req, res) => {
