@@ -56,6 +56,8 @@ const HouseSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  tokens: [{ name: { type: String }, value: { type: String } }],
+  refreshToken: { type: String, default: "" },
 });
 
 HouseSchema.pre("findOneAndUpdate", async function (next) {
