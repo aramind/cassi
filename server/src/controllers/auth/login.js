@@ -12,11 +12,11 @@ const login = async (req, res) => {
     }
 
     const message =
-      house?.status === "pending"
+      house?.membershipStatus === "pending"
         ? "We're still processing your registration. Please wait for approval"
         : `Your account is ${house?.membershipStatus}!. Please contact admin. `;
 
-    if (house?.status !== "active") {
+    if (house?.membershipStatus !== "active") {
       return sendResponse.failed(res, message, null, 403);
     }
 
