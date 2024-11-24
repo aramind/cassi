@@ -1,4 +1,7 @@
 const House = require("../../models/House");
+const _ = require("lodash");
+const generateAccessToken = require("../../utils/generateAccessToken");
+const generateRefreshToken = require("../../utils/generateRefreshToken");
 const sendResponse = require("../../utils/senResponse");
 
 const login = async (req, res) => {
@@ -22,8 +25,39 @@ const login = async (req, res) => {
 
     // TODO
     // create and attach jwts
+    const accessToken = generateAccessToken(house);
+    const refreshToken = generateRefreshToken(house);
 
-    return sendResponse.success(res, `Login successful`, house, 200);
+    house.refreshToken = refreshToken;
+
+    const updatedHouse = await house.save();
+
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    const returnedHouseInfo = _.pick(house, [
+      "_id",
+      "name",
+      "address",
+      "houseType",
+      "picture",
+      "membershipType",
+      "membershipStatus",
+    ]);
+
+    return sendResponse.success(
+      res,
+      `Login successful`,
+      {
+        houseInfo: returnedHouseInfo,
+        token: accessToken,
+      },
+      200
+    );
   } catch (error) {
     console.error(error);
     sendResponse.failed(res, "Server Error", error, 500);
