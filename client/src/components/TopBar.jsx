@@ -18,7 +18,7 @@ const TopBar = () => {
   return (
     <Stack
       width={1}
-      className="outlined"
+      // className="outlined"
       direction="row"
       justifyContent="flex-end"
       spacing={1}
