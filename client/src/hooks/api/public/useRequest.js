@@ -1,5 +1,5 @@
-import { axiosBase } from "../../api/axios";
-import useAxiosPrivate from "../useAxiosPrivate";
+import { axiosBase } from "../../../api/axios";
+import useAxiosPrivate from "../../useAxiosPrivate";
 
 const useRequest = ({ isPublic, showAck }) => {
   const publicClient = axiosBase;
