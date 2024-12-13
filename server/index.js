@@ -9,6 +9,8 @@ const path = require("path");
 
 // routers
 const authRouter = require("./src/routes/authRouter");
+const credentials = require("./src/middlewares/credentials");
+const corsOptions = require("./src/configs/corsOptions");
 
 // env
 dotenv.config();
@@ -18,7 +20,8 @@ const app = express();
 
 // CORS
 app.use(cookieParser());
-app.use(cors());
+app.use(credentials);
+app.use(cors(corsOptions));
 app.use([helmet(), express.json()]);
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("combined"));
