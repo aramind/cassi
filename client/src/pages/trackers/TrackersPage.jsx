@@ -10,6 +10,7 @@ const TrackersPage = () => {
   const addTracker = () => {
     alert("adding a tracker...");
   };
+
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack mt={2} alignItems="center" width={1}>

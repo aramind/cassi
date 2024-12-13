@@ -1,21 +1,41 @@
 import React from "react";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import { Stack } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
+const IconButtonWrapper = ({ onClick, children }) => {
+  return (
+    <IconButton size="small" onClick={onClick}>
+      {children}
+    </IconButton>
+  );
+};
 const TopBar = () => {
+  const navigate = useNavigate();
+  const { setAuth } = useAuth();
   return (
     <Stack
       width={1}
-      //   className="outlined"
+      className="outlined"
       direction="row"
       justifyContent="flex-end"
-      spacing={2}
-      mb={1}
-      pr={1}
+      spacing={1}
     >
-      <SettingsOutlinedIcon />
-      <LogoutOutlinedIcon />
+      <IconButtonWrapper>
+        <SettingsOutlinedIcon />
+      </IconButtonWrapper>
+
+      <IconButtonWrapper
+        onClick={() => {
+          setAuth({});
+          localStorage.setItem("persist", false);
+          navigate("/signin");
+        }}
+      >
+        <LogoutOutlinedIcon />
+      </IconButtonWrapper>
     </Stack>
   );
 };
