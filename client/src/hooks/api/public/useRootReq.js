@@ -1,4 +1,4 @@
-import { constants as url } from "../../../constants/urls";
+import urls from "../../../constants/urls";
 import useRequest from "../useRequest";
 
 const useRootReq = ({ isPublic, showAck }) => {
@@ -7,7 +7,7 @@ const useRootReq = ({ isPublic, showAck }) => {
   const req = {
     login: async ({ data }) => {
       return request({
-        url: `${url}/login`,
+        url: `${urls?.ROOT}/auth/login`,
         method: "POST",
         data,
       });

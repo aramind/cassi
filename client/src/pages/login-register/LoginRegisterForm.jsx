@@ -18,14 +18,30 @@ import {
 import ControlledTextField from "../../components/controlled/ControlledTextField";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextFieldError from "../../components/controlled/TextFieldError";
+import useRootReq from "../../hooks/api/public/useRootReq";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import useApiSend from "../../hooks/api/useApiSend";
 
 const LoginRegisterForm = ({ action, buttonColor }) => {
+  const { login } = useRootReq({ isPublic: true, showAck: true });
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
+  const { setAuth } = useAuth();
 
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
   };
+
+  const { mutate: sendLogin, isLoading } = useApiSend(
+    login,
+    ["house"],
+    (data) => {
+      setAuth((pv) => data?.data);
+      data?.success && navigate("/dashboard");
+    }
+  );
 
   const {
     control,
@@ -43,8 +59,7 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
   };
 
   const onSubmit = (data) => {
-    alert("submitting...");
-    console.log("Submitting ", data);
+    sendLogin({ data });
   };
 
   return (
@@ -55,7 +70,7 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
             <ControlledTextField name="email" label="Email" />
           )}
           <ControlledTextField
-            name="homeName"
+            name="name"
             label="Apartment/Unit/House Name as username"
           />
           <Controller

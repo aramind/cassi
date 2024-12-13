@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import { getCurrentDay, getCurrentDate } from "../../utils/date";
 import Board from "./Board";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import BodyContainer from "../../containers/BodyContainer";
 import Today from "../../components/Today";
 import AnimatedBorderTrail from "../../components/AnimatedBorderTrail";
+import useRefreshToken from "../../hooks/useRefreshToken";
 
 const randomEmojis = ["🪴", "🌻", "🌞", "🌈", "🌟 ", "🥳", "☕", "🐦"];
 const waveEmojis = ["👋🏻", "👋🏼", "👋🏽", "👋🏾", "👋🏿"];
@@ -33,8 +34,10 @@ const boards = [
 const getItem = (array) => {
   return array[Math.floor(Math.random() * array.length)];
 };
+
 const DashBoardMain = () => {
   const navigate = useNavigate();
+  const refresh = useRefreshToken();
 
   return (
     <BodyContainer justifyContent="flex-start">
@@ -49,7 +52,7 @@ const DashBoardMain = () => {
         </Stack>
         <Today />
         <Box height="4rem" />
-
+        <Button onClick={() => refresh()}>Refresh</Button>
         <AnimatedBorderTrail duration="5s" trailColor="green" trailSize="lg">
           <Typography variant="h6" textAlign="center">
             What do you wan't us to check?🤔
