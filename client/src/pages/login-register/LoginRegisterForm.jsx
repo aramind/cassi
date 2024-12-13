@@ -39,6 +39,7 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
     ["house"],
     (data) => {
       setAuth((pv) => data?.data);
+      console.log(data?.data);
       data?.success && navigate("/dashboard");
     }
   );

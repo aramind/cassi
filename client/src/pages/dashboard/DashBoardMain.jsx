@@ -64,7 +64,7 @@ const DashBoardMain = () => {
         <Box height="4rem" />
         <Button onClick={() => refresh()}>
           {" "}
-          {`Refresh user ${auth?.name}`}
+          {`Refresh user ${auth?.houseInfo?.name}`}
         </Button>
         <AnimatedBorderTrail duration="5s" trailColor="green" trailSize="lg">
           <Typography variant="h6" textAlign="center">
