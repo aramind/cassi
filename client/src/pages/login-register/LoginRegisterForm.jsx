@@ -24,7 +24,7 @@ import useAuth from "../../hooks/useAuth";
 import useApiSend from "../../hooks/api/useApiSend";
 
 const LoginRegisterForm = ({ action, buttonColor }) => {
-  const { login } = useRootReq({ isPublic: true, showAck: true });
+  const { login, signup } = useRootReq({ isPublic: true, showAck: true });
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -40,6 +40,14 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
     (data) => {
       setAuth((pv) => data?.data);
       data?.success && navigate("/dashboard");
+    }
+  );
+
+  const { mutate: sendSignUp, isLoadingSignUp } = useApiSend(
+    signup,
+    ["house"],
+    (data) => {
+      alert("Signup successful. Please wait for approval.");
     }
   );
 
@@ -59,7 +67,12 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
   };
 
   const onSubmit = (data) => {
-    sendLogin({ data });
+    console.log(data);
+    if (action === "login") {
+      sendLogin({ data });
+    } else {
+      sendSignUp({ data });
+    }
   };
 
   return (

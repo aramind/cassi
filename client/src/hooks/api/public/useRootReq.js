@@ -12,6 +12,13 @@ const useRootReq = ({ isPublic, showAck }) => {
         data,
       });
     },
+    signup: async ({ data }) => {
+      return request({
+        url: `${urls?.ROOT}/auth/signup`,
+        method: "POST",
+        data,
+      });
+    },
   };
 
   return req;
