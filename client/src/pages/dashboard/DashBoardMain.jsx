@@ -7,6 +7,7 @@ import BodyContainer from "../../containers/BodyContainer";
 import Today from "../../components/Today";
 import AnimatedBorderTrail from "../../components/AnimatedBorderTrail";
 import useRefreshToken from "../../hooks/useRefreshToken";
+import TopBar from "../../components/TopBar";
 
 const randomEmojis = ["🪴", "🌻", "🌞", "🌈", "🌟 ", "🥳", "☕", "🐦"];
 const waveEmojis = ["👋🏻", "👋🏼", "👋🏽", "👋🏾", "👋🏿"];
@@ -41,7 +42,14 @@ const DashBoardMain = () => {
 
   return (
     <BodyContainer justifyContent="flex-start">
-      <Stack width={1} height={1} pt={{ xs: "2rem" }} alignItems="center">
+      <TopBar />
+      <Stack
+        width={1}
+        height={1}
+        pt={{ xs: "2rem" }}
+        alignItems="center"
+        // className="outlined"
+      >
         <Stack direction="row">
           <Typography variant="h5" color="primary.dark">
             {getItem(greetings)}!
