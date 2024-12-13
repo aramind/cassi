@@ -8,6 +8,7 @@ import Today from "../../components/Today";
 import AnimatedBorderTrail from "../../components/AnimatedBorderTrail";
 import useRefreshToken from "../../hooks/useRefreshToken";
 import TopBar from "../../components/TopBar";
+import useAuth from "../../hooks/useAuth";
 
 const randomEmojis = ["🪴", "🌻", "🌞", "🌈", "🌟 ", "🥳", "☕", "🐦"];
 const waveEmojis = ["👋🏻", "👋🏼", "👋🏽", "👋🏾", "👋🏿"];
@@ -39,10 +40,11 @@ const getItem = (array) => {
 const DashBoardMain = () => {
   const navigate = useNavigate();
   const refresh = useRefreshToken();
+  const { auth } = useAuth();
 
+  console.log("AUTH", auth);
   return (
-    <BodyContainer justifyContent="flex-start">
-      <TopBar />
+    <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack
         width={1}
         height={1}
@@ -60,7 +62,10 @@ const DashBoardMain = () => {
         </Stack>
         <Today />
         <Box height="4rem" />
-        <Button onClick={() => refresh()}>Refresh</Button>
+        <Button onClick={() => refresh()}>
+          {" "}
+          {`Refresh user ${auth?.name}`}
+        </Button>
         <AnimatedBorderTrail duration="5s" trailColor="green" trailSize="lg">
           <Typography variant="h6" textAlign="center">
             What do you wan't us to check?🤔

@@ -1,7 +1,8 @@
 import { Box, Stack } from "@mui/material";
 import React from "react";
+import TopBar from "../components/TopBar";
 
-const BodyContainer = ({ justifyContent, children }) => {
+const BodyContainer = ({ justifyContent, withTopBar, children }) => {
   return (
     <Stack
       bgcolor={(theme) => theme.palette.myWhite.main}
@@ -14,6 +15,7 @@ const BodyContainer = ({ justifyContent, children }) => {
         justifyContent: justifyContent || "center",
       }}
     >
+      {withTopBar && <TopBar />}
       {children}
     </Stack>
     // <Box

@@ -11,7 +11,7 @@ const TrackersPage = () => {
     alert("adding a tracker...");
   };
   return (
-    <BodyContainer justifyContent="flex-start">
+    <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack mt={2} alignItems="center" width={1}>
         <PageHeader text="trackers " />
         <Today />
