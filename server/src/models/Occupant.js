@@ -48,6 +48,12 @@ const OccupantSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  version: {
+    type: String,
+    required: true,
+    default: CONSTANTS?.DEFAULT_VALUES?.version,
+    enum: { values: CONSTANTS?.VERSIONS },
+  },
 });
 
 module.exports = mongoose.model("Occupant", OccupantSchema);
