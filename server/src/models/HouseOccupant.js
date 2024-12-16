@@ -1,6 +1,7 @@
 const { Schema } = require("mongoose");
 const House = require("./House");
 const Occupant = require("./Occupant");
+const CONSTANTS = require("../configs/constants");
 
 const HouseOccupantSchema = new Schema({
   houseId: {
