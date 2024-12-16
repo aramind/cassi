@@ -6,6 +6,7 @@ const keys = [
   "HOUSE_TYPES",
   "MEMBERSHIP_TYPES",
   "MEMBERSHIP_STATUSES",
+  "GENDER_OPTIONS",
   "VERSIONS",
 ];
 
