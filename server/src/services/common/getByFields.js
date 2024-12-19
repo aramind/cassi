@@ -11,4 +11,4 @@ const getByFields = async (
   ));
 };
 
-MediaSourceHandle.exports = getByFields;
+module.exports = getByFields;
