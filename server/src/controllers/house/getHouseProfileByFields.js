@@ -2,7 +2,7 @@ const House = require("../../models/House");
 const getByFields = require("../../services/common/getByFields");
 const sendResponse = require("../../utils/senResponse");
 
-const getProfile = async (req, res) => {
+const getHouseProfileByFields = async (req, res) => {
   try {
     const { fields, ...queryParams } = req.query;
     const requestedFields = fields?.length > 0 ? fields.split(" , ") : [];
@@ -34,4 +34,4 @@ const getProfile = async (req, res) => {
   }
 };
 
-module.exports = getProfile;
+module.exports = getHouseProfileByFields;
