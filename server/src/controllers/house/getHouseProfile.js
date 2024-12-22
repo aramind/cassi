@@ -1,12 +1,9 @@
 const House = require("../../models/House");
-const getByFields = require("../../services/common/getByFields");
 const sendResponse = require("../../utils/senResponse");
 
-const getHouseProfileByFields = async (req, res) => {
+const getHouseProfile = async (req, res) => {
   try {
     const { houseId } = req.params;
-    const { fields } = req.query;
-    const requestedFields = fields?.length > 0 ? fields.split(" , ") : [];
 
     const house = await House.findById(houseId);
 
@@ -31,4 +28,4 @@ const getHouseProfileByFields = async (req, res) => {
   }
 };
 
-module.exports = getHouseProfileByFields;
+module.exports = getHouseProfile;

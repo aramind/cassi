@@ -1,6 +1,6 @@
-const getHouseProfileByFields = require("./getHouseProfileByFields");
+const getHouseProfile = require("./getHouseProfile");
 const houseController = {
-  getHouseProfileByFields,
+  getHouseProfile,
 };
 
 module.exports = houseController;
