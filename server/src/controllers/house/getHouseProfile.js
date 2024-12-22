@@ -5,7 +5,9 @@ const getHouseProfile = async (req, res) => {
   try {
     const { houseId } = req.params;
 
-    const house = await House.findById(houseId);
+    const house = await House.findById(houseId).select(
+      "name houseType membershipType membershipStatus"
+    );
 
     if (!house) {
       return sendResponse.failed(res, "House not registered", null, 404);
