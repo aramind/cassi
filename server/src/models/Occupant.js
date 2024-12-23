@@ -15,11 +15,10 @@ const OccupantSchema = new Schema({
   },
   contactNumbers: {
     type: [String],
-    required: true,
   },
   gender: {
     type: String,
-    required: true,
+
     enum: { values: CONSTANTS?.GENDER_OPTIONS },
     default: CONSTANTS?.DEFAULT_VALUES?.gender,
   },
@@ -27,12 +26,12 @@ const OccupantSchema = new Schema({
     type: String,
   },
   emergencyContact: {
-    name: { type: String, required: true },
-    address: { type: String, required: true },
-    relationToOccupant: { type: String, required: true },
+    name: { type: String },
+    address: { type: String },
+    relationToOccupant: { type: String },
     email: { type: String, trim: true },
-    mobileNumber: { type: String, required: true },
-    phoneNumber: { type: String, required: true },
+    mobileNumber: { type: String },
+    phoneNumber: { type: String },
   },
   dateOfBirth: {
     type: Date,
@@ -50,7 +49,6 @@ const OccupantSchema = new Schema({
   },
   version: {
     type: String,
-    required: true,
     default: CONSTANTS?.DEFAULT_VALUES?.version,
     enum: { values: CONSTANTS?.VERSIONS },
   },
