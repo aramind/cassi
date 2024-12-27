@@ -10,6 +10,9 @@ const path = require("path");
 // routers
 const authRouter = require("./src/routes/authRouter");
 const houseRouter = require("./src/routes/houseRouter");
+const houseOccupantRouter = require("./src/routes/houseOccupantRouter");
+
+// configs
 const credentials = require("./src/middlewares/credentials");
 const corsOptions = require("./src/configs/corsOptions");
 
