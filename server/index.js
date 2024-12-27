@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 app.use("/v1/auth", authRouter);
 // authenticated routes
 app.use("/v1/house", houseRouter);
+app.use("/v1/house-occupant/add", houseOccupantRouter);
 // for the static site
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
