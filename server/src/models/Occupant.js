@@ -1,5 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import CONSTANTS from "../configs/constants";
+const mongoose = require("mongoose");
+const CONSTANTS = require("../configs/constants");
+const Schema = mongoose.Schema;
 
 const OccupantSchema = new Schema({
   name: {
@@ -41,11 +42,11 @@ const OccupantSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   version: {
     type: String,
