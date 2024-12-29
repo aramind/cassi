@@ -4,6 +4,7 @@ import Landing from "./pages/login-register/Landing";
 import DashBoardMain from "./pages/dashboard/DashBoardMain";
 import LoginRegisterPage from "./pages/login-register/LoginRegisterPage";
 import TrackersPage from "./pages/trackers/TrackersPage";
+import ProfilePage from "./pages/profile/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginRegisterPage action="login" />,
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />,
       },
       {
         path: "trackers",
