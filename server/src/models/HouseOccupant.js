@@ -5,12 +5,12 @@ const House = require("./House");
 const Occupant = require("./Occupant");
 
 const HouseOccupantSchema = new Schema({
-  houseId: {
+  house: {
     type: Schema.Types.ObjectId,
     ref: House,
     required: true,
   },
-  occupantId: {
+  occupant: {
     type: Schema.Types.ObjectId,
     ref: Occupant,
     required: true,

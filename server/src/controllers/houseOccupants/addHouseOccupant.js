@@ -29,7 +29,7 @@ const addHouseOccupant = async (req, res) => {
     // console.log("EXISTING", existingOccupant);
 
     if (existingOccupant) {
-      const existing = { houseId, occupantId: existingOccupant?._id };
+      const existing = { house: houseId, occupant: existingOccupant?._id };
       const existingHouseOccupant = await HouseOccupant.findOne(existing);
 
       if (existingHouseOccupant) {
@@ -45,8 +45,8 @@ const addHouseOccupant = async (req, res) => {
       const newOccupant = await Occupant.create(occupant);
 
       houseOccupant = await HouseOccupant.create({
-        houseId,
-        occupantId: newOccupant?._id,
+        house: houseId,
+        occupant: newOccupant?._id,
       });
     }
 
