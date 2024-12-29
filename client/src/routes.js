@@ -5,6 +5,8 @@ import DashBoardMain from "./pages/dashboard/DashBoardMain";
 import LoginRegisterPage from "./pages/login-register/LoginRegisterPage";
 import TrackersPage from "./pages/trackers/TrackersPage";
 import ProfilePage from "./pages/profile/ProfilePage";
+import PersistLoginComponent from "./components/PersistLoginComponent";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -12,9 +14,29 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        path: "",
-        element: <Landing />,
+        element: <PersistLoginComponent />,
+        children: [
+          {
+            element: <ProtectedRoute />,
+          },
+          {
+            path: "dashboard",
+            element: <DashBoardMain />,
+          },
+          {
+            path: "profile",
+            element: <ProfilePage />,
+          },
+          {
+            path: "trackers",
+            element: <TrackersPage />,
+          },
+        ],
       },
+      // {
+      //   path: "",
+      //   element: <Landing />,
+      // },
       {
         path: "register",
         element: <LoginRegisterPage action="register" />,
@@ -23,18 +45,7 @@ const router = createBrowserRouter([
         path: "login",
         element: <LoginRegisterPage action="login" />,
       },
-      {
-        path: "profile",
-        element: <ProfilePage />,
-      },
-      {
-        path: "trackers",
-        element: <TrackersPage />,
-      },
-      {
-        path: "dashboard",
-        element: <DashBoardMain />,
-      },
+
       {
         path: "*",
         element: <Landing />,
