@@ -1,38 +1,48 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import LoadingPage from "../pages/LoadingPage";
 import ErrorPage from "../pages/ErrorPage";
 import useAuth from "../hooks/useAuth";
 import useApiGet from "../hooks/api/useApiGet";
+import useHouseReq from "../hooks/api/authenticated/useHouseReq";
 
 const defaultContextValue = {};
 export const HouseContext = createContext(defaultContextValue);
 
 const HouseProvider = ({ children }) => {
-  const [errorMsg, setErrorMsg] = useState(
-    "An error occurred! Please try again doing the previous action."
-  );
-
   const { auth } = useAuth();
 
+  const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
+  const [houseProfile, setHouseProfile] = useState({});
+
   const {
-    date: houseProfile,
+    data: houseProfileData,
     isLoading: isLoadingInGettingHouseProfile,
     isError: isErrorInGettingHouseProfile,
     error: errorInGettingHouseProfile,
-  } = useApiGet("house-profile", () => getHouseProfile(), {
+  } = useApiGet("house-profile", () => getHouseProfile(auth?._id), {
     refetchOnWindowFocus: true,
     retry: 3,
     enabled: !!auth?._id,
   });
 
-  const isLoading = false;
-  const hasError = false;
+  useEffect(() => {
+    setHouseProfile(houseProfileData?.data);
+  }, [houseProfileData?.data]);
+  const isLoading = isLoadingInGettingHouseProfile;
+  const hasError = isErrorInGettingHouseProfile;
+  const getErrorMessage = () => {
+    const error = errorInGettingHouseProfile;
+    return (
+      error?.message ||
+      "An error occurred! Please try again doing the previous action."
+    );
+  };
   return (
-    <HouseContext.Provider value={{}}>
+    <HouseContext.Provider value={{ houseProfile }}>
       {isLoading ? (
         <LoadingPage />
       ) : hasError ? (
-        <ErrorPage message={errorMsg} />
+        <ErrorPage message={getErrorMessage()} />
       ) : (
         children
       )}
