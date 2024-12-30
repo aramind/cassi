@@ -6,6 +6,7 @@ import { ThemeProvider } from "@emotion/react";
 import main from "./themes/theme";
 import AuthProvider from "./context/AuthProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
+import GlobalStatesContextProvider from "./context/GlobalStatesProvider";
 
 const queryClient = new QueryClient();
 
@@ -13,11 +14,13 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={main}>
-          <App />
-        </ThemeProvider>
-      </QueryClientProvider>
+      <GlobalStatesContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={main}>
+            <App />
+          </ThemeProvider>
+        </QueryClientProvider>
+      </GlobalStatesContextProvider>
     </AuthProvider>
   </React.StrictMode>
 );
