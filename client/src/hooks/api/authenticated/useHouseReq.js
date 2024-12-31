@@ -5,12 +5,13 @@ const useHouseReq = ({ isPublic, showAck }) => {
   const request = useRequest({ isPublic, showAck });
 
   const req = {
-    getHouseProfile: async ({ houseId }) => {
-      return request({
+    getHouseProfile: async (houseId) =>
+      request({
         url: `${urls?.HOUSE}/profile/${houseId}`,
-      });
-    },
+        method: "GET",
+      }),
   };
+
   return req;
 };
 

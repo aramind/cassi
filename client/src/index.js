@@ -7,6 +7,7 @@ import main from "./themes/theme";
 import AuthProvider from "./context/AuthProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
 import GlobalStatesContextProvider from "./context/GlobalStatesProvider";
+import HouseProvider from "./context/HouseProvider";
 
 const queryClient = new QueryClient();
 
@@ -16,9 +17,11 @@ root.render(
     <AuthProvider>
       <GlobalStatesContextProvider>
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={main}>
-            <App />
-          </ThemeProvider>
+         
+            <ThemeProvider theme={main}>
+              <App />
+            </ThemeProvider>
+       
         </QueryClientProvider>
       </GlobalStatesContextProvider>
     </AuthProvider>
