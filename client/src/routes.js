@@ -17,6 +17,7 @@ const router = createBrowserRouter([
         element: <PersistLoginComponent />,
         children: [
           {
+            path: "/",
             element: <ProtectedRoute />,
           },
           {
