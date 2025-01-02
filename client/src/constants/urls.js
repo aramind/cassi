@@ -1,6 +1,9 @@
+const baseUrl = process.env.REACT_APP_API_URL;
+
 const urls = {
-  ROOT: `${process.env.REACT_APP_API_URL}/v1`,
-  HOUSE: `${process.env.REACT_APP_API_URL}/v1/house`,
+  ROOT: `${baseUrl}/v1`,
+  HOUSE: `${baseUrl}/v1/house`,
+  HOUSEOCCUPANT: `${baseUrl}/v1/house-occupant`,
 };
 
 export default urls;
