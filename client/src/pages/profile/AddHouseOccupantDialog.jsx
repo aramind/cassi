@@ -21,6 +21,9 @@ import DraggablePaperComponent from "../../components/DraggablePaperComponent";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { yupResolver } from "@hookform/resolvers/yup";
 import addNewOccupantSchema from "../../schemas/addNewOccupantSchema";
+import useHouseOccupantReq from "../../hooks/api/authenticated/useHouseOccupantReq";
+import useApiSend from "../../hooks/api/useApiSend";
+import LoadingPage from "../LoadingPage";
 
 const genderOptions = [
   { label: "male", value: "male" },
@@ -36,6 +39,18 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
   // hooks
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
+  const { addNewHouseOccupant } = useHouseOccupantReq({
+    isPublic: false,
+    showAck: true,
+  });
+
+  const { mutate: sendAddNewHouseOccupantReq, isLoading } = useApiSend(
+    addNewHouseOccupant,
+    ["house-occupants", "occupants", "house"],
+    (data) => {
+      console.log(data?.data);
+    }
+  );
   //   form related
   const {
     control,
@@ -68,6 +83,7 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
   const handleFormSubmit = (formData) => {
     alert("submitting form...");
     console.log(formData);
+    sendAddNewHouseOccupantReq({ occupant: { occupant: formData } });
   };
 
   // confirm action dialog handlers
@@ -78,6 +94,16 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
       handleClear
     );
   };
+
+  const handleConfirmSubmit = () => {
+    handleConfirm(
+      "Confirm Submit",
+      <Typography>Are you sure you want to add new house occupant?</Typography>,
+      handleFormSubmit
+    );
+  };
+
+  if (isLoading) return <LoadingPage />;
 
   return (
     <>
