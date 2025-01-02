@@ -21,21 +21,17 @@ const ControlledLabelledSelect = ({
     <Controller
       control={control}
       name={name}
+      defaultValue={defaultValue}
       render={({ field }) => (
         <Stack flex={flex || 1}>
           <LabelWrapper
-            id={name}
+            id={id}
             label={label}
             hasError={!!errors?.[name]}
             error={errors?.[name]?.message}
           >
             <FormControl sx={styleProps} size={size}>
-              <Select
-                labelId="id"
-                id="id"
-                value={field.value}
-                onChange={field.onChange}
-              >
+              <Select labelId={id} id={id} {...field}>
                 {options?.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
