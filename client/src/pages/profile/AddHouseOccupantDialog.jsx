@@ -6,6 +6,7 @@ import {
   DialogTitle,
   Paper,
   Stack,
+  Typography,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React, { useState } from "react";
@@ -16,7 +17,8 @@ import ControlledLabelledTextField from "../../components/controlled/ControlledL
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import LabelWrapper from "../../wrappers/LabelWrapper";
 import { DevTool } from "@hookform/devtools";
-import PaperComponent from "../../components/PaperComponent";
+import DraggablePaperComponent from "../../components/DraggablePaperComponent";
+import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 
 const genderOptions = [
   { label: "male", value: "male" },
@@ -27,17 +29,11 @@ const genderOptions = [
   { label: "agender", value: "agender" },
   { label: "prefer not to say", value: "preferNotToSay" },
 ];
-// const PaperComponent = (props) => {
-//   return (
-//     <Draggable
-//       handle="#draggable-dialog-title"
-//       cancel={"[class*=*MuiDialogContent-root]"}
-//     >
-//       <Paper {...props} sx={{ bgcolor: grey[100], width: "100%" }} />
-//     </Draggable>
-//   );
-// };
+
 const AddHouseOccupantDialog = ({ open, setOpen }) => {
+  // hooks
+  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
+    useConfirmActionDialog();
   //   form related
   const {
     control,
@@ -61,18 +57,31 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
     e.stopPropagation();
   };
 
-  const handleClear = () => {};
+  // form handlers
+  const handleClear = () => {
+    reset();
+  };
 
   const handleFormSubmit = (formData) => {
     alert("submitting form...");
     console.log(formData);
   };
+
+  // confirm action dialog handlers
+  const handleConfirmClear = () => {
+    handleConfirm(
+      "Confirm Clear",
+      <Typography>Are you sure you want to reset all fields?</Typography>,
+      handleClear
+    );
+  };
+
   return (
     <>
       <Dialog
         open={open}
         onClose={handleClose}
-        PaperComponent={PaperComponent}
+        PaperComponent={DraggablePaperComponent}
         aria-labelledby="draggable-dialog"
       >
         <DialogTitle
@@ -157,7 +166,9 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
           </FormWrapper>
         </DialogContent>
         <DialogActions>
-          <Button className="outlined">Reset</Button>
+          <Button className="outlined" onClick={handleConfirmClear}>
+            Reset
+          </Button>
           <Button
             className="contained"
             onClick={handleSubmit(handleFormSubmit)}
@@ -166,6 +177,7 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
           </Button>
         </DialogActions>
       </Dialog>
+      {renderConfirmActionDialog()}
     </>
   );
 };
