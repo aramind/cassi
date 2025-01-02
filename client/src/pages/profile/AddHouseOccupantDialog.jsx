@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
+import LabelWrapper from "../../wrappers/LabelWrapper";
 
 const genderOptions = [
   { label: "male", value: "male" },
@@ -105,6 +106,42 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
                   defaultValue={genderOptions?.[-1]?.value}
                   styleProps={{ minWidth: "100px" }}
                 />
+                <ControlledLabelledTextField
+                  label="occupation"
+                  name="occupation"
+                />
+
+                <LabelWrapper label="emergency contacts" />
+                <Stack spacing={1} pl={2}>
+                  <ControlledLabelledTextField
+                    label="name"
+                    name="emergencyContact.name"
+                  />
+                  <ControlledLabelledTextField
+                    label="address"
+                    name="emergencyContact.address"
+                  />
+                  <ControlledLabelledTextField
+                    label="relation to occupant"
+                    name="emergencyContact.relationToOccupant"
+                  />
+                  <ControlledLabelledTextField
+                    label="relation to occupant"
+                    name="emergencyContact.relationToOccupant"
+                  />
+                  <ControlledLabelledTextField
+                    label="email"
+                    name="emergencyContact.email"
+                  />
+                  <ControlledLabelledTextField
+                    label="mobile number(s)"
+                    name="emergencyContact.mobileNumber"
+                  />
+                  <ControlledLabelledTextField
+                    label="phone number(s)"
+                    name="emergencyContact.phoneNumber"
+                  />
+                </Stack>
               </Stack>
             </form>
           </FormWrapper>
