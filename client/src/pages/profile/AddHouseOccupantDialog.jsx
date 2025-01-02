@@ -8,12 +8,10 @@ import {
 import { grey } from "@mui/material/colors";
 import React, { useState } from "react";
 import Draggable from "react-draggable";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
-import ReusableSelect from "../../components/ReusableSelect";
-import LabelWrapper from "../../wrappers/LabelWrapper";
 
 const genderOptions = [
   { label: "male", value: "male" },
