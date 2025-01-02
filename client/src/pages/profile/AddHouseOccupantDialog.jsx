@@ -107,8 +107,16 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
                   styleProps={{ minWidth: "100px" }}
                 />
                 <ControlledLabelledTextField
+                  label="birthday (mm/dd/yyyy)"
+                  name="dateOfBirth"
+                />
+                <ControlledLabelledTextField
                   label="occupation"
                   name="occupation"
+                />
+                <ControlledLabelledTextField
+                  label='preferences ( separate by " / " )'
+                  name="preferences"
                 />
 
                 <LabelWrapper label="emergency contacts" />
