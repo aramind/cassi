@@ -1,5 +1,7 @@
 import {
+  Button,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   Paper,
@@ -13,6 +15,8 @@ import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import LabelWrapper from "../../wrappers/LabelWrapper";
+import { DevTool } from "@hookform/devtools";
+import PaperComponent from "../../components/PaperComponent";
 
 const genderOptions = [
   { label: "male", value: "male" },
@@ -23,19 +27,17 @@ const genderOptions = [
   { label: "agender", value: "agender" },
   { label: "prefer not to say", value: "preferNotToSay" },
 ];
-const PaperComponent = (props) => {
-  return (
-    <Draggable
-      handle="#draggable-dialog-title"
-      cancel={"[class*=*MuiDialogContent-root]"}
-    >
-      <Paper {...props} sx={{ bgcolor: grey[100], width: "100%" }} />
-    </Draggable>
-  );
-};
+// const PaperComponent = (props) => {
+//   return (
+//     <Draggable
+//       handle="#draggable-dialog-title"
+//       cancel={"[class*=*MuiDialogContent-root]"}
+//     >
+//       <Paper {...props} sx={{ bgcolor: grey[100], width: "100%" }} />
+//     </Draggable>
+//   );
+// };
 const AddHouseOccupantDialog = ({ open, setOpen }) => {
-  const [data, setData] = useState("");
-
   //   form related
   const {
     control,
@@ -59,12 +61,11 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
     e.stopPropagation();
   };
 
-  const handleSendingData = () => {
-    alert("Sending data");
-  };
+  const handleClear = () => {};
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = (formData) => {
     alert("submitting form...");
+    console.log(formData);
   };
   return (
     <>
@@ -151,9 +152,19 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
                   />
                 </Stack>
               </Stack>
+              {/* <DevTool control={control} /> */}
             </form>
           </FormWrapper>
         </DialogContent>
+        <DialogActions>
+          <Button className="outlined">Reset</Button>
+          <Button
+            className="contained"
+            onClick={handleSubmit(handleFormSubmit)}
+          >
+            Add
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );
