@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 
 import useAuth from "../../hooks/useAuth";
@@ -9,6 +9,7 @@ import useHouseReq from "../../hooks/api/authenticated/useHouseReq";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import { formatDate } from "../../utils/formatDate";
+import AddHouseOccupantDialog from "./AddHouseOccupantDialog";
 
 const OccupantDetail = ({ label, value }) => (
   <Stack direction="row" spacing={1}>
@@ -18,6 +19,7 @@ const OccupantDetail = ({ label, value }) => (
   </Stack>
 );
 const ProfilePage = () => {
+  const [openDialog, setOpenDialog] = useState(false);
   const [houseProfile, setHouseProfile] = useState([]);
   const [occupants, setOccupants] = useState([]);
   const { auth } = useAuth();
@@ -47,7 +49,12 @@ const ProfilePage = () => {
     }
   }, [data]);
 
-  console.log("DATA", data?.data);
+  // callbacks
+
+  const addOccupantHandler = () => {
+    setOpenDialog((pv) => true);
+  };
+
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
   return (
@@ -70,9 +77,19 @@ const ProfilePage = () => {
           </Stack>
         ))}
         <br />
-        <Typography textAlign="left" width={1} p={1}>
-          OCCUPANTS:
-        </Typography>
+        <Stack direction="row" width={1} justifyContent="space-between" pr={2}>
+          <Typography textAlign="left" width={1} p={1} flex={1}>
+            OCCUPANTS:
+          </Typography>
+          <Button
+            variant="contained"
+            width={1}
+            flex={2}
+            onClick={addOccupantHandler}
+          >
+            Add Occupant
+          </Button>
+        </Stack>
         {occupants.map((occupant, index) => {
           return (
             <Stack
@@ -132,6 +149,7 @@ const ProfilePage = () => {
           );
         })}
       </Stack>
+      <AddHouseOccupantDialog open={openDialog} setOpen={setOpenDialog} />
     </BodyContainer>
   );
 };
