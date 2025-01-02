@@ -3,7 +3,7 @@ import { grey } from "@mui/material/colors";
 import React from "react";
 import Draggable from "react-draggable";
 
-const PaperComponent = (props) => {
+const DraggablePaperComponent = (props) => {
   return (
     <Draggable
       handle="#draggable-dialog-title"
@@ -14,4 +14,4 @@ const PaperComponent = (props) => {
   );
 };
 
-export default PaperComponent;
+export default DraggablePaperComponent;

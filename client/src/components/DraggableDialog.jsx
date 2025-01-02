@@ -30,6 +30,7 @@ const DraggableDialog = ({ open, setOpen, title = "", content }) => {
   const handleSendingData = () => {
     console.log("sending data");
   };
+
   return (
     <>
       <Dialog
