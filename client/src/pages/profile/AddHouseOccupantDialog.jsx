@@ -19,6 +19,8 @@ import LabelWrapper from "../../wrappers/LabelWrapper";
 import { DevTool } from "@hookform/devtools";
 import DraggablePaperComponent from "../../components/DraggablePaperComponent";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
+import { yupResolver } from "@hookform/resolvers/yup";
+import addNewOccupantSchema from "../../schemas/addNewOccupantSchema";
 
 const genderOptions = [
   { label: "male", value: "male" },
@@ -45,6 +47,7 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
     defaultValues: {
       gender: genderOptions[genderOptions?.length - 1]?.value,
     },
+    resolver: yupResolver(addNewOccupantSchema),
   });
 
   const formMethods = {
@@ -96,15 +99,15 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
               <Stack spacing={1}>
                 <ControlledLabelledTextField
                   label="first name"
-                  name="firstName"
+                  name="name.firstName"
                 />
                 <ControlledLabelledTextField
                   label="middle name"
-                  name="middle"
+                  name="name.middleName"
                 />
                 <ControlledLabelledTextField
                   label="last name"
-                  name="lastName"
+                  name="name.lastName"
                 />
                 <ControlledLabelledTextField label="nickname" name="nickName" />
                 <ControlledLabelledTextField label="email" name="email" />
