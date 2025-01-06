@@ -15,7 +15,7 @@ const getHouseProfile = async (req, res) => {
     }
 
     const occupants = await HouseOccupant.find({ house: houseId })
-      .select("-version -updatedAt -createdAt -__v -house -_id")
+      .select("-version -updatedAt -createdAt -__v -house")
       .populate({
         path: "occupant",
         select: "-__v -version -updatedAt -createdAt",
