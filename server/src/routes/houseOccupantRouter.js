@@ -12,5 +12,6 @@ router.patch(
   "/update/:houseOccupantId",
   houseOccupantController.updateHouseOccupant
 );
+router.get("/:_id", houseOccupantController.getHouseOccupant);
 
 module.exports = router;
