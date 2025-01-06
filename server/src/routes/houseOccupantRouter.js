@@ -8,5 +8,9 @@ const router = express.Router();
 console.log("IN HO ROUTER");
 router.use(verifyJWT);
 router.post("/add", houseOccupantController.addHouseOccupant);
+router.patch(
+  "/update/:houseOccupantId",
+  houseOccupantController.updateHouseOccupant
+);
 
 module.exports = router;
