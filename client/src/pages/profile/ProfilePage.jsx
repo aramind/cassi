@@ -10,6 +10,7 @@ import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import { formatDate } from "../../utils/formatDate";
 import AddHouseOccupantDialog from "./AddHouseOccupantDialog";
+import UpdateHouseOccupantDialog from "./UpdateHouseOccupantDialog";
 
 const OccupantDetail = ({ label, value }) => (
   <Stack direction="row" spacing={1}>
@@ -20,6 +21,7 @@ const OccupantDetail = ({ label, value }) => (
 );
 const ProfilePage = () => {
   const [openDialog, setOpenDialog] = useState(false);
+  const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [houseProfile, setHouseProfile] = useState([]);
   const [occupants, setOccupants] = useState([]);
   const { auth } = useAuth();
@@ -57,7 +59,7 @@ const ProfilePage = () => {
   };
 
   const updateOccupantHandler = () => {
-    setOpenDialog((pv) => true);
+    setOpenUpdateDialog((pv) => true);
   };
 
   if (isLoading) return <LoadingPage />;
@@ -161,6 +163,10 @@ const ProfilePage = () => {
         })}
       </Stack>
       <AddHouseOccupantDialog open={openDialog} setOpen={setOpenDialog} />
+      <UpdateHouseOccupantDialog
+        open={openUpdateDialog}
+        setOpen={setOpenUpdateDialog}
+      />
     </BodyContainer>
   );
 };
