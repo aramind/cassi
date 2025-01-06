@@ -15,16 +15,20 @@ const HouseOccupantSchema = new Schema({
     ref: Occupant,
     required: true,
   },
+  status: {
+    type: String,
+    required: true,
+    enum: { values: CONSTANTS?.HOUSE_OCCUPANT_STATUSES },
+    default: CONSTANTS?.DEFAULT_VALUES?.houseOccupantStatus,
+  },
   moveInDate: {
     type: Date,
     require: true,
     default: Date.now(),
   },
-
   moveOutDate: {
     type: Date,
   },
-
   type: {
     type: String,
   },
