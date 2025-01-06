@@ -4,13 +4,12 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Paper,
   Stack,
   Typography,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
-import React, { useState } from "react";
-import Draggable from "react-draggable";
+
+import React from "react";
+
 import { useForm } from "react-hook-form";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
@@ -46,10 +45,7 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
 
   const { mutate: sendAddNewHouseOccupantReq, isLoading } = useApiSend(
     addNewHouseOccupant,
-    ["house-occupants", "occupants", "house"],
-    (data) => {
-      console.log(data?.data);
-    }
+    ["house-occupants", "occupants", "house"]
   );
   //   form related
   const {
@@ -83,7 +79,6 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
 
   const onSubmit = async (formData) => {
     alert("submitting form...");
-    console.log("FDATA", formData);
     handleSubmit(
       sendAddNewHouseOccupantReq({ occupant: { occupant: formData } })
     );
