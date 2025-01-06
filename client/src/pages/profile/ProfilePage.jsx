@@ -26,6 +26,7 @@ const ProfilePage = () => {
   const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
 
   console.log("CALLING PROFILE PAGE");
+  console.log(auth?._id);
 
   const { data, isLoading, isError } = useApiGet(
     "houseProfile",
@@ -47,7 +48,7 @@ const ProfilePage = () => {
       setHouseProfile((pv) => prepHouseProfile);
       setOccupants((pv) => occupants);
     }
-  }, [data]);
+  }, [data, auth]);
 
   // callbacks
 

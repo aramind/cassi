@@ -17,11 +17,9 @@ root.render(
     <AuthProvider>
       <GlobalStatesContextProvider>
         <QueryClientProvider client={queryClient}>
-         
-            <ThemeProvider theme={main}>
-              <App />
-            </ThemeProvider>
-       
+          <ThemeProvider theme={main}>
+            <App />
+          </ThemeProvider>
         </QueryClientProvider>
       </GlobalStatesContextProvider>
     </AuthProvider>

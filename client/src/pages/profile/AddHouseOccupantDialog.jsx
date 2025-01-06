@@ -80,10 +80,15 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
     reset();
   };
 
-  const handleFormSubmit = (formData) => {
+  const onSubmit = async (formData) => {
     alert("submitting form...");
-    console.log(formData);
-    sendAddNewHouseOccupantReq({ occupant: { occupant: formData } });
+    console.log("FDATA", formData);
+    handleSubmit(
+      sendAddNewHouseOccupantReq({ occupant: { occupant: formData } })
+    );
+  };
+  const handleFormSubmit = () => {
+    handleSubmit(onSubmit)();
   };
 
   // confirm action dialog handlers
@@ -198,10 +203,7 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
           <Button className="outlined" onClick={handleConfirmClear}>
             Reset
           </Button>
-          <Button
-            className="contained"
-            onClick={handleSubmit(handleFormSubmit)}
-          >
+          <Button className="contained" onClick={handleConfirmSubmit}>
             Add
           </Button>
         </DialogActions>

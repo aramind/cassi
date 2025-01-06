@@ -28,7 +28,7 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
-  const { setAuth } = useAuth();
+  const { setAuth, auth } = useAuth();
 
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
@@ -39,7 +39,6 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
     ["house"],
     (data) => {
       setAuth((pv) => data?.data);
-      console.log(data?.data);
       data?.success && navigate("/dashboard");
     }
   );
