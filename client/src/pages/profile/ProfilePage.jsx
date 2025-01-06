@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 
 import useAuth from "../../hooks/useAuth";
@@ -91,24 +91,28 @@ const ProfilePage = () => {
             Add Occupant
           </Button>
         </Stack>
+        <br />
         {occupants.map((occupant, index) => {
           return (
             <Stack
               key={index}
-              direction="row"
+              // direction="row"
               spacing={1}
               width={1}
               px={1}
               mb={2}
               justifyContent="flex-start"
             >
-              <Stack flex={1}>
-                <Typography>
+              <Stack direction="row" pr={1} alignItems="center" spacing={1}>
+                <Typography variant="h5">{index + 1}.</Typography>
+                <Typography variant="h6">
                   {occupant.occupant?.name?.lastName.toUpperCase()},{" "}
                   {occupant.occupant?.name?.firstName.toUpperCase()}
                 </Typography>
+                <Box flex={1}></Box>
+                <Button variant="outlined">Update Info</Button>
               </Stack>
-              <Stack spacing={1} flex={3}>
+              <Stack spacing={1} pl={2}>
                 <OccupantDetail
                   label="nick name"
                   value={occupant.occupant?.nickName}
