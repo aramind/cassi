@@ -73,6 +73,7 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
   // handlers
   const handleClose = (e) => {
     e.stopPropagation();
+    setOpen(false);
   };
 
   // form handlers
@@ -200,6 +201,7 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
           </FormWrapper>
         </DialogContent>
         <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
           <Button className="outlined" onClick={handleConfirmClear}>
             Reset
           </Button>

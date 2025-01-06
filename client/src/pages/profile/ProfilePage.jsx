@@ -56,6 +56,10 @@ const ProfilePage = () => {
     setOpenDialog((pv) => true);
   };
 
+  const updateOccupantHandler = () => {
+    setOpenDialog((pv) => true);
+  };
+
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
   return (
@@ -110,7 +114,9 @@ const ProfilePage = () => {
                   {occupant.occupant?.name?.firstName.toUpperCase()}
                 </Typography>
                 <Box flex={1}></Box>
-                <Button variant="outlined">Update Info</Button>
+                <Button variant="outlined" onClick={updateOccupantHandler}>
+                  Update Info
+                </Button>
               </Stack>
               <Stack spacing={1} pl={2}>
                 <OccupantDetail
