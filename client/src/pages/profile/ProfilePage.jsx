@@ -20,6 +20,7 @@ const OccupantDetail = ({ label, value }) => (
   </Stack>
 );
 const ProfilePage = () => {
+  const [selectedOccupantId, setSelectedOccupantId] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [houseProfile, setHouseProfile] = useState([]);
@@ -58,7 +59,8 @@ const ProfilePage = () => {
     setOpenDialog((pv) => true);
   };
 
-  const updateOccupantHandler = () => {
+  const updateOccupantHandler = (occupantId) => {
+    setSelectedOccupantId((pv) => occupantId);
     setOpenUpdateDialog((pv) => true);
   };
 
@@ -116,7 +118,10 @@ const ProfilePage = () => {
                   {occupant.occupant?.name?.firstName.toUpperCase()}
                 </Typography>
                 <Box flex={1}></Box>
-                <Button variant="outlined" onClick={updateOccupantHandler}>
+                <Button
+                  variant="outlined"
+                  onClick={() => updateOccupantHandler(occupant?.occupant?._id)}
+                >
                   Update Info
                 </Button>
               </Stack>
@@ -166,6 +171,7 @@ const ProfilePage = () => {
       <UpdateHouseOccupantDialog
         open={openUpdateDialog}
         setOpen={setOpenUpdateDialog}
+        houseOccupantId={selectedOccupantId}
       />
     </BodyContainer>
   );

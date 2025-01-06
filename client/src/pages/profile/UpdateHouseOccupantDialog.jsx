@@ -84,6 +84,8 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
       handleFormSubmit
     );
   };
+
+  console.log("HOCID", houseOccupantId);
   return (
     <>
       <Dialog
