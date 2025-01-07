@@ -73,6 +73,7 @@ const ProfilePage = () => {
         <br />
         {Object.entries(houseProfile).map(([key, value]) => (
           <Stack
+            key={value}
             direction="row"
             spacing={1}
             justifyContent="flex-start"

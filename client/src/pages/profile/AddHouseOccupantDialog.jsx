@@ -23,17 +23,9 @@ import addNewOccupantSchema from "../../schemas/addNewOccupantSchema";
 import useHouseOccupantReq from "../../hooks/api/authenticated/useHouseOccupantReq";
 import useApiSend from "../../hooks/api/useApiSend";
 import LoadingPage from "../LoadingPage";
+import { options } from "../../constants/options";
 
-const genderOptions = [
-  { label: "male", value: "male" },
-  { label: "female", value: "female" },
-  { label: "non-binary", value: "nonBinary" },
-  { label: "gender queer", value: "genderQueer" },
-  { label: "gender fluid", value: "genderFluid" },
-  { label: "agender", value: "agender" },
-  { label: "prefer not to say", value: "preferNotToSay" },
-];
-
+const genderOptions = options?.gender;
 const AddHouseOccupantDialog = ({ open, setOpen }) => {
   // hooks
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =

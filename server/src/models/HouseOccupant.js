@@ -18,8 +18,8 @@ const HouseOccupantSchema = new Schema({
   status: {
     type: String,
     required: true,
-    enum: { values: CONSTANTS?.HOUSE_OCCUPANT_STATUSES },
     default: CONSTANTS?.DEFAULT_VALUES?.houseOccupantStatus,
+    enum: CONSTANTS?.HOUSE_OCCUPANT_STATUSES,
   },
   moveInDate: {
     type: Date,
@@ -44,7 +44,7 @@ const HouseOccupantSchema = new Schema({
     type: String,
     required: true,
     default: CONSTANTS?.DEFAULT_VALUES?.version,
-    enum: { values: CONSTANTS?.VERSIONS },
+    enum: CONSTANTS?.VERSIONS,
   },
 });
 

@@ -20,23 +20,11 @@ import useApiGet from "../../hooks/api/useApiGet";
 import useAuth from "../../hooks/useAuth";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
+import { options } from "../../constants/options";
 
-const genderOptions = [
-  { label: "male", value: "male" },
-  { label: "female", value: "female" },
-  { label: "non-binary", value: "nonBinary" },
-  { label: "gender queer", value: "genderQueer" },
-  { label: "gender fluid", value: "genderFluid" },
-  { label: "agender", value: "agender" },
-  { label: "prefer not to say", value: "preferNotToSay" },
-];
+const genderOptions = options?.gender;
 
-const statusOptions = [
-  { label: "active", value: "active" },
-  { label: "suspended", value: "suspended" },
-  { label: "evicted", value: "evicted" },
-  { label: "banned", value: "banned" },
-];
+const statusOptions = options?.homeOccupantStatus;
 
 const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
   const { auth } = useAuth();
@@ -179,7 +167,6 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
                   label="gender"
                   name="occupant.gender"
                   options={genderOptions}
-                  defaultValue={genderOptions?.[-1]?.value}
                   styleProps={{ minWidth: "100px" }}
                 />
                 <ControlledLabelledTextField
