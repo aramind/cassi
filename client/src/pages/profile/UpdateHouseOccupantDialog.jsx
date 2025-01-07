@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
 import {
@@ -15,6 +15,11 @@ import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import LabelWrapper from "../../wrappers/LabelWrapper";
+import useHouseOccupantReq from "../../hooks/api/authenticated/useHouseOccupantReq";
+import useApiGet from "../../hooks/api/useApiGet";
+import useAuth from "../../hooks/useAuth";
+import LoadingPage from "../LoadingPage";
+import ErrorPage from "../ErrorPage";
 
 const genderOptions = [
   { label: "male", value: "male" },
@@ -34,21 +39,46 @@ const statusOptions = [
 ];
 
 const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
+  const { auth } = useAuth();
+  const [defaultValues, setDefaultValues] = useState({});
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
+
+  const { getHouseOccupant } = useHouseOccupantReq({
+    isPublic: false,
+    showAck: true,
+  });
+
+  const {
+    data: houseOccupantData,
+    isLoading,
+    isError,
+  } = useApiGet("house-occupant", () => getHouseOccupant(houseOccupantId), {
+    refetchOnWindowFocus: true,
+    retry: 3,
+    enabled: !!auth?._id,
+  });
 
   const {
     control,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onTouched" });
+  } = useForm({ mode: "onTouched", defaultValues: defaultValues });
 
   const formMethods = {
     control,
     handleSubmit,
     errors,
   };
+
+  useEffect(() => {
+    const formattedDefaultValues = {
+      ...houseOccupantData?.data,
+    };
+    setDefaultValues((pv) => formattedDefaultValues);
+    reset(formattedDefaultValues);
+  }, [houseOccupantData, reset, setDefaultValues]);
 
   //   handlers
   const handleClose = (e) => {
@@ -85,7 +115,8 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
     );
   };
 
-  console.log("HOCID", houseOccupantId);
+  if (isLoading) return <LoadingPage />;
+  if (isError) return <ErrorPage />;
   return (
     <>
       <Dialog
@@ -125,60 +156,66 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
               <Stack spacing={1}>
                 <ControlledLabelledTextField
                   label="first name"
-                  name="name.firstName"
+                  name="occupant.name.firstName"
                 />
                 <ControlledLabelledTextField
                   label="middle name"
-                  name="name.middleName"
+                  name="occupant.name.middleName"
                 />
                 <ControlledLabelledTextField
                   label="last name"
-                  name="name.lastName"
+                  name="occupant.name.lastName"
                 />
-                <ControlledLabelledTextField label="nickname" name="nickName" />
-                <ControlledLabelledTextField label="email" name="email" />
+                <ControlledLabelledTextField
+                  label="nickname"
+                  name="occupant.name.nickName"
+                />
+                <ControlledLabelledTextField
+                  label="email"
+                  name="occupant.email"
+                />
                 <ControlledLabelledSelect
                   id="gender-select"
                   label="gender"
-                  name="gender"
+                  name="occupant.gender"
                   options={genderOptions}
                   defaultValue={genderOptions?.[-1]?.value}
                   styleProps={{ minWidth: "100px" }}
                 />
                 <ControlledLabelledTextField
                   label="birthday (mm/dd/yyyy)"
-                  name="dateOfBirth"
+                  name="occupant.dateOfBirth"
                 />
                 <ControlledLabelledTextField
                   label="occupation"
-                  name="occupation"
+                  name="occupant.occupation"
                 />
                 <ControlledLabelledTextField
                   label='preferences ( separate by " / " )'
-                  name="preferences"
+                  name="occupant.preferences"
                 />
 
                 <LabelWrapper label="emergency contacts" />
                 <Stack spacing={1} pl={2}>
                   <ControlledLabelledTextField
                     label="name"
-                    name="emergencyContact.name"
+                    name="occupant.emergencyContact.name"
                   />
                   <ControlledLabelledTextField
                     label="address"
-                    name="emergencyContact.address"
+                    name="occupant.emergencyContact.address"
                   />
                   <ControlledLabelledTextField
                     label="relation to occupant"
-                    name="emergencyContact.relationToOccupant"
+                    name="occupant.emergencyContact.relationToOccupant"
                   />
                   <ControlledLabelledTextField
                     label="relation to occupant"
-                    name="emergencyContact.relationToOccupant"
+                    name="occupant.emergencyContact.relationToOccupant"
                   />
                   <ControlledLabelledTextField
                     label="email"
-                    name="emergencyContact.email"
+                    name="occupant.emergencyContact.email"
                   />
                   <ControlledLabelledTextField
                     label="mobile number(s)"
@@ -186,7 +223,7 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
                   />
                   <ControlledLabelledTextField
                     label="phone number(s)"
-                    name="emergencyContact.phoneNumber"
+                    name="occupant.emergencyContact.phoneNumber"
                   />
                 </Stack>
               </Stack>

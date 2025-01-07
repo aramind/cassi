@@ -11,6 +11,11 @@ const useHouseOccupantReq = ({ isPublic, showAck }) => {
         method: "POST",
         data: occupant,
       }),
+    getHouseOccupant: async (houseOccupantId) =>
+      request({
+        url: `${urls?.HOUSEOCCUPANT}/${houseOccupantId}`,
+        method: "GET",
+      }),
   };
 
   return req;

@@ -10,7 +10,7 @@ const useRequest = ({ isPublic, showAck }) => {
     const onSuccess = async (res) => {
       // TODO: implement showing acknowledgement if ack comp is done
       if (showAck) {
-        alert("request successful");
+        console.log("request successful");
       }
       console.log("ON SUCCESS", res);
       return res?.data;
@@ -19,7 +19,7 @@ const useRequest = ({ isPublic, showAck }) => {
     const onError = async (err) => {
       // TODO: implement showing acknowledgement if ack comp is done
       if (showAck) {
-        alert("Error occurred");
+        console.log("Error occurred");
       }
       return err?.response?.data;
     };

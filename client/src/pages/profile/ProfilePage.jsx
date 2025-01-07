@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
@@ -51,7 +51,7 @@ const ProfilePage = () => {
       setHouseProfile((pv) => prepHouseProfile);
       setOccupants((pv) => occupants);
     }
-  }, [data, auth]);
+  }, [data]);
 
   // callbacks
 
@@ -59,10 +59,10 @@ const ProfilePage = () => {
     setOpenDialog((pv) => true);
   };
 
-  const updateOccupantHandler = (occupantId) => {
+  const updateOccupantHandler = useCallback((occupantId) => {
     setSelectedOccupantId((pv) => occupantId);
     setOpenUpdateDialog((pv) => true);
-  };
+  }, []);
 
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
@@ -120,7 +120,7 @@ const ProfilePage = () => {
                 <Box flex={1}></Box>
                 <Button
                   variant="outlined"
-                  onClick={() => updateOccupantHandler(occupant?.occupant?._id)}
+                  onClick={() => updateOccupantHandler(occupant?._id)}
                 >
                   Update Info
                 </Button>
@@ -167,12 +167,16 @@ const ProfilePage = () => {
           );
         })}
       </Stack>
-      <AddHouseOccupantDialog open={openDialog} setOpen={setOpenDialog} />
-      <UpdateHouseOccupantDialog
-        open={openUpdateDialog}
-        setOpen={setOpenUpdateDialog}
-        houseOccupantId={selectedOccupantId}
-      />
+      {openDialog && (
+        <AddHouseOccupantDialog open={openDialog} setOpen={setOpenDialog} />
+      )}
+      {openUpdateDialog && (
+        <UpdateHouseOccupantDialog
+          open={openUpdateDialog}
+          setOpen={setOpenUpdateDialog}
+          houseOccupantId={selectedOccupantId}
+        />
+      )}
     </BodyContainer>
   );
 };
