@@ -20,6 +20,8 @@ import useApiGet from "../../hooks/api/useApiGet";
 import useAuth from "../../hooks/useAuth";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
+import { joinWithSymbol } from "../../utils/joinWithSymbol";
+import { breakPascalCase } from "../../utils/breakPascalCase";
 import { options } from "../../constants/options";
 
 const genderOptions = options?.gender;
@@ -61,11 +63,21 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
   };
 
   useEffect(() => {
-    const formattedDefaultValues = {
-      ...houseOccupantData?.data,
-    };
-    setDefaultValues((pv) => formattedDefaultValues);
-    reset(formattedDefaultValues);
+    console.log("HODATA", houseOccupantData?.data);
+    if (houseOccupantData?.data) {
+      const { occupant, ...otherHouseOccupantInfo } = houseOccupantData?.data;
+      const { contactNumbers, preferences, ...otherOccupantInfo } = occupant;
+      const formattedDefaultValues = {
+        occupant: {
+          contactNumbers: joinWithSymbol(contactNumbers),
+          preferences: joinWithSymbol(preferences),
+          ...otherOccupantInfo,
+        },
+        ...otherHouseOccupantInfo,
+      };
+      setDefaultValues((pv) => formattedDefaultValues);
+      reset(formattedDefaultValues);
+    }
   }, [houseOccupantData, reset, setDefaultValues]);
 
   //   handlers
