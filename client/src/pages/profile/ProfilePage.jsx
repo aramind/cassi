@@ -28,16 +28,13 @@ const ProfilePage = () => {
   const { auth } = useAuth();
   const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
 
-  console.log("CALLING PROFILE PAGE");
-  console.log(auth?._id);
-
   const { data, isLoading, isError } = useApiGet(
     "houseProfile",
-    () => getHouseProfile(auth?._id),
+    () => getHouseProfile(auth?.houseInfo?._id),
     {
       refetchOnWindowFocus: true,
       retry: 3,
-      enabled: !!auth?._id,
+      enabled: !!auth?.houseInfo?._id,
     }
   );
 
