@@ -46,7 +46,7 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
   } = useApiGet("house-occupant", () => getHouseOccupant(houseOccupantId), {
     refetchOnWindowFocus: true,
     retry: 3,
-    enabled: !!!!auth?.houseInfo?._id,
+    enabled: !!auth?.houseInfo?._id,
   });
 
   const {
