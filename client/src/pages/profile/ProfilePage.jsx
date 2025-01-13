@@ -57,6 +57,7 @@ const ProfilePage = () => {
   };
 
   const updateOccupantHandler = useCallback((occupantId) => {
+    console.log("UPDATING OCCUPANT", occupantId);
     setSelectedOccupantId((pv) => occupantId);
     setOpenUpdateDialog((pv) => true);
   }, []);

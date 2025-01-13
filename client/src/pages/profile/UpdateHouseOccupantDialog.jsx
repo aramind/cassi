@@ -46,7 +46,7 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
   } = useApiGet("house-occupant", () => getHouseOccupant(houseOccupantId), {
     refetchOnWindowFocus: true,
     retry: 3,
-    enabled: !!auth?._id,
+    enabled: !!!!auth?.houseInfo?._id,
   });
 
   const {
@@ -63,7 +63,6 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
   };
 
   useEffect(() => {
-    console.log("HODATA", houseOccupantData?.data);
     if (houseOccupantData?.data) {
       const { occupant, ...otherHouseOccupantInfo } = houseOccupantData?.data;
       const { contactNumbers, preferences, ...otherOccupantInfo } = occupant;
@@ -92,6 +91,7 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
   };
 
   const onSubmit = async (formData) => {
+    console.log("SUBMITTING", formData);
     alert("Submitting form...");
   };
 
