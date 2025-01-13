@@ -1,20 +1,26 @@
 import urls from "../../../constants/urls";
 import useRequest from "../useRequest";
 
+const url = urls?.HOUSEOCCUPANT;
+
 const useHouseOccupantReq = ({ isPublic, showAck }) => {
   const request = useRequest({ isPublic, showAck });
 
   const req = {
     addNewHouseOccupant: async ({ occupant }) =>
       request({
-        url: `${urls?.HOUSEOCCUPANT}/add`,
+        url: `${url}/add`,
         method: "POST",
         data: occupant,
       }),
     getHouseOccupant: async (houseOccupantId) =>
       request({
-        url: `${urls?.HOUSEOCCUPANT}/${houseOccupantId}`,
+        url: `${url}/${houseOccupantId}`,
         method: "GET",
+      }),
+    updateHouseOccupant: async (houseOccupantId) =>
+      request({
+        url: `${url}/update/${houseOccupantId}`,
       }),
   };
 
