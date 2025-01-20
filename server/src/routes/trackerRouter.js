@@ -6,7 +6,7 @@ const verifyHouse = require("../middlewares/verifyHouse");
 
 router.use(verifyJWT);
 router.use(verifyHouse);
-console.log("IN TRACKER ROUTER");
+// console.log("IN TRACKER ROUTER");
 router.post("/add", trackerController.addTracker);
 router.get("", trackerController.getTrackers);
 
