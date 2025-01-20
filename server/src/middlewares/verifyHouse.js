@@ -9,6 +9,7 @@ const verifyHouse = async (req, res, next) => {
     return sendResponse.failed(res, "Unauthorized", null, 401);
   }
 
+  console.log("PASSED VERIFY HOUSE MW");
   next();
 };
 

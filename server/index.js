@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use("/v1/auth", authRouter);
 // authenticated routes
-app.use("v1/trackers", trackerRouter);
+app.use("/v1/trackers", trackerRouter);
 app.use("/v1/house", houseRouter);
 app.use("/v1/house-occupant", houseOccupantRouter);
 // for the static site

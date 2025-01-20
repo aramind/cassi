@@ -2,6 +2,7 @@ const Tracker = require("../../models/Tracker");
 const sendResponse = require("../../utils/senResponse");
 
 const addTracker = async (req, res) => {
+  console.log("IN ADD TRACKER CONTROLLER");
   try {
     const { tracker } = req.body;
     const houseId = req?.credentials?._id;
