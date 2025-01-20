@@ -246,7 +246,7 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
             Reset
           </Button>
           <Button className="contained" onClick={handleConfirmSubmit}>
-            Add
+            Save
           </Button>
         </DialogActions>
       </Dialog>
