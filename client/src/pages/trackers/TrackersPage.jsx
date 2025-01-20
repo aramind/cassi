@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import PageHeader from "../../components/PageHeader";
 import { Stack } from "@mui/material";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
-import Tracker from "./Tracker";
+import useApiGet from "../../hooks/api/useApiGet";
+import useAuth from "../../hooks/useAuth";
+import useTrackerReq from "../../hooks/api/authenticated/useTrackerReq";
+import LoadingPage from "../LoadingPage";
+import ErrorPage from "../ErrorPage";
+import Trackers from "./Trackers";
 
 const TrackersPage = () => {
+  const { auth } = useAuth();
+  const { getTrackers } = useTrackerReq({ isPublic: false, showAck: false });
+
+  const {
+    data: trackersData,
+    isLoading: isLoadingInGetReq,
+    isError: isErrorInGetReq,
+  } = useApiGet("trackers", () => getTrackers(`house=${auth?.houseInfo?._id}`));
+
   const addTracker = () => {
     alert("adding a tracker...");
   };
+
+  if (isLoadingInGetReq) {
+    return <LoadingPage />;
+  }
+
+  if (isErrorInGetReq) {
+    return <ErrorPage />;
+  }
 
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
@@ -24,7 +46,8 @@ const TrackersPage = () => {
           onClickHandler={addTracker}
         />
         <br />
-        <Tracker />
+        {<Trackers trackers={trackersData?.data} />}
+        <br />
         <MyButton
           type="accent"
           text="add tracker"

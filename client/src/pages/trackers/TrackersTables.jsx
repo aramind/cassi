@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import RenderSelectUsers from "./RenderSelectUsers";
 import {
+  Button,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -9,12 +11,14 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { mockDB } from "../../mockDB/mockDB";
+import MyButton from "../../components/buttons/MyButton";
 
-const setId = (tracker, index) => {
-  return tracker?._id || index + 1;
-};
+// const setId = (enindex) => {
+//   return tracker?._id || index + 1;
+// };
 
 const columns = [
   { field: "date", headerName: "date" },
@@ -31,8 +35,8 @@ const columns = [
   { field: "comments", headerName: "comments" },
 ];
 
-const TrackersTables = () => {
-  const [rows, setRows] = useState(mockDB?.trackers?.[0]?.record);
+const TrackersTables = ({ tracker }) => {
+  const [rows, setRows] = useState(tracker?.entries);
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -47,25 +51,41 @@ const TrackersTables = () => {
   };
 
   useEffect(() => {
-    const processedRows = mockDB?.trackers?.[0]?.record?.map(
-      (tracker, index) => ({
-        id: setId(tracker, index),
-        ...tracker,
-      })
-    );
+    const processedRows = tracker?.entries?.map((entry, index) => ({
+      id: index,
+      ...entry,
+    }));
 
     setRows(processedRows);
-  }, []);
+  }, [tracker?.entries]);
 
-  console.log(rows);
+  if (tracker?.entries?.length < 1) {
+    return (
+      <Stack width={1} alignItems="center" spacing={1}>
+        <Typography width={1} textAlign="center">
+          No entries yet
+        </Typography>
+        <MyButton
+          type="primary"
+          text="add entry"
+          variant="contained"
+          // onClickHandler={addTracker}
+        />
+      </Stack>
+    );
+  }
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              {columns?.map((column) => (
-                <TableCell align="center" sx={{ fontWeight: "bold" }}>
+              {columns?.map((column, index) => (
+                <TableCell
+                  key={index}
+                  align="center"
+                  sx={{ fontWeight: "bold" }}
+                >
                   {column.headerName?.toUpperCase()}
                 </TableCell>
               ))}
