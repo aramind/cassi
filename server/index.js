@@ -11,6 +11,7 @@ const path = require("path");
 const authRouter = require("./src/routes/authRouter");
 const houseRouter = require("./src/routes/houseRouter");
 const houseOccupantRouter = require("./src/routes/houseOccupantRouter");
+const trackerRouter = require("./src/routes/trackerRouter");
 
 // configs
 const credentials = require("./src/middlewares/credentials");
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use("/v1/auth", authRouter);
 // authenticated routes
+app.use("v1/trackers", trackerRouter);
 app.use("/v1/house", houseRouter);
 app.use("/v1/house-occupant", houseOccupantRouter);
 // for the static site
