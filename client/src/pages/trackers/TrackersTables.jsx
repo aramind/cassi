@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import RenderSelectUsers from "./RenderSelectUsers";
 import {
-  Box,
-  Paper,
   Stack,
   Table,
   TableBody,
@@ -14,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import MyButton from "../../components/buttons/MyButton";
+import AddEntryDialog from "./AddEntryDialog";
 
 const columns = [
   { field: "date", headerName: "date" },
@@ -23,7 +22,7 @@ const columns = [
     renderCell: (params) => <RenderSelectUsers />,
   },
   {
-    field: "doneBy",
+    field: "completedBy",
     headerName: "completed by",
     renderCell: (params) => <RenderSelectUsers />,
   },
@@ -32,6 +31,7 @@ const columns = [
 
 const TrackersTables = ({ tracker }) => {
   const [rows, setRows] = useState(tracker?.entries);
+  const [openAddEntryDialog, setOpenAddEntryDialog] = useState(false);
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -53,6 +53,12 @@ const TrackersTables = ({ tracker }) => {
 
     setRows(processedRows);
   }, [tracker?.entries]);
+
+  // onclick handlers
+
+  const addEntryHandler = () => {
+    setOpenAddEntryDialog(true);
+  };
 
   const addEntry = useCallback(() => {
     alert("Adding entry");
@@ -114,7 +120,11 @@ const TrackersTables = ({ tracker }) => {
         type="primary"
         text="add entry"
         variant="contained"
-        onClickHandler={addEntry}
+        onClickHandler={addEntryHandler}
+      />
+      <AddEntryDialog
+        open={openAddEntryDialog}
+        setOpen={setOpenAddEntryDialog}
       />
     </Stack>
   );
