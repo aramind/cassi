@@ -100,8 +100,6 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
   };
 
   const onSubmit = async (formData) => {
-    console.log("SUBMITTING", formData);
-    alert("Submitting form...");
     handleSubmit(
       sendUpdateRequest({ houseOccupantId: houseOccupantId, data: formData })
     );
