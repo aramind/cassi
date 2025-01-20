@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import RenderSelectUsers from "./RenderSelectUsers";
 import {
-  Button,
+  Box,
   Paper,
   Stack,
   Table,
@@ -13,12 +13,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { mockDB } from "../../mockDB/mockDB";
 import MyButton from "../../components/buttons/MyButton";
-
-// const setId = (enindex) => {
-//   return tracker?._id || index + 1;
-// };
 
 const columns = [
   { field: "date", headerName: "date" },
@@ -59,65 +54,69 @@ const TrackersTables = ({ tracker }) => {
     setRows(processedRows);
   }, [tracker?.entries]);
 
-  if (tracker?.entries?.length < 1) {
-    return (
-      <Stack width={1} alignItems="center" spacing={1}>
+  const addEntry = useCallback(() => {
+    alert("Adding entry");
+  }, []);
+
+  return (
+    <Stack width={1} alignItems="center">
+      {tracker?.entries?.length < 1 ? (
         <Typography width={1} textAlign="center">
           No entries yet
         </Typography>
-        <MyButton
-          type="primary"
-          text="add entry"
-          variant="contained"
-          // onClickHandler={addTracker}
-        />
-      </Stack>
-    );
-  }
-  return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader>
-          <TableHead>
-            <TableRow>
-              {columns?.map((column, index) => (
-                <TableCell
-                  key={index}
-                  align="center"
-                  sx={{ fontWeight: "bold" }}
-                >
-                  {column.headerName?.toUpperCase()}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
+      ) : (
+        <>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader>
+              <TableHead>
                 <TableRow>
-                  {columns?.map((col) => (
-                    <TableCell align="center">
-                      {col.renderCell
-                        ? col.renderCell({ row })
-                        : row[col.field]}
+                  {columns?.map((column, index) => (
+                    <TableCell
+                      key={index}
+                      align="center"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      {column.headerName?.toUpperCase()}
                     </TableCell>
                   ))}
                 </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+              </TableHead>
+              <TableBody>
+                {rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => (
+                    <TableRow>
+                      {columns?.map((col) => (
+                        <TableCell align="center">
+                          {col.renderCell
+                            ? col.renderCell({ row })
+                            : row[col.field]}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </>
+      )}
+      <br />
+      <MyButton
+        type="primary"
+        text="add entry"
+        variant="contained"
+        onClickHandler={addEntry}
       />
-    </Paper>
+    </Stack>
   );
 };
 
