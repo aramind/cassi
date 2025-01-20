@@ -8,11 +8,6 @@ const addHouseOccupant = async (req, res) => {
     const { occupant } = req.body;
     const houseId = req?.credentials?._id;
 
-    console.log("IN ADD HOUSE OCCUPANT CONTROLLER");
-    console.log("OCCUPANT", occupant);
-    console.log("credentials", req?.credentials);
-    console.log("houseId", houseId);
-
     const house = await House.findById(houseId);
 
     if (!house) {
@@ -25,8 +20,6 @@ const addHouseOccupant = async (req, res) => {
     });
 
     let houseOccupant = {};
-
-    // console.log("EXISTING", existingOccupant);
 
     if (existingOccupant) {
       const existing = { house: houseId, occupant: existingOccupant?._id };

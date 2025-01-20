@@ -27,9 +27,7 @@ const DraggableDialog = ({ open, setOpen, title = "", content }) => {
     e.stopPropagation();
   };
 
-  const handleSendingData = () => {
-    console.log("sending data");
-  };
+  const handleSendingData = () => {};
 
   return (
     <>

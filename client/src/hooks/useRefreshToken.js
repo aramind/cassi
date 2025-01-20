@@ -6,7 +6,6 @@ const url = `${process.env.REACT_APP_API_URL}/v1/auth/refresh`;
 const useRefreshToken = () => {
   const { auth, setAuth } = useAuth();
 
-  console.log("IN USE REFRESH");
   const refresh = async () => {
     const response = await axios.get(url, { withCredentials: true });
 
@@ -21,7 +20,6 @@ const useRefreshToken = () => {
     return newAccessToken;
   };
 
-  console.log("NEW AUTH", auth);
   return refresh;
 };
 
