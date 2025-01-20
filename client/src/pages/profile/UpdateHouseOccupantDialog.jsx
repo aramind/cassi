@@ -23,6 +23,7 @@ import ErrorPage from "../ErrorPage";
 import { joinWithSymbol } from "../../utils/joinWithSymbol";
 import { breakPascalCase } from "../../utils/breakPascalCase";
 import { options } from "../../constants/options";
+import useApiSend from "../../hooks/api/useApiSend";
 
 const genderOptions = options?.gender;
 
@@ -36,6 +37,11 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
 
   const { getHouseOccupant } = useHouseOccupantReq({
     isPublic: false,
+    showAck: false,
+  });
+
+  const { updateHouseOccupant } = useHouseOccupantReq({
+    isPublic: false,
     showAck: true,
   });
 
@@ -48,6 +54,9 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
     retry: 3,
     enabled: !!auth?.houseInfo?._id,
   });
+
+  const { mutate: sendUpdateRequest, isLoading: isLoadingInUpdate } =
+    useApiSend(updateHouseOccupant, ["house-occupants", "occupants", "house"]);
 
   const {
     control,
@@ -93,6 +102,9 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
   const onSubmit = async (formData) => {
     console.log("SUBMITTING", formData);
     alert("Submitting form...");
+    handleSubmit(
+      sendUpdateRequest({ houseOccupantId: houseOccupantId, data: formData })
+    );
   };
 
   const handleFormSubmit = () => {

@@ -18,9 +18,11 @@ const useHouseOccupantReq = ({ isPublic, showAck }) => {
         url: `${url}/${houseOccupantId}`,
         method: "GET",
       }),
-    updateHouseOccupant: async (houseOccupantId) =>
+    updateHouseOccupant: async ({ houseOccupantId, data }) =>
       request({
         url: `${url}/update/${houseOccupantId}`,
+        method: "PATCH",
+        data,
       }),
   };
 

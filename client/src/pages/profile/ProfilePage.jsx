@@ -57,7 +57,6 @@ const ProfilePage = () => {
   };
 
   const updateOccupantHandler = useCallback((occupantId) => {
-    console.log("UPDATING OCCUPANT", occupantId);
     setSelectedOccupantId((pv) => occupantId);
     setOpenUpdateDialog((pv) => true);
   }, []);
@@ -127,7 +126,7 @@ const ProfilePage = () => {
               <Stack spacing={1} pl={2}>
                 <OccupantDetail
                   label="nick name"
-                  value={occupant.occupant?.nickName}
+                  value={occupant.occupant?.name?.nickName}
                 />
                 <OccupantDetail
                   label="gender"
