@@ -10,7 +10,6 @@ const updateHouseOccupant = async (req, res) => {
 
     let updatedOccupant = {};
 
-    console.log(req.body);
     if (occupant) {
       const { _id, ...otherOccupantInfos } = occupant;
       updatedOccupant = await Occupant.findOneAndUpdate(
@@ -25,7 +24,6 @@ const updateHouseOccupant = async (req, res) => {
       occupant: updatedOccupant,
     };
 
-    console.log(houseOccupantInfoUpdate);
     const updatedHouseOccupant = await HouseOccupant.findOneAndUpdate(
       { _id: houseOccupantId },
       { $set: { ...houseOccupantInfoUpdate } },

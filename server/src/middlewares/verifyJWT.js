@@ -12,14 +12,12 @@ const verifyJWT = (req, res, next) => {
     jwt.verify(token, process.env.AUTH_ACCESS_TOKEN_SECRET, (err, decoded) => {
       if (err) {
         if (err.message === "jwt expired") {
-          console.log("Refreshing...");
         }
         return sendResponse.failed(res, "Unauthorize access", err, 403);
       }
 
       req.credentials = decoded.HouseInfo;
-      // TODO: remove if ok na
-      console.log("in VERIFYING JWT, CREDENTIALS:", req.credentials);
+
       next();
     });
   }

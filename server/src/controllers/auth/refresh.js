@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const generateAccessToken = require("../../utils/generateAccessToken");
 
 const refresh = async (req, res) => {
-  console.log("in REFRESH CONTROLLER");
   try {
     const refreshToken = req.cookies?.jwt;
 
@@ -55,7 +54,6 @@ const refresh = async (req, res) => {
       }
     );
   } catch (error) {
-    console.log(error);
     return sendResponse.failed(res, "Error in refreshing credentials", 500);
   }
 };

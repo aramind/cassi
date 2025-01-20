@@ -7,7 +7,6 @@ const ProtectedRoute = (allowedRoles) => {
   const location = useLocation();
   const { auth } = useAuth();
 
-  console.log(auth);
   return !auth?.token ? (
     <Navigate to="/signin" state={{ from: location }} replace />
   ) : (

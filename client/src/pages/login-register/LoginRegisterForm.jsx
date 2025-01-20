@@ -67,7 +67,6 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     if (action === "login") {
       sendLogin({ data });
     } else {

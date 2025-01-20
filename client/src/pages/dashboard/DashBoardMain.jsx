@@ -42,7 +42,6 @@ const DashBoardMain = () => {
   // const refresh = useRefreshToken();
   const { auth } = useAuth();
 
-  console.log("INDB: AUTH", auth);
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack

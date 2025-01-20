@@ -8,7 +8,6 @@ const NavigateLink = ({ to }) => {
     login: "Do have an account?",
   };
 
-  console.log(to);
   return (
     <Stack
       direction="row"
