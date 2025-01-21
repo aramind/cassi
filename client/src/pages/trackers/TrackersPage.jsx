@@ -14,7 +14,6 @@ import Trackers from "./Trackers";
 const TrackersPage = () => {
   const { auth } = useAuth();
   const { getTrackers } = useTrackerReq({ isPublic: false, showAck: false });
-
   const {
     data: trackersData,
     isLoading: isLoadingInGetReq,

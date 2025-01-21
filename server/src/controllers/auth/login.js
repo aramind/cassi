@@ -3,6 +3,7 @@ const _ = require("lodash");
 const generateAccessToken = require("../../utils/generateAccessToken");
 const generateRefreshToken = require("../../utils/generateRefreshToken");
 const sendResponse = require("../../utils/senResponse");
+const HouseOccupant = require("../../models/HouseOccupant");
 
 const login = async (req, res) => {
   try {
@@ -32,6 +33,12 @@ const login = async (req, res) => {
 
     const updatedHouse = await house.save();
 
+    const houseOccupants = await HouseOccupant.find({
+      house: house?._id,
+    })
+      .populate({ path: "occupant", select: "-version -house -_id" })
+      .select("-version");
+
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
@@ -53,7 +60,7 @@ const login = async (req, res) => {
       res,
       `Login successful`,
       {
-        houseInfo: returnedHouseInfo,
+        houseInfo: { ...returnedHouseInfo, houseOccupants: houseOccupants },
         token: accessToken,
       },
       200
