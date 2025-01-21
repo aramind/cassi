@@ -20,6 +20,12 @@ const refresh = async (req, res) => {
       return sendResponse.failed(res, "Unrecognized credentials", null, 404);
     }
 
+    const houseOccupants = await HouseOccupant.find({
+      house: house?._id,
+    })
+      .populate({ path: "occupant", select: "-version -house -_id" })
+      .select("-version");
+
     const returnedHouseInfo = _.pick(house, [
       "_id",
       "name",
@@ -45,7 +51,10 @@ const refresh = async (req, res) => {
             "Refreshing successful",
             {
               ...returnedHouseInfo,
-              houseInfo: returnedHouseInfo,
+              houseInfo: {
+                ...returnedHouseInfo,
+                houseOccupants: houseOccupants,
+              },
               token: generateAccessToken(house),
             },
             200
