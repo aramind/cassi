@@ -117,7 +117,12 @@ const AddEntryDialog = ({ open, setOpen, trackerId }) => {
                   options={options}
                 />
 
-                {/* <ControlledLabelledSelect id="occupant-select" label="completedBy" name="completedBy" /> */}
+                {/* <ControlledLabelledSelect
+                  id="occupant-select"
+                  label="completedBy"
+                  name="completedBy"
+                  options={options}
+                /> */}
                 <ControlledLabelledTextField
                   label='comments (separate by "/")'
                   name="comments"
