@@ -3,6 +3,7 @@ const sendResponse = require("../../utils/senResponse");
 const _ = require("lodash");
 const jwt = require("jsonwebtoken");
 const generateAccessToken = require("../../utils/generateAccessToken");
+const HouseOccupant = require("../../models/HouseOccupant");
 
 const refresh = async (req, res) => {
   try {
