@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import {
@@ -19,8 +19,22 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import addEntrySchema from "../../schemas/addEntrySchema";
 
 const AddEntryDialog = ({ open, setOpen, trackerId }) => {
+  const [options, setOptions] = useState([]);
+  const { auth } = useAuth();
+  console.log("AAUTH", auth);
+
   const { handleOpen: hanldeConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
+
+  useEffect(() => {
+    const options = auth?.houseInfo?.houseOccupants?.map((ho) => {
+      const label = ho.occupant?.name?.nickName || ho.occupant?.name?.firstName;
+      return { label, value: ho?._id };
+    });
+    setOptions((pv) => options);
+  }, [auth?.houseInfo?.houseOccupants]);
+
+  // return { option, value: ho?._id };
 
   // form-related
   const {
@@ -72,6 +86,7 @@ const AddEntryDialog = ({ open, setOpen, trackerId }) => {
       handleFormSubmit
     );
   };
+
   return (
     <>
       <Dialog
@@ -94,7 +109,14 @@ const AddEntryDialog = ({ open, setOpen, trackerId }) => {
                   label="date (mm/dd/yyy)"
                   name="date"
                 />
-                {/* <ControlledLabelledSelect id="occupant-select" label="assigned to" name="originalAssignee" /> */}
+
+                <ControlledLabelledSelect
+                  id="occupant-select"
+                  label="assigned to"
+                  name="originalAssignee"
+                  options={options}
+                />
+
                 {/* <ControlledLabelledSelect id="occupant-select" label="completedBy" name="completedBy" /> */}
                 <ControlledLabelledTextField
                   label='comments (separate by "/")'

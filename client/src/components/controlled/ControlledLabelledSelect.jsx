@@ -17,6 +17,7 @@ const ControlledLabelledSelect = ({
 }) => {
   const { control, errors } = useFormContext();
 
+  console.log(options);
   return (
     <Controller
       control={control}
