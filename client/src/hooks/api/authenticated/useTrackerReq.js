@@ -12,13 +12,18 @@ const useTrackerReq = ({ isPublic, showAck }) => {
         url: `${url}?${queryParams}`,
         method: "GET",
       }),
-    addTracker: async ({ data }) => {
+    addTracker: async ({ data }) =>
       request({
         url: `${url}/add`,
         method: "POST",
         data,
-      });
-    },
+      }),
+    updateTracker: async (trackerId, data) =>
+      request({
+        url: `${url}/${trackerId}`,
+        method: "PATCH",
+        data,
+      }),
   };
 
   return req;
