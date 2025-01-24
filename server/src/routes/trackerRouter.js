@@ -9,5 +9,6 @@ router.use(verifyHouse);
 // console.log("IN TRACKER ROUTER");
 router.post("/add", trackerController.addTracker);
 router.get("", trackerController.getTrackers);
+router.patch("/:trackerId", trackerController.updateTracker);
 
 module.exports = router;
