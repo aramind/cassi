@@ -3,7 +3,6 @@ const House = require("./House");
 const HouseOccupant = require("./HouseOccupant");
 const CONSTANTS = require("../configs/constants");
 const Schema = mongoose.Schema;
-const { nanoid } = require("nanoid");
 
 const TrackerSchema = new Schema({
   title: { type: String, required: true },
@@ -11,7 +10,10 @@ const TrackerSchema = new Schema({
   house: { type: Schema.Types.ObjectId, ref: House, required: true },
   entries: [
     {
-      entryId: { type: String, required: true, default: () => nanoid(10) },
+      entryId: {
+        type: Schema.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
+      },
       date: { type: Date, required: true, default: Date.now },
       originalAssignee: {
         houseOccupant: { type: Schema.Types.ObjectId, ref: HouseOccupant },
