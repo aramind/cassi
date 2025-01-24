@@ -17,13 +17,13 @@ import ControlledLabelledTextField from "../../components/controlled/ControlledL
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import { yupResolver } from "@hookform/resolvers/yup";
 import addEntrySchema from "../../schemas/addEntrySchema";
+import { DevTool } from "@hookform/devtools";
 
 const AddEntryDialog = ({ open, setOpen, trackerId }) => {
   const [options, setOptions] = useState([]);
   const { auth } = useAuth();
-  console.log("AAUTH", auth);
 
-  const { handleOpen: hanldeConfirm, renderConfirmActionDialog } =
+  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
   useEffect(() => {
@@ -34,58 +34,54 @@ const AddEntryDialog = ({ open, setOpen, trackerId }) => {
     setOptions((pv) => options);
   }, [auth?.houseInfo?.houseOccupants]);
 
-  // return { option, value: ho?._id };
-
   // form-related
   const {
     control,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onTouched", resolver: yupResolver(addEntrySchema) });
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(addEntrySchema),
+  });
 
   const formMethods = {
     control,
     handleSubmit,
     errors,
   };
-  // onclick handlers
 
-  const handleClear = () => {
-    reset();
+  // handlers
+  const handleClose = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpen(false);
   };
 
   //form handlers
   const onSubmit = async (formData) => {
     alert("submitting form...");
-    // handleSubmit(
-    //   sendAddNewHouseOccupantReq({ occupant: { occupant: formData } })
-    // );
-  };
-  const handleFormSubmit = () => {
-    handleSubmit(onSubmit)();
-  };
-  const handleClose = (e) => {
-    e.stopPropagation();
-    setOpen(false);
+    console.log("DATA", formData);
   };
 
   //   confirm action dialog handlers
   const handleConfirmClear = () => {
-    handleConfirmClear(
+    handleConfirm(
       "Confirm Clear",
       <Typography>Are you sure you want to reset all fields?</Typography>,
-      handleClear
+      () => reset()
     );
   };
 
   const handleConfirmSubmit = () => {
-    handleConfirmClear(
+    handleConfirm(
       "Confirm Submit",
       <Typography>Are you sure you want to add entry?</Typography>,
-      handleFormSubmit
+      handleSubmit(onSubmit)
     );
   };
+
+  // if (isLoading) return <LoadingPage />;
 
   return (
     <>
@@ -116,13 +112,6 @@ const AddEntryDialog = ({ open, setOpen, trackerId }) => {
                   name="originalAssignee"
                   options={options}
                 />
-
-                {/* <ControlledLabelledSelect
-                  id="occupant-select"
-                  label="completedBy"
-                  name="completedBy"
-                  options={options}
-                /> */}
                 <ControlledLabelledTextField
                   label='comments (separate by "/")'
                   name="comments"
@@ -142,6 +131,7 @@ const AddEntryDialog = ({ open, setOpen, trackerId }) => {
         </DialogActions>
       </Dialog>
       {renderConfirmActionDialog()}
+      <DevTool control={control} />
     </>
   );
 };
