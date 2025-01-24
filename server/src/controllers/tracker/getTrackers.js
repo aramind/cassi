@@ -4,9 +4,12 @@ const sendResponse = require("../../utils/senResponse");
 const getTrackers = async (req, res) => {
   try {
     const { fields, ...queryParams } = req.query;
-    const requestedFields = fields?.length > 0 ? fields.split(" , ") : [];
+    const requestedFields = fields ? fields.split(",").join(" ").trim() : null;
 
-    const trackers = await Tracker.find(queryParams, requestedFields.join(" "));
+    const trackers = await Tracker.find(
+      queryParams,
+      requestedFields || undefined
+    );
 
     if (!trackers) {
       return sendResponse.failed(res, "Tracker(s) not found", null, 404);
