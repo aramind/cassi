@@ -18,10 +18,16 @@ import ControlledLabelledSelect from "../../components/controlled/ControlledLabe
 import { yupResolver } from "@hookform/resolvers/yup";
 import addEntrySchema from "../../schemas/addEntrySchema";
 import { DevTool } from "@hookform/devtools";
+import useTrackerReq from "../../hooks/api/authenticated/useTrackerReq";
+import useApiSend from "../../hooks/api/useApiSend";
 
 const AddEntryDialog = ({ open, setOpen, trackerId }) => {
   const [options, setOptions] = useState([]);
   const { auth } = useAuth();
+  const { addTracker } = useTrackerReq({ isPublic: false, showAck: true });
+
+  const { mutate: sendAddTrackerReq, isLoading: isLoadingAddTracker } =
+    useApiSend(addTracker, ["trackers"]);
 
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -61,7 +67,8 @@ const AddEntryDialog = ({ open, setOpen, trackerId }) => {
   //form handlers
   const onSubmit = async (formData) => {
     alert("submitting form...");
-    console.log("DATA", formData);
+    console.log("DATA", { data: { trackerId, ...formData } });
+    sendAddTrackerReq({ data: { trackerId, ...formData } });
   };
 
   //   confirm action dialog handlers
