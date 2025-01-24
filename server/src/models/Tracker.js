@@ -12,7 +12,7 @@ const TrackerSchema = new Schema({
     {
       entryId: {
         type: Schema.Types.ObjectId,
-        default: () => new mongoose.Types.ObjectId(),
+        required: true,
       },
       date: { type: Date, required: true, default: Date.now },
       originalAssignee: {
