@@ -22,7 +22,7 @@ import useTrackerReq from "../../hooks/api/authenticated/useTrackerReq";
 import useApiSend from "../../hooks/api/useApiSend";
 import { convertToISOFormat } from "../../utils/date";
 
-const AddEntryDialog = ({ open, setOpen, trackerId }) => {
+const AddEntryDialog = ({ open, setOpen, tracker }) => {
   const [options, setOptions] = useState([]);
   const { auth } = useAuth();
   const { updateTracker } = useTrackerReq({ isPublic: false, showAck: true });
@@ -68,10 +68,11 @@ const AddEntryDialog = ({ open, setOpen, trackerId }) => {
   //form handlers
   const onSubmit = async (formData) => {
     const formattedDate = convertToISOFormat(formData?.date);
-    console.log("ONSUBMIT", { ...formData, date: formattedDate });
+    const newEntry = { ...formData, date: formattedDate };
+    const updatedEntries = [newEntry, ...(tracker?.entries || [])];
     sendUpdateTracker({
-      trackerId: trackerId,
-      data: { ...formData, date: formattedDate },
+      trackerId: tracker?._id,
+      data: { entries: updatedEntries },
     });
   };
 

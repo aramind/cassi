@@ -4,7 +4,7 @@ const sendResponse = require("../../utils/senResponse");
 const updateTracker = async (req, res) => {
   try {
     const { trackerId } = req.params;
-    const { data } = req.body;
+    const data = req.body;
 
     console.log("DATA in updtade tracker", req.body);
     const updatedTracker = await Tracker.findOneAndUpdate(
