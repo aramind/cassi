@@ -56,7 +56,6 @@ const TrackersTables = ({ tracker }) => {
 
   // onclick handlers
 
-  console.log(tracker);
   const addEntryHandler = () => {
     setOpenAddEntryDialog(true);
   };
@@ -91,8 +90,8 @@ const TrackersTables = ({ tracker }) => {
               <TableBody>
                 {rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
-                    <TableRow>
+                  .map((row, index) => (
+                    <TableRow key={index}>
                       {columns?.map((col) => (
                         <TableCell align="center">
                           {col.renderCell
@@ -126,7 +125,7 @@ const TrackersTables = ({ tracker }) => {
       <AddEntryDialog
         open={openAddEntryDialog}
         setOpen={setOpenAddEntryDialog}
-        trackerId={tracker?._id}
+        tracker={tracker}
       />
     </Stack>
   );
