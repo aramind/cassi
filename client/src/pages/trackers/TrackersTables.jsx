@@ -92,8 +92,8 @@ const TrackersTables = ({ tracker }) => {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => (
                     <TableRow key={index}>
-                      {columns?.map((col) => (
-                        <TableCell align="center">
+                      {columns?.map((col, index) => (
+                        <TableCell align="center" key={index}>
                           {col.renderCell
                             ? col.renderCell({ row })
                             : row[col.field]}
