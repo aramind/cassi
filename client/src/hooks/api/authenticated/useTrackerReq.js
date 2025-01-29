@@ -18,7 +18,7 @@ const useTrackerReq = ({ isPublic, showAck }) => {
         method: "POST",
         data,
       }),
-    updateTracker: async (trackerId, data) =>
+    updateTracker: async ({ trackerId, data }) =>
       request({
         url: `${url}/${trackerId}`,
         method: "PATCH",

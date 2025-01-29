@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import {
@@ -20,14 +20,15 @@ import addEntrySchema from "../../schemas/addEntrySchema";
 import { DevTool } from "@hookform/devtools";
 import useTrackerReq from "../../hooks/api/authenticated/useTrackerReq";
 import useApiSend from "../../hooks/api/useApiSend";
+import { convertToISOFormat } from "../../utils/date";
 
 const AddEntryDialog = ({ open, setOpen, trackerId }) => {
   const [options, setOptions] = useState([]);
   const { auth } = useAuth();
-  const { addTracker } = useTrackerReq({ isPublic: false, showAck: true });
+  const { updateTracker } = useTrackerReq({ isPublic: false, showAck: true });
 
-  const { mutate: sendAddTrackerReq, isLoading: isLoadingAddTracker } =
-    useApiSend(addTracker, ["trackers"]);
+  const { mutate: sendUpdateTracker, isLoading: isLoadingInUpdateTracker } =
+    useApiSend(updateTracker, ["trackers"]);
 
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -66,9 +67,12 @@ const AddEntryDialog = ({ open, setOpen, trackerId }) => {
 
   //form handlers
   const onSubmit = async (formData) => {
-    alert("submitting form...");
-    console.log("DATA", { data: { trackerId, ...formData } });
-    sendAddTrackerReq({ data: { trackerId, ...formData } });
+    const formattedDate = convertToISOFormat(formData?.date);
+    console.log("ONSUBMIT", { ...formData, date: formattedDate });
+    sendUpdateTracker({
+      trackerId: trackerId,
+      data: { ...formData, date: formattedDate },
+    });
   };
 
   //   confirm action dialog handlers

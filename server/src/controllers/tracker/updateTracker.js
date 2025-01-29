@@ -6,6 +6,7 @@ const updateTracker = async (req, res) => {
     const { trackerId } = req.params;
     const { data } = req.body;
 
+    console.log("DATA in updtade tracker", req.body);
     const updatedTracker = await Tracker.findOneAndUpdate(
       { _id: trackerId },
       { $set: data },

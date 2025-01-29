@@ -56,6 +56,7 @@ const TrackersTables = ({ tracker }) => {
 
   // onclick handlers
 
+  console.log(tracker);
   const addEntryHandler = () => {
     setOpenAddEntryDialog(true);
   };
@@ -125,6 +126,7 @@ const TrackersTables = ({ tracker }) => {
       <AddEntryDialog
         open={openAddEntryDialog}
         setOpen={setOpenAddEntryDialog}
+        trackerId={tracker?._id}
       />
     </Stack>
   );
