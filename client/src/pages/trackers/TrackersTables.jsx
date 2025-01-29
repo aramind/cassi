@@ -53,7 +53,6 @@ const TrackersTables = ({ tracker }) => {
 
     setRows(processedRows);
   }, [tracker?.entries]);
-
   // onclick handlers
 
   const addEntryHandler = () => {

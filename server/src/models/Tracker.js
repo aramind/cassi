@@ -16,11 +16,15 @@ const TrackerSchema = new Schema({
       },
       date: { type: Date, required: true, default: Date.now },
       originalAssignee: {
-        houseOccupant: { type: Schema.Types.ObjectId, ref: HouseOccupant },
+        type: Schema.Types.ObjectId,
+        ref: HouseOccupant,
       },
+
       completedBy: {
-        houseOccupant: { type: Schema.Types.ObjectId, ref: HouseOccupant },
+        type: Schema.Types.ObjectId,
+        ref: HouseOccupant,
       },
+
       comments: [{ type: String }],
     },
   ],
