@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import MyButton from "../../components/buttons/MyButton";
 import AddEntryDialog from "./AddEntryDialog";
+import { formatDate } from "../../utils/formatDate";
 
 const columns = [
   { field: "date", headerName: "date" },
@@ -47,14 +48,14 @@ const TrackersTables = ({ tracker }) => {
 
   useEffect(() => {
     const processedRows = tracker?.entries?.map((entry, index) => ({
-      id: index,
       ...entry,
+      id: index,
+      date: formatDate(entry?.date),
     }));
 
     setRows(processedRows);
   }, [tracker?.entries]);
   // onclick handlers
-
   const addEntryHandler = () => {
     setOpenAddEntryDialog(true);
   };
