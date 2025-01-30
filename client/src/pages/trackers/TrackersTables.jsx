@@ -14,28 +14,47 @@ import {
 import MyButton from "../../components/buttons/MyButton";
 import AddEntryDialog from "./AddEntryDialog";
 import { formatDate } from "../../utils/formatDate";
-
-const columns = [
-  { field: "date", headerName: "date" },
-  {
-    field: "originalAssignee",
-    headerName: "assigned to",
-    renderCell: (params) => <RenderSelectUsers />,
-  },
-  {
-    field: "completedBy",
-    headerName: "completed by",
-    renderCell: (params) => <RenderSelectUsers />,
-  },
-  { field: "comments", headerName: "comments" },
-];
+import useAuth from "../../hooks/useAuth";
 
 const TrackersTables = ({ tracker }) => {
   const [rows, setRows] = useState(tracker?.entries);
   const [openAddEntryDialog, setOpenAddEntryDialog] = useState(false);
+  const { auth } = useAuth();
+
+  const occupantOptions = auth?.houseInfo?.houseOccupants?.map((ho) => {
+    return {
+      id: ho._id,
+      name: ho?.occupant?.name?.nickName || ho?.occupant?.name.firstName,
+    };
+  });
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const columns = [
+    { field: "date", headerName: "date" },
+    {
+      field: "originalAssignee",
+      headerName: "assigned to",
+      renderCell: (params) => (
+        <RenderSelectUsers
+          occupantOptions={occupantOptions}
+          selectedOccupant={params?.row?.originalAssignee}
+        />
+      ),
+    },
+    {
+      field: "completedBy",
+      headerName: "completed by",
+      renderCell: (params) => (
+        <RenderSelectUsers
+          occupantOptions={occupantOptions}
+          selectedOccupant={params?.row?.originalAssignee}
+        />
+      ),
+    },
+    { field: "comments", headerName: "comments" },
+  ];
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -56,6 +75,7 @@ const TrackersTables = ({ tracker }) => {
     setRows(processedRows);
   }, [tracker?.entries]);
   // onclick handlers
+
   const addEntryHandler = () => {
     setOpenAddEntryDialog(true);
   };
