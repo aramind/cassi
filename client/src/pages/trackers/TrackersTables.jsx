@@ -49,7 +49,7 @@ const TrackersTables = ({ tracker }) => {
       renderCell: (params) => (
         <RenderSelectUsers
           occupantOptions={occupantOptions}
-          selectedOccupant={params?.row?.originalAssignee}
+          selectedOccupant={params?.row?.completedBy || ""}
         />
       ),
     },

@@ -20,6 +20,7 @@ const RenderSelectUsers = ({ occupantOptions, selectedOccupant }) => {
       value={selected}
       onChange={handleSelectChange}
     >
+      <option value="">-- Unassigned --</option>
       {occupantOptions.map((occupant) => (
         <option
           key={occupant.id}
