@@ -18,7 +18,11 @@ const TrackersPage = () => {
     data: trackersData,
     isLoading: isLoadingInGetReq,
     isError: isErrorInGetReq,
-  } = useApiGet("trackers", () => getTrackers(`house=${auth?.houseInfo?._id}`));
+  } = useApiGet(
+    ["trackers", auth?.houseInfo?._id],
+    () => getTrackers(`house=${auth?.houseInfo?._id}`),
+    { enabled: !!auth?.houseInfo?._id }
+  );
 
   const addTracker = () => {
     alert("adding a tracker...");
@@ -32,6 +36,7 @@ const TrackersPage = () => {
     return <ErrorPage />;
   }
 
+  console.log(auth);
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack mt={2} alignItems="center" width={1}>

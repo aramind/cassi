@@ -9,17 +9,16 @@ const useRefreshToken = () => {
   const refresh = async () => {
     const response = await axios.get(url, { withCredentials: true });
 
+    console.log(response);
     const userInfo = response?.data?.data;
 
     const newAccessToken = response?.data?.data?.token;
-
-    setAuth((prev) => {
-      return { ...prev, ...userInfo, token: newAccessToken };
-    });
+    console.log(userInfo);
+    setAuth({ houseInfo: { ...userInfo.houseInfo }, token: newAccessToken });
 
     return newAccessToken;
   };
-
+  console.log(auth);
   return refresh;
 };
 
