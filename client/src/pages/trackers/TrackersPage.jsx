@@ -36,7 +36,6 @@ const TrackersPage = () => {
     return <ErrorPage />;
   }
 
-  console.log(auth);
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack mt={2} alignItems="center" width={1}>
