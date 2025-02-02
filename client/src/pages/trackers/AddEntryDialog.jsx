@@ -91,8 +91,6 @@ const AddEntryDialog = ({ open, setOpen, tracker }) => {
     );
   };
 
-  // if (isLoading) return <LoadingPage />;
-
   return (
     <>
       <Dialog
