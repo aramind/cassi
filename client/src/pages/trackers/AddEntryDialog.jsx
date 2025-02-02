@@ -21,14 +21,12 @@ import { DevTool } from "@hookform/devtools";
 import useTrackerReq from "../../hooks/api/authenticated/useTrackerReq";
 import useApiSend from "../../hooks/api/useApiSend";
 import { convertToISOFormat } from "../../utils/date";
+import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
 
 const AddEntryDialog = ({ open, setOpen, tracker }) => {
   const [options, setOptions] = useState([]);
   const { auth } = useAuth();
-  const { updateTracker } = useTrackerReq({ isPublic: false, showAck: true });
-
-  const { mutate: sendUpdateTracker, isLoading: isLoadingInUpdateTracker } =
-    useApiSend(updateTracker, ["trackers"]);
+  const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
 
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();

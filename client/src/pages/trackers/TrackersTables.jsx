@@ -80,10 +80,6 @@ const TrackersTables = ({ tracker }) => {
     setOpenAddEntryDialog(true);
   };
 
-  const addEntry = useCallback(() => {
-    alert("Adding entry");
-  }, []);
-
   return (
     <Stack width={1} alignItems="center">
       {tracker?.entries?.length < 1 ? (
