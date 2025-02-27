@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import RenderSelectUsers from "./RenderSelectUsers";
+import React, { useEffect, useMemo, useState } from "react";
+
 import {
-  IconButton,
   Stack,
   Table,
   TableBody,
@@ -16,8 +15,6 @@ import MyButton from "../../components/buttons/MyButton";
 import AddEntryDialog from "./AddEntryDialog";
 import { formatDate } from "../../utils/formatDate";
 import useAuth from "../../hooks/useAuth";
-import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import ActionsGroup from "./ActionsGroup";
 
 const TrackersTables = ({ tracker }) => {
