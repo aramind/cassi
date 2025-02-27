@@ -6,6 +6,8 @@ const Trackers = ({ trackers }) => {
   if (trackers?.length < 1) {
     return <Typography>No trackers created yet</Typography>;
   }
+
+  console.log(trackers);
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <Box width={1} m={1} p={1}>

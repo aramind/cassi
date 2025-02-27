@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import RenderSelectUsers from "./RenderSelectUsers";
 import {
+  IconButton,
   Stack,
   Table,
   TableBody,
@@ -15,11 +16,15 @@ import MyButton from "../../components/buttons/MyButton";
 import AddEntryDialog from "./AddEntryDialog";
 import { formatDate } from "../../utils/formatDate";
 import useAuth from "../../hooks/useAuth";
+import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import ActionsGroup from "./ActionsGroup";
 
 const TrackersTables = ({ tracker }) => {
   const [rows, setRows] = useState(tracker?.entries);
   const [openAddEntryDialog, setOpenAddEntryDialog] = useState(false);
   const { auth } = useAuth();
+  const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
 
   const occupantOptions = auth?.houseInfo?.houseOccupants?.map((ho) => {
     return {
@@ -32,27 +37,33 @@ const TrackersTables = ({ tracker }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const columns = [
+    {
+      headerName: "actions",
+      renderCell: (params) => <ActionsGroup row={params.row} />,
+    },
     { field: "date", headerName: "date" },
-    {
-      field: "originalAssignee",
-      headerName: "assigned to",
-      renderCell: (params) => (
-        <RenderSelectUsers
-          occupantOptions={occupantOptions}
-          selectedOccupant={params?.row?.originalAssignee}
-        />
-      ),
-    },
-    {
-      field: "completedBy",
-      headerName: "completed by",
-      renderCell: (params) => (
-        <RenderSelectUsers
-          occupantOptions={occupantOptions}
-          selectedOccupant={params?.row?.completedBy || ""}
-        />
-      ),
-    },
+    // {
+    //   field: "originalAssignee",
+    //   headerName: "assigned to",
+    //   renderCell: (params) => (
+    //     <RenderSelectUsers
+    //       occupantOptions={occupantOptions}
+    //       selectedOccupant={params?.row?.originalAssignee}
+    //     />
+    //   ),
+    // },
+    // {
+    //   field: "completedBy",
+    //   headerName: "completed by",
+    //   renderCell: (params) => (
+    //     <RenderSelectUsers
+    //       occupantOptions={occupantOptions}
+    //       selectedOccupant={params?.row?.completedBy || ""}
+    //     />
+    //   ),
+    // },
+    { field: "originalAssignee", headerName: "assigned to" },
+    { field: "completedBy", headerName: "completed by" },
     { field: "comments", headerName: "comments" },
   ];
 
@@ -70,10 +81,13 @@ const TrackersTables = ({ tracker }) => {
       ...entry,
       id: index,
       date: formatDate(entry?.date),
+      originalAssignee: occupantOptions.find(
+        (option) => option.id === entry?.originalAssignee
+      ).name,
     }));
 
     setRows(processedRows);
-  }, [tracker?.entries]);
+  }, [occupantOptions, tracker?.entries]);
   // onclick handlers
 
   const addEntryHandler = () => {
