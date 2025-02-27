@@ -5,6 +5,7 @@ import { IconButton } from "@mui/material";
 
 const ActionsGroup = React.memo(({ row }) => {
   const handleEdit = useCallback(() => {
+    console.log(row);
     alert("editing...");
   });
 

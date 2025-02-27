@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import RenderSelectUsers from "./RenderSelectUsers";
 import {
   IconButton,
@@ -24,14 +24,17 @@ const TrackersTables = ({ tracker }) => {
   const [rows, setRows] = useState(tracker?.entries);
   const [openAddEntryDialog, setOpenAddEntryDialog] = useState(false);
   const { auth } = useAuth();
-  const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
 
-  const occupantOptions = auth?.houseInfo?.houseOccupants?.map((ho) => {
-    return {
-      id: ho._id,
-      name: ho?.occupant?.name?.nickName || ho?.occupant?.name.firstName,
-    };
-  });
+  const occupantOptions = useMemo(
+    () =>
+      auth?.houseInfo?.houseOccupants?.map((ho) => {
+        return {
+          id: ho._id,
+          name: ho?.occupant?.name?.nickName || ho?.occupant?.name.firstName,
+        };
+      }),
+    [auth?.houseInfo?.houseOccupants]
+  );
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -45,8 +48,8 @@ const TrackersTables = ({ tracker }) => {
     // {
     //   field: "originalAssignee",
     //   headerName: "assigned to",
-    //   renderCell: (params) => (
     //     <RenderSelectUsers
+    //   renderCell: (params) => (
     //       occupantOptions={occupantOptions}
     //       selectedOccupant={params?.row?.originalAssignee}
     //     />
