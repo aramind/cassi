@@ -3,15 +3,16 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { IconButton } from "@mui/material";
 
-const ActionsGroup = React.memo(({ row }) => {
+const ActionsGroup = ({ row }) => {
   const handleEdit = useCallback(() => {
     console.log(row);
     alert("editing...");
-  });
+  }, [row]);
 
   const handleDelete = useCallback(() => {
+    console.log(row);
     alert("deleting...");
-  });
+  }, [row]);
   return (
     <>
       <IconButton aria-label="edit" onClick={handleEdit}>
@@ -22,6 +23,6 @@ const ActionsGroup = React.memo(({ row }) => {
       </IconButton>
     </>
   );
-});
+};
 
 export default ActionsGroup;
