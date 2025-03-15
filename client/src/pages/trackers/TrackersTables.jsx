@@ -20,6 +20,7 @@ import ActionsGroup from "./ActionsGroup";
 const TrackersTables = ({ tracker }) => {
   const [rows, setRows] = useState(tracker?.entries);
   const [openAddEntryDialog, setOpenAddEntryDialog] = useState(false);
+
   const { auth } = useAuth();
 
   const occupantOptions = useMemo(
@@ -155,7 +156,7 @@ const TrackersTables = ({ tracker }) => {
       <AddEntryDialog
         open={openAddEntryDialog}
         setOpen={setOpenAddEntryDialog}
-        tracker={tracker}
+        data={tracker}
       />
     </Stack>
   );

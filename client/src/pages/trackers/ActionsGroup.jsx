@@ -1,18 +1,18 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { IconButton } from "@mui/material";
+import UpdateEntryDialog from "./UpdateEntryDialog";
 
 const ActionsGroup = ({ row }) => {
+  const [openUpdateEntryDialog, setOpenUpdateEntryDialog] = useState(false);
   const handleEdit = useCallback(() => {
-    console.log(row);
-    alert("editing...");
-  }, [row]);
+    setOpenUpdateEntryDialog(true);
+  }, []);
 
   const handleDelete = useCallback(() => {
-    console.log(row);
     alert("deleting...");
-  }, [row]);
+  }, []);
   return (
     <>
       <IconButton aria-label="edit" onClick={handleEdit}>
@@ -21,6 +21,11 @@ const ActionsGroup = ({ row }) => {
       <IconButton aria-label="delete" onClick={handleDelete}>
         <DeleteRoundedIcon />
       </IconButton>
+      <UpdateEntryDialog
+        open={openUpdateEntryDialog}
+        setOpen={setOpenUpdateEntryDialog}
+        data={row}
+      />
     </>
   );
 };
