@@ -4,6 +4,7 @@ import TrackersTables from "./TrackersTables";
 
 // const tracker = mockDB?.trackers?.[0];
 const Tracker = ({ tracker }) => {
+  // console.log(tracker);
   return (
     <Stack width={1}>
       <Typography></Typography>

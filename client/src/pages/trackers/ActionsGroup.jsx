@@ -10,6 +10,7 @@ const ActionsGroup = ({ row }) => {
     setOpenUpdateEntryDialog(true);
   }, []);
 
+  console.log(row?.date);
   const handleDelete = useCallback(() => {
     alert("deleting...");
   }, []);

@@ -47,7 +47,6 @@ const UpdateEntryDialog = ({ open, setOpen, data }) => {
     );
   };
 
-  console.log(data);
   return (
     <>
       <Dialog
@@ -61,6 +60,7 @@ const UpdateEntryDialog = ({ open, setOpen, data }) => {
           sx={{ textTransform: "capitalize" }}
         >
           Update Tracker
+          {data?.date}
         </DialogTitle>
         <DialogContent>
           <FormWrapper formMethods={formMethods}>

@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import {
+  Box,
+  Divider,
   Stack,
   Table,
   TableBody,
@@ -21,6 +23,7 @@ const TrackersTables = ({ tracker }) => {
   const [rows, setRows] = useState(tracker?.entries);
   const [openAddEntryDialog, setOpenAddEntryDialog] = useState(false);
 
+  console.log(rows);
   const { auth } = useAuth();
 
   const occupantOptions = useMemo(
@@ -103,48 +106,84 @@ const TrackersTables = ({ tracker }) => {
         </Typography>
       ) : (
         <>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader>
-              <TableHead>
-                <TableRow>
-                  {columns?.map((column, index) => (
-                    <TableCell
-                      key={index}
-                      align="center"
-                      sx={{ fontWeight: "bold" }}
-                    >
-                      {column.headerName?.toUpperCase()}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => (
-                    <TableRow key={index}>
-                      {columns?.map((col, index) => (
-                        <TableCell align="center" key={index}>
-                          {col.renderCell
-                            ? col.renderCell({ row })
-                            : row[col.field]}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          {rows?.map((row) => (
+            <Stack
+              key={row?._id}
+              // className="outlined2"
+              direction="column"
+              width={1}
+            >
+              <Divider>{row?.date}</Divider>
+              <Stack direction="row">
+                <Stack flex={1}>
+                  <ActionsGroup row={row} />
+                </Stack>
+                <Stack flex={4} p={1}>
+                  {/* <Stack direction="row" spacing={1}>
+                  <Typography flex="1">DATE:</Typography>
+                  <Typography flex="1">{row?.date}</Typography>
+                </Stack> */}
+                  <Stack direction="row" spacing={1}>
+                    <Typography flex="1">ASSIGNED TO:</Typography>
+                    <Typography flex="1">{row?.originalAssignee}</Typography>
+                  </Stack>
+                  <Stack direction="row" spacing={1}>
+                    <Typography flex="1">DONE BY:</Typography>
+                    <Typography flex="1">{row?.completedBy}</Typography>
+                  </Stack>
+                  <Stack direction="row" spacing={1}>
+                    <Typography flex="1">COMMENTS:</Typography>
+                    <Typography flex="1">{row?.comments}</Typography>
+                  </Stack>
+                </Stack>
+              </Stack>
+            </Stack>
+          ))}
         </>
+
+        // <>
+        //   <TableContainer sx={{ maxHeight: 440 }}>
+        //     <Table stickyHeader>
+        //       <TableHead>
+        //         <TableRow>
+        //           {columns?.map((column, index) => (
+        //             <TableCell
+        //               key={index}
+        //               align="center"
+        //               sx={{ fontWeight: "bold" }}
+        //             >
+        //               {column.headerName?.toUpperCase()}
+        //             </TableCell>
+        //           ))}
+        //         </TableRow>
+        //       </TableHead>
+        //       <TableBody>
+        //         {rows
+        //           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        //           .map((row, index) => (
+        //             <TableRow key={index}>
+        //               {columns?.map((col, index) => (
+        //                 <TableCell align="center" key={index}>
+        //                   {col.renderCell
+        //                     ? col.renderCell({ row })
+        //                     : row[col.field]}
+        //                 </TableCell>
+        //               ))}
+        //             </TableRow>
+        //           ))}
+        //       </TableBody>
+        //     </Table>
+        //   </TableContainer>
+        //   <TablePagination
+        //     rowsPerPageOptions={[10, 25, 100]}
+        //     component="div"
+        //     count={rows.length}
+        //     rowsPerPage={rowsPerPage}
+        //     page={page}
+        //     onPageChange={handleChangePage}
+        //     onRowsPerPageChange={handleChangeRowsPerPage}
+        //   />
+        // </>
       )}
       <br />
       <MyButton
