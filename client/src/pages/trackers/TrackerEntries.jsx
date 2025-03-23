@@ -1,19 +1,37 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { formatDate } from "../../utils/formatDate";
 import useAuth from "../../hooks/useAuth";
-import { Divider, Stack, Typography } from "@mui/material";
+import { Chip, Divider, Stack, Typography } from "@mui/material";
 import ActionsGroup from "./ActionsGroup";
 import MyButton from "../../components/buttons/MyButton";
 import AddEntryDialog from "./AddEntryDialog";
+import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 
-const Entry = ({ label, value }) => {
+const Entry = ({ label, value, hasIcon }) => {
   return (
     <Stack direction="row" spacing={1}>
       <Typography flex={1}>{label.toUpperCase()}</Typography>
-      <Typography flex={1}>{value.toUpperCase()}</Typography>
+      {value && (
+        <Stack justifyContent="center" flex={1} width={1}>
+          {hasIcon ? (
+            <Chip
+              icon={<FaceTwoToneIcon />}
+              label={value.toUpperCase()}
+              sx={(theme) => ({
+                backgroundColor: theme.palette?.accent?.light,
+              })}
+            />
+          ) : (
+            <Typography textAlign="center" flex={1}>
+              {value}
+            </Typography>
+          )}
+        </Stack>
+      )}
     </Stack>
   );
 };
+
 const TrackerEntries = ({ tracker }) => {
   const [entries, setEntries] = useState(tracker?.entries);
   const [openAddEntryDialog, setOpenAddEntryDialog] = useState(false);
@@ -45,6 +63,7 @@ const TrackerEntries = ({ tracker }) => {
   const addEntryHandler = () => {
     setOpenAddEntryDialog(true);
   };
+
   return (
     <Stack width={1} alignItems="center">
       {tracker?.entries?.length < 1 ? (
@@ -61,7 +80,16 @@ const TrackerEntries = ({ tracker }) => {
                   <ActionsGroup row={entry} />
                 </Stack>
                 <Stack flex={4} p={1}>
-                  <Entry label="assigned to:" value={entry?.originalAssignee} />
+                  <Entry
+                    label="assigned to :"
+                    value={entry?.originalAssignee}
+                    hasIcon
+                  />
+                  <Entry label="done by :" value={entry?.completedBy} hasIcon />
+                  <Entry
+                    label="comments :"
+                    value={entry?.comments?.join("; ")}
+                  />
                 </Stack>
               </Stack>
             </Stack>
