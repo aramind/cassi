@@ -4,8 +4,8 @@ import useAuth from "../../hooks/useAuth";
 import { Chip, Divider, Stack, Typography } from "@mui/material";
 import ActionsGroup from "./ActionsGroup";
 import MyButton from "../../components/buttons/MyButton";
-import AddEntryDialog from "./AddEntryDialog";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
+import EntryDialog from "./EntryDialog";
 
 const Entry = ({ label, value, hasIcon }) => {
   return (
@@ -34,7 +34,7 @@ const Entry = ({ label, value, hasIcon }) => {
 
 const TrackerEntries = ({ tracker }) => {
   const [entries, setEntries] = useState(tracker?.entries);
-  const [openAddEntryDialog, setOpenAddEntryDialog] = useState(false);
+  const [openEntryDialog, setOpenEntryDialog] = useState(false);
   const { auth } = useAuth();
   const occupantOptions = useMemo(
     () =>
@@ -60,7 +60,7 @@ const TrackerEntries = ({ tracker }) => {
   }, [occupantOptions, tracker?.entries]);
 
   const addEntryHandler = () => {
-    setOpenAddEntryDialog(true);
+    setOpenEntryDialog(true);
   };
 
   return (
@@ -102,9 +102,10 @@ const TrackerEntries = ({ tracker }) => {
         variant="contained"
         onClickHandler={addEntryHandler}
       />
-      <AddEntryDialog
-        open={openAddEntryDialog}
-        setOpen={setOpenAddEntryDialog}
+
+      <EntryDialog
+        open={openEntryDialog}
+        setOpen={setOpenEntryDialog}
         data={tracker}
       />
     </Stack>
