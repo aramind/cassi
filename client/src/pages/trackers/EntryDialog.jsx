@@ -130,6 +130,12 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
                   name="originalAssignee"
                   options={options}
                 />
+                <ControlledLabelledSelect
+                  id="occupant-select-completedBy"
+                  label="completed by"
+                  name=" completedBy"
+                  options={options}
+                />
                 <ControlledLabelledTextField
                   label='comments (separate by "/")'
                   name="comments"

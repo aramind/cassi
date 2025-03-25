@@ -3,11 +3,12 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { IconButton } from "@mui/material";
 import UpdateEntryDialog from "./UpdateEntryDialog";
+import EntryDialog from "./EntryDialog";
 
 const ActionsGroup = ({ data }) => {
-  const [openUpdateEntryDialog, setOpenUpdateEntryDialog] = useState(false);
+  const [openEntryDialog, setOpenEntryDialog] = useState(false);
   const handleEdit = useCallback(() => {
-    setOpenUpdateEntryDialog(true);
+    setOpenEntryDialog(true);
   }, []);
 
   console.log(data);
@@ -22,10 +23,10 @@ const ActionsGroup = ({ data }) => {
       <IconButton aria-label="delete" onClick={handleDelete}>
         <DeleteRoundedIcon />
       </IconButton>
-      <UpdateEntryDialog
-        open={openUpdateEntryDialog}
-        setOpen={setOpenUpdateEntryDialog}
-        data={data}
+      <EntryDialog
+        open={openEntryDialog}
+        setOpen={setOpenEntryDialog}
+        action="update"
       />
     </>
   );

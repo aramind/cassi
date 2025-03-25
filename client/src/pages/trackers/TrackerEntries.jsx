@@ -106,7 +106,7 @@ const TrackerEntries = ({ tracker }) => {
       <EntryDialog
         open={openEntryDialog}
         setOpen={setOpenEntryDialog}
-        data={tracker}
+        action="add"
       />
     </Stack>
   );
