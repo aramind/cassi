@@ -50,7 +50,6 @@ const TrackerEntries = ({ tracker }) => {
   useEffect(() => {
     const formattedEntries = tracker?.entries?.map((entry, index) => ({
       ...entry,
-      id: index,
       date: formatDate(entry?.date),
       originalAssignee: occupantOptions.find(
         (option) => option.id === entry?.originalAssignee
@@ -77,7 +76,7 @@ const TrackerEntries = ({ tracker }) => {
               <Divider>{entry?.date}</Divider>
               <Stack direction="row">
                 <Stack flex={1}>
-                  <ActionsGroup row={entry} />
+                  <ActionsGroup data={entry} />
                 </Stack>
                 <Stack flex={4} p={1}>
                   <Entry
