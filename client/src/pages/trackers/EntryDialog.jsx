@@ -38,6 +38,10 @@ const getTitle = (action) => {
   return title;
 };
 
+const getOptionsValue = (options, label) => {
+  return options?.find((option) => option.label === label)?.value;
+};
+
 const EntryDialog = ({ open, setOpen, data, action }) => {
   const [options, setOptions] = useState([]);
   const { auth } = useAuth();
@@ -53,6 +57,7 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
     setOptions((pv) => options);
   }, [auth?.houseInfo?.houseOccupants]);
 
+  console.log(options);
   let title = getTitle(action);
   // form related
   const {
@@ -63,6 +68,7 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(addEntrySchema),
+    defaultValues: data,
   });
 
   const formMethods = {
@@ -71,6 +77,15 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
     errors,
   };
 
+  useEffect(() => {
+    if (data) {
+      reset({
+        ...data,
+        originalAssignee: getOptionsValue(options, data?.originalAssignee),
+        completedBy: getOptionsValue(options, data?.completedBy),
+      });
+    }
+  }, [data, options, reset]);
   // handlers
   const handleClose = (e) => {
     e.preventDefault();

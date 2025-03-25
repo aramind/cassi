@@ -10,6 +10,7 @@ const ActionsGroup = ({ data }) => {
     setOpenEntryDialog(true);
   }, []);
 
+  console.log(data);
   const handleDelete = useCallback(() => {
     alert("deleting...");
   }, []);
@@ -24,6 +25,7 @@ const ActionsGroup = ({ data }) => {
       <EntryDialog
         open={openEntryDialog}
         setOpen={setOpenEntryDialog}
+        data={data}
         action="update"
       />
     </>
