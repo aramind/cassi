@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { IconButton } from "@mui/material";
-import UpdateEntryDialog from "./UpdateEntryDialog";
 import EntryDialog from "./EntryDialog";
 
 const ActionsGroup = ({ data }) => {
@@ -11,7 +10,6 @@ const ActionsGroup = ({ data }) => {
     setOpenEntryDialog(true);
   }, []);
 
-  console.log(data);
   const handleDelete = useCallback(() => {
     alert("deleting...");
   }, []);
