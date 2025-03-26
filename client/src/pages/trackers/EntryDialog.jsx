@@ -184,7 +184,7 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
             Reset
           </Button>
           <Button className="contained" onClick={handleConfirmSubmit}>
-            {getSubmitBtnText(action)}
+            {submitBtnText}
           </Button>
         </DialogActions>
       </Dialog>
