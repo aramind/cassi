@@ -6,6 +6,7 @@ import ActionsGroup from "./ActionsGroup";
 import MyButton from "../../components/buttons/MyButton";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import EntryDialog from "./EntryDialog";
+import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
 
 const Entry = ({ label, value, hasIcon }) => {
   return (
@@ -36,6 +37,8 @@ const TrackerEntries = ({ tracker }) => {
   const [entries, setEntries] = useState(tracker?.entries);
   const [openEntryDialog, setOpenEntryDialog] = useState(false);
   const { auth } = useAuth();
+  const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
+
   const occupantOptions = useMemo(
     () =>
       auth?.houseInfo?.houseOccupants?.map((ho) => {
@@ -63,6 +66,11 @@ const TrackerEntries = ({ tracker }) => {
     setOpenEntryDialog(true);
   };
 
+  const submitHandler = async (data) => {
+    sendUpdateTracker(data);
+  };
+
+  console.log("TRACKER", tracker);
   return (
     <Stack width={1} alignItems="center">
       {tracker?.entries?.length < 1 ? (
@@ -107,6 +115,7 @@ const TrackerEntries = ({ tracker }) => {
         open={openEntryDialog}
         setOpen={setOpenEntryDialog}
         action="add"
+        submitHandler={submitHandler}
       />
     </Stack>
   );
