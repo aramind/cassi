@@ -38,6 +38,24 @@ const getTitle = (action) => {
   return title;
 };
 
+const getSubmitBtnText = (action) => {
+  let text = "";
+
+  switch (action) {
+    case "add": {
+      text = "Submit";
+      break;
+    }
+    case "update": {
+      text = "Update";
+      break;
+    }
+    default:
+      text = "";
+  }
+
+  return text;
+};
 const getOptionsValue = (options, label) => {
   return options?.find((option) => option.label === label)?.value;
 };
@@ -59,6 +77,7 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
 
   console.log(options);
   let title = getTitle(action);
+  let submitBtnText = getSubmitBtnText(action);
   // form related
   const {
     control,
@@ -165,7 +184,7 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
             Reset
           </Button>
           <Button className="contained" onClick={handleConfirmSubmit}>
-            Submit
+            {getSubmitBtnText(action)}
           </Button>
         </DialogActions>
       </Dialog>
