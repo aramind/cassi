@@ -25,7 +25,22 @@ const Tracker = ({ tracker }) => {
     });
   };
 
-  console.log(tracker);
+  const updatingEntryHandler = async (data) => {
+    const formattedData = {
+      ...data,
+      date: convertToISOFormat(data?.date),
+      comments: data?.comments?.split(";"),
+    };
+
+    const updatedEntries = tracker?.entries?.map((entry) =>
+      entry?._id === formattedData?._id ? { ...entry, ...formattedData } : entry
+    );
+
+    sendUpdateTracker({
+      trackerId: tracker?._id,
+      data: { entries: updatedEntries },
+    });
+  };
   return (
     <Stack width={1} alignItems="center">
       <Typography variant="h5">{tracker?.title}</Typography>
@@ -34,7 +49,10 @@ const Tracker = ({ tracker }) => {
       </Typography>
       <Box my={2} width={1}>
         {/* <TrackersTables tracker={tracker} /> */}
-        <TrackerEntries tracker={tracker} />
+        <TrackerEntries
+          tracker={tracker}
+          submitHandler={updatingEntryHandler}
+        />
       </Box>
       <br />
       <MyButton
@@ -43,7 +61,6 @@ const Tracker = ({ tracker }) => {
         variant="contained"
         onClickHandler={addEntryHandler}
       />
-
       <EntryDialog
         open={openEntryDialog}
         setOpen={setOpenEntryDialog}

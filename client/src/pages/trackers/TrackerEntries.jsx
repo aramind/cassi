@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { formatDate } from "../../utils/formatDate";
 import { Chip, Divider, Stack, Typography } from "@mui/material";
 import ActionsGroup from "./ActionsGroup";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import useHouseProvider from "../../hooks/useHouseProvider";
+import { formatToMMDDYYYY } from "../../utils/date";
 
 const Entry = ({ label, value, hasIcon }) => {
   return (
@@ -30,19 +30,21 @@ const Entry = ({ label, value, hasIcon }) => {
   );
 };
 
-const TrackerEntries = ({ tracker }) => {
+const TrackerEntries = ({ tracker, submitHandler }) => {
   const [entries, setEntries] = useState(tracker?.entries);
   const { occupantOptions } = useHouseProvider();
   useEffect(() => {
     const formattedEntries = tracker?.entries?.map((entry, index) => ({
       ...entry,
-      date: formatDate(entry?.date),
+      // date: formatDate(entry?.date),
+      date: formatToMMDDYYYY(entry?.date),
       originalAssignee: occupantOptions.find(
         (option) => option.id === entry?.originalAssignee
       )?.name,
       completedBy: occupantOptions.find(
         (option) => option.id === entry?.completedBy
       )?.name,
+      comments: entry?.comments?.join(";"),
     }));
 
     setEntries(formattedEntries);
@@ -61,7 +63,7 @@ const TrackerEntries = ({ tracker }) => {
               <Divider>{entry?.date}</Divider>
               <Stack direction="row">
                 <Stack flex={1}>
-                  <ActionsGroup data={entry} />
+                  <ActionsGroup data={entry} submitHandler={submitHandler} />
                 </Stack>
                 <Stack flex={4} p={1}>
                   <Entry
@@ -70,10 +72,7 @@ const TrackerEntries = ({ tracker }) => {
                     hasIcon
                   />
                   <Entry label="done by :" value={entry?.completedBy} hasIcon />
-                  <Entry
-                    label="comments :"
-                    value={entry?.comments?.join("; ")}
-                  />
+                  <Entry label="comments :" value={entry?.comments} />
                 </Stack>
               </Stack>
             </Stack>

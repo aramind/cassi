@@ -4,13 +4,12 @@ import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { IconButton } from "@mui/material";
 import EntryDialog from "./EntryDialog";
 
-const ActionsGroup = ({ data }) => {
+const ActionsGroup = ({ data, submitHandler }) => {
   const [openEntryDialog, setOpenEntryDialog] = useState(false);
   const handleEdit = useCallback(() => {
     setOpenEntryDialog(true);
   }, []);
 
-  console.log(data);
   const handleDelete = useCallback(() => {
     alert("deleting...");
   }, []);
@@ -27,6 +26,7 @@ const ActionsGroup = ({ data }) => {
         setOpen={setOpenEntryDialog}
         data={data}
         action="update"
+        submitHandler={submitHandler}
       />
     </>
   );

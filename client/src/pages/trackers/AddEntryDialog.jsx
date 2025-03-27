@@ -121,7 +121,7 @@ const AddEntryDialog = ({ open, setOpen, tracker }) => {
                   options={options}
                 />
                 <ControlledLabelledTextField
-                  label='comments (separate by "/")'
+                  label='comments (separate by ";")'
                   name="comments"
                 />
               </Stack>
