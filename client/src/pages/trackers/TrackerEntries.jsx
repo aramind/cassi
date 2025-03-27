@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { formatDate } from "../../utils/formatDate";
 import { Chip, Divider, Stack, Typography } from "@mui/material";
 import ActionsGroup from "./ActionsGroup";
-import MyButton from "../../components/buttons/MyButton";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
-import EntryDialog from "./EntryDialog";
-import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
 import useHouseProvider from "../../hooks/useHouseProvider";
 
 const Entry = ({ label, value, hasIcon }) => {
@@ -35,10 +32,7 @@ const Entry = ({ label, value, hasIcon }) => {
 
 const TrackerEntries = ({ tracker }) => {
   const [entries, setEntries] = useState(tracker?.entries);
-  const [openEntryDialog, setOpenEntryDialog] = useState(false);
   const { occupantOptions } = useHouseProvider();
-  const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
-
   useEffect(() => {
     const formattedEntries = tracker?.entries?.map((entry, index) => ({
       ...entry,
@@ -51,15 +45,6 @@ const TrackerEntries = ({ tracker }) => {
     setEntries(formattedEntries);
   }, [occupantOptions, tracker?.entries]);
 
-  const addEntryHandler = () => {
-    setOpenEntryDialog(true);
-  };
-
-  const submitHandler = async (data) => {
-    sendUpdateTracker(data);
-  };
-
-  console.log("TRACKER", tracker);
   return (
     <Stack width={1} alignItems="center">
       {tracker?.entries?.length < 1 ? (
@@ -92,20 +77,6 @@ const TrackerEntries = ({ tracker }) => {
           ))}
         </>
       )}
-      <br />
-      <MyButton
-        type="primary"
-        text="add entry"
-        variant="contained"
-        onClickHandler={addEntryHandler}
-      />
-
-      <EntryDialog
-        open={openEntryDialog}
-        setOpen={setOpenEntryDialog}
-        action="add"
-        submitHandler={submitHandler}
-      />
     </Stack>
   );
 };
