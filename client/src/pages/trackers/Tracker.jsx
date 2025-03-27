@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import TrackersTables from "./TrackersTables";
 import TrackerEntries from "./TrackerEntries";
 
 // const tracker = mockDB?.trackers?.[0];
