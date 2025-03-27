@@ -60,7 +60,7 @@ const getOptionsValue = (options, label) => {
   return options?.find((option) => option.label === label)?.value;
 };
 
-const EntryDialog = ({ open, setOpen, data, action }) => {
+const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
   const [options, setOptions] = useState([]);
   const { auth } = useAuth();
 
@@ -115,7 +115,7 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
   //   form handlers
 
   const onSubmit = async (formData) => {
-    console.log("sending", formData);
+    submitHandler(formData);
   };
 
   //   confirm action dialog handlers
@@ -157,7 +157,6 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
                   label="date (mm/dd/yyy)"
                   name="date"
                 />
-
                 <ControlledLabelledSelect
                   id="occupant-select"
                   label="assigned to"
@@ -167,7 +166,7 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
                 <ControlledLabelledSelect
                   id="occupant-select-completedBy"
                   label="completed by"
-                  name=" completedBy"
+                  name="completedBy"
                   options={options}
                 />
                 <ControlledLabelledTextField
@@ -189,7 +188,7 @@ const EntryDialog = ({ open, setOpen, data, action }) => {
         </DialogActions>
       </Dialog>
       {renderConfirmActionDialog()}
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
     </>
   );
 };

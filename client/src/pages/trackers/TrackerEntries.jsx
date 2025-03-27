@@ -39,7 +39,10 @@ const TrackerEntries = ({ tracker }) => {
       date: formatDate(entry?.date),
       originalAssignee: occupantOptions.find(
         (option) => option.id === entry?.originalAssignee
-      ).name,
+      )?.name,
+      completedBy: occupantOptions.find(
+        (option) => option.id === entry?.completedBy
+      )?.name,
     }));
 
     setEntries(formattedEntries);
