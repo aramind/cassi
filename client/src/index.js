@@ -15,13 +15,15 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <GlobalStatesContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={main}>
-            <App />
-          </ThemeProvider>
-        </QueryClientProvider>
-      </GlobalStatesContextProvider>
+      <HouseProvider>
+        <GlobalStatesContextProvider>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider theme={main}>
+              <App />
+            </ThemeProvider>
+          </QueryClientProvider>
+        </GlobalStatesContextProvider>
+      </HouseProvider>
     </AuthProvider>
   </React.StrictMode>
 );

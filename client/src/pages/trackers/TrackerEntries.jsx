@@ -7,6 +7,7 @@ import MyButton from "../../components/buttons/MyButton";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import EntryDialog from "./EntryDialog";
 import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
+import useHouseProvider from "../../hooks/useHouseProvider";
 
 const Entry = ({ label, value, hasIcon }) => {
   return (
@@ -36,19 +37,8 @@ const Entry = ({ label, value, hasIcon }) => {
 const TrackerEntries = ({ tracker }) => {
   const [entries, setEntries] = useState(tracker?.entries);
   const [openEntryDialog, setOpenEntryDialog] = useState(false);
-  const { auth } = useAuth();
+  const { occupantOptions } = useHouseProvider();
   const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
-
-  const occupantOptions = useMemo(
-    () =>
-      auth?.houseInfo?.houseOccupants?.map((ho) => {
-        return {
-          id: ho._id,
-          name: ho?.occupant?.name?.nickName || ho?.occupant?.name.firstName,
-        };
-      }),
-    [auth?.houseInfo?.houseOccupants]
-  );
 
   useEffect(() => {
     const formattedEntries = tracker?.entries?.map((entry, index) => ({
