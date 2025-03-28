@@ -41,6 +41,8 @@ const Tracker = ({ tracker }) => {
       trackerId: tracker?._id,
       data: { entries: updatedEntries },
     });
+
+    setOpenEntryDialog(false);
   };
   return (
     <Stack width={1} alignItems="center">
