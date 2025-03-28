@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import PageHeader from "../../components/PageHeader";
 import { Stack } from "@mui/material";
@@ -10,10 +10,15 @@ import useTrackerReq from "../../hooks/api/authenticated/useTrackerReq";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import Trackers from "./Trackers";
+import TrackerDialog from "./TrackerDialog";
 
 const TrackersPage = () => {
   const { auth } = useAuth();
-  const { getTrackers } = useTrackerReq({ isPublic: false, showAck: false });
+  const [openTrackerDialog, setOpenTrackerDialog] = useState(false);
+  const { getTrackers, addTracker } = useTrackerReq({
+    isPublic: false,
+    showAck: false,
+  });
   const {
     data: trackersData,
     isLoading: isLoadingInGetReq,
@@ -24,7 +29,7 @@ const TrackersPage = () => {
     { enabled: !!auth?.houseInfo?._id }
   );
 
-  const addTracker = () => {
+  const addTrackerHandler = () => {
     alert("adding a tracker...");
   };
 
@@ -46,7 +51,7 @@ const TrackersPage = () => {
           type="accent"
           text="add tracker"
           variant="contained"
-          onClickHandler={addTracker}
+          onClickHandler={addTrackerHandler}
         />
         <br />
         {<Trackers trackers={trackersData?.data} />}
@@ -55,9 +60,10 @@ const TrackersPage = () => {
           type="accent"
           text="add tracker"
           variant="contained"
-          onClickHandler={addTracker}
+          onClickHandler={addTrackerHandler}
         />
       </Stack>
+      <TrackerDialog open={openTrackerDialog} setOpen={setOpenTrackerDialog} />
     </BodyContainer>
   );
 };
