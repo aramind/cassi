@@ -1,24 +1,32 @@
 import React, { useCallback, useState } from "react";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import EntryDialog from "./EntryDialog";
+import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 
-const ActionsGroup = ({ data, submitHandler }) => {
+const ActionsGroup = ({ data, submitHandler, deleteEntryHandler }) => {
   const [openEntryDialog, setOpenEntryDialog] = useState(false);
   const handleEdit = useCallback(() => {
     setOpenEntryDialog(true);
   }, []);
 
-  const handleDelete = useCallback(() => {
-    alert("deleting...");
-  }, []);
+  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
+    useConfirmActionDialog();
+
+  const handleConfirmDelete = () => {
+    handleConfirm(
+      "Confirm Delete",
+      <Typography>Are you sure you want to delete this entry?</Typography>,
+      () => deleteEntryHandler(data?._id)
+    );
+  };
   return (
     <>
       <IconButton aria-label="edit" onClick={handleEdit}>
         <EditRoundedIcon />
       </IconButton>
-      <IconButton aria-label="delete" onClick={handleDelete}>
+      <IconButton aria-label="delete" onClick={handleConfirmDelete}>
         <DeleteRoundedIcon />
       </IconButton>
       <EntryDialog
@@ -28,6 +36,7 @@ const ActionsGroup = ({ data, submitHandler }) => {
         action="update"
         submitHandler={submitHandler}
       />
+      {renderConfirmActionDialog()}
     </>
   );
 };

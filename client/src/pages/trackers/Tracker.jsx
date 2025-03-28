@@ -44,6 +44,17 @@ const Tracker = ({ tracker }) => {
 
     setOpenEntryDialog(false);
   };
+
+  const deleteEntryHandler = async (entryId) => {
+    const updatedEntries = tracker?.entries?.filter(
+      (entry) => entry._id !== entryId
+    );
+
+    sendUpdateTracker({
+      trackerId: tracker?._id,
+      data: { entries: updatedEntries },
+    });
+  };
   return (
     <Stack width={1} alignItems="center">
       <Typography variant="h5">{tracker?.title}</Typography>
@@ -55,6 +66,7 @@ const Tracker = ({ tracker }) => {
         <TrackerEntries
           tracker={tracker}
           submitHandler={updatingEntryHandler}
+          deleteEntryHandler={deleteEntryHandler}
         />
       </Box>
       <br />

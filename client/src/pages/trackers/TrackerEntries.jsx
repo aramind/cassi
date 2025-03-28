@@ -30,7 +30,7 @@ const Entry = ({ label, value, hasIcon }) => {
   );
 };
 
-const TrackerEntries = ({ tracker, submitHandler }) => {
+const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
   const [entries, setEntries] = useState(tracker?.entries);
   const { occupantOptions } = useHouseProvider();
   useEffect(() => {
@@ -63,7 +63,11 @@ const TrackerEntries = ({ tracker, submitHandler }) => {
               <Divider>{entry?.date}</Divider>
               <Stack direction="row">
                 <Stack flex={1}>
-                  <ActionsGroup data={entry} submitHandler={submitHandler} />
+                  <ActionsGroup
+                    data={entry}
+                    submitHandler={submitHandler}
+                    deleteEntryHandler={deleteEntryHandler}
+                  />
                 </Stack>
                 <Stack flex={4} p={1}>
                   <Entry
