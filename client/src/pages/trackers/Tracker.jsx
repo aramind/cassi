@@ -23,6 +23,7 @@ const Tracker = ({ tracker }) => {
       trackerId: tracker?._id,
       data: { entries: updatedEntries },
     });
+    setOpenEntryDialog(false);
   };
 
   const updatingEntryHandler = async (data) => {
