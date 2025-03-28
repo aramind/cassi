@@ -18,6 +18,7 @@ import addEntrySchema from "../../schemas/addEntrySchema";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import { DevTool } from "@hookform/devtools";
+import DraggableDialog from "../../components/DraggableDialog";
 
 const getTitle = (action) => {
   let title = "";
@@ -136,7 +137,46 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
 
   return (
     <>
-      <Dialog
+      <DraggableDialog open={open} onClose={handleClose} title={title}>
+        <DialogContent>
+          <FormWrapper formMethods={formMethods}>
+            <form noValidate>
+              <Stack spacing={1}>
+                <ControlledLabelledTextField
+                  label="date (mm/dd/yyy)"
+                  name="date"
+                />
+                <ControlledLabelledSelect
+                  id="occupant-select"
+                  label="assigned to"
+                  name="originalAssignee"
+                  options={options}
+                />
+                <ControlledLabelledSelect
+                  id="occupant-select-completedBy"
+                  label="completed by"
+                  name="completedBy"
+                  options={options}
+                />
+                <ControlledLabelledTextField
+                  label='comments (separate by "/")'
+                  name="comments"
+                />
+              </Stack>
+            </form>
+          </FormWrapper>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button className="outlined" onClick={handleConfirmClear}>
+            Reset
+          </Button>
+          <Button className="contained" onClick={handleConfirmSubmit}>
+            {submitBtnText}
+          </Button>
+        </DialogActions>
+      </DraggableDialog>
+      {/* <Dialog
         open={open}
         onClose={handleClose}
         PaperComponent={DraggablePaperComponent}
@@ -185,7 +225,7 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
             {submitBtnText}
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
       {renderConfirmActionDialog()}
       {/* <DevTool control={control} /> */}
     </>
