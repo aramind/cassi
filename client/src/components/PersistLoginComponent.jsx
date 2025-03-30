@@ -20,7 +20,7 @@ const PersistLoginComponent = () => {
       }
     };
     !auth?.token ? verifyRefreshToken() : setIsLoading(false);
-  }, [auth?.token, refresh, auth]);
+  }, [auth, auth?.token, refresh]);
   return (
     <>{!persist ? <Outlet /> : isLoading ? <LoadingPage /> : <Outlet />}</>
   );

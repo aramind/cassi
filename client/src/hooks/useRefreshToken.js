@@ -14,11 +14,14 @@ const useRefreshToken = () => {
 
     const newAccessToken = response?.data?.data?.token;
     console.log(userInfo);
-    setAuth({ houseInfo: { ...userInfo.houseInfo }, token: newAccessToken });
+    setAuth((prev) => ({
+      ...prev,
+      houseInfo: { ...userInfo.houseInfo },
+      token: newAccessToken,
+    }));
 
     return newAccessToken;
   };
-  console.log(auth);
   return refresh;
 };
 

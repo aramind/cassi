@@ -27,8 +27,7 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
   const { login, signup } = useRootReq({ isPublic: true, showAck: true });
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [checked, setChecked] = useState(false);
-  const { setAuth, auth } = useAuth();
+  const { setAuth, auth, persist, setPersist } = useAuth();
 
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
@@ -73,6 +72,8 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
       sendSignUp({ data });
     }
   };
+
+  console.log("AUUUTH:", auth);
 
   return (
     <FormWrapper formMethods={formMethods}>
@@ -122,8 +123,8 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={checked}
-                onChange={(e) => setChecked(e.target?.checked)}
+                checked={persist}
+                onChange={(e) => setPersist(e.target?.checked)}
                 sx={{
                   "& .MuiCheckbox-root": { padding: 0 },
                 }}

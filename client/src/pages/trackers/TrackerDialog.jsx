@@ -2,11 +2,56 @@ import React from "react";
 import useAuth from "../../hooks/useAuth";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
-import { Dialog, DialogContent, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Stack,
+  Typography,
+} from "@mui/material";
 import DraggablePaperComponent from "../../components/DraggablePaperComponent";
 import DraggableDialog from "../../components/DraggableDialog";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
+
+const getTitle = (action) => {
+  let title = "";
+
+  switch (action) {
+    case "add": {
+      title = "Add New Tracker";
+      break;
+    }
+    case "update": {
+      title = "Update Tracker";
+      break;
+    }
+    default:
+      title = "";
+  }
+
+  return title;
+};
+
+const getSubmitBtnText = (action) => {
+  let text = "";
+
+  switch (action) {
+    case "add": {
+      text = "Submit";
+      break;
+    }
+    case "update": {
+      text = "Update";
+      break;
+    }
+    default:
+      text = "";
+  }
+
+  return text;
+};
 
 const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
   const { auth } = useAuth();
@@ -54,13 +99,12 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
     );
   };
 
+  let title = getTitle(action);
+  let submitBtnText = getSubmitBtnText(action);
+
   return (
     <>
-      <DraggableDialog
-        open={setOpen}
-        handleClose={handleClose}
-        title="add tracker"
-      >
+      <DraggableDialog open={setOpen} handleClose={handleClose} title={title}>
         <DialogContent>
           <FormWrapper formMethods={formMethods}>
             <form noValidate>
@@ -81,6 +125,15 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
             </form>
           </FormWrapper>
         </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button className="outlined" onClick={handleConfirmClear}>
+            Reset
+          </Button>
+          <Button className="contained" onClick={handleConfirmSubmit}>
+            {submitBtnText}
+          </Button>
+        </DialogActions>
       </DraggableDialog>
       {renderConfirmActionDialog}
     </>
