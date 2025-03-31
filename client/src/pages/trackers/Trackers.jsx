@@ -7,14 +7,20 @@ const Trackers = ({ trackers }) => {
     return <Typography>No trackers created yet</Typography>;
   }
 
+  console.log(trackers);
+
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <Box width={1} m={1} p={1}>
-        {trackers?.map((tracker, index) => (
+    // <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <Box width={1} m={1} p={1}>
+      {trackers?.map((tracker, index) => (
+        <Paper
+          sx={{ width: "100%", overflow: "hidden", py: "1rem", mb: "0.5rem" }}
+        >
           <Tracker key={index} tracker={tracker} />
-        ))}
-      </Box>
-    </Paper>
+        </Paper>
+      ))}
+    </Box>
+    // </Paper>
   );
 };
 
