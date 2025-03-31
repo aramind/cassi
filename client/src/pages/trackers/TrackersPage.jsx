@@ -30,7 +30,7 @@ const TrackersPage = () => {
   );
 
   const addTrackerHandler = () => {
-    alert("adding a tracker...");
+    setOpenTrackerDialog(true);
   };
 
   if (isLoadingInGetReq) {
@@ -63,7 +63,11 @@ const TrackersPage = () => {
           onClickHandler={addTrackerHandler}
         />
       </Stack>
-      <TrackerDialog open={openTrackerDialog} setOpen={setOpenTrackerDialog} />
+      <TrackerDialog
+        open={openTrackerDialog}
+        setOpen={setOpenTrackerDialog}
+        action="add"
+      />
     </BodyContainer>
   );
 };

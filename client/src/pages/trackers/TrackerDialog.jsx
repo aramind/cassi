@@ -104,7 +104,7 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
 
   return (
     <>
-      <DraggableDialog open={setOpen} handleClose={handleClose} title={title}>
+      <DraggableDialog open={open} handleClose={handleClose} title={title}>
         <DialogContent>
           <FormWrapper formMethods={formMethods}>
             <form noValidate>
