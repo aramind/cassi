@@ -33,6 +33,10 @@ const TrackersPage = () => {
     setOpenTrackerDialog(true);
   };
 
+  const submitAddHandler = (formData) => {
+    addTracker({ data: { tracker: formData } });
+  };
+
   if (isLoadingInGetReq) {
     return <LoadingPage />;
   }
@@ -67,6 +71,7 @@ const TrackersPage = () => {
         open={openTrackerDialog}
         setOpen={setOpenTrackerDialog}
         action="add"
+        submitHandler={submitAddHandler}
       />
     </BodyContainer>
   );

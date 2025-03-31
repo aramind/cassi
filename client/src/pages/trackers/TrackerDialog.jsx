@@ -14,6 +14,7 @@ import DraggablePaperComponent from "../../components/DraggablePaperComponent";
 import DraggableDialog from "../../components/DraggableDialog";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
+import { DevTool } from "@hookform/devtools";
 
 const getTitle = (action) => {
   let title = "";
@@ -135,7 +136,8 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
           </Button>
         </DialogActions>
       </DraggableDialog>
-      {renderConfirmActionDialog}
+      {renderConfirmActionDialog()}
+      <DevTool control={control} />
     </>
   );
 };
