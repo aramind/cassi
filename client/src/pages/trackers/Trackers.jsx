@@ -13,8 +13,9 @@ const Trackers = ({ trackers }) => {
       {trackers?.map((tracker, index) => (
         <Paper
           sx={{ width: "100%", overflow: "hidden", py: "1rem", mb: "0.5rem" }}
+          key={index}
         >
-          <Tracker key={index} tracker={tracker} />
+          <Tracker tracker={tracker} />
         </Paper>
       ))}
     </Box>
