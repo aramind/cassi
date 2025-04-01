@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
@@ -25,7 +25,7 @@ const TrackerActionsGroup = ({ data, updateHandler, deleteHandler }) => {
   };
 
   return (
-    <>
+    <Stack spacing={1}>
       <IconButton aria-label="edit" onClick={handleEdit}>
         <EditRoundedIcon />
       </IconButton>
@@ -34,7 +34,7 @@ const TrackerActionsGroup = ({ data, updateHandler, deleteHandler }) => {
       </IconButton>
 
       {renderConfirmActionDialog()}
-    </>
+    </Stack>
   );
 };
 

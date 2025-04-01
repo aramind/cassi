@@ -5,6 +5,7 @@ import MyButton from "../../components/buttons/MyButton";
 import EntryDialog from "./EntryDialog";
 import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
 import { convertToISOFormat } from "../../utils/date";
+import TrackerActionsGroup from "./TrackerActionsGroup";
 
 // const tracker = mockDB?.trackers?.[0];
 const Tracker = ({ tracker }) => {
@@ -58,17 +59,22 @@ const Tracker = ({ tracker }) => {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <Stack width={1} alignItems="center" px={1} py={2}>
-        <Typography variant="h5" textAlign="center" width={1}>
-          {tracker?.title}
-        </Typography>
-        <Typography
-          variant="h4"
-          fontWeight="normal"
-          textAlign="center"
-          width={1}
-        >
-          {tracker?.description}
-        </Typography>
+        <Stack direction="row">
+          <TrackerActionsGroup />
+          <Stack>
+            <Typography variant="h5" textAlign="center" width={1}>
+              {tracker?.title}
+            </Typography>
+            <Typography
+              variant="h4"
+              fontWeight="normal"
+              textAlign="center"
+              width={1}
+            >
+              {tracker?.description}
+            </Typography>
+          </Stack>
+        </Stack>
         <Box my={2} width={1}>
           {/* <TrackersTables tracker={tracker} /> */}
           <TrackerEntries
