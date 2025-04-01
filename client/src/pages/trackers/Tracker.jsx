@@ -60,7 +60,6 @@ const Tracker = ({ tracker }) => {
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <Stack width={1} alignItems="center" px={1} py={2}>
         <Stack direction="row">
-          <TrackerActionsGroup />
           <Stack>
             <Typography variant="h5" textAlign="center" width={1}>
               {tracker?.title}
@@ -74,6 +73,7 @@ const Tracker = ({ tracker }) => {
               {tracker?.description}
             </Typography>
           </Stack>
+          <TrackerActionsGroup />
         </Stack>
         <Box my={2} width={1}>
           {/* <TrackersTables tracker={tracker} /> */}
