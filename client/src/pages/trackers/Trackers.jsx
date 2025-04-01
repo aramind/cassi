@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import Tracker from "./Tracker";
 
@@ -9,16 +9,11 @@ const Trackers = ({ trackers }) => {
 
   return (
     // <Paper sx={{ width: "100%", overflow: "hidden" }}>
-    <Box width={1} m={1} p={1}>
+    <Stack width={1} spacing={2}>
       {trackers?.map((tracker, index) => (
-        <Paper
-          sx={{ width: "100%", overflow: "hidden", py: "1rem", mb: "0.5rem" }}
-          key={index}
-        >
-          <Tracker tracker={tracker} />
-        </Paper>
+        <Tracker key={index} tracker={tracker} />
       ))}
-    </Box>
+    </Stack>
     // </Paper>
   );
 };

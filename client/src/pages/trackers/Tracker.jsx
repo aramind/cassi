@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import TrackerEntries from "./TrackerEntries";
 import MyButton from "../../components/buttons/MyButton";
 import EntryDialog from "./EntryDialog";
@@ -56,34 +56,43 @@ const Tracker = ({ tracker }) => {
     });
   };
   return (
-    <Stack width={1} alignItems="center">
-      <Typography variant="h5">{tracker?.title}</Typography>
-      <Typography variant="h4" fontWeight="normal">
-        {tracker?.description}
-      </Typography>
-      <Box my={2} width={1}>
-        {/* <TrackersTables tracker={tracker} /> */}
-        <TrackerEntries
-          tracker={tracker}
-          submitHandler={updatingEntryHandler}
-          deleteEntryHandler={deleteEntryHandler}
+    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <Stack width={1} alignItems="center" px={1} py={2}>
+        <Typography variant="h5" textAlign="center" width={1}>
+          {tracker?.title}
+        </Typography>
+        <Typography
+          variant="h4"
+          fontWeight="normal"
+          textAlign="center"
+          width={1}
+        >
+          {tracker?.description}
+        </Typography>
+        <Box my={2} width={1}>
+          {/* <TrackersTables tracker={tracker} /> */}
+          <TrackerEntries
+            tracker={tracker}
+            submitHandler={updatingEntryHandler}
+            deleteEntryHandler={deleteEntryHandler}
+          />
+        </Box>
+        <br />
+        <MyButton
+          type="primary"
+          text="add entry"
+          variant="contained"
+          onClickHandler={addEntryHandler}
         />
-      </Box>
-      <br />
-      <MyButton
-        type="primary"
-        text="add entry"
-        variant="contained"
-        onClickHandler={addEntryHandler}
-      />
-      <EntryDialog
-        open={openEntryDialog}
-        setOpen={setOpenEntryDialog}
-        action="add"
-        submitHandler={addingEntryHandler}
-        tracker={tracker}
-      />
-    </Stack>
+        <EntryDialog
+          open={openEntryDialog}
+          setOpen={setOpenEntryDialog}
+          action="add"
+          submitHandler={addingEntryHandler}
+          tracker={tracker}
+        />
+      </Stack>
+    </Paper>
   );
 };
 
