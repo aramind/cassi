@@ -92,13 +92,13 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
     );
   };
 
-  const handleConfirmSubmit = () => {
-    handleConfirm(
-      "Confirm Submit",
-      <Typography>Continue?</Typography>,
-      handleSubmit(onSubmit)
-    );
-  };
+  // const handleConfirmSubmit = () => {
+  //   handleConfirm(
+  //     "Confirm Submit",
+  //     <Typography>Continue?</Typography>,
+  //     handleSubmit(onSubmit)
+  //   );
+  // };
 
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
@@ -131,7 +131,7 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
           <Button className="outlined" onClick={handleConfirmClear}>
             Reset
           </Button>
-          <Button className="contained" onClick={handleConfirmSubmit}>
+          <Button className="contained" onClick={handleSubmit(onSubmit)}>
             {submitBtnText}
           </Button>
         </DialogActions>

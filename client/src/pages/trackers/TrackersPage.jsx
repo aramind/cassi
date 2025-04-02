@@ -55,17 +55,31 @@ const TrackersPage = () => {
     setOpenTrackerDialog(true);
   };
 
-  const submitAddHandler = (formData) => {
-    addTracker({ data: { tracker: formData } });
-  };
+  // const submitAddHandler = (formData) => {
+  //   addTracker({ data: { tracker: formData } });
+  // };
 
+  const handleConfirmAddTracker = (formData) => {
+    handleConfirm(
+      "Add tracker",
+      <Stack spacing={2}>
+        <Typography>Continue adding this tracker?</Typography>
+
+        <Typography variant="h4">
+          <strong>TITLE : </strong>
+          {formData?.title}
+        </Typography>
+      </Stack>,
+      () => addTracker({ data: { tracker: formData } })
+    );
+  };
   const handleConfirmRestore = (trackerId, trackerTitle) => {
     handleConfirm(
       "Confirm Restore",
       <>
         <Typography>Are you sure you want to restore this tracker?</Typography>
         <br />
-        <Typography width={1} variant="h5" textAlign="center">
+        <Typography width={1} variant="h4" textAlign="center">
           {trackerTitle}
         </Typography>
       </>,
@@ -120,7 +134,7 @@ const TrackersPage = () => {
         open={openTrackerDialog}
         setOpen={setOpenTrackerDialog}
         action="add"
-        submitHandler={submitAddHandler}
+        submitHandler={handleConfirmAddTracker}
       />
       {renderConfirmActionDialog()}
     </BodyContainer>
