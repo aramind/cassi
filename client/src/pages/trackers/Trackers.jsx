@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import React from "react";
 import Tracker from "./Tracker";
 
