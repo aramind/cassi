@@ -24,7 +24,9 @@ const DeletedTrackers = ({ trackers, restoreTrackerHandler }) => {
             <Box>
               <IconButton
                 aria-label="restore"
-                onClick={() => restoreTrackerHandler(tracker?._id)}
+                onClick={() =>
+                  restoreTrackerHandler(tracker?._id, tracker?.title)
+                }
               >
                 <RestoreOutlinedIcon />
               </IconButton>

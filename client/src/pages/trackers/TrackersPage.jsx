@@ -13,6 +13,7 @@ import Trackers from "./Trackers";
 import TrackerDialog from "./TrackerDialog";
 import DeletedTrackers from "./DeletedTrackers";
 import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
+import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 
 const TrackersPage = () => {
   const { auth } = useAuth();
@@ -20,6 +21,8 @@ const TrackersPage = () => {
   const [deletedTrackers, setDeletedTrackers] = useState([]);
   const [openTrackerDialog, setOpenTrackerDialog] = useState(false);
   const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
+  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
+    useConfirmActionDialog();
 
   const { getTrackers, addTracker } = useTrackerReq({
     isPublic: false,
@@ -56,11 +59,23 @@ const TrackersPage = () => {
     addTracker({ data: { tracker: formData } });
   };
 
-  const restoreTrackerHandler = (trackerId) => {
-    sendUpdateTracker({
-      trackerId: trackerId,
-      data: { status: "active" },
-    });
+  const handleConfirmRestore = (trackerId, trackerTitle) => {
+    handleConfirm(
+      "Confirm Restore",
+      <>
+        <Typography>Are you sure you want to restore this tracker?</Typography>
+        <br />
+        <Typography width={1} variant="h5" textAlign="center">
+          {trackerTitle}
+        </Typography>
+      </>,
+      () => {
+        sendUpdateTracker({
+          trackerId: trackerId,
+          data: { status: "active" },
+        });
+      }
+    );
   };
 
   if (isLoadingInGetReq) {
@@ -98,7 +113,7 @@ const TrackersPage = () => {
       {deletedTrackers && (
         <DeletedTrackers
           trackers={deletedTrackers}
-          restoreTrackerHandler={restoreTrackerHandler}
+          restoreTrackerHandler={handleConfirmRestore}
         />
       )}
       <TrackerDialog
@@ -107,6 +122,7 @@ const TrackersPage = () => {
         action="add"
         submitHandler={submitAddHandler}
       />
+      {renderConfirmActionDialog()}
     </BodyContainer>
   );
 };
