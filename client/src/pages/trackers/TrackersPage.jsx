@@ -55,10 +55,6 @@ const TrackersPage = () => {
     setOpenTrackerDialog(true);
   };
 
-  // const submitAddHandler = (formData) => {
-  //   addTracker({ data: { tracker: formData } });
-  // };
-
   const handleConfirmAddTracker = (formData) => {
     handleConfirm(
       "Add tracker",
@@ -73,6 +69,7 @@ const TrackersPage = () => {
       () => addTracker({ data: { tracker: formData } })
     );
   };
+
   const handleConfirmRestore = (trackerId, trackerTitle) => {
     handleConfirm(
       "Confirm Restore",
