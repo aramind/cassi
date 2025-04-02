@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { act, useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import PageHeader from "../../components/PageHeader";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
 import useApiGet from "../../hooks/api/useApiGet";
@@ -14,6 +14,8 @@ import TrackerDialog from "./TrackerDialog";
 
 const TrackersPage = () => {
   const { auth } = useAuth();
+  const [activeTrackers, setActiveTrackers] = useState([]);
+  const [deletedTrackers, setDeletedTrackers] = useState([]);
   const [openTrackerDialog, setOpenTrackerDialog] = useState(false);
   const { getTrackers, addTracker } = useTrackerReq({
     isPublic: false,
@@ -28,6 +30,13 @@ const TrackersPage = () => {
     () => getTrackers(`house=${auth?.houseInfo?._id}`),
     { enabled: !!auth?.houseInfo?._id }
   );
+
+  useEffect(() => {
+    const activeTrackers = trackersData?.data?.filter(
+      (tracker) => tracker?.status?.toLowerCase() === "active"
+    );
+    setActiveTrackers((pv) => activeTrackers);
+  }, [setActiveTrackers, trackersData]);
 
   const addTrackerHandler = () => {
     setOpenTrackerDialog(true);
@@ -58,8 +67,9 @@ const TrackersPage = () => {
           onClickHandler={addTrackerHandler}
         />
         <br />
-        {<Trackers trackers={trackersData?.data} />}
+        {activeTrackers && <Trackers trackers={activeTrackers} />}
         <br />
+
         <MyButton
           type="accent"
           text="add tracker"
@@ -67,6 +77,8 @@ const TrackersPage = () => {
           onClickHandler={addTrackerHandler}
         />
       </Stack>
+      <Typography>DELETED TRACKERS</Typography>
+      {deletedTrackers && <Trackers />}
       <TrackerDialog
         open={openTrackerDialog}
         setOpen={setOpenTrackerDialog}

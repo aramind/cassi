@@ -20,6 +20,7 @@ const Tracker = ({ tracker }) => {
     const formattedDate = convertToISOFormat(data?.date);
     const newEntry = { ...data, date: formattedDate };
     const updatedEntries = [newEntry, ...(tracker?.entries || [])];
+
     sendUpdateTracker({
       trackerId: tracker?._id,
       data: { entries: updatedEntries },
@@ -56,6 +57,15 @@ const Tracker = ({ tracker }) => {
       data: { entries: updatedEntries },
     });
   };
+
+  const updateTrackerMetaInfoHandler = async (updates) => {
+    sendUpdateTracker({
+      trackerId: tracker?._id,
+      data: updates,
+    });
+
+    setOpenEntryDialog(false);
+  };
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <Stack width={1} alignItems="center" px={1} py={2}>
@@ -73,7 +83,11 @@ const Tracker = ({ tracker }) => {
               {tracker?.description}
             </Typography>
           </Stack>
-          <TrackerActionsGroup />
+          <TrackerActionsGroup
+            tracker={tracker}
+            updateHandler={updateTrackerMetaInfoHandler}
+            deleteHandler={updateTrackerMetaInfoHandler}
+          />
         </Stack>
         <Box my={2} width={1}>
           {/* <TrackersTables tracker={tracker} /> */}
