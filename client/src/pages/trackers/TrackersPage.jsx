@@ -12,12 +12,15 @@ import ErrorPage from "../ErrorPage";
 import Trackers from "./Trackers";
 import TrackerDialog from "./TrackerDialog";
 import DeletedTrackers from "./DeletedTrackers";
+import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
 
 const TrackersPage = () => {
   const { auth } = useAuth();
   const [activeTrackers, setActiveTrackers] = useState([]);
   const [deletedTrackers, setDeletedTrackers] = useState([]);
   const [openTrackerDialog, setOpenTrackerDialog] = useState(false);
+  const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
+
   const { getTrackers, addTracker } = useTrackerReq({
     isPublic: false,
     showAck: false,
@@ -54,9 +57,10 @@ const TrackersPage = () => {
   };
 
   const restoreTrackerHandler = (trackerId) => {
-    console.log(
-      trackersData?.data?.filter((tracker) => tracker?._id === trackerId)
-    );
+    sendUpdateTracker({
+      trackerId: trackerId,
+      data: { status: "active" },
+    });
   };
 
   if (isLoadingInGetReq) {
