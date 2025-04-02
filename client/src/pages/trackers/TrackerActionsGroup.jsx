@@ -4,7 +4,7 @@ import { IconButton, Stack, Typography } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
-const TrackerActionsGroup = ({ data, updateHandler, deleteHandler }) => {
+const TrackerActionsGroup = ({ tracker, updateHandler, deleteHandler }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleEdit = useCallback(() => {
@@ -20,7 +20,7 @@ const TrackerActionsGroup = ({ data, updateHandler, deleteHandler }) => {
       <Typography>
         Are you sure you want to proceed with the delete?
       </Typography>,
-      () => deleteHandler(data?._id)
+      () => deleteHandler({ status: "deleted" })
     );
   };
 

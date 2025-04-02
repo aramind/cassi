@@ -11,6 +11,7 @@ import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import Trackers from "./Trackers";
 import TrackerDialog from "./TrackerDialog";
+import DeletedTrackers from "./DeletedTrackers";
 
 const TrackersPage = () => {
   const { auth } = useAuth();
@@ -35,8 +36,14 @@ const TrackersPage = () => {
     const activeTrackers = trackersData?.data?.filter(
       (tracker) => tracker?.status?.toLowerCase() === "active"
     );
+
+    const deletedTrackers = trackersData?.data?.filter(
+      (tracker) => tracker?.status?.toLowerCase() === "deleted"
+    );
+
     setActiveTrackers((pv) => activeTrackers);
-  }, [setActiveTrackers, trackersData]);
+    setDeletedTrackers((pv) => deletedTrackers);
+  }, [trackersData]);
 
   const addTrackerHandler = () => {
     setOpenTrackerDialog(true);
@@ -44,6 +51,12 @@ const TrackersPage = () => {
 
   const submitAddHandler = (formData) => {
     addTracker({ data: { tracker: formData } });
+  };
+
+  const restoreTrackerHandler = (trackerId) => {
+    console.log(
+      trackersData?.data?.filter((tracker) => tracker?._id === trackerId)
+    );
   };
 
   if (isLoadingInGetReq) {
@@ -77,8 +90,13 @@ const TrackersPage = () => {
           onClickHandler={addTrackerHandler}
         />
       </Stack>
-      <Typography>DELETED TRACKERS</Typography>
-      {deletedTrackers && <Trackers />}
+
+      {deletedTrackers && (
+        <DeletedTrackers
+          trackers={deletedTrackers}
+          restoreTrackerHandler={restoreTrackerHandler}
+        />
+      )}
       <TrackerDialog
         open={openTrackerDialog}
         setOpen={setOpenTrackerDialog}
