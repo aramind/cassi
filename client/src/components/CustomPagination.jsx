@@ -8,7 +8,9 @@ const CustomPagination = ({ count, page, onChange }) => {
       page={page}
       onChange={onChange}
       sx={(theme) => ({
-        "& .Mui-selected": { backgroundColor: theme.palette.accent.light },
+        "& .MuiPaginationItem-root.Mui-selected": {
+          backgroundColor: theme.palette.accent.light,
+        },
       })}
     />
   );
