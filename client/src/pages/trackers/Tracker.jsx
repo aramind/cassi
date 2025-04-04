@@ -87,6 +87,7 @@ const Tracker = ({ tracker }) => {
             tracker={tracker}
             updateHandler={updateTrackerMetaInfoHandler}
             deleteHandler={updateTrackerMetaInfoHandler}
+            setOpenEntryDialog={setOpenEntryDialog}
           />
         </Stack>
         <Box my={2} width={1}>

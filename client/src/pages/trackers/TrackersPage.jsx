@@ -66,7 +66,10 @@ const TrackersPage = () => {
           {formData?.title}
         </Typography>
       </Stack>,
-      () => addTracker({ data: { tracker: formData } })
+      async () => {
+        await addTracker({ data: { tracker: formData } });
+        setOpenTrackerDialog(false);
+      }
     );
   };
 

@@ -76,6 +76,7 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
   //   handlers
   const onSubmit = async (formData) => {
     submitHandler(formData);
+    setOpen(false);
   };
 
   const handleClose = (e) => {

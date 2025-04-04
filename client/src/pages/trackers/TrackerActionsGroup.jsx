@@ -3,6 +3,7 @@ import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { IconButton, Stack, Typography } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import TrackerDialog from "./TrackerDialog";
 
 const TrackerActionsGroup = ({ tracker, updateHandler, deleteHandler }) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -26,13 +27,24 @@ const TrackerActionsGroup = ({ tracker, updateHandler, deleteHandler }) => {
 
   return (
     <Stack spacing={1}>
-      <IconButton aria-label="edit" onClick={handleEdit}>
+      <IconButton
+        aria-label="edit"
+        onClick={() => {
+          handleEdit();
+        }}
+      >
         <EditRoundedIcon />
       </IconButton>
       <IconButton aria-label="delete" onClick={handleDelete}>
         <DeleteRoundedIcon />
       </IconButton>
-
+      <TrackerDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        data={tracker}
+        action="update"
+        submitHandler={updateHandler}
+      />
       {renderConfirmActionDialog()}
     </Stack>
   );
