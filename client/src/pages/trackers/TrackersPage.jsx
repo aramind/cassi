@@ -105,7 +105,7 @@ const TrackersPage = () => {
 
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
-      <Stack mt={2} alignItems="center" width={1} pb={4} className="outlined">
+      <Stack mt={2} alignItems="center" width={1} pb={4}>
         <PageHeader text="trackers " />
         <Today />
         <br />
