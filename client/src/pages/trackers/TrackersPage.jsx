@@ -1,7 +1,7 @@
 import React, { act, useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import PageHeader from "../../components/PageHeader";
-import { Stack, Typography } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
 import useApiGet from "../../hooks/api/useApiGet";
@@ -14,9 +14,12 @@ import TrackerDialog from "./TrackerDialog";
 import DeletedTrackers from "./DeletedTrackers";
 import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
+import FullScreenDialog from "../../components/FullScreenDialog";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const TrackersPage = () => {
   const { auth } = useAuth();
+  const [openDeletedTrackers, setOpenDeletedTrackers] = useState(true);
   const [activeTrackers, setActiveTrackers] = useState([]);
   const [deletedTrackers, setDeletedTrackers] = useState([]);
   const [openTrackerDialog, setOpenTrackerDialog] = useState(false);
@@ -124,12 +127,19 @@ const TrackersPage = () => {
         />
       </Stack>
 
-      {deletedTrackers && (
-        <DeletedTrackers
-          trackers={deletedTrackers}
-          restoreTrackerHandler={handleConfirmRestore}
-        />
-      )}
+      <FullScreenDialog
+        open={openDeletedTrackers}
+        setOpen={setOpenDeletedTrackers}
+        actionText="review deleted tracker(s)"
+        title="Deleted Tracker(s)"
+      >
+        {deletedTrackers && (
+          <DeletedTrackers
+            trackers={deletedTrackers}
+            restoreTrackerHandler={handleConfirmRestore}
+          />
+        )}
+      </FullScreenDialog>
       <TrackerDialog
         open={openTrackerDialog}
         setOpen={setOpenTrackerDialog}
