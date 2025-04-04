@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Chip, Divider, Stack, Typography } from "@mui/material";
+import { Box, Chip, Divider, Stack, Typography } from "@mui/material";
 import ActionsGroup from "./ActionsGroup";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import useHouseProvider from "../../hooks/useHouseProvider";
 import { formatToMMDDYYYY } from "../../utils/date";
+import CustomPagination from "../../components/CustomPagination";
+
+const PAGE_SIZE = 5;
 
 const Entry = ({ label, value, hasIcon }) => {
   return (
@@ -31,10 +34,12 @@ const Entry = ({ label, value, hasIcon }) => {
 };
 
 const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
+  const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(tracker?.entries);
   const { occupantOptions } = useHouseProvider();
-  useEffect(() => {
-    const formattedEntries = tracker?.entries?.map((entry, index) => ({
+
+  const formattedEntries =
+    tracker?.entries?.map((entry) => ({
       ...entry,
       // date: formatDate(entry?.date),
       date: formatToMMDDYYYY(entry?.date),
@@ -45,11 +50,16 @@ const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
         (option) => option.id === entry?.completedBy
       )?.name,
       comments: entry?.comments?.join(";"),
-    }));
+    })) || [];
 
-    setEntries(formattedEntries);
-  }, [occupantOptions, tracker?.entries]);
+  // pagination logic
 
+  const totalPages = Math.ceil(formattedEntries?.length / PAGE_SIZE);
+
+  const paginatedEntries = formattedEntries.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
+  );
   return (
     <Stack width={1} alignItems="center">
       {tracker?.entries?.length < 1 ? (
@@ -58,7 +68,7 @@ const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
         </Typography>
       ) : (
         <>
-          {entries?.map((entry) => (
+          {paginatedEntries?.map((entry) => (
             <Stack key={entry?._id} direction="column" width={1}>
               <Divider>{entry?.date}</Divider>
               <Stack direction="row">
@@ -81,6 +91,16 @@ const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
               </Stack>
             </Stack>
           ))}
+
+          {totalPages > 1 && (
+            <Box my={1}>
+              <CustomPagination
+                count={totalPages}
+                page={page}
+                onChange={(event, value) => setPage(value)}
+              />
+            </Box>
+          )}
         </>
       )}
     </Stack>

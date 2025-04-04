@@ -97,7 +97,6 @@ const Tracker = ({ tracker }) => {
             deleteEntryHandler={deleteEntryHandler}
           />
         </Box>
-        <br />
         <MyButton
           type="primary"
           text="add entry"
