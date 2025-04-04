@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Chip, Divider, Stack, Typography } from "@mui/material";
 import ActionsGroup from "./ActionsGroup";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
@@ -35,7 +35,6 @@ const Entry = ({ label, value, hasIcon }) => {
 
 const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
   const [page, setPage] = useState(1);
-  const [entries, setEntries] = useState(tracker?.entries);
   const { occupantOptions } = useHouseProvider();
 
   const formattedEntries =
