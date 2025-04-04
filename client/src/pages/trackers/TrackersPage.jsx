@@ -105,7 +105,7 @@ const TrackersPage = () => {
 
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
-      <Stack mt={2} alignItems="center" width={1} pb={4}>
+      <Stack mt={2} alignItems="center" width={1} pb={4} className="outlined">
         <PageHeader text="trackers " />
         <Today />
         <br />
@@ -125,21 +125,22 @@ const TrackersPage = () => {
           variant="contained"
           onClickHandler={addTrackerHandler}
         />
+        <br />
+        <FullScreenDialog
+          open={openDeletedTrackers}
+          setOpen={setOpenDeletedTrackers}
+          actionText="review deleted tracker(s)"
+          title="Deleted Tracker(s)"
+        >
+          {deletedTrackers && (
+            <DeletedTrackers
+              trackers={deletedTrackers}
+              restoreTrackerHandler={handleConfirmRestore}
+            />
+          )}
+        </FullScreenDialog>
       </Stack>
 
-      <FullScreenDialog
-        open={openDeletedTrackers}
-        setOpen={setOpenDeletedTrackers}
-        actionText="review deleted tracker(s)"
-        title="Deleted Tracker(s)"
-      >
-        {deletedTrackers && (
-          <DeletedTrackers
-            trackers={deletedTrackers}
-            restoreTrackerHandler={handleConfirmRestore}
-          />
-        )}
-      </FullScreenDialog>
       <TrackerDialog
         open={openTrackerDialog}
         setOpen={setOpenTrackerDialog}
