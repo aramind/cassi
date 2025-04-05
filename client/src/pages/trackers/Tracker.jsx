@@ -91,7 +91,6 @@ const Tracker = ({ tracker }) => {
           />
         </Stack>
         <Box my={2} width={1}>
-          {/* <TrackersTables tracker={tracker} /> */}
           <TrackerEntries
             tracker={tracker}
             submitHandler={updatingEntryHandler}
