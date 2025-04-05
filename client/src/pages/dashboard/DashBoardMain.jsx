@@ -1,14 +1,10 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import React from "react";
 import { getCurrentDay } from "../../utils/date";
 import Board from "./Board";
 import { useNavigate } from "react-router-dom";
 import BodyContainer from "../../containers/BodyContainer";
 import Today from "../../components/Today";
-import AnimatedBorderTrail from "../../components/AnimatedBorderTrail";
-import useRefreshToken from "../../hooks/useRefreshToken";
-
-import useAuth from "../../hooks/useAuth";
 
 const randomEmojis = ["🪴", "🌻", "🌞", "🌈", "🌟 ", "🥳", "☕", "🐦"];
 const waveEmojis = ["👋🏻", "👋🏼", "👋🏽", "👋🏾", "👋🏿"];
@@ -39,15 +35,13 @@ const getItem = (array) => {
 
 const DashBoardMain = () => {
   const navigate = useNavigate();
-  const refresh = useRefreshToken();
-  const { auth } = useAuth();
 
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack
         width={1}
         height={1}
-        pt={{ xs: "2rem" }}
+        pt={{ xs: "1rem" }}
         alignItems="center"
         // className="outlined"
       >
@@ -60,16 +54,16 @@ const DashBoardMain = () => {
           </Typography>
         </Stack>
         <Today />
-        <Box height="4rem" />
-        <Button onClick={() => refresh()}>
+        <br />
+        {/* <Box height="4rem" /> */}
+        {/* <Button onClick={() => refresh()}>
           {" "}
           {`Refresh user ${auth?.houseInfo?.name}`}
-        </Button>
-        <AnimatedBorderTrail duration="5s" trailColor="green" trailSize="lg">
-          <Typography variant="h6" textAlign="center">
-            What do you wan't us to check?🤔
-          </Typography>
-        </AnimatedBorderTrail>
+        </Button> */}
+
+        <Typography variant="h6" textAlign="center">
+          What do you wan't us to check?🤔
+        </Typography>
 
         <br />
         <Stack
