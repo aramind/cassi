@@ -69,8 +69,8 @@ const Tracker = ({ tracker }) => {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <Stack width={1} alignItems="center" px={1} py={2}>
-        <Stack direction="row">
-          <Stack>
+        <Stack direction="row" justifyContent="space-between" width={1}>
+          <Stack flex={1} width={1}>
             <Typography variant="h5" textAlign="center" width={1}>
               {tracker?.title}
             </Typography>
