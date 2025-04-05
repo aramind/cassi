@@ -19,7 +19,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const TrackersPage = () => {
   const { auth } = useAuth();
-  const [openDeletedTrackers, setOpenDeletedTrackers] = useState(true);
+  const [openDeletedTrackers, setOpenDeletedTrackers] = useState(false);
   const [activeTrackers, setActiveTrackers] = useState([]);
   const [deletedTrackers, setDeletedTrackers] = useState([]);
   const [openTrackerDialog, setOpenTrackerDialog] = useState(false);
