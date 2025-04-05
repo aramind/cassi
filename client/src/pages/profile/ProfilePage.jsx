@@ -12,11 +12,16 @@ import { formatDate } from "../../utils/formatDate";
 import AddHouseOccupantDialog from "./AddHouseOccupantDialog";
 import UpdateHouseOccupantDialog from "./UpdateHouseOccupantDialog";
 
+const Value = ({ transform, children }) => (
+  <Typography fontWeight="bold" textTransform={transform}>
+    {children}
+  </Typography>
+);
 const OccupantDetail = ({ label, value }) => (
   <Stack direction="row" spacing={1}>
     <Typography>{label.toUpperCase()}</Typography>
     <Typography>:</Typography>
-    <Typography>{value}</Typography>
+    <Value transform="capitalize">{value}</Value>
   </Stack>
 );
 const ProfilePage = () => {
@@ -80,7 +85,7 @@ const ProfilePage = () => {
           >
             <Typography>{key.toUpperCase()}</Typography>
             <Typography>:</Typography>
-            <Typography>{value}</Typography>
+            <Value transform="uppercase">{value}</Value>
           </Stack>
         ))}
         <br />
