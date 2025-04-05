@@ -17,7 +17,8 @@ const Entry = ({ label, value, hasIcon }) => {
           {hasIcon ? (
             <Chip
               icon={<FaceTwoToneIcon />}
-              label={value.toUpperCase()}
+              label={value}
+              size="small"
               sx={(theme) => ({
                 backgroundColor: theme.palette?.accent?.light,
               })}
@@ -78,7 +79,7 @@ const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
                     deleteEntryHandler={deleteEntryHandler}
                   />
                 </Stack>
-                <Stack flex={4} p={1}>
+                <Stack flex={4} p={1} spacing={0.5}>
                   <Entry
                     label="assigned to :"
                     value={entry?.originalAssignee}
