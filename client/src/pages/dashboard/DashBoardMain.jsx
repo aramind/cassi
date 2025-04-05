@@ -1,13 +1,13 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
-import { getCurrentDay, getCurrentDate } from "../../utils/date";
+import { getCurrentDay } from "../../utils/date";
 import Board from "./Board";
 import { useNavigate } from "react-router-dom";
 import BodyContainer from "../../containers/BodyContainer";
 import Today from "../../components/Today";
 import AnimatedBorderTrail from "../../components/AnimatedBorderTrail";
 import useRefreshToken from "../../hooks/useRefreshToken";
-import TopBar from "../../components/TopBar";
+
 import useAuth from "../../hooks/useAuth";
 
 const randomEmojis = ["🪴", "🌻", "🌞", "🌈", "🌟 ", "🥳", "☕", "🐦"];
