@@ -115,7 +115,8 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
   //   form handlers
 
   const onSubmit = async (formData) => {
-    submitHandler(formData);
+    await submitHandler(formData);
+    setOpen(false);
   };
 
   //   confirm action dialog handlers

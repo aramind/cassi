@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import TrackerEntries from "./TrackerEntries";
 import MyButton from "../../components/buttons/MyButton";
@@ -16,56 +16,68 @@ const Tracker = ({ tracker }) => {
     setOpenEntryDialog(true);
   };
 
-  const addingEntryHandler = async (data) => {
-    const formattedDate = convertToISOFormat(data?.date);
-    const newEntry = { ...data, date: formattedDate };
-    const updatedEntries = [newEntry, ...(tracker?.entries || [])];
+  const addingEntryHandler = useCallback(
+    async (data) => {
+      const formattedDate = convertToISOFormat(data?.date);
+      const newEntry = { ...data, date: formattedDate };
+      const updatedEntries = [newEntry, ...(tracker?.entries || [])];
 
-    sendUpdateTracker({
-      trackerId: tracker?._id,
-      data: { entries: updatedEntries },
-    });
-    setOpenEntryDialog(false);
-  };
+      sendUpdateTracker({
+        trackerId: tracker?._id,
+        data: { entries: updatedEntries },
+      });
+    },
+    [sendUpdateTracker, tracker?._id, tracker?.entries]
+  );
 
-  const updatingEntryHandler = async (data) => {
-    const formattedData = {
-      ...data,
-      date: convertToISOFormat(data?.date),
-      comments: data?.comments?.split(";"),
-    };
+  const updatingEntryHandler = useCallback(
+    async (data) => {
+      const formattedData = {
+        ...data,
+        date: convertToISOFormat(data?.date),
+        comments: data?.comments?.split(";"),
+      };
 
-    const updatedEntries = tracker?.entries?.map((entry) =>
-      entry?._id === formattedData?._id ? { ...entry, ...formattedData } : entry
-    );
+      const updatedEntries = tracker?.entries?.map((entry) =>
+        entry?._id === formattedData?._id
+          ? { ...entry, ...formattedData }
+          : entry
+      );
 
-    sendUpdateTracker({
-      trackerId: tracker?._id,
-      data: { entries: updatedEntries },
-    });
+      sendUpdateTracker({
+        trackerId: tracker?._id,
+        data: { entries: updatedEntries },
+      });
+    },
+    [sendUpdateTracker, tracker?._id, tracker?.entries]
+  );
 
-    setOpenEntryDialog(false);
-  };
+  const deleteEntryHandler = useCallback(
+    async (entryId) => {
+      const updatedEntries = tracker?.entries?.filter(
+        (entry) => entry._id !== entryId
+      );
 
-  const deleteEntryHandler = async (entryId) => {
-    const updatedEntries = tracker?.entries?.filter(
-      (entry) => entry._id !== entryId
-    );
+      sendUpdateTracker({
+        trackerId: tracker?._id,
+        data: { entries: updatedEntries },
+      });
+    },
+    [sendUpdateTracker, tracker?._id, tracker?.entries]
+  );
 
-    sendUpdateTracker({
-      trackerId: tracker?._id,
-      data: { entries: updatedEntries },
-    });
-  };
+  const updateTrackerMetaInfoHandler = useCallback(
+    async (updates) => {
+      sendUpdateTracker({
+        trackerId: tracker?._id,
+        data: updates,
+      });
 
-  const updateTrackerMetaInfoHandler = async (updates) => {
-    sendUpdateTracker({
-      trackerId: tracker?._id,
-      data: updates,
-    });
+      setOpenEntryDialog(false);
+    },
+    [sendUpdateTracker, tracker?._id]
+  );
 
-    setOpenEntryDialog(false);
-  };
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <Stack width={1} alignItems="center" px={1} py={2}>
