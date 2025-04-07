@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 
 import useAuth from "../../hooks/useAuth";
@@ -13,6 +13,8 @@ import AddHouseOccupantDialog from "./AddHouseOccupantDialog";
 import UpdateHouseOccupantDialog from "./UpdateHouseOccupantDialog";
 import useApiSend from "../../hooks/api/useApiSend";
 import useHouseOccupantReq from "../../hooks/api/authenticated/useHouseOccupantReq";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 const Value = ({ transform, children }) => (
   <Typography fontWeight="bold" textTransform={transform}>
@@ -126,7 +128,7 @@ const ProfilePage = () => {
               mb={2}
               justifyContent="flex-start"
             >
-              <Stack direction="row" pr={1} alignItems="center" spacing={1}>
+              <Stack direction="row" pr={1} alignItems="center" spacing={0.5}>
                 <Typography variant="h5">{index + 1}.</Typography>
                 <Typography variant="h6">
                   {occupant.occupant?.name?.lastName.toUpperCase()},{" "}
@@ -137,8 +139,12 @@ const ProfilePage = () => {
                   variant="outlined"
                   onClick={() => updateOccupantHandler(occupant?._id)}
                 >
-                  Update Info
+                  Update
                 </Button>
+
+                <IconButton>
+                  <DeleteRoundedIcon />
+                </IconButton>
               </Stack>
               <Stack spacing={1} pl={2}>
                 <OccupantDetail
