@@ -43,6 +43,7 @@ const ProfilePage = () => {
     }
   );
 
+  console.log(occupants);
   useEffect(() => {
     if (data) {
       const { occupants, _id, ...houseInfo } = data?.data;

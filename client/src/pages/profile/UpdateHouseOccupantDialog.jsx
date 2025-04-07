@@ -24,6 +24,7 @@ import { joinWithSymbol } from "../../utils/joinWithSymbol";
 import { breakPascalCase } from "../../utils/breakPascalCase";
 import { options } from "../../constants/options";
 import useApiSend from "../../hooks/api/useApiSend";
+import { formatToMMDDYYYY } from "../../utils/date";
 
 const genderOptions = options?.gender;
 
@@ -73,7 +74,8 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
 
   useEffect(() => {
     if (houseOccupantData?.data) {
-      const { occupant, ...otherHouseOccupantInfo } = houseOccupantData?.data;
+      const { occupant, moveInDate, ...otherHouseOccupantInfo } =
+        houseOccupantData?.data;
       const { contactNumbers, preferences, ...otherOccupantInfo } = occupant;
       const formattedDefaultValues = {
         occupant: {
@@ -81,6 +83,7 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
           preferences: joinWithSymbol(preferences),
           ...otherOccupantInfo,
         },
+        moveInDate: formatToMMDDYYYY(moveInDate),
         ...otherHouseOccupantInfo,
       };
       setDefaultValues((pv) => formattedDefaultValues);
@@ -96,7 +99,7 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
 
   //   form handlers
   const handleClear = () => {
-    reset();
+    reset(defaultValues);
   };
 
   const onSubmit = async (formData) => {
