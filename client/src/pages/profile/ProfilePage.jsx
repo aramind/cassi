@@ -1,6 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Icon,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 
 import useAuth from "../../hooks/useAuth";
@@ -135,13 +142,12 @@ const ProfilePage = () => {
                   {occupant.occupant?.name?.firstName.toUpperCase()}
                 </Typography>
                 <Box flex={1}></Box>
-                <Button
-                  variant="outlined"
+
+                <IconButton
                   onClick={() => updateOccupantHandler(occupant?._id)}
                 >
-                  Update
-                </Button>
-
+                  <EditRoundedIcon />
+                </IconButton>
                 <IconButton>
                   <DeleteRoundedIcon />
                 </IconButton>
