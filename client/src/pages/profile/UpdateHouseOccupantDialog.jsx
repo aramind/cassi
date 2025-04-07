@@ -76,11 +76,11 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
     if (houseOccupantData?.data) {
       const { occupant, moveInDate, ...otherHouseOccupantInfo } =
         houseOccupantData?.data;
-      const { contactNumbers, preferences, ...otherOccupantInfo } = occupant;
+      const { contactNumbers, dateOfBirth, ...otherOccupantInfo } = occupant;
       const formattedDefaultValues = {
         occupant: {
           contactNumbers: joinWithSymbol(contactNumbers),
-          preferences: joinWithSymbol(preferences),
+          dateOfBirth: formatToMMDDYYYY(dateOfBirth),
           ...otherOccupantInfo,
         },
         moveInDate: formatToMMDDYYYY(moveInDate),
@@ -130,6 +130,8 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
 
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
+
+  console.log(defaultValues);
   return (
     <>
       <Dialog
