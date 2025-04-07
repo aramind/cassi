@@ -11,6 +11,8 @@ import ErrorPage from "../ErrorPage";
 import { formatDate } from "../../utils/formatDate";
 import AddHouseOccupantDialog from "./AddHouseOccupantDialog";
 import UpdateHouseOccupantDialog from "./UpdateHouseOccupantDialog";
+import useApiSend from "../../hooks/api/useApiSend";
+import useHouseOccupantReq from "../../hooks/api/authenticated/useHouseOccupantReq";
 
 const Value = ({ transform, children }) => (
   <Typography fontWeight="bold" textTransform={transform}>
@@ -33,6 +35,11 @@ const ProfilePage = () => {
   const { auth } = useAuth();
   const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
 
+  const { updateHouseOccupant } = useHouseOccupantReq({
+    isPublic: false,
+    showAck: true,
+  });
+
   const { data, isLoading, isError } = useApiGet(
     "houseProfile",
     () => getHouseProfile(auth?.houseInfo?._id),
@@ -43,7 +50,11 @@ const ProfilePage = () => {
     }
   );
 
-  console.log(occupants);
+  const { mutate: sendUpdateRequest, isLoadingInUpdate } = useApiSend(
+    updateHouseOccupant,
+    ["houseProfile"]
+  );
+
   useEffect(() => {
     if (data) {
       const { occupants, _id, ...houseInfo } = data?.data;
@@ -67,7 +78,7 @@ const ProfilePage = () => {
     setOpenUpdateDialog((pv) => true);
   }, []);
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading || isLoadingInUpdate) return <LoadingPage />;
   if (isError) return <ErrorPage />;
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
@@ -179,6 +190,7 @@ const ProfilePage = () => {
           open={openUpdateDialog}
           setOpen={setOpenUpdateDialog}
           houseOccupantId={selectedOccupantId}
+          sendUpdateRequest={sendUpdateRequest}
         />
       )}
     </BodyContainer>
