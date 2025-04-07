@@ -21,7 +21,7 @@ const OccupantDetail = ({ label, value }) => (
   <Stack direction="row" spacing={1}>
     <Typography>{label.toUpperCase()}</Typography>
     <Typography>:</Typography>
-    <Value transform="capitalize">{value}</Value>
+    <Value>{value}</Value>
   </Stack>
 );
 const ProfilePage = () => {
