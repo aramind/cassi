@@ -21,6 +21,9 @@ export const convertToISOFormat = (dateString) => {
 };
 
 export const formatToMMDDYYYY = (isoDateString) => {
+  if (!isoDateString) {
+    return "";
+  }
   const date = new Date(isoDateString);
 
   const MM = String(date.getMonth() + 1).padStart(2, "0");
