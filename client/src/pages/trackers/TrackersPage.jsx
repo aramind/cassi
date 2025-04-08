@@ -103,6 +103,8 @@ const TrackersPage = () => {
     return <ErrorPage />;
   }
 
+  console.log(deletedTrackers);
+
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack mt={2} alignItems="center" width={1} pb={4}>
@@ -126,19 +128,20 @@ const TrackersPage = () => {
           onClickHandler={addTrackerHandler}
         />
         <br />
-        <FullScreenDialog
-          open={openDeletedTrackers}
-          setOpen={setOpenDeletedTrackers}
-          actionText="review deleted tracker(s)"
-          title="Deleted Tracker(s)"
-        >
-          {deletedTrackers && (
+
+        {deletedTrackers?.length > 0 && (
+          <FullScreenDialog
+            open={openDeletedTrackers}
+            setOpen={setOpenDeletedTrackers}
+            actionText="review deleted tracker(s)"
+            title="Deleted Tracker(s)"
+          >
             <DeletedTrackers
               trackers={deletedTrackers}
               restoreTrackerHandler={handleConfirmRestore}
             />
-          )}
-        </FullScreenDialog>
+          </FullScreenDialog>
+        )}
       </Stack>
 
       <TrackerDialog
