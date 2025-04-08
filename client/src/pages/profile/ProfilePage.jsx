@@ -28,6 +28,7 @@ import NewReleasesRoundedIcon from "@mui/icons-material/NewReleasesRounded";
 import FullScreenDialog from "../../components/FullScreenDialog";
 import OccupantByStatus from "./OccupantByStatus";
 
+const UNIQUESTATUSES = ["active", "suspended", "evicted", "banned"];
 const Value = ({ transform, children }) => (
   <Typography fontWeight="bold" textTransform={transform}>
     {children}
@@ -41,6 +42,7 @@ const OccupantDetail = ({ label, value }) => (
   </Stack>
 );
 const ProfilePage = () => {
+  const [openedCategories, setOpenedCategories] = useState(["active"]);
   const [selectedOccupantId, setSelectedOccupantId] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
@@ -97,7 +99,6 @@ const ProfilePage = () => {
   if (isLoading || isLoadingInUpdate) return <LoadingPage />;
   if (isError) return <ErrorPage />;
 
-  console.log(occupants);
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack mt={2} alignItems="center" width={1} spacing={1} p={0.5}>
@@ -225,39 +226,19 @@ const ProfilePage = () => {
         })} */}
         {occupants && (
           <Stack spacing={1} width={1} mt={1}>
-            <OccupantByStatus
-              occupants={occupants}
-              status="active"
-              label="active"
-              onUpdate={updateOccupantHandler}
-            />
-            <OccupantByStatus
-              occupants={occupants}
-              status="suspended"
-              label="suspended"
-              onUpdate={updateOccupantHandler}
-            />
-            {/* <OccupantByStatus
-              occupants={occupants}
-              status="evicted"
-              label="evicted"
-              onUpdate={updateOccupantHandler}
-            />
-            <OccupantByStatus
-              occupants={occupants}
-              status="banned"
-              label="banned"
-              onUpdate={updateOccupantHandler}
-            /> */}
+            {UNIQUESTATUSES?.map((status) => (
+              <OccupantByStatus
+                open={openedCategories}
+                setOpen={setOpenedCategories}
+                occupants={occupants}
+                status={status}
+                label={status}
+                onUpdate={updateOccupantHandler}
+              />
+            ))}
           </Stack>
         )}
         <br />
-        <FullScreenDialog
-          open={openExOccupants}
-          setOpen={setOpenExOccupants}
-          actionText="view former occupants"
-          title="former occupant(s)"
-        />
       </Stack>
       {openDialog && (
         <AddHouseOccupantDialog open={openDialog} setOpen={setOpenDialog} />
