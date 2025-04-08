@@ -1,6 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Icon,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 
 import useAuth from "../../hooks/useAuth";
@@ -11,12 +19,23 @@ import ErrorPage from "../ErrorPage";
 import { formatDate } from "../../utils/formatDate";
 import AddHouseOccupantDialog from "./AddHouseOccupantDialog";
 import UpdateHouseOccupantDialog from "./UpdateHouseOccupantDialog";
+import useApiSend from "../../hooks/api/useApiSend";
+import useHouseOccupantReq from "../../hooks/api/authenticated/useHouseOccupantReq";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
+import NewReleasesRoundedIcon from "@mui/icons-material/NewReleasesRounded";
 
+const Value = ({ transform, children }) => (
+  <Typography fontWeight="bold" textTransform={transform}>
+    {children}
+  </Typography>
+);
 const OccupantDetail = ({ label, value }) => (
   <Stack direction="row" spacing={1}>
     <Typography>{label.toUpperCase()}</Typography>
     <Typography>:</Typography>
-    <Typography>{value}</Typography>
+    <Value>{value}</Value>
   </Stack>
 );
 const ProfilePage = () => {
@@ -28,6 +47,11 @@ const ProfilePage = () => {
   const { auth } = useAuth();
   const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
 
+  const { updateHouseOccupant } = useHouseOccupantReq({
+    isPublic: false,
+    showAck: true,
+  });
+
   const { data, isLoading, isError } = useApiGet(
     "houseProfile",
     () => getHouseProfile(auth?.houseInfo?._id),
@@ -36,6 +60,11 @@ const ProfilePage = () => {
       retry: 3,
       enabled: !!auth?.houseInfo?._id,
     }
+  );
+
+  const { mutate: sendUpdateRequest, isLoadingInUpdate } = useApiSend(
+    updateHouseOccupant,
+    ["houseProfile"]
   );
 
   useEffect(() => {
@@ -52,6 +81,7 @@ const ProfilePage = () => {
 
   // callbacks
 
+  console.log(data);
   const addOccupantHandler = () => {
     setOpenDialog((pv) => true);
   };
@@ -61,7 +91,7 @@ const ProfilePage = () => {
     setOpenUpdateDialog((pv) => true);
   }, []);
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading || isLoadingInUpdate) return <LoadingPage />;
   if (isError) return <ErrorPage />;
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
@@ -80,7 +110,7 @@ const ProfilePage = () => {
           >
             <Typography>{key.toUpperCase()}</Typography>
             <Typography>:</Typography>
-            <Typography>{value}</Typography>
+            <Value transform="uppercase">{value}</Value>
           </Stack>
         ))}
         <br />
@@ -109,19 +139,36 @@ const ProfilePage = () => {
               mb={2}
               justifyContent="flex-start"
             >
-              <Stack direction="row" pr={1} alignItems="center" spacing={1}>
+              <Stack direction="row" pr={1} alignItems="center" spacing={0.5}>
                 <Typography variant="h5">{index + 1}.</Typography>
-                <Typography variant="h6">
+                <Typography
+                  variant="h6"
+                  color={
+                    occupant?.status === "active" ? "primary.dark" : "error"
+                  }
+                >
                   {occupant.occupant?.name?.lastName.toUpperCase()},{" "}
                   {occupant.occupant?.name?.firstName.toUpperCase()}
                 </Typography>
+
+                <Tooltip title={occupant?.status} placement="top-start">
+                  {occupant?.status === "active" ? (
+                    <VerifiedRoundedIcon color="primary" />
+                  ) : (
+                    <NewReleasesRoundedIcon color="error" />
+                  )}
+                </Tooltip>
+
                 <Box flex={1}></Box>
-                <Button
-                  variant="outlined"
+
+                <IconButton
                   onClick={() => updateOccupantHandler(occupant?._id)}
                 >
-                  Update Info
-                </Button>
+                  <EditRoundedIcon />
+                </IconButton>
+                <IconButton>
+                  <DeleteRoundedIcon />
+                </IconButton>
               </Stack>
               <Stack spacing={1} pl={2}>
                 <OccupantDetail
@@ -173,6 +220,7 @@ const ProfilePage = () => {
           open={openUpdateDialog}
           setOpen={setOpenUpdateDialog}
           houseOccupantId={selectedOccupantId}
+          sendUpdateRequest={sendUpdateRequest}
         />
       )}
     </BodyContainer>

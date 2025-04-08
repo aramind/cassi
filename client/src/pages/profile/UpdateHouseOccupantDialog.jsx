@@ -21,15 +21,19 @@ import useAuth from "../../hooks/useAuth";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import { joinWithSymbol } from "../../utils/joinWithSymbol";
-import { breakPascalCase } from "../../utils/breakPascalCase";
 import { options } from "../../constants/options";
-import useApiSend from "../../hooks/api/useApiSend";
+import { formatToMMDDYYYY } from "../../utils/date";
 
 const genderOptions = options?.gender;
 
 const statusOptions = options?.homeOccupantStatus;
 
-const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
+const UpdateHouseOccupantDialog = ({
+  open,
+  setOpen,
+  houseOccupantId,
+  sendUpdateRequest,
+}) => {
   const { auth } = useAuth();
   const [defaultValues, setDefaultValues] = useState({});
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
@@ -38,11 +42,6 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
   const { getHouseOccupant } = useHouseOccupantReq({
     isPublic: false,
     showAck: false,
-  });
-
-  const { updateHouseOccupant } = useHouseOccupantReq({
-    isPublic: false,
-    showAck: true,
   });
 
   const {
@@ -54,9 +53,6 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
     retry: 3,
     enabled: !!auth?.houseInfo?._id,
   });
-
-  const { mutate: sendUpdateRequest, isLoading: isLoadingInUpdate } =
-    useApiSend(updateHouseOccupant, ["house-occupants", "occupants", "house"]);
 
   const {
     control,
@@ -73,14 +69,16 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
 
   useEffect(() => {
     if (houseOccupantData?.data) {
-      const { occupant, ...otherHouseOccupantInfo } = houseOccupantData?.data;
-      const { contactNumbers, preferences, ...otherOccupantInfo } = occupant;
+      const { occupant, moveInDate, ...otherHouseOccupantInfo } =
+        houseOccupantData?.data;
+      const { contactNumbers, dateOfBirth, ...otherOccupantInfo } = occupant;
       const formattedDefaultValues = {
         occupant: {
           contactNumbers: joinWithSymbol(contactNumbers),
-          preferences: joinWithSymbol(preferences),
+          dateOfBirth: formatToMMDDYYYY(dateOfBirth),
           ...otherOccupantInfo,
         },
+        moveInDate: formatToMMDDYYYY(moveInDate),
         ...otherHouseOccupantInfo,
       };
       setDefaultValues((pv) => formattedDefaultValues);
@@ -96,13 +94,14 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
 
   //   form handlers
   const handleClear = () => {
-    reset();
+    reset(defaultValues);
   };
 
   const onSubmit = async (formData) => {
-    handleSubmit(
+    await handleSubmit(
       sendUpdateRequest({ houseOccupantId: houseOccupantId, data: formData })
     );
+    setOpen(false);
   };
 
   const handleFormSubmit = () => {
@@ -127,6 +126,7 @@ const UpdateHouseOccupantDialog = ({ open, setOpen, houseOccupantId }) => {
 
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
+
   return (
     <>
       <Dialog
