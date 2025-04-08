@@ -70,13 +70,13 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
   };
 
   const onSubmit = async (formData) => {
-    alert("submitting form...");
     handleSubmit(
       sendAddNewHouseOccupantReq({ occupant: { occupant: formData } })
     );
   };
   const handleFormSubmit = () => {
     handleSubmit(onSubmit)();
+    setOpen(false);
   };
 
   // confirm action dialog handlers
