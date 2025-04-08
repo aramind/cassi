@@ -33,6 +33,7 @@ const OccupantCard = ({ occupant, index, onUpdate }) => {
       <Stack direction="row" pr={1} alignItems="center" spacing={0.5}>
         <Typography variant="h5">{index + 1}.</Typography>
         <Typography
+          flex={1}
           variant="h6"
           color={occupant?.status === "active" ? "primary.dark" : "error"}
         >
@@ -42,19 +43,17 @@ const OccupantCard = ({ occupant, index, onUpdate }) => {
 
         <Tooltip title={occupant?.status} placement="top-start">
           {occupant?.status === "active" ? (
-            <VerifiedRoundedIcon color="primary" />
+            <VerifiedRoundedIcon color="primary" sx={{ fontSize: "1.2rem" }} />
           ) : (
-            <NewReleasesRoundedIcon color="error" />
+            <NewReleasesRoundedIcon color="error" sx={{ fontSize: "1.2rem" }} />
           )}
         </Tooltip>
 
-        <Box flex={1}></Box>
-
-        <IconButton onClick={() => onUpdate(occupant?._id)}>
-          <EditRoundedIcon />
+        <IconButton onClick={() => onUpdate(occupant?._id)} size="small">
+          <EditRoundedIcon sx={{ fontSize: "1.2rem" }} />
         </IconButton>
         <IconButton>
-          <DeleteRoundedIcon />
+          <DeleteRoundedIcon sx={{ fontSize: "1.2rem" }} />
         </IconButton>
       </Stack>
       <Stack spacing={1} pl={2}>
