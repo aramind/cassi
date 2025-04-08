@@ -118,6 +118,7 @@ const ProfilePage = () => {
           <Stack spacing={1} width={1} mt={1}>
             {UNIQUESTATUSES?.map((status) => (
               <OccupantByStatus
+                key={status}
                 open={openedCategories}
                 setOpen={setOpenedCategories}
                 occupants={occupants}
