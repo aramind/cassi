@@ -56,7 +56,6 @@ const ProfilePage = () => {
       const { occupants, _id, ...houseInfo } = data?.data;
       const prepHouseProfile = {
         ...houseInfo,
-        "no. of occupants": occupants.length || 0,
       };
       setHouseProfile((pv) => prepHouseProfile);
       setOccupants((pv) => occupants);
