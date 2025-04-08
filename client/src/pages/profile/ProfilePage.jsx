@@ -6,6 +6,7 @@ import {
   Icon,
   IconButton,
   Stack,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
@@ -22,6 +23,8 @@ import useApiSend from "../../hooks/api/useApiSend";
 import useHouseOccupantReq from "../../hooks/api/authenticated/useHouseOccupantReq";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
+import NewReleasesRoundedIcon from "@mui/icons-material/NewReleasesRounded";
 
 const Value = ({ transform, children }) => (
   <Typography fontWeight="bold" textTransform={transform}>
@@ -78,6 +81,7 @@ const ProfilePage = () => {
 
   // callbacks
 
+  console.log(data);
   const addOccupantHandler = () => {
     setOpenDialog((pv) => true);
   };
@@ -137,10 +141,24 @@ const ProfilePage = () => {
             >
               <Stack direction="row" pr={1} alignItems="center" spacing={0.5}>
                 <Typography variant="h5">{index + 1}.</Typography>
-                <Typography variant="h6">
+                <Typography
+                  variant="h6"
+                  color={
+                    occupant?.status === "active" ? "primary.dark" : "error"
+                  }
+                >
                   {occupant.occupant?.name?.lastName.toUpperCase()},{" "}
                   {occupant.occupant?.name?.firstName.toUpperCase()}
                 </Typography>
+
+                <Tooltip title={occupant?.status} placement="top-start">
+                  {occupant?.status === "active" ? (
+                    <VerifiedRoundedIcon color="primary" />
+                  ) : (
+                    <NewReleasesRoundedIcon color="error" />
+                  )}
+                </Tooltip>
+
                 <Box flex={1}></Box>
 
                 <IconButton
