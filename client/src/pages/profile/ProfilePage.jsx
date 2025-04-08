@@ -25,6 +25,8 @@ import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
 import NewReleasesRoundedIcon from "@mui/icons-material/NewReleasesRounded";
+import FullScreenDialog from "../../components/FullScreenDialog";
+import OccupantByStatus from "./OccupantByStatus";
 
 const Value = ({ transform, children }) => (
   <Typography fontWeight="bold" textTransform={transform}>
@@ -44,6 +46,7 @@ const ProfilePage = () => {
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [houseProfile, setHouseProfile] = useState([]);
   const [occupants, setOccupants] = useState([]);
+  const [openExOccupants, setOpenExOccupants] = useState(false);
   const { auth } = useAuth();
   const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
 
@@ -81,7 +84,7 @@ const ProfilePage = () => {
 
   // callbacks
 
-  console.log(data);
+  console.log(occupants);
   const addOccupantHandler = () => {
     setOpenDialog((pv) => true);
   };
@@ -93,9 +96,11 @@ const ProfilePage = () => {
 
   if (isLoading || isLoadingInUpdate) return <LoadingPage />;
   if (isError) return <ErrorPage />;
+
+  console.log(occupants);
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
-      <Stack mt={2} alignItems="center" width={1}>
+      <Stack mt={2} alignItems="center" width={1} spacing={1} p={0.5}>
         <PageHeader text="profile" />
         <br />
         {Object.entries(houseProfile).map(([key, value]) => (
@@ -105,7 +110,7 @@ const ProfilePage = () => {
             spacing={1}
             justifyContent="flex-start"
             width={1}
-            p={1}
+            // p={1}
             // className="outlined"
           >
             <Typography>{key.toUpperCase()}</Typography>
@@ -114,8 +119,15 @@ const ProfilePage = () => {
           </Stack>
         ))}
         <br />
-        <Stack direction="row" width={1} justifyContent="space-between" pr={2}>
-          <Typography textAlign="left" width={1} p={1} flex={1}>
+        <Stack
+          direction="row"
+          width={1}
+          justifyContent="space-between"
+          // pr={2}
+          // className="outlined"
+          alignItems="center"
+        >
+          <Typography variant="h6" textAlign="left" width={1} flex={1}>
             OCCUPANTS:
           </Typography>
           <Button
@@ -127,8 +139,8 @@ const ProfilePage = () => {
             Add Occupant
           </Button>
         </Stack>
-        <br />
-        {occupants.map((occupant, index) => {
+
+        {/* {occupants.map((occupant, index) => {
           return (
             <Stack
               key={index}
@@ -210,7 +222,42 @@ const ProfilePage = () => {
               </Stack>
             </Stack>
           );
-        })}
+        })} */}
+        {occupants && (
+          <Stack spacing={1} width={1} mt={1}>
+            <OccupantByStatus
+              occupants={occupants}
+              status="active"
+              label="active"
+              onUpdate={updateOccupantHandler}
+            />
+            <OccupantByStatus
+              occupants={occupants}
+              status="suspended"
+              label="suspended"
+              onUpdate={updateOccupantHandler}
+            />
+            {/* <OccupantByStatus
+              occupants={occupants}
+              status="evicted"
+              label="evicted"
+              onUpdate={updateOccupantHandler}
+            />
+            <OccupantByStatus
+              occupants={occupants}
+              status="banned"
+              label="banned"
+              onUpdate={updateOccupantHandler}
+            /> */}
+          </Stack>
+        )}
+        <br />
+        <FullScreenDialog
+          open={openExOccupants}
+          setOpen={setOpenExOccupants}
+          actionText="view former occupants"
+          title="former occupant(s)"
+        />
       </Stack>
       {openDialog && (
         <AddHouseOccupantDialog open={openDialog} setOpen={setOpenDialog} />
