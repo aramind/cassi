@@ -51,9 +51,12 @@ const ProfilePage = () => {
     ["houseProfile"]
   );
 
+  console.log(data?.data);
+  console.log(auth);
+
   const { mutate: sendAddNewHouseOccupantReq, isLoadingInAdd } = useApiSend(
     addNewHouseOccupant,
-    ["houseProfile"]
+    ["houseProfile", "house"]
   );
 
   useEffect(() => {

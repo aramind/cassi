@@ -3,14 +3,12 @@ import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
 import {
   Button,
-  Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Stack,
   Typography,
 } from "@mui/material";
-import DraggablePaperComponent from "../../components/DraggablePaperComponent";
+
 import FormWrapper from "../../wrappers/FormWrapper";
 import useAuth from "../../hooks/useAuth";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,6 +17,10 @@ import ControlledLabelledTextField from "../../components/controlled/ControlledL
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import { DevTool } from "@hookform/devtools";
 import DraggableDialog from "../../components/DraggableDialog";
+import useApiGet from "../../hooks/api/useApiGet";
+import useHouseReq from "../../hooks/api/authenticated/useHouseReq";
+import LoadingPage from "../LoadingPage";
+import ErrorPage from "../ErrorPage";
 
 const getTitle = (action) => {
   let title = "";
@@ -63,18 +65,32 @@ const getOptionsValue = (options, label) => {
 
 const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
   const [options, setOptions] = useState([]);
+  const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
   const { auth } = useAuth();
+
+  const {
+    data: houseProfile,
+    isLoading,
+    isError,
+  } = useApiGet("houseProfile", () => getHouseProfile(auth?.houseInfo?._id), {
+    refetchOnWindowFocus: true,
+    retry: 3,
+    enabled: !!auth?.houseInfo?._id,
+  });
 
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
   useEffect(() => {
-    const options = auth?.houseInfo?.houseOccupants?.map((ho) => {
-      const label = ho.occupant?.name?.nickName || ho.occupant?.name?.firstName;
-      return { label, value: ho?._id };
-    });
+    const options = houseProfile?.data?.occupants
+      ?.filter((ho) => ho?.status === "active")
+      ?.map((ho) => {
+        const label =
+          ho.occupant?.name?.nickName || ho.occupant?.name?.firstName;
+        return { label, value: ho?._id };
+      });
     setOptions((pv) => options);
-  }, [auth?.houseInfo?.houseOccupants]);
+  }, [houseProfile?.data?.occupants]);
 
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
@@ -136,6 +152,8 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
     );
   };
 
+  if (isLoading) return <LoadingPage />;
+  if (isError) return <ErrorPage />;
   return (
     <>
       <DraggableDialog open={open} onClose={handleClose} title={title}>
@@ -177,56 +195,6 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
           </Button>
         </DialogActions>
       </DraggableDialog>
-      {/* <Dialog
-        open={open}
-        onClose={handleClose}
-        PaperComponent={DraggablePaperComponent}
-        aria-labelledby="draggable-dialog"
-      >
-        <DialogTitle
-          id="#draggable-dialog-title"
-          sx={{ textTransform: "capitalize" }}
-        >
-          {title}
-        </DialogTitle>
-        <DialogContent>
-          <FormWrapper formMethods={formMethods}>
-            <form noValidate>
-              <Stack spacing={1}>
-                <ControlledLabelledTextField
-                  label="date (mm/dd/yyy)"
-                  name="date"
-                />
-                <ControlledLabelledSelect
-                  id="occupant-select"
-                  label="assigned to"
-                  name="originalAssignee"
-                  options={options}
-                />
-                <ControlledLabelledSelect
-                  id="occupant-select-completedBy"
-                  label="completed by"
-                  name="completedBy"
-                  options={options}
-                />
-                <ControlledLabelledTextField
-                  label='comments (separate by "/")'
-                  name="comments"
-                />
-              </Stack>
-            </form>
-          </FormWrapper>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button className="outlined" onClick={handleConfirmClear}>
-            Reset
-          </Button>
-          <Button className="contained" onClick={handleConfirmSubmit}>
-            {submitBtnText}
-          </Button>
-        </DialogActions>
-      </Dialog> */}
       {renderConfirmActionDialog()}
       {/* <DevTool control={control} /> */}
     </>
