@@ -31,7 +31,7 @@ const ProfilePage = () => {
   const { auth } = useAuth();
   const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
 
-  const { updateHouseOccupant } = useHouseOccupantReq({
+  const { updateHouseOccupant, addNewHouseOccupant } = useHouseOccupantReq({
     isPublic: false,
     showAck: true,
   });
@@ -48,6 +48,11 @@ const ProfilePage = () => {
 
   const { mutate: sendUpdateRequest, isLoadingInUpdate } = useApiSend(
     updateHouseOccupant,
+    ["houseProfile"]
+  );
+
+  const { mutate: sendAddNewHouseOccupantReq, isLoadingInAdd } = useApiSend(
+    addNewHouseOccupant,
     ["houseProfile"]
   );
 
@@ -73,7 +78,7 @@ const ProfilePage = () => {
     setOpenUpdateDialog((pv) => true);
   }, []);
 
-  if (isLoading || isLoadingInUpdate) return <LoadingPage />;
+  if (isLoading || isLoadingInUpdate || isLoadingInAdd) return <LoadingPage />;
   if (isError) return <ErrorPage />;
 
   return (
@@ -132,7 +137,11 @@ const ProfilePage = () => {
         <br />
       </Stack>
       {openDialog && (
-        <AddHouseOccupantDialog open={openDialog} setOpen={setOpenDialog} />
+        <AddHouseOccupantDialog
+          open={openDialog}
+          setOpen={setOpenDialog}
+          sendAddNewHouseOccupantReq={sendAddNewHouseOccupantReq}
+        />
       )}
       {openUpdateDialog && (
         <UpdateHouseOccupantDialog

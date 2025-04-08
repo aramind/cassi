@@ -20,25 +20,27 @@ import DraggablePaperComponent from "../../components/DraggablePaperComponent";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { yupResolver } from "@hookform/resolvers/yup";
 import addNewOccupantSchema from "../../schemas/addNewOccupantSchema";
-import useHouseOccupantReq from "../../hooks/api/authenticated/useHouseOccupantReq";
-import useApiSend from "../../hooks/api/useApiSend";
-import LoadingPage from "../LoadingPage";
+
 import { options } from "../../constants/options";
 
 const genderOptions = options?.gender;
-const AddHouseOccupantDialog = ({ open, setOpen }) => {
+const AddHouseOccupantDialog = ({
+  open,
+  setOpen,
+  sendAddNewHouseOccupantReq,
+}) => {
   // hooks
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
-  const { addNewHouseOccupant } = useHouseOccupantReq({
-    isPublic: false,
-    showAck: true,
-  });
+  // const { addNewHouseOccupant } = useHouseOccupantReq({
+  //   isPublic: false,
+  //   showAck: true,
+  // });
 
-  const { mutate: sendAddNewHouseOccupantReq, isLoading } = useApiSend(
-    addNewHouseOccupant,
-    ["house-occupants", "occupants", "house"]
-  );
+  // const { mutate: sendAddNewHouseOccupantReq, isLoading } = useApiSend(
+  //   addNewHouseOccupant,
+  //   ["house-occupants", "occupants", "house"]
+  // );
   //   form related
   const {
     control,
@@ -95,8 +97,6 @@ const AddHouseOccupantDialog = ({ open, setOpen }) => {
       handleFormSubmit
     );
   };
-
-  if (isLoading) return <LoadingPage />;
 
   return (
     <>
