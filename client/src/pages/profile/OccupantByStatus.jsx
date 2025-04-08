@@ -23,6 +23,13 @@ const OccupantByStatus = ({
   const filtered = occupants?.filter((o) => o.status === status);
   if (filtered?.length === 0) return null;
 
+  const handleToggle = () => {
+    if (isStatusIncluded) {
+      setOpen((pv) => pv.filter((item) => item !== status));
+    } else {
+      setOpen((pv) => [...pv, status]);
+    }
+  };
   return (
     <Stack width={1} spacing={1} mb={1}>
       <Stack
@@ -30,20 +37,15 @@ const OccupantByStatus = ({
         bgcolor={COLORS[status] || "secondary.light"}
         direction="row"
         alignItems="center"
+        borderRadius={1}
+        boxShadow={2}
       >
         <Box width={1} flex={1}></Box>
         <Typography flex={8} variant="h6" textAlign="center">
-          {label.toUpperCase()}
+          {label.toUpperCase()} ({filtered?.length})
         </Typography>
         <Box width={1} flex={1}>
-          <IconButton
-            flex={1}
-            onClick={
-              isStatusIncluded
-                ? () => setOpen((pv) => pv.filter((item) => item !== status))
-                : () => setOpen((pv) => [...pv, status])
-            }
-          >
+          <IconButton flex={1} onClick={handleToggle}>
             {isStatusIncluded ? (
               <VisibilityOffRoundedIcon />
             ) : (
