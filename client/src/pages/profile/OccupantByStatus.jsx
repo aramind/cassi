@@ -39,6 +39,7 @@ const OccupantByStatus = ({
         alignItems="center"
         borderRadius={1}
         boxShadow={2}
+        onClick={handleToggle}
       >
         <Box width={1} flex={1}></Box>
         <Typography flex={8} variant="h6" textAlign="center">
