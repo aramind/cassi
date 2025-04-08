@@ -1,31 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import {
-  Box,
-  Button,
-  Icon,
-  IconButton,
-  Stack,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
-
 import useAuth from "../../hooks/useAuth";
 import useApiGet from "../../hooks/api/useApiGet";
 import useHouseReq from "../../hooks/api/authenticated/useHouseReq";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
-import { formatDate } from "../../utils/formatDate";
 import AddHouseOccupantDialog from "./AddHouseOccupantDialog";
 import UpdateHouseOccupantDialog from "./UpdateHouseOccupantDialog";
 import useApiSend from "../../hooks/api/useApiSend";
 import useHouseOccupantReq from "../../hooks/api/authenticated/useHouseOccupantReq";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
-import NewReleasesRoundedIcon from "@mui/icons-material/NewReleasesRounded";
-import FullScreenDialog from "../../components/FullScreenDialog";
+
 import OccupantByStatus from "./OccupantByStatus";
 
 const UNIQUESTATUSES = ["active", "suspended", "evicted", "banned"];
@@ -34,13 +20,7 @@ const Value = ({ transform, children }) => (
     {children}
   </Typography>
 );
-const OccupantDetail = ({ label, value }) => (
-  <Stack direction="row" spacing={1}>
-    <Typography>{label.toUpperCase()}</Typography>
-    <Typography>:</Typography>
-    <Value>{value}</Value>
-  </Stack>
-);
+
 const ProfilePage = () => {
   const [openedCategories, setOpenedCategories] = useState(["active"]);
   const [selectedOccupantId, setSelectedOccupantId] = useState(null);
@@ -48,7 +28,6 @@ const ProfilePage = () => {
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [houseProfile, setHouseProfile] = useState([]);
   const [occupants, setOccupants] = useState([]);
-  const [openExOccupants, setOpenExOccupants] = useState(false);
   const { auth } = useAuth();
   const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
 
@@ -86,7 +65,6 @@ const ProfilePage = () => {
 
   // callbacks
 
-  console.log(occupants);
   const addOccupantHandler = () => {
     setOpenDialog((pv) => true);
   };
@@ -111,8 +89,6 @@ const ProfilePage = () => {
             spacing={1}
             justifyContent="flex-start"
             width={1}
-            // p={1}
-            // className="outlined"
           >
             <Typography>{key.toUpperCase()}</Typography>
             <Typography>:</Typography>
@@ -124,8 +100,6 @@ const ProfilePage = () => {
           direction="row"
           width={1}
           justifyContent="space-between"
-          // pr={2}
-          // className="outlined"
           alignItems="center"
         >
           <Typography variant="h6" textAlign="left" width={1} flex={1}>
@@ -141,89 +115,6 @@ const ProfilePage = () => {
           </Button>
         </Stack>
 
-        {/* {occupants.map((occupant, index) => {
-          return (
-            <Stack
-              key={index}
-              // direction="row"
-              spacing={1}
-              width={1}
-              px={1}
-              mb={2}
-              justifyContent="flex-start"
-            >
-              <Stack direction="row" pr={1} alignItems="center" spacing={0.5}>
-                <Typography variant="h5">{index + 1}.</Typography>
-                <Typography
-                  variant="h6"
-                  color={
-                    occupant?.status === "active" ? "primary.dark" : "error"
-                  }
-                >
-                  {occupant.occupant?.name?.lastName.toUpperCase()},{" "}
-                  {occupant.occupant?.name?.firstName.toUpperCase()}
-                </Typography>
-
-                <Tooltip title={occupant?.status} placement="top-start">
-                  {occupant?.status === "active" ? (
-                    <VerifiedRoundedIcon color="primary" />
-                  ) : (
-                    <NewReleasesRoundedIcon color="error" />
-                  )}
-                </Tooltip>
-
-                <Box flex={1}></Box>
-
-                <IconButton
-                  onClick={() => updateOccupantHandler(occupant?._id)}
-                >
-                  <EditRoundedIcon />
-                </IconButton>
-                <IconButton>
-                  <DeleteRoundedIcon />
-                </IconButton>
-              </Stack>
-              <Stack spacing={1} pl={2}>
-                <OccupantDetail
-                  label="nick name"
-                  value={occupant.occupant?.name?.nickName}
-                />
-                <OccupantDetail
-                  label="gender"
-                  value={occupant.occupant?.gender}
-                />
-                <OccupantDetail
-                  label="birthday"
-                  value={formatDate(occupant.occupant?.dateOfBirth)}
-                />
-                <OccupantDetail
-                  label="email"
-                  value={occupant.occupant?.email}
-                />
-                <OccupantDetail
-                  label="occupation"
-                  value={occupant.occupant?.occupation}
-                />
-                <OccupantDetail
-                  label="contact details"
-                  value={occupant.occupant?.contactNumbers.join(",")}
-                />
-                <OccupantDetail
-                  label="emergency contact"
-                  value={occupant.occupant?.emergencyContact}
-                />
-                <OccupantDetail
-                  label="preferences"
-                  value={occupant.occupant?.preferences.join(",")}
-                />
-                <OccupantDetail
-                  label="move in date"
-                  value={formatDate(occupant.moveInDate)}
-                />
-              </Stack>
-            </Stack>
-          );
-        })} */}
         {occupants && (
           <Stack spacing={1} width={1} mt={1}>
             {UNIQUESTATUSES?.map((status) => (

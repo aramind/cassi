@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import OccupantCard from "./OccupantCard";
 import { amber, red } from "@mui/material/colors";
