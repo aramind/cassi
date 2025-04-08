@@ -32,15 +32,6 @@ const AddHouseOccupantDialog = ({
   // hooks
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
-  // const { addNewHouseOccupant } = useHouseOccupantReq({
-  //   isPublic: false,
-  //   showAck: true,
-  // });
-
-  // const { mutate: sendAddNewHouseOccupantReq, isLoading } = useApiSend(
-  //   addNewHouseOccupant,
-  //   ["house-occupants", "occupants", "house"]
-  // );
   //   form related
   const {
     control,
