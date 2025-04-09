@@ -49,6 +49,10 @@ const router = createBrowserRouter([
             path: "files",
             element: <FutureFeaturePage />,
           },
+          {
+            path: "future-feature",
+            element: <FutureFeaturePage />,
+          },
         ],
       },
       // {

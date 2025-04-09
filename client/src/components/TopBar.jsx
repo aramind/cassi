@@ -24,7 +24,7 @@ const TopBar = () => {
       spacing={1}
     >
       <IconButtonWrapper>
-        <SettingsOutlinedIcon />
+        <SettingsOutlinedIcon onClick={() => navigate("/future-feature")} />
       </IconButtonWrapper>
 
       <IconButtonWrapper
