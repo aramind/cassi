@@ -7,6 +7,7 @@ import TrackersPage from "./pages/trackers/TrackersPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import PersistLoginComponent from "./components/PersistLoginComponent";
 import ProtectedRoute from "./components/ProtectedRoute";
+import FutureFeaturePage from "./pages/future/FutureFeaturePage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,22 @@ const router = createBrowserRouter([
           {
             path: "trackers",
             element: <TrackersPage />,
+          },
+          {
+            path: "announcements",
+            element: <FutureFeaturePage />,
+          },
+          {
+            path: "tasks",
+            element: <FutureFeaturePage />,
+          },
+          {
+            path: "dues",
+            element: <FutureFeaturePage />,
+          },
+          {
+            path: "files",
+            element: <FutureFeaturePage />,
           },
         ],
       },
