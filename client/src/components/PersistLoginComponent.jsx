@@ -9,12 +9,13 @@ const PersistLoginComponent = () => {
   const refresh = useRefreshToken();
   const { auth, persist } = useAuth();
 
+  console.log("IN PERSIST COMPONENT");
   useEffect(() => {
     const verifyRefreshToken = async () => {
       try {
         await refresh();
       } catch (error) {
-        console.error(error);
+        console.log(error);
       } finally {
         setIsLoading(false);
       }
