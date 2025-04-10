@@ -9,6 +9,7 @@ import PersistLoginComponent from "./components/PersistLoginComponent";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FutureFeaturePage from "./pages/future/FutureFeaturePage";
 import RedirectToLastPath from "./components/RedirectToLastPath";
+import LayoutWithNavDial from "./layout/LayoutWithNavDial";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,36 +24,41 @@ const router = createBrowserRouter([
             element: <ProtectedRoute />,
             children: [
               {
+                element: <LayoutWithNavDial />,
+                children: [
+                  {
+                    path: "profile",
+                    element: <ProfilePage />,
+                  },
+                  {
+                    path: "trackers",
+                    element: <TrackersPage />,
+                  },
+                  {
+                    path: "announcements",
+                    element: <FutureFeaturePage />,
+                  },
+                  {
+                    path: "tasks",
+                    element: <FutureFeaturePage />,
+                  },
+                  {
+                    path: "dues",
+                    element: <FutureFeaturePage />,
+                  },
+                  {
+                    path: "files",
+                    element: <FutureFeaturePage />,
+                  },
+                  {
+                    path: "future-feature",
+                    element: <FutureFeaturePage />,
+                  },
+                ],
+              },
+              {
                 path: "dashboard",
                 element: <DashBoardMain />,
-              },
-              {
-                path: "profile",
-                element: <ProfilePage />,
-              },
-              {
-                path: "trackers",
-                element: <TrackersPage />,
-              },
-              {
-                path: "announcements",
-                element: <FutureFeaturePage />,
-              },
-              {
-                path: "tasks",
-                element: <FutureFeaturePage />,
-              },
-              {
-                path: "dues",
-                element: <FutureFeaturePage />,
-              },
-              {
-                path: "files",
-                element: <FutureFeaturePage />,
-              },
-              {
-                path: "future-feature",
-                element: <FutureFeaturePage />,
               },
             ],
           },
