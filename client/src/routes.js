@@ -8,13 +8,13 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import PersistLoginComponent from "./components/PersistLoginComponent";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FutureFeaturePage from "./pages/future/FutureFeaturePage";
-
+import RedirectToLastPath from "./components/RedirectToLastPath";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
-      { index: true, element: <Navigate to="/dashboard" replace /> },
+      { index: true, element: <RedirectToLastPath /> },
       {
         element: <PersistLoginComponent />,
         children: [
