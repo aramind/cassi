@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import FutureFeaturePage from "./pages/future/FutureFeaturePage";
 import RedirectToLastPath from "./components/RedirectToLastPath";
 import LayoutWithNavDial from "./layout/LayoutWithNavDial";
+import AnnouncementsPage from "./pages/announcements/AnnouncementsPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
                   },
                   {
                     path: "announcements",
-                    element: <FutureFeaturePage />,
+                    element: <AnnouncementsPage />,
                   },
                   {
                     path: "tasks",
