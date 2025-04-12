@@ -3,7 +3,7 @@ const sendResponse = require("../../utils/senResponse");
 
 const add = async (req, res) => {
   try {
-    const { announcement } = req.body;
+    const { announcement } = req.body || {};
     const houseId = req?.credentials?._id;
 
     const newAnnouncement = await Announcement.create({
