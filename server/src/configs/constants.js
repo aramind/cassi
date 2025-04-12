@@ -8,6 +8,9 @@ const keys = [
   "MEMBERSHIP_STATUSES",
   "GENDER_OPTIONS",
   "VERSIONS",
+  "ANNOUNCE_STATUSES",
+  "ANNOUNCE_TYPES",
+  "ANNOUNCE_IMPORTANCES",
 ];
 
 const CONSTANTS = keys.reduce((acc, key) => {
