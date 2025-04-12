@@ -5,6 +5,7 @@ const urls = {
   HOUSE: `${baseUrl}/v1/house`,
   HOUSEOCCUPANT: `${baseUrl}/v1/house-occupant`,
   TRACKERS: `${baseUrl}/v1/trackers`,
+  ANNOUNCEMENTS: `${baseUrl}/v1/announcements`,
 };
 
 export default urls;
