@@ -44,8 +44,8 @@ const AnnouncementSchema = new Schema(
     },
     importance: {
       type: String,
-      enum: CONSTANTS?.IMPORTANCES || ["low", "medium", "high"],
-      default: CONSTANTS?.IMPORTANCES[0] || "low",
+      enum: CONSTANTS?.ANNOUNCE_IMPORTANCES || ["low", "medium", "high"],
+      default: CONSTANTS?.ANNOUNCE_IMPORTANCES[0] || "low",
     },
     version: {
       type: String,
