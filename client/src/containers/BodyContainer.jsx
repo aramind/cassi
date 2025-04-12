@@ -1,8 +1,8 @@
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import React from "react";
 import TopBar from "../components/TopBar";
 
-const BodyContainer = ({ justifyContent, withTopBar, children }) => {
+const BodyContainer = ({ justifyContent, withTopBar = true, children }) => {
   return (
     <Stack
       bgcolor={(theme) => theme.palette.myWhite.main}
