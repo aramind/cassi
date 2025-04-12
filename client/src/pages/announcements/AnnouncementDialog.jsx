@@ -112,7 +112,7 @@ const AnnouncementDialog = ({ open, setOpen, data, action, submitHandler }) => {
                   label="description"
                   name="description"
                   multiline
-                  tfProps={{ rows: 4 }}
+                  tfProps={{ rows: 3 }}
                 />
               </Stack>
             </form>
