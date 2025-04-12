@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
 import {
   Button,
   DialogActions,
   DialogContent,
+  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -14,6 +15,7 @@ import ControlledLabelledTextField from "../../components/controlled/ControlledL
 import { DevTool } from "@hookform/devtools";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import ControlledSlider from "../../components/controlled/ControlledSlider";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const getTitle = (action) => {
   let title = "";
@@ -79,45 +81,29 @@ const TYPE_OPTIONS = [
     value: "inquiry",
   },
 ];
-const IMPORTANCE_OPTIONS = [
-  {
-    label: "general",
-    value: "general",
-  },
-  {
-    label: "reminder",
-    value: "reminder",
-  },
-  {
-    label: "rules",
-    value: "rules",
-  },
-  {
-    label: "emergency",
-    value: "emergency",
-  },
-  {
-    label: "maintenance",
-    value: "maintenance",
-  },
-  {
-    label: "inquiry",
-    value: "inquiry",
-  },
-];
-const AnnouncementDialog = ({ open, setOpen, data, action, submitHandler }) => {
+
+const AnnouncementDialog = ({
+  open,
+  setOpen,
+  data,
+  action,
+  handleSaveAsDraft,
+  submitHandler,
+}) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
   // form related
+  const defaultValues = action === "add" ? { type: "general" } : data || {};
   const {
     control,
     reset,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
-    defaultValues: action === "add" ? {} : data || {},
+    defaultValues,
   });
 
   const formMethods = {
@@ -126,6 +112,14 @@ const AnnouncementDialog = ({ open, setOpen, data, action, submitHandler }) => {
     errors,
   };
 
+  useEffect(() => {
+    if (action === "add") {
+      setValue("type", "general", {
+        shouldTouch: true,
+        shouldValidate: true,
+      });
+    }
+  }, [action, setValue]);
   //   handlers
   const onSubmit = async (formData) => {
     console.log("SUBMITTING: ", formData);
@@ -135,6 +129,7 @@ const AnnouncementDialog = ({ open, setOpen, data, action, submitHandler }) => {
   const handleClose = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    reset();
     setOpen(false);
   };
 
@@ -151,7 +146,16 @@ const AnnouncementDialog = ({ open, setOpen, data, action, submitHandler }) => {
 
   return (
     <>
-      <DraggableDialog open={open} handleClose={handleClose} title={title}>
+      <DraggableDialog
+        open={open}
+        handleClose={handleClose}
+        title={title}
+        closeButton={
+          <Button variant="text" onClick={handleClose} color="error">
+            <CloseRoundedIcon />
+          </Button>
+        }
+      >
         <DialogContent>
           <FormWrapper formMethods={formMethods}>
             <form noValidate>
@@ -174,6 +178,7 @@ const AnnouncementDialog = ({ open, setOpen, data, action, submitHandler }) => {
                     label="type"
                     name="type"
                     options={TYPE_OPTIONS}
+                    defaultValue="general"
                   />
                   <ControlledSlider
                     name="importance"
@@ -186,12 +191,26 @@ const AnnouncementDialog = ({ open, setOpen, data, action, submitHandler }) => {
             </form>
           </FormWrapper>
         </DialogContent>
+        <br />
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button className="outlined" onClick={handleConfirmClear}>
+          {/* <Button size="small" onClick={handleClose}>
+            Cancel
+          </Button> */}
+          <Button
+            size="small"
+            className="outlined"
+            onClick={handleConfirmClear}
+          >
             Reset
           </Button>
-          <Button className="contained" onClick={handleSubmit(onSubmit)}>
+          <Button size="small" onClick={handleSaveAsDraft}>
+            Save as Draft
+          </Button>
+          <Button
+            size="small"
+            variant="contained"
+            onClick={handleSubmit(onSubmit)}
+          >
             {submitBtnText}
           </Button>
         </DialogActions>

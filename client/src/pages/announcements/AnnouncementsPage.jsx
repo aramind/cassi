@@ -12,6 +12,10 @@ const AnnouncementsPage = () => {
   const addAnnouncementHandler = () => {
     setOpenAnnouncementDialog(true);
   };
+
+  const handleSaveAsDraft = () => {
+    alert("saving as draft...");
+  };
   return (
     <BodyContainer justifyContent="flex-start">
       <Stack mt={2} alignItems="center" width={1} pb={4}>
@@ -40,6 +44,7 @@ const AnnouncementsPage = () => {
         open={openAnnouncementDialog}
         setOpen={setOpenAnnouncementDialog}
         action="add"
+        handleSaveAsDraft={handleSaveAsDraft}
         submitHandler={addAnnouncementHandler}
       />
     </BodyContainer>
