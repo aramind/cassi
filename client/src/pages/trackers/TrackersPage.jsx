@@ -1,7 +1,7 @@
-import React, { act, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import PageHeader from "../../components/PageHeader";
-import { IconButton, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
 import useApiGet from "../../hooks/api/useApiGet";
@@ -15,7 +15,6 @@ import DeletedTrackers from "./DeletedTrackers";
 import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import FullScreenDialog from "../../components/FullScreenDialog";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const TrackersPage = () => {
   const { auth } = useAuth();
@@ -106,7 +105,7 @@ const TrackersPage = () => {
   console.log(deletedTrackers);
 
   return (
-    <BodyContainer justifyContent="flex-start" withTopBar={true}>
+    <BodyContainer justifyContent="flex-start">
       <Stack mt={2} alignItems="center" width={1} pb={4}>
         <PageHeader text="trackers " />
         <Today />

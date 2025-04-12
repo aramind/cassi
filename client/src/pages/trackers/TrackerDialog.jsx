@@ -1,16 +1,14 @@
-import React, { useEffect } from "react";
-import useAuth from "../../hooks/useAuth";
+import React from "react";
+
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
 import {
   Button,
-  Dialog,
   DialogActions,
   DialogContent,
   Stack,
   Typography,
 } from "@mui/material";
-import DraggablePaperComponent from "../../components/DraggablePaperComponent";
 import DraggableDialog from "../../components/DraggableDialog";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
@@ -55,8 +53,6 @@ const getSubmitBtnText = (action) => {
 };
 
 const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
-  const { auth } = useAuth();
-
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 

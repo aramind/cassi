@@ -81,6 +81,7 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
+  console.log(options);
   useEffect(() => {
     const options = houseProfile?.data?.occupants
       ?.filter((ho) => ho?.status === "active")
