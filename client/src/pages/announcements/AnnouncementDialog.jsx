@@ -109,8 +109,8 @@ const AnnouncementDialog = ({ open, setOpen, data, action, submitHandler }) => {
                 />
                 <ControlledLabelledTextField
                   id="announcement-description"
-                  label="description"
-                  name="description"
+                  label="content"
+                  name="content"
                   multiline
                   tfProps={{ rows: 3 }}
                 />

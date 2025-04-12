@@ -10,7 +10,6 @@ const AnnouncementsPage = () => {
   const [openAnnouncementDialog, setOpenAnnouncementDialog] = useState(false);
 
   const addAnnouncementHandler = () => {
-    alert("Adding announcement..");
     setOpenAnnouncementDialog(true);
   };
   return (
