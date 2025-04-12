@@ -105,7 +105,7 @@ const TrackersPage = () => {
   console.log(deletedTrackers);
 
   return (
-    <BodyContainer justifyContent="flex-start" withTopBar={true}>
+    <BodyContainer justifyContent="flex-start">
       <Stack mt={2} alignItems="center" width={1} pb={4}>
         <PageHeader text="trackers " />
         <Today />
