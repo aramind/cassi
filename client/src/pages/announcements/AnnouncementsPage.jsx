@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import { Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
+import AnnouncementDialog from "./AnnouncementDialog";
 
 const AnnouncementsPage = () => {
+  const [openAnnouncementDialog, setOpenAnnouncementDialog] = useState(false);
+
   const addAnnouncementHandler = () => {
     alert("Adding announcement..");
+    setOpenAnnouncementDialog(true);
   };
   return (
     <BodyContainer justifyContent="flex-start">
@@ -33,6 +37,12 @@ const AnnouncementsPage = () => {
         />
         <br />
       </Stack>
+      <AnnouncementDialog
+        open={openAnnouncementDialog}
+        setOpen={setOpenAnnouncementDialog}
+        action="add"
+        submitHandler={addAnnouncementHandler}
+      />
     </BodyContainer>
   );
 };
