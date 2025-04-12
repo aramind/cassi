@@ -12,6 +12,8 @@ import DraggableDialog from "../../components/DraggableDialog";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
 import { DevTool } from "@hookform/devtools";
+import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
+import ControlledSlider from "../../components/controlled/ControlledSlider";
 
 const getTitle = (action) => {
   let title = "";
@@ -51,6 +53,58 @@ const getSubmitBtnText = (action) => {
   return text;
 };
 
+const TYPE_OPTIONS = [
+  {
+    label: "general",
+    value: "general",
+  },
+  {
+    label: "reminder",
+    value: "reminder",
+  },
+  {
+    label: "rules",
+    value: "rules",
+  },
+  {
+    label: "emergency",
+    value: "emergency",
+  },
+  {
+    label: "maintenance",
+    value: "maintenance",
+  },
+  {
+    label: "inquiry",
+    value: "inquiry",
+  },
+];
+const IMPORTANCE_OPTIONS = [
+  {
+    label: "general",
+    value: "general",
+  },
+  {
+    label: "reminder",
+    value: "reminder",
+  },
+  {
+    label: "rules",
+    value: "rules",
+  },
+  {
+    label: "emergency",
+    value: "emergency",
+  },
+  {
+    label: "maintenance",
+    value: "maintenance",
+  },
+  {
+    label: "inquiry",
+    value: "inquiry",
+  },
+];
 const AnnouncementDialog = ({ open, setOpen, data, action, submitHandler }) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -114,6 +168,20 @@ const AnnouncementDialog = ({ open, setOpen, data, action, submitHandler }) => {
                   multiline
                   tfProps={{ rows: 3 }}
                 />
+                <Stack direction="row" spacing={4}>
+                  <ControlledLabelledSelect
+                    id="announcement-type-select"
+                    label="type"
+                    name="type"
+                    options={TYPE_OPTIONS}
+                  />
+                  <ControlledSlider
+                    name="importance"
+                    label="importance"
+                    isOptionsText={true}
+                    textLevelOptions={["low", "medium", "high"]}
+                  />
+                </Stack>
               </Stack>
             </form>
           </FormWrapper>
