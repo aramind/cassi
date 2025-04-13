@@ -205,6 +205,7 @@ const AnnouncementDialog = ({
                 />
               </Stack>
             </form>
+            <DevTool control={control} />
           </FormWrapper>
         </DialogContent>
         <br />
@@ -228,7 +229,6 @@ const AnnouncementDialog = ({
         </DialogActions>
       </DraggableDialog>
       {renderConfirmActionDialog()}
-      <DevTool control={control} />
     </>
   );
 };
