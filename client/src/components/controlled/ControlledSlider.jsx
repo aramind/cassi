@@ -22,7 +22,10 @@ const ControlledSlider = ({
       control={control}
       name={name}
       render={({ field }) => {
-        const currentIndex = textLevelOptions.indexOf(field?.value) || 0;
+        const currentIndex =
+          textLevelOptions.indexOf(field?.value) < 0
+            ? 0
+            : textLevelOptions.indexOf(field?.value);
 
         const handleChange = (_, newIndex) => {
           const newValue = textLevelOptions[newIndex];
