@@ -8,5 +8,7 @@ router.use(verifyJWT);
 router.use(verifyHouse);
 console.log("IN ANNOUNCEMENT CONTROLLER");
 router.post("", announcementController.add);
+router.get("/:id", announcementController.getById);
+router.get("", announcementController.getAnnouncements);
 
 module.exports = router;
