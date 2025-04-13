@@ -123,6 +123,7 @@ const AnnouncementDialog = ({
   //   handlers
   const onSubmit = async (formData) => {
     console.log("SUBMITTING: ", formData);
+    submitHandler(formData);
     setOpen(false);
   };
 
@@ -196,14 +197,10 @@ const AnnouncementDialog = ({
           {/* <Button size="small" onClick={handleClose}>
             Cancel
           </Button> */}
-          <Button
-            size="small"
-            className="outlined"
-            onClick={handleConfirmClear}
-          >
+          <Button size="small" variant="outlined" onClick={handleConfirmClear}>
             Reset
           </Button>
-          <Button size="small" onClick={handleSaveAsDraft}>
+          <Button size="small" variant="outlined" onClick={handleSaveAsDraft}>
             Save as Draft
           </Button>
           <Button
