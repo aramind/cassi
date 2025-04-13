@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("persist", JSON.stringify(persist));
   }, [persist]);
 
-  console.log("PERSIST ON AUTHPROVIDER", persist);
+  // console.log("PERSIST ON AUTHPROVIDER", persist);
   return (
     <AuthContext.Provider value={{ auth, setAuth, persist, setPersist }}>
       {children}
