@@ -102,8 +102,6 @@ const TrackersPage = () => {
     return <ErrorPage />;
   }
 
-  console.log(deletedTrackers);
-
   return (
     <BodyContainer justifyContent="flex-start">
       <Stack mt={2} alignItems="center" width={1} pb={4}>

@@ -155,7 +155,6 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
 
-  console.log(options);
   return (
     <>
       <DraggableDialog open={open} onClose={handleClose} title={title}>
