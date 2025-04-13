@@ -9,7 +9,7 @@ const PersistLoginComponent = () => {
   const refresh = useRefreshToken();
   const { auth, persist } = useAuth();
 
-  console.log("IN PERSIST COMPONENT");
+  // console.log("IN PERSIST COMPONENT");
   useEffect(() => {
     const verifyRefreshToken = async () => {
       try {
