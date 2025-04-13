@@ -89,9 +89,11 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
           ho.occupant?.name?.nickName || ho.occupant?.name?.firstName;
         return { label, value: ho?._id };
       });
-    setOptions((pv) => options);
+    setOptions((pv) => [...options, { label: "", value: "" }]);
   }, [houseProfile?.data?.occupants]);
 
+  console.log(data);
+  console.log(options);
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
   // form related
@@ -103,7 +105,6 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(addEntrySchema),
-    defaultValues: data,
   });
 
   const formMethods = {
@@ -171,12 +172,18 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
                   label="assigned to"
                   name="originalAssignee"
                   options={options}
+                  defaultValue={
+                    data ? getOptionsValue(options, data?.originalAssignee) : ""
+                  }
                 />
                 <ControlledLabelledSelect
                   id="occupant-select-completedBy"
                   label="completed by"
                   name="completedBy"
                   options={options}
+                  defaultValue={
+                    data ? getOptionsValue(options, data?.completedBy) : ""
+                  }
                 />
                 <ControlledLabelledTextField
                   label='comments (separate by "/")'
