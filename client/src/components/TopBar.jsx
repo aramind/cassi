@@ -23,8 +23,8 @@ const TopBar = () => {
       justifyContent="flex-end"
       spacing={1}
     >
-      <IconButtonWrapper>
-        <SettingsOutlinedIcon onClick={() => navigate("/future-feature")} />
+      <IconButtonWrapper onClick={() => navigate("/future-feature")}>
+        <SettingsOutlinedIcon />
       </IconButtonWrapper>
 
       <IconButtonWrapper
