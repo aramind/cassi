@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
 import {
   Button,
   DialogActions,
   DialogContent,
-  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -132,7 +131,6 @@ const AnnouncementDialog = ({
 
   //   handlers
   const onSubmit = async (formData) => {
-    console.log("SUBMITTING: ", formData);
     submitHandler(formData);
     setOpen(false);
   };
@@ -155,7 +153,6 @@ const AnnouncementDialog = ({
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
 
-  console.log("AOO", activeOccupantOptions);
   return (
     <>
       <DraggableDialog
@@ -172,17 +169,12 @@ const AnnouncementDialog = ({
           <FormWrapper formMethods={formMethods}>
             <form noValidate>
               <Stack spacing={1}>
-                <ControlledLabelledTextField
-                  id="announcement-id"
-                  label="title"
-                  name="title"
-                />
-                <ControlledLabelledTextField
-                  id="announcement-description"
-                  label="content"
-                  name="content"
-                  multiline
-                  tfProps={{ rows: 3 }}
+                <ControlledLabelledSelect
+                  id="occupant-select-createdBy"
+                  label="creator"
+                  name="createdBy"
+                  options={activeOccupantOptions}
+                  defaultValue={activeOccupantOptions[0]?.value}
                 />
                 <Stack direction="row" spacing={4}>
                   <ControlledLabelledSelect
@@ -199,11 +191,17 @@ const AnnouncementDialog = ({
                     textLevelOptions={["low", "medium", "high"]}
                   />
                 </Stack>
-                <ControlledLabelledSelect
-                  id="occupant-select-createdBy"
-                  label="created by"
-                  name="createdBy"
-                  options={activeOccupantOptions}
+                <ControlledLabelledTextField
+                  id="announcement-id"
+                  label="title"
+                  name="title"
+                />
+                <ControlledLabelledTextField
+                  id="announcement-description"
+                  label="content"
+                  name="content"
+                  multiline
+                  tfProps={{ rows: 3 }}
                 />
               </Stack>
             </form>
