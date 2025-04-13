@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { HouseContext } from "../context/HouseProvider";
 
 const useHouseProvider = () => {
-  const { occupantOptions } = useContext(HouseContext);
-  return { occupantOptions };
+  const { occupantOptions, activeOccupantOptions } = useContext(HouseContext);
+  return { occupantOptions, activeOccupantOptions };
 };
 
 export default useHouseProvider;

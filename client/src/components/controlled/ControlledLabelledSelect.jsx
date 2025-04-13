@@ -7,7 +7,6 @@ const ControlledLabelledSelect = ({
   id = "",
   label = "",
   name = "",
-
   options = [],
   defaultValue,
   initialProps,

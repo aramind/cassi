@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
 import {
@@ -16,6 +16,9 @@ import { DevTool } from "@hookform/devtools";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import ControlledSlider from "../../components/controlled/ControlledSlider";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { yupResolver } from "@hookform/resolvers/yup";
+import newAnnouncementSchema from "../../schemas/newAnnouncementSchema";
+import useHouseProvider from "../../hooks/useHouseProvider";
 
 const getTitle = (action) => {
   let title = "";
@@ -92,9 +95,10 @@ const AnnouncementDialog = ({
 }) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
+  const { activeOccupantOptions } = useHouseProvider();
 
   // form related
-  const defaultValues = action === "add" ? { type: "general" } : data || {};
+  const defaultValues = data && data;
   const {
     control,
     reset,
@@ -104,6 +108,7 @@ const AnnouncementDialog = ({
   } = useForm({
     mode: "onTouched",
     defaultValues,
+    resolver: yupResolver(newAnnouncementSchema),
   });
 
   const formMethods = {
@@ -118,8 +123,13 @@ const AnnouncementDialog = ({
         shouldTouch: true,
         shouldValidate: true,
       });
+      setValue("importance", "low", {
+        shouldTouch: true,
+        shouldValidate: true,
+      });
     }
   }, [action, setValue]);
+
   //   handlers
   const onSubmit = async (formData) => {
     console.log("SUBMITTING: ", formData);
@@ -145,6 +155,7 @@ const AnnouncementDialog = ({
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
 
+  console.log("AOO", activeOccupantOptions);
   return (
     <>
       <DraggableDialog
@@ -188,6 +199,12 @@ const AnnouncementDialog = ({
                     textLevelOptions={["low", "medium", "high"]}
                   />
                 </Stack>
+                <ControlledLabelledSelect
+                  id="occupant-select-createdBy"
+                  label="created by"
+                  name="createdBy"
+                  options={activeOccupantOptions}
+                />
               </Stack>
             </form>
           </FormWrapper>

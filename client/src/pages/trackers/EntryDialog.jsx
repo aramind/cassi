@@ -81,7 +81,6 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
-  console.log(options);
   useEffect(() => {
     const options = houseProfile?.data?.occupants
       ?.filter((ho) => ho?.status === "active")
@@ -155,6 +154,8 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
 
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
+
+  console.log(options);
   return (
     <>
       <DraggableDialog open={open} onClose={handleClose} title={title}>

@@ -7,6 +7,6 @@ const router = express.Router();
 router.use(verifyJWT);
 router.use(verifyHouse);
 console.log("IN ANNOUNCEMENT CONTROLLER");
-router.post("/add", announcementController.add);
+router.post("", announcementController.add);
 
 module.exports = router;

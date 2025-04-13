@@ -2,6 +2,9 @@ const Announcement = require("../../models/Announcement");
 const sendResponse = require("../../utils/senResponse");
 
 const add = async (req, res) => {
+  console.log("IN ANN CONTROLLER");
+  console.log("REQ", req.body);
+  console.log("CRED", req?.credentials?._id);
   try {
     const { announcement } = req.body || {};
     const houseId = req?.credentials?._id;
@@ -18,6 +21,7 @@ const add = async (req, res) => {
       201
     );
   } catch (error) {
+    console.log(error);
     return sendResponse.failed(
       res,
       "Server Error: Adding new announcement",

@@ -10,17 +10,12 @@ const allowedTypes = [
   "maintenance",
   "inquiry",
 ];
-const allowedImportances = ["low", "medium", "high"];
 
 const newAnnouncementSchema = y.object().shape({
   title: y.string().required(required),
   type: y
     .string()
     .oneOf(allowedTypes, `Type must be one of: ${allowedTypes.join(",")}`)
-    .required(required),
-  importance: y
-    .string()
-    .oneOf(allowedTypes, `Type must be one of: ${allowedImportances.join(",")}`)
     .required(required),
 });
 

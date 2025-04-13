@@ -14,16 +14,16 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <HouseProvider>
-        <GlobalStatesContextProvider>
-          <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <HouseProvider>
+          <GlobalStatesContextProvider>
             <ThemeProvider theme={main}>
               <App />
             </ThemeProvider>
-          </QueryClientProvider>
-        </GlobalStatesContextProvider>
-      </HouseProvider>
-    </AuthProvider>
+          </GlobalStatesContextProvider>
+        </HouseProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

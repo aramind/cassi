@@ -18,6 +18,8 @@ const verifyJWT = (req, res, next) => {
 
       req.credentials = decoded.HouseInfo;
 
+      console.log(decoded.HouseInfo);
+      console.log("passed VERIFY JWT");
       next();
     });
   }

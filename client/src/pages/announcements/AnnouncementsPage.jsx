@@ -33,7 +33,7 @@ const AnnouncementsPage = () => {
         </Typography>
       </Stack>,
       async () => {
-        await addAnnouncement({ data: formData });
+        await addAnnouncement({ data: { announcement: formData } });
         setOpenAnnouncementDialog(false);
       }
     );
