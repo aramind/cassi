@@ -6,7 +6,7 @@ const getErrorLabel = (hasError, error) => {
   if (!hasError) return "";
   if (error === "Required") return "";
   else {
-    const formattedError = `>> ${error}`;
+    const formattedError = `**${error}**`;
     return formattedError.toUpperCase();
   }
 };
