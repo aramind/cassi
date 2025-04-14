@@ -1,7 +1,7 @@
-import { Chip, Stack, Typography } from "@mui/material";
+import { Box, Chip, Stack, Typography } from "@mui/material";
 import React from "react";
 import useHouseProvider from "../../hooks/useHouseProvider";
-import { create } from "@mui/material/styles/createTransitions";
+import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 
 const AnnouncementCard = ({ announcement }) => {
   const { listOfHouseOccupants } = useHouseProvider();
@@ -40,7 +40,17 @@ const AnnouncementCard = ({ announcement }) => {
       </Stack>
       <Typography variant="h6">{announcement?.title}</Typography>
       <Typography variant="body1">{announcement?.content}</Typography>
-      <Typography variant="body1">{createdByInName}</Typography>
+      <Box>
+        <Chip
+          icon={<FaceTwoToneIcon />}
+          label={createdByInName}
+          size="small"
+          sx={(theme) => ({
+            backgroundColor: theme.palette?.accent?.light,
+            justifyContent: "flex-start",
+          })}
+        />
+      </Box>
       <Typography variant="body1">{announcement?.createdAt}</Typography>
     </Stack>
   );
