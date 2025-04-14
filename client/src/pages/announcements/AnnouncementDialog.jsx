@@ -151,14 +151,13 @@ const AnnouncementDialog = ({
     handleConfirm(
       "Confirm Clear",
       <Typography>Are you sure you want to reset all fields</Typography>,
-      () => reset()
+      () => reset(data && {})
     );
   };
 
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
 
-  console.log(defaultValues);
   return (
     <>
       <DraggableDialog
