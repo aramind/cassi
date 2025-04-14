@@ -19,7 +19,7 @@ const AnnounceActionsGroup = ({ data, updateHandler, deleteHandler }) => {
       <Typography>
         Are you sure you want to delete this announcement?
       </Typography>,
-      () => deleteHandler()
+      () => deleteHandler({ id: data?._id, data })
     );
   };
 

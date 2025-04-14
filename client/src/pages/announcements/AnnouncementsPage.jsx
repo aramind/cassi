@@ -72,9 +72,11 @@ const AnnouncementsPage = () => {
     updateAnnouncement({ id, data });
   };
 
-  const deleteAnnouncementHandler = () => {
+  const deleteAnnouncementHandler = ({ id, data }) => {
     alert("deleting announcement..");
+    updateAnnouncement({ id, data: { ...data, status: "deleted" } });
   };
+
   if (isLoadingInGetAnnouncements) return <LoadingPage />;
   if (isErrorInGetAnnouncements) return <ErrorPage />;
   return (
