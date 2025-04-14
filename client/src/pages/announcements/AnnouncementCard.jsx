@@ -8,7 +8,7 @@ import { amber, green, red } from "@mui/material/colors";
 const importanceColor = {
   low: green[100],
   medium: amber[100],
-  hight: red[100],
+  high: red[100],
 };
 
 const AnnouncementCard = ({ announcement }) => {
