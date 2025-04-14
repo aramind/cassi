@@ -81,8 +81,7 @@ const AnnouncementsPage = () => {
           onClickHandler={addAnnouncementHandler}
         />
         <br />
-        {/* to be replaced */}
-        <Typography>Announcements here...</Typography>
+
         <AnnouncementsBox>
           {announcementsData?.data?.map((announcement, index) => (
             <AnnouncementCard key={index} announcement={announcement} />
