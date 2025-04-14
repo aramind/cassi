@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import { Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
@@ -64,6 +64,13 @@ const AnnouncementsPage = () => {
     alert("saving as draft...");
   };
 
+  const updateAnnouncementHandler = () => {
+    alert("updating announcement...");
+  };
+
+  const deleteAnnouncementHandler = () => {
+    alert("deleting announcement..");
+  };
   if (isLoadingInGetAnnouncements) return <LoadingPage />;
   if (isErrorInGetAnnouncements) return <ErrorPage />;
   return (
@@ -82,7 +89,12 @@ const AnnouncementsPage = () => {
 
         <AnnouncementsBox>
           {announcementsData?.data?.map((announcement, index) => (
-            <AnnouncementCard key={index} announcement={announcement} />
+            <AnnouncementCard
+              key={index}
+              announcement={announcement}
+              updateHandler={updateAnnouncementHandler}
+              deleteHandler={deleteAnnouncementHandler}
+            />
           ))}
         </AnnouncementsBox>
         <br />

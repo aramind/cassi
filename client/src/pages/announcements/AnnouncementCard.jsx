@@ -12,7 +12,7 @@ const importanceColor = {
   high: red[100],
 };
 
-const AnnouncementCard = ({ announcement }) => {
+const AnnouncementCard = ({ announcement, updateHandler, deleteHandler }) => {
   const { listOfHouseOccupants } = useHouseProvider();
 
   const createdByInName = listOfHouseOccupants.find(
@@ -79,7 +79,11 @@ const AnnouncementCard = ({ announcement }) => {
       <Divider />
       <Stack width={1} direction="row">
         <Box flex={1} />
-        <AnnounceActionsGroup />
+        <AnnounceActionsGroup
+          data={announcement}
+          updateHandler={updateHandler}
+          deleteHandler={deleteHandler}
+        />
       </Stack>
       {/* <Box>
           <Chip color="primary" label={announcement?.status} size="small" />
