@@ -23,6 +23,14 @@ const HouseProvider = ({ children }) => {
     [auth?.houseInfo?.houseOccupants]
   );
 
+  // console.log(auth);
+  const listOfHouseOccupants = auth?.houseInfo?.houseOccupants?.map((ho) => ({
+    id: ho._id,
+    name:
+      ho.occupant?.name?.nickName || ho.occupant?.name?.firstName || "Unknown",
+  }));
+
+  console.log(listOfHouseOccupants);
   const {
     data: houseProfile,
     isLoading: isLoadingInHouseProfile,
@@ -51,7 +59,9 @@ const HouseProvider = ({ children }) => {
   }, [houseProfile?.data?.occupants, setActiveOccupantOptions]);
 
   return (
-    <HouseContext.Provider value={{ occupantOptions, activeOccupantOptions }}>
+    <HouseContext.Provider
+      value={{ listOfHouseOccupants, occupantOptions, activeOccupantOptions }}
+    >
       {isLoading ? (
         <LoadingPage />
       ) : hasError ? (
