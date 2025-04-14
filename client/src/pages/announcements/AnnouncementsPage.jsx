@@ -7,15 +7,37 @@ import MyButton from "../../components/buttons/MyButton";
 import AnnouncementDialog from "./AnnouncementDialog";
 import useAnnouncementReq from "../../hooks/api/authenticated/announcement/useAnnouncementReq";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
+import useApiGet from "../../hooks/api/useApiGet";
+import useAuth from "../../hooks/useAuth";
+import LoadingPage from "../LoadingPage";
+import ErrorPage from "../ErrorPage";
+import AnnouncementCard from "./AnnouncementCard";
+import AnnouncementsBox from "./AnnouncementsBox";
 
 const AnnouncementsPage = () => {
+  const { auth } = useAuth();
   const [openAnnouncementDialog, setOpenAnnouncementDialog] = useState(false);
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
-  const { addAnnouncement } = useAnnouncementReq({
+  const { addAnnouncement, getAnnouncements } = useAnnouncementReq({
     isPublic: false,
     showAck: false,
   });
+
+  const {
+    data: announcementsData,
+    isLoading: isLoadingInGetAnnouncements,
+    isError: isErrorInGetAnnouncements,
+  } = useApiGet(
+    ["announcements"],
+    () =>
+      getAnnouncements(
+        `?fields=_id,title,content,house,createdBy,isPinned,status,type,importance,createdAt,updatedAt`
+      ),
+    {
+      enabled: !!auth?.houseInfo?._id,
+    }
+  );
 
   const addAnnouncementHandler = () => {
     setOpenAnnouncementDialog(true);
@@ -42,6 +64,10 @@ const AnnouncementsPage = () => {
     alert("saving as draft...");
   };
 
+  console.log(announcementsData);
+
+  if (isLoadingInGetAnnouncements) return <LoadingPage />;
+  if (isErrorInGetAnnouncements) return <ErrorPage />;
   return (
     <BodyContainer justifyContent="flex-start">
       <Stack mt={2} alignItems="center" width={1} pb={4}>
@@ -57,6 +83,11 @@ const AnnouncementsPage = () => {
         <br />
         {/* to be replaced */}
         <Typography>Announcements here...</Typography>
+        <AnnouncementsBox>
+          {announcementsData?.data?.map((announcement, index) => (
+            <AnnouncementCard key={index} announcement={announcement} />
+          ))}
+        </AnnouncementsBox>
         <br />
         <MyButton
           type="accent"

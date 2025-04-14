@@ -1,0 +1,19 @@
+import { Stack } from "@mui/material";
+import React from "react";
+
+const AnnouncementsBox = ({ children }) => {
+  return (
+    <Stack
+      width={1}
+      direction="row"
+      flexWrap="wrap"
+      gap={2}
+      justifyContent="center"
+      alignItems="center"
+    >
+      {children}
+    </Stack>
+  );
+};
+
+export default AnnouncementsBox;

@@ -8,7 +8,7 @@ const useAnnouncementReq = ({ isPublic, showAck }) => {
   const req = {
     getAnnouncements: async (queryParams) =>
       request({
-        url: `${url}?${queryParams}`,
+        url: `${url}${queryParams || ""}`,
         method: "GET",
       }),
     addAnnouncement: async ({ data }) =>

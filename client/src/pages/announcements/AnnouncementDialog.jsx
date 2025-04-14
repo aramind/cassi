@@ -131,7 +131,7 @@ const AnnouncementDialog = ({
 
   //   handlers
   const onSubmit = async (formData) => {
-    submitHandler(formData);
+    submitHandler({ ...formData, status: "published" });
     setOpen(false);
   };
 
