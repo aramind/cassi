@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import ActionButtons from "../../components/ActionButtons";
-import { IconButton, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import AnnouncementDialog from "./AnnouncementDialog";
 
 const AnnounceActionsGroup = ({ data, updateHandler, deleteHandler }) => {
