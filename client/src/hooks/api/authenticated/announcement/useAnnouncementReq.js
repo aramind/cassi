@@ -17,6 +17,12 @@ const useAnnouncementReq = ({ isPublic, showAck }) => {
         method: "POST",
         data,
       }),
+    updateAnnouncement: async ({ id, data }) =>
+      request({
+        url: `${url}/${id}`,
+        method: "PATCH",
+        data,
+      }),
   };
   return req;
 };
