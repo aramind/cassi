@@ -117,6 +117,11 @@ const AnnouncementDialog = ({
   };
 
   useEffect(() => {
+    if (data) {
+      reset(data);
+    }
+  }, [data, reset]);
+  useEffect(() => {
     if (action === "add") {
       setValue("type", "general", {
         shouldTouch: true,
@@ -153,6 +158,7 @@ const AnnouncementDialog = ({
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
 
+  console.log(defaultValues);
   return (
     <>
       <DraggableDialog
