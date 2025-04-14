@@ -136,7 +136,12 @@ const AnnouncementDialog = ({
 
   //   handlers
   const onSubmit = async (formData) => {
-    submitHandler({ ...formData, status: "published" });
+    if (action === "add") {
+      submitHandler({ ...formData, status: "published" });
+    } else if (action === "update") {
+      submitHandler({ id: data?._id, data: formData });
+    }
+    console.log(formData);
     setOpen(false);
   };
 

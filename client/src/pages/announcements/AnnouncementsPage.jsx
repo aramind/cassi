@@ -19,10 +19,11 @@ const AnnouncementsPage = () => {
   const [openAnnouncementDialog, setOpenAnnouncementDialog] = useState(false);
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
-  const { addAnnouncement, getAnnouncements } = useAnnouncementReq({
-    isPublic: false,
-    showAck: false,
-  });
+  const { addAnnouncement, getAnnouncements, updateAnnouncement } =
+    useAnnouncementReq({
+      isPublic: false,
+      showAck: false,
+    });
 
   const {
     data: announcementsData,
@@ -64,8 +65,11 @@ const AnnouncementsPage = () => {
     alert("saving as draft...");
   };
 
-  const updateAnnouncementHandler = () => {
+  const updateAnnouncementHandler = ({ id, data }) => {
     alert("updating announcement...");
+    console.log("ID", id);
+    console.log("data", data);
+    updateAnnouncement({ id, data });
   };
 
   const deleteAnnouncementHandler = () => {
