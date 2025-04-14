@@ -9,7 +9,7 @@ const AnnouncementsBox = ({ children }) => {
       flexWrap="wrap"
       gap={2}
       justifyContent="center"
-      alignItems="center"
+      alignItems="stretch"
     >
       {children}
     </Stack>

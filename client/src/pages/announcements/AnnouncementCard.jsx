@@ -20,7 +20,7 @@ const AnnouncementCard = ({ announcement }) => {
   )?.name;
 
   return (
-    <Box
+    <Stack
       width="40vw"
       //   minHeight="200px"
       height="auto"
@@ -29,6 +29,7 @@ const AnnouncementCard = ({ announcement }) => {
       borderRadius={2}
       sx={{
         aspectRatio: "1 / 1", // height = width
+        position: "relative",
       }}
       boxShadow={3}
       bgcolor={importanceColor[announcement?.importance]}
@@ -56,29 +57,26 @@ const AnnouncementCard = ({ announcement }) => {
         />
       </Stack>
       <Typography variant="h6">{announcement?.title}</Typography>
-
       <Divider />
       <Box mt="-4px" alignItems="flex-start">
         <Typography variant="narrowSmallText">
           {formatDate(announcement?.createdAt)}
         </Typography>
       </Box>
-
       <Typography variant="body1">{announcement?.content}</Typography>
-      <br />
-
-      <Box>
+      <Box flex={1} mb={1} />
+      <Box mb={0.5}>
         <Chip
           icon={<FaceTwoToneIcon />}
           label={createdByInName}
           size="small"
           variant="outlined"
-          sx={(theme) => ({
-            // borderColor: theme.palette?.primary?.dark,
+          sx={{
             justifyContent: "flex-start",
-          })}
+          }}
         />
       </Box>
+      <Divider />
       <Stack width={1} direction="row">
         <Box flex={1} />
         <AnnounceActionsGroup />
@@ -86,7 +84,7 @@ const AnnouncementCard = ({ announcement }) => {
       {/* <Box>
           <Chip color="primary" label={announcement?.status} size="small" />
         </Box> */}
-    </Box>
+    </Stack>
   );
 };
 
