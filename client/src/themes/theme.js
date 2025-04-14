@@ -169,7 +169,7 @@ const main = createTheme({
     },
     narrowSmallText: {
       fontFamily: `"Abel", sans-serif`,
-      fontSize: "0.6rem",
+      fontSize: "0.7rem",
     },
     subtitle2: {
       fontSize: "0.8rem",

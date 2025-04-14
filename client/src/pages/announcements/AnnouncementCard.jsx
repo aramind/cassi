@@ -2,6 +2,14 @@ import { Box, Chip, Divider, Stack, Typography } from "@mui/material";
 import React from "react";
 import useHouseProvider from "../../hooks/useHouseProvider";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
+import { formatDate } from "../../utils/formatDate";
+import { amber, green, red } from "@mui/material/colors";
+
+const importanceColor = {
+  low: green[100],
+  medium: amber[100],
+  hight: red[100],
+};
 
 const AnnouncementCard = ({ announcement }) => {
   const { listOfHouseOccupants } = useHouseProvider();
@@ -22,7 +30,7 @@ const AnnouncementCard = ({ announcement }) => {
         aspectRatio: "1 / 1", // height = width
       }}
       boxShadow={3}
-      //   bgcolor="background.paper"
+      bgcolor={importanceColor[announcement?.importance]}
     >
       <Stack
         direction="row"
@@ -32,29 +40,40 @@ const AnnouncementCard = ({ announcement }) => {
         flexWrap="wrap"
         mb={0.5}
       >
-        <Chip color="info" label={announcement?.type} size="small" />
         <Chip
-          sx={{ bgcolor: (theme) => theme.palette.accent.light }}
+          variant="outlined"
+          color="info"
+          label={announcement?.type}
+          size="small"
+        />
+        <Chip
+          variant="outlined"
+          color="info"
+          //   sx={{ bgcolor: importanceColor[announcement?.importance] }}
           label={announcement?.importance}
           size="small"
         />
       </Stack>
-
       <Typography variant="h6">{announcement?.title}</Typography>
 
       <Divider />
+      <Box mt="-4px" alignItems="flex-start">
+        <Typography variant="narrowSmallText">
+          {formatDate(announcement?.createdAt)}
+        </Typography>
+      </Box>
+
       <Typography variant="body1">{announcement?.content}</Typography>
       <br />
-      <Typography variant="narrowText" mt="-2rem">
-        {announcement?.createdAt}
-      </Typography>
+
       <Box>
         <Chip
           icon={<FaceTwoToneIcon />}
           label={createdByInName}
           size="small"
+          variant="outlined"
           sx={(theme) => ({
-            backgroundColor: theme.palette?.accent?.light,
+            // borderColor: theme.palette?.primary?.dark,
             justifyContent: "flex-start",
           })}
         />
