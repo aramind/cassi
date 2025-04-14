@@ -11,24 +11,43 @@ const AnnouncementCard = ({ announcement }) => {
   )?.name;
 
   return (
-    <Stack
+    <Box
       width="40vw"
       //   minHeight="200px"
       height="auto"
       maxWidth="400px"
-      className="outlined"
       p={1}
       borderRadius={2}
       sx={{
         aspectRatio: "1 / 1", // height = width
       }}
+      boxShadow={3}
+      //   bgcolor="background.paper"
     >
+      <Stack
+        direction="row"
+        gap={1}
+        justifyContent="flex-start"
+        width={1}
+        flexWrap="wrap"
+        mb={0.5}
+      >
+        <Chip color="info" label={announcement?.type} size="small" />
+        <Chip
+          sx={{ bgcolor: (theme) => theme.palette.accent.light }}
+          label={announcement?.importance}
+          size="small"
+        />
+      </Stack>
+
       <Typography variant="h6">{announcement?.title}</Typography>
-      <Typography variant="narrowText">{announcement?.createdAt}</Typography>
+
       <Divider />
       <Typography variant="body1">{announcement?.content}</Typography>
       <br />
-
+      <Typography variant="narrowText" mt="-2rem">
+        {announcement?.createdAt}
+      </Typography>
       <Box>
         <Chip
           icon={<FaceTwoToneIcon />}
@@ -41,22 +60,10 @@ const AnnouncementCard = ({ announcement }) => {
         />
       </Box>
 
-      <Stack
-        direction="row"
-        gap={1}
-        justifyContent="flex-start"
-        width={1}
-        flexWrap="wrap"
-      >
-        <Chip color="primary" label={announcement?.status} size="small" />
-        <Chip color="info" label={announcement?.type} size="small" />
-        <Chip
-          sx={{ bgcolor: (theme) => theme.palette.accent.light }}
-          label={announcement?.importance}
-          size="small"
-        />
-      </Stack>
-    </Stack>
+      {/* <Box>
+          <Chip color="primary" label={announcement?.status} size="small" />
+        </Box> */}
+    </Box>
   );
 };
 
