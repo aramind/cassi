@@ -1,4 +1,4 @@
-import { Box, Chip, Stack, Typography } from "@mui/material";
+import { Box, Chip, Divider, Stack, Typography } from "@mui/material";
 import React from "react";
 import useHouseProvider from "../../hooks/useHouseProvider";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
@@ -23,6 +23,24 @@ const AnnouncementCard = ({ announcement }) => {
         aspectRatio: "1 / 1", // height = width
       }}
     >
+      <Typography variant="h6">{announcement?.title}</Typography>
+      <Typography variant="narrowText">{announcement?.createdAt}</Typography>
+      <Divider />
+      <Typography variant="body1">{announcement?.content}</Typography>
+      <br />
+
+      <Box>
+        <Chip
+          icon={<FaceTwoToneIcon />}
+          label={createdByInName}
+          size="small"
+          sx={(theme) => ({
+            backgroundColor: theme.palette?.accent?.light,
+            justifyContent: "flex-start",
+          })}
+        />
+      </Box>
+
       <Stack
         direction="row"
         gap={1}
@@ -38,20 +56,6 @@ const AnnouncementCard = ({ announcement }) => {
           size="small"
         />
       </Stack>
-      <Typography variant="h6">{announcement?.title}</Typography>
-      <Typography variant="body1">{announcement?.content}</Typography>
-      <Box>
-        <Chip
-          icon={<FaceTwoToneIcon />}
-          label={createdByInName}
-          size="small"
-          sx={(theme) => ({
-            backgroundColor: theme.palette?.accent?.light,
-            justifyContent: "flex-start",
-          })}
-        />
-      </Box>
-      <Typography variant="body1">{announcement?.createdAt}</Typography>
     </Stack>
   );
 };

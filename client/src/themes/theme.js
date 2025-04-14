@@ -167,7 +167,10 @@ const main = createTheme({
       fontFamily: `"Abel", sans-serif`,
       fontSize: "0.8rem",
     },
-
+    narrowSmallText: {
+      fontFamily: `"Abel", sans-serif`,
+      fontSize: "0.6rem",
+    },
     subtitle2: {
       fontSize: "0.8rem",
       [`@media (min-width:960px)`]: {
