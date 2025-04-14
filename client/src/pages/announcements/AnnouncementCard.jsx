@@ -1,8 +1,15 @@
-import { Box, Chip, Stack, Typography } from "@mui/material";
+import { Chip, Stack, Typography } from "@mui/material";
 import React from "react";
+import useHouseProvider from "../../hooks/useHouseProvider";
+import { create } from "@mui/material/styles/createTransitions";
 
 const AnnouncementCard = ({ announcement }) => {
-  console.log(announcement);
+  const { listOfHouseOccupants } = useHouseProvider();
+
+  const createdByInName = listOfHouseOccupants.find(
+    (ho) => ho.id === announcement?.createdBy
+  )?.name;
+
   return (
     <Stack
       width="40vw"
@@ -33,7 +40,7 @@ const AnnouncementCard = ({ announcement }) => {
       </Stack>
       <Typography variant="h6">{announcement?.title}</Typography>
       <Typography variant="body1">{announcement?.content}</Typography>
-      <Typography variant="body1">{announcement?.createdBy}</Typography>
+      <Typography variant="body1">{createdByInName}</Typography>
       <Typography variant="body1">{announcement?.createdAt}</Typography>
     </Stack>
   );
