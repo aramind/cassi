@@ -4,6 +4,7 @@ import useHouseProvider from "../../hooks/useHouseProvider";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import { formatDate } from "../../utils/formatDate";
 import { amber, green, red } from "@mui/material/colors";
+import AnnounceActionsGroup from "./AnnounceActionsGroup";
 
 const importanceColor = {
   low: green[100],
@@ -78,7 +79,10 @@ const AnnouncementCard = ({ announcement }) => {
           })}
         />
       </Box>
-
+      <Stack width={1} direction="row">
+        <Box flex={1} />
+        <AnnounceActionsGroup />
+      </Stack>
       {/* <Box>
           <Chip color="primary" label={announcement?.status} size="small" />
         </Box> */}

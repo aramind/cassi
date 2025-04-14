@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import EntryDialog from "./EntryDialog";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 
