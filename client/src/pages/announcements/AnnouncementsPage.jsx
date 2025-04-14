@@ -64,8 +64,6 @@ const AnnouncementsPage = () => {
     alert("saving as draft...");
   };
 
-  console.log(announcementsData);
-
   if (isLoadingInGetAnnouncements) return <LoadingPage />;
   if (isErrorInGetAnnouncements) return <ErrorPage />;
   return (

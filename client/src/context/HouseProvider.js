@@ -30,7 +30,6 @@ const HouseProvider = ({ children }) => {
       ho.occupant?.name?.nickName || ho.occupant?.name?.firstName || "Unknown",
   }));
 
-  console.log(listOfHouseOccupants);
   const {
     data: houseProfile,
     isLoading: isLoadingInHouseProfile,

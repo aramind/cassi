@@ -92,8 +92,6 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
     setOptions((pv) => [...options, { label: "", value: "" }]);
   }, [houseProfile?.data?.occupants]);
 
-  console.log(data);
-  console.log(options);
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
   // form related
