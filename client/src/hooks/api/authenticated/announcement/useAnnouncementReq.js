@@ -6,6 +6,11 @@ const url = urls?.ANNOUNCEMENTS;
 const useAnnouncementReq = ({ isPublic, showAck }) => {
   const request = useRequest({ isPublic, showAck });
   const req = {
+    getAnnouncements: async (queryParams) =>
+      request({
+        url: `${url}?${queryParams}`,
+        method: "GET",
+      }),
     addAnnouncement: async ({ data }) =>
       request({
         url,
