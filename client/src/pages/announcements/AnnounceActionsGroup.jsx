@@ -23,7 +23,6 @@ const AnnounceActionsGroup = ({ data, updateHandler, deleteHandler }) => {
     );
   };
 
-  console.log(data);
   return (
     <>
       <ActionButtons
