@@ -5,6 +5,7 @@ const AnnounceActionsGroup = ({
   data,
   updateHandler,
   deleteHandler,
+  publishHandler,
   saveAsDraftHandler,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -26,6 +27,7 @@ const AnnounceActionsGroup = ({
         data={data}
         action="update"
         submitHandler={updateHandler}
+        publishHandler={publishHandler}
         saveAsDraftHandler={saveAsDraftHandler}
       />
     </>

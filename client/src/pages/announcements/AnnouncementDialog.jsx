@@ -90,7 +90,7 @@ const AnnouncementDialog = ({
   data,
   action,
   saveAsDraftHandler,
-  handlePublish,
+  publishHandler,
   submitHandler,
 }) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
@@ -169,6 +169,13 @@ const AnnouncementDialog = ({
     setOpen(false);
   };
 
+  const onPublish = async (formData) => {
+    publishHandler({
+      id: data?._id,
+      data: { ...formData, status: "published" },
+    });
+    setOpen(false);
+  };
   const handleClear = () => {
     alert("Clearing fields...");
   };
@@ -245,7 +252,11 @@ const AnnouncementDialog = ({
             Reset
           </Button>
           {data?.status === "draft" ? (
-            <Button size="small" variant="outlined" onClick={handlePublish}>
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={handleSubmit(onPublish)}
+            >
               Publish
             </Button>
           ) : (

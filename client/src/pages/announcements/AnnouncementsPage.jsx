@@ -98,6 +98,14 @@ const AnnouncementsPage = () => {
     );
   };
 
+  const handleConfirmPublish = ({ id, data }) => {
+    handleConfirm(
+      "Publish Announcement",
+      <Typography>Continue?</Typography>,
+      () => updateAnnouncement({ id, data })
+    );
+  };
+
   const updateAnnouncementHandler = ({ id, data }) => {
     handleConfirm(
       "Update Announcement",
@@ -174,6 +182,7 @@ const AnnouncementsPage = () => {
                 <AnnouncementCard
                   key={index}
                   announcement={announcement}
+                  publishHandler={handleConfirmPublish}
                   updateHandler={updateAnnouncementHandler}
                   deleteHandler={deleteAnnouncementHandler}
                 />

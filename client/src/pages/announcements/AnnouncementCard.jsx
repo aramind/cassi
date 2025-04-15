@@ -26,6 +26,7 @@ const statusIcon = {
 const AnnouncementCard = ({
   announcement,
   saveAsDraftHandler,
+  publishHandler,
   updateHandler,
   deleteHandler,
   restoreHandler,
@@ -112,6 +113,7 @@ const AnnouncementCard = ({
             data={announcement}
             updateHandler={updateHandler}
             deleteHandler={deleteHandler}
+            publishHandler={publishHandler}
             saveAsDraftHandler={saveAsDraftHandler}
           />
         )}
