@@ -8,6 +8,10 @@ const useAnnouncementReq = ({ isPublic, showAck }) => {
   const request = useRequest({ isPublic, showAck });
   const queryClient = useQueryClient();
 
+  // keys must be array of keys
+  const invalidateQueries = (keys) => {
+    queryClient.invalidateQueries(keys);
+  };
   const req = {
     getAnnouncements: async (queryParams) =>
       request({
@@ -20,7 +24,7 @@ const useAnnouncementReq = ({ isPublic, showAck }) => {
         method: "POST",
         data,
       });
-      queryClient.invalidateQueries(["announcements"]);
+      invalidateQueries(["announcements"]);
       return res;
     },
     updateAnnouncement: async ({ id, data }) => {
@@ -29,7 +33,15 @@ const useAnnouncementReq = ({ isPublic, showAck }) => {
         method: "PATCH",
         data: { data: { ...data } },
       });
-      queryClient.invalidateQueries(["announcements"]);
+      invalidateQueries(["announcements"]);
+      return res;
+    },
+    softDelete: async ({ id }) => {
+      const res = await request({
+        url: `${url}/${id}/soft-delete`,
+        method: "PATCH",
+      });
+      invalidateQueries(["announcements"]);
       return res;
     },
   };
