@@ -22,7 +22,7 @@ const update = async (req, res) => {
         type: data?.type,
         importance: data?.importance,
       },
-      date: data?.createdAt,
+      date: new Date(),
     };
 
     const updatedRevisions = [...existing.revisions, revisionEntry];
