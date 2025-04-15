@@ -9,6 +9,7 @@ import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 import HourglassTopOutlinedIcon from "@mui/icons-material/HourglassTopOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import DeletedAnnounceActionsGroup from "./DeletedAnnounceActionsGroup";
 
 const importanceColor = {
   low: green[100],
@@ -93,11 +94,15 @@ const AnnouncementCard = ({ announcement, updateHandler, deleteHandler }) => {
       <Stack width={1} direction="row" alignItems="center">
         {announcement?.status && statusIcon[announcement?.status]}
         <Box flex={1} />
-        <AnnounceActionsGroup
-          data={announcement}
-          updateHandler={updateHandler}
-          deleteHandler={deleteHandler}
-        />
+        {announcement?.status === "deleted" ? (
+          <DeletedAnnounceActionsGroup data={announcement} />
+        ) : (
+          <AnnounceActionsGroup
+            data={announcement}
+            updateHandler={updateHandler}
+            deleteHandler={deleteHandler}
+          />
+        )}
       </Stack>
       {/* <Box>
           <Chip color="primary" label={announcement?.status} size="small" />

@@ -1,14 +1,12 @@
 import React, { useCallback, useState } from "react";
 import ActionButtons from "../../components/ActionButtons";
 import AnnouncementDialog from "./AnnouncementDialog";
-
 const AnnounceActionsGroup = ({ data, updateHandler, deleteHandler }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const handleEdit = useCallback(() => {
     setOpenDialog(true);
   }, []);
 
-  console.log(data);
   return (
     <>
       <ActionButtons
