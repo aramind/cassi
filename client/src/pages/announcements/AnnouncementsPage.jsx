@@ -72,17 +72,6 @@ const AnnouncementsPage = () => {
     );
   };
 
-  // const handleConfirmPermDelete = (id) => {
-  //   handleConfirm(
-  //     "PERMANENT DELETION",
-  //     <Typography>
-  //       Are you sure you want to permanent delete this announcement? (This
-  //       action is not reversible)
-  //     </Typography>,
-  //     () => de({ id })
-  //   );
-  // };
-
   const handleConfirmAddAnnouncement = (formData) => {
     handleConfirm(
       "Publish Announcement",
@@ -101,16 +90,20 @@ const AnnouncementsPage = () => {
     );
   };
 
+  const handleConfirmSaveAsDraft = ({ id, data }) => {
+    handleConfirm(
+      "Save as Draft",
+      <Typography>Save as draft?</Typography>,
+      () => updateAnnouncement({ id, data })
+    );
+  };
+
   const updateAnnouncementHandler = ({ id, data }) => {
     handleConfirm(
       "Update Announcement",
       <Typography>Proceed updating?</Typography>,
       () => updateAnnouncement({ id, data })
     );
-  };
-
-  const handleSaveAsDraft = () => {
-    alert("saving as draft...");
   };
 
   const publishedAnnouncements = announcementsData?.data?.filter(
@@ -145,6 +138,7 @@ const AnnouncementsPage = () => {
                 announcement={announcement}
                 updateHandler={updateAnnouncementHandler}
                 deleteHandler={deleteAnnouncementHandler}
+                saveAsDraftHandler={handleConfirmSaveAsDraft}
               />
             ))}
           </AnnouncementsBox>
@@ -163,7 +157,6 @@ const AnnouncementsPage = () => {
         open={openAnnouncementDialog}
         setOpen={setOpenAnnouncementDialog}
         action="add"
-        handleSaveAsDraft={handleSaveAsDraft}
         submitHandler={handleConfirmAddAnnouncement}
       />
       {renderConfirmActionDialog()}

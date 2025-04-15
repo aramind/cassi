@@ -25,6 +25,7 @@ const statusIcon = {
 };
 const AnnouncementCard = ({
   announcement,
+  saveAsDraftHandler,
   updateHandler,
   deleteHandler,
   restoreHandler,
@@ -111,6 +112,7 @@ const AnnouncementCard = ({
             data={announcement}
             updateHandler={updateHandler}
             deleteHandler={deleteHandler}
+            saveAsDraftHandler={saveAsDraftHandler}
           />
         )}
       </Stack>

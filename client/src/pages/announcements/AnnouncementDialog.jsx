@@ -89,7 +89,7 @@ const AnnouncementDialog = ({
   setOpen,
   data,
   action,
-  handleSaveAsDraft,
+  saveAsDraftHandler,
   handlePublish,
   submitHandler,
 }) => {
@@ -159,6 +159,14 @@ const AnnouncementDialog = ({
       <Typography>Are you sure you want to reset all fields</Typography>,
       () => reset(data && {})
     );
+  };
+
+  const onSaveAsDraft = async (formData) => {
+    saveAsDraftHandler({
+      id: data?._id,
+      data: { ...formData, status: "draft" },
+    });
+    setOpen(false);
   };
 
   const handleClear = () => {
@@ -241,7 +249,11 @@ const AnnouncementDialog = ({
               Publish
             </Button>
           ) : (
-            <Button size="small" variant="outlined" onClick={handleSaveAsDraft}>
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={handleSubmit(onSaveAsDraft)}
+            >
               Save as Draft
             </Button>
           )}
