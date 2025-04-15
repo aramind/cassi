@@ -66,10 +66,11 @@ const AnnouncementsPage = () => {
   };
 
   const updateAnnouncementHandler = ({ id, data }) => {
-    alert("updating announcement...");
-    console.log("ID", id);
-    console.log("data", data);
-    updateAnnouncement({ id, data });
+    handleConfirm(
+      "Update Announcement",
+      <Typography>Proceed updating?</Typography>,
+      () => updateAnnouncement({ id, data })
+    );
   };
 
   const deleteAnnouncementHandler = ({ id, data }) => {
