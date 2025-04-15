@@ -13,10 +13,15 @@ import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import AnnouncementCard from "./AnnouncementCard";
 import AnnouncementsBox from "./AnnouncementsBox";
+import FullScreenDialog from "../../components/FullScreenDialog";
+import DraftedAnnouncements from "./DraftedAnnouncements";
 
 const AnnouncementsPage = () => {
   const { auth } = useAuth();
   const [openAnnouncementDialog, setOpenAnnouncementDialog] = useState(false);
+  const [openDraftedAnnouncements, setOpenDraftedAnnouncements] =
+    useState(false);
+
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
   const { addAnnouncement, getAnnouncements, updateAnnouncement, softDelete } =
@@ -83,6 +88,15 @@ const AnnouncementsPage = () => {
     alert("saving as draft...");
   };
 
+  const publishedAnnouncements = announcementsData?.data?.filter(
+    (ann) => ann.status === "published"
+  );
+  const deletedAnnouncements = announcementsData?.data?.filter(
+    (ann) => ann.status === "deleted"
+  );
+  const draftedAnnouncements = announcementsData?.data?.filter(
+    (ann) => ann.status === "draft"
+  );
   if (isLoadingInGetAnnouncements) return <LoadingPage />;
   if (isErrorInGetAnnouncements) return <ErrorPage />;
   return (
@@ -98,17 +112,45 @@ const AnnouncementsPage = () => {
           onClickHandler={addAnnouncementHandler}
         />
         <br />
+        {publishedAnnouncements && (
+          <AnnouncementsBox>
+            {publishedAnnouncements?.map((announcement, index) => (
+              <AnnouncementCard
+                key={index}
+                announcement={announcement}
+                updateHandler={updateAnnouncementHandler}
+                deleteHandler={deleteAnnouncementHandler}
+              />
+            ))}
+          </AnnouncementsBox>
+        )}
+        <br />
 
-        <AnnouncementsBox>
-          {announcementsData?.data?.map((announcement, index) => (
-            <AnnouncementCard
-              key={index}
-              announcement={announcement}
-              updateHandler={updateAnnouncementHandler}
-              deleteHandler={deleteAnnouncementHandler}
-            />
-          ))}
-        </AnnouncementsBox>
+        {/* {draftedAnnouncements && (
+          <AnnouncementsBox>
+            {draftedAnnouncements?.map((announcement, index) => (
+              <AnnouncementCard
+                key={index}
+                announcement={announcement}
+                updateHandler={updateAnnouncementHandler}
+                deleteHandler={deleteAnnouncementHandler}
+              />
+            ))}
+          </AnnouncementsBox>
+        )} */}
+        {/* {deletedAnnouncements && (
+          <AnnouncementsBox>
+            {deletedAnnouncements?.map((announcement, index) => (
+              <AnnouncementCard
+                key={index}
+                announcement={announcement}
+                updateHandler={updateAnnouncementHandler}
+                deleteHandler={deleteAnnouncementHandler}
+              />
+            ))}
+          </AnnouncementsBox>
+        )} */}
+
         <br />
         <MyButton
           type="accent"
@@ -126,6 +168,26 @@ const AnnouncementsPage = () => {
         submitHandler={handleConfirmAddAnnouncement}
       />
       {renderConfirmActionDialog()}
+      {draftedAnnouncements?.length > 0 && (
+        <FullScreenDialog
+          open={openDraftedAnnouncements}
+          setOpen={setOpenDraftedAnnouncements}
+          actionText="open draft(s)"
+          title="Drafts"
+        >
+          <br />
+          <AnnouncementsBox>
+            {draftedAnnouncements?.map((announcement, index) => (
+              <AnnouncementCard
+                key={index}
+                announcement={announcement}
+                updateHandler={updateAnnouncementHandler}
+                deleteHandler={deleteAnnouncementHandler}
+              />
+            ))}
+          </AnnouncementsBox>
+        </FullScreenDialog>
+      )}
     </BodyContainer>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
 import {
@@ -90,6 +90,7 @@ const AnnouncementDialog = ({
   data,
   action,
   handleSaveAsDraft,
+  handlePublish,
   submitHandler,
 }) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
@@ -160,6 +161,10 @@ const AnnouncementDialog = ({
     );
   };
 
+  const handleClear = () => {
+    alert("Clearing fields...");
+  };
+
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
 
@@ -223,12 +228,23 @@ const AnnouncementDialog = ({
           {/* <Button size="small" onClick={handleClose}>
             Cancel
           </Button> */}
+          {data?.status === "draft" && (
+            <Button size="small" variant="outlined" onClick={handleClear}>
+              Clear
+            </Button>
+          )}
           <Button size="small" variant="outlined" onClick={handleConfirmClear}>
             Reset
           </Button>
-          <Button size="small" variant="outlined" onClick={handleSaveAsDraft}>
-            Save as Draft
-          </Button>
+          {data?.status === "draft" ? (
+            <Button size="small" variant="outlined" onClick={handlePublish}>
+              Publish
+            </Button>
+          ) : (
+            <Button size="small" variant="outlined" onClick={handleSaveAsDraft}>
+              Save as Draft
+            </Button>
+          )}
           <Button
             size="small"
             variant="contained"
