@@ -10,5 +10,6 @@ console.log("IN ANNOUNCEMENT CONTROLLER");
 router.post("", announcementController.add);
 router.get("/:id", announcementController.getById);
 router.get("", announcementController.getAnnouncements);
+router.patch("/:id", announcementController.update);
 
 module.exports = router;

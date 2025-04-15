@@ -28,4 +28,4 @@ const update = async (req, res) => {
   }
 };
 
-model.exports = update;
+module.exports = update;
