@@ -5,6 +5,10 @@ import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import { formatDate } from "../../utils/formatDate";
 import { amber, green, red } from "@mui/material/colors";
 import AnnounceActionsGroup from "./AnnounceActionsGroup";
+import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
+import HourglassTopOutlinedIcon from "@mui/icons-material/HourglassTopOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 
 const importanceColor = {
   low: green[100],
@@ -12,6 +16,12 @@ const importanceColor = {
   high: red[100],
 };
 
+const statusIcon = {
+  published: <CampaignOutlinedIcon color="info" />,
+  draft: <HourglassTopOutlinedIcon color="warning" />,
+  deleted: <DeleteOutlinedIcon color="error" />,
+  archived: <ArchiveOutlinedIcon color="secondary" />,
+};
 const AnnouncementCard = ({ announcement, updateHandler, deleteHandler }) => {
   const { listOfHouseOccupants } = useHouseProvider();
 
@@ -56,7 +66,10 @@ const AnnouncementCard = ({ announcement, updateHandler, deleteHandler }) => {
           size="small"
         />
       </Stack>
+
       <Typography variant="h6">{announcement?.title}</Typography>
+      <Box flex={1} />
+
       <Divider />
       <Box mt="-4px" alignItems="flex-start">
         <Typography variant="narrowSmallText">
@@ -77,7 +90,8 @@ const AnnouncementCard = ({ announcement, updateHandler, deleteHandler }) => {
         />
       </Box>
       <Divider />
-      <Stack width={1} direction="row">
+      <Stack width={1} direction="row" alignItems="center">
+        {announcement?.status && statusIcon[announcement?.status]}
         <Box flex={1} />
         <AnnounceActionsGroup
           data={announcement}
