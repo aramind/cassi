@@ -19,7 +19,7 @@ const AnnouncementsPage = () => {
   const [openAnnouncementDialog, setOpenAnnouncementDialog] = useState(false);
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
-  const { addAnnouncement, getAnnouncements, updateAnnouncement } =
+  const { addAnnouncement, getAnnouncements, updateAnnouncement, softDelete } =
     useAnnouncementReq({
       isPublic: false,
       showAck: false,
@@ -44,6 +44,15 @@ const AnnouncementsPage = () => {
     setOpenAnnouncementDialog(true);
   };
 
+  console.log(announcementsData?.data);
+  const deleteAnnouncementHandler = (id) => {
+    handleConfirm(
+      "Delete Announcement",
+      <Typography>Continue with the deletion?</Typography>,
+      () => softDelete({ id })
+    );
+  };
+
   const handleConfirmAddAnnouncement = (formData) => {
     handleConfirm(
       "Publish Announcement",
@@ -61,9 +70,6 @@ const AnnouncementsPage = () => {
       }
     );
   };
-  const handleSaveAsDraft = () => {
-    alert("saving as draft...");
-  };
 
   const updateAnnouncementHandler = ({ id, data }) => {
     handleConfirm(
@@ -73,9 +79,8 @@ const AnnouncementsPage = () => {
     );
   };
 
-  const deleteAnnouncementHandler = ({ id, data }) => {
-    alert("deleting announcement..");
-    updateAnnouncement({ id, data: { ...data, status: "deleted" } });
+  const handleSaveAsDraft = () => {
+    alert("saving as draft...");
   };
 
   if (isLoadingInGetAnnouncements) return <LoadingPage />;

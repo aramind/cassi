@@ -19,7 +19,6 @@ const AnnouncementCard = ({ announcement, updateHandler, deleteHandler }) => {
     (ho) => ho.id === announcement?.createdBy
   )?.name;
 
-  console.log(announcement);
   return (
     <Stack
       width="40vw"

@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from "react";
-import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import ActionButtons from "../../components/ActionButtons";
-import { Typography } from "@mui/material";
 import AnnouncementDialog from "./AnnouncementDialog";
 
 const AnnounceActionsGroup = ({ data, updateHandler, deleteHandler }) => {
@@ -10,26 +8,14 @@ const AnnounceActionsGroup = ({ data, updateHandler, deleteHandler }) => {
     setOpenDialog(true);
   }, []);
 
-  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
-    useConfirmActionDialog();
-
-  const handleConfirmDelete = () => {
-    handleConfirm(
-      "Confirm Delete",
-      <Typography>
-        Are you sure you want to delete this announcement?
-      </Typography>,
-      () => deleteHandler({ id: data?._id, data })
-    );
-  };
-
+  console.log(data);
   return (
     <>
       <ActionButtons
         size="small"
         direction="row"
         editHandler={handleEdit}
-        deleteHandler={handleConfirmDelete}
+        deleteHandler={() => deleteHandler(data?._id)}
       />
       <AnnouncementDialog
         open={openDialog}
@@ -38,7 +24,6 @@ const AnnounceActionsGroup = ({ data, updateHandler, deleteHandler }) => {
         action="update"
         submitHandler={updateHandler}
       />
-      {renderConfirmActionDialog()}
     </>
   );
 };
