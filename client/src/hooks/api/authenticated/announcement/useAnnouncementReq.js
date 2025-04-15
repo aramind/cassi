@@ -21,7 +21,7 @@ const useAnnouncementReq = ({ isPublic, showAck }) => {
       request({
         url: `${url}/${id}`,
         method: "PATCH",
-        data,
+        data: { data: { ...data } },
       }),
   };
   return req;

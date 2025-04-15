@@ -33,7 +33,7 @@ const AnnouncementsPage = () => {
     ["announcements"],
     () =>
       getAnnouncements(
-        `?fields=_id,title,content,house,createdBy,isPinned,status,type,importance,createdAt,updatedAt`
+        `?fields=_id,title,content,house,createdBy,isPinned,status,type,importance,createdAt,updatedAt,revisions`
       ),
     {
       enabled: !!auth?.houseInfo?._id,
