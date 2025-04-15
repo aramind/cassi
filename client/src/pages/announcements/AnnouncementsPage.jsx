@@ -50,7 +50,6 @@ const AnnouncementsPage = () => {
     setOpenAnnouncementDialog(true);
   };
 
-  console.log(announcementsData?.data);
   const deleteAnnouncementHandler = (id) => {
     handleConfirm(
       "Delete Announcement",
@@ -125,32 +124,6 @@ const AnnouncementsPage = () => {
             ))}
           </AnnouncementsBox>
         )}
-        <br />
-
-        {/* {draftedAnnouncements && (
-          <AnnouncementsBox>
-            {draftedAnnouncements?.map((announcement, index) => (
-              <AnnouncementCard
-                key={index}
-                announcement={announcement}
-                updateHandler={updateAnnouncementHandler}
-                deleteHandler={deleteAnnouncementHandler}
-              />
-            ))}
-          </AnnouncementsBox>
-        )} */}
-        {/* {deletedAnnouncements && (
-          <AnnouncementsBox>
-            {deletedAnnouncements?.map((announcement, index) => (
-              <AnnouncementCard
-                key={index}
-                announcement={announcement}
-                updateHandler={updateAnnouncementHandler}
-                deleteHandler={deleteAnnouncementHandler}
-              />
-            ))}
-          </AnnouncementsBox>
-        )} */}
 
         <br />
         <MyButton
