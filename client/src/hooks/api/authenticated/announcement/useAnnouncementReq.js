@@ -44,6 +44,22 @@ const useAnnouncementReq = ({ isPublic, showAck }) => {
       invalidateQueries(["announcements"]);
       return res;
     },
+    restore: async ({ id }) => {
+      const res = await request({
+        url: `${url}/${id}/restore`,
+        method: "PATCH",
+      });
+      invalidateQueries(["announcements"]);
+      return res;
+    },
+    publish: async ({ id }) => {
+      const res = await request({
+        url: `${url}/${id}/publish`,
+        method: "PATCH",
+      });
+      invalidateQueries(["announcements"]);
+      return res;
+    },
   };
   return req;
 };
