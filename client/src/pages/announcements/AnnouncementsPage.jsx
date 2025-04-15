@@ -14,12 +14,13 @@ import ErrorPage from "../ErrorPage";
 import AnnouncementCard from "./AnnouncementCard";
 import AnnouncementsBox from "./AnnouncementsBox";
 import FullScreenDialog from "../../components/FullScreenDialog";
-import DraftedAnnouncements from "./DraftedAnnouncements";
 
 const AnnouncementsPage = () => {
   const { auth } = useAuth();
   const [openAnnouncementDialog, setOpenAnnouncementDialog] = useState(false);
   const [openDraftedAnnouncements, setOpenDraftedAnnouncements] =
+    useState(false);
+  const [openDeletedAnnouncements, setOpenDeletedAnnouncements] =
     useState(false);
 
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
@@ -168,26 +169,48 @@ const AnnouncementsPage = () => {
         submitHandler={handleConfirmAddAnnouncement}
       />
       {renderConfirmActionDialog()}
-      {draftedAnnouncements?.length > 0 && (
-        <FullScreenDialog
-          open={openDraftedAnnouncements}
-          setOpen={setOpenDraftedAnnouncements}
-          actionText="open draft(s)"
-          title="Drafts"
-        >
-          <br />
-          <AnnouncementsBox>
-            {draftedAnnouncements?.map((announcement, index) => (
-              <AnnouncementCard
-                key={index}
-                announcement={announcement}
-                updateHandler={updateAnnouncementHandler}
-                deleteHandler={deleteAnnouncementHandler}
-              />
-            ))}
-          </AnnouncementsBox>
-        </FullScreenDialog>
-      )}
+      <Stack direction="row" spacing={1} width={1} justifyContent="center">
+        {draftedAnnouncements?.length > 0 && (
+          <FullScreenDialog
+            open={openDraftedAnnouncements}
+            setOpen={setOpenDraftedAnnouncements}
+            actionText="open draft(s)"
+            title="Drafts"
+          >
+            <br />
+            <AnnouncementsBox>
+              {draftedAnnouncements?.map((announcement, index) => (
+                <AnnouncementCard
+                  key={index}
+                  announcement={announcement}
+                  updateHandler={updateAnnouncementHandler}
+                  deleteHandler={deleteAnnouncementHandler}
+                />
+              ))}
+            </AnnouncementsBox>
+          </FullScreenDialog>
+        )}
+        {deletedAnnouncements?.length > 0 && (
+          <FullScreenDialog
+            open={openDeletedAnnouncements}
+            setOpen={setOpenDeletedAnnouncements}
+            actionText="review deleted"
+            title="Deleted"
+          >
+            <br />
+            <AnnouncementsBox>
+              {deletedAnnouncements?.map((announcement, index) => (
+                <AnnouncementCard
+                  key={index}
+                  announcement={announcement}
+                  updateHandler={updateAnnouncementHandler}
+                  deleteHandler={deleteAnnouncementHandler}
+                />
+              ))}
+            </AnnouncementsBox>
+          </FullScreenDialog>
+        )}
+      </Stack>
     </BodyContainer>
   );
 };
