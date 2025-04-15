@@ -1,13 +1,9 @@
-const { model } = require("mongoose");
 const Announcement = require("../../models/Announcement");
 const sendResponse = require("../../utils/senResponse");
 const update = async (req, res) => {
-  console.log("IN UPDATE CONTROLLER");
   try {
     const { id } = req.params;
     const { data } = req.body;
-
-    console.log("DATA", data);
 
     const existing = await Announcement.findById(id);
     if (!existing) {
