@@ -23,7 +23,13 @@ const statusIcon = {
   deleted: <DeleteOutlinedIcon color="error" />,
   archived: <ArchiveOutlinedIcon color="secondary" />,
 };
-const AnnouncementCard = ({ announcement, updateHandler, deleteHandler }) => {
+const AnnouncementCard = ({
+  announcement,
+  updateHandler,
+  deleteHandler,
+  restoreHandler,
+  permanentDelHandler,
+}) => {
   const { listOfHouseOccupants } = useHouseProvider();
 
   const createdByInName = listOfHouseOccupants.find(
@@ -95,7 +101,11 @@ const AnnouncementCard = ({ announcement, updateHandler, deleteHandler }) => {
         {announcement?.status && statusIcon[announcement?.status]}
         <Box flex={1} />
         {announcement?.status === "deleted" ? (
-          <DeletedAnnounceActionsGroup data={announcement} />
+          <DeletedAnnounceActionsGroup
+            data={announcement}
+            restoreHandler={restoreHandler}
+            permanentDelHandler={permanentDelHandler}
+          />
         ) : (
           <AnnounceActionsGroup
             data={announcement}

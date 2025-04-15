@@ -13,7 +13,7 @@ const DeletedAnnounceActionsGroup = ({
       <DeletedActionButtons
         size="small"
         direction="row"
-        restoreHandler={restoreHandler}
+        restoreHandler={() => restoreHandler({ id: data?._id })}
         permanentDelHandler={permanentDelHandler}
       />
       {/* <AnnouncementDialog

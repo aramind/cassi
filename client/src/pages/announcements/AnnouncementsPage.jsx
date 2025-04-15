@@ -25,11 +25,17 @@ const AnnouncementsPage = () => {
 
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
-  const { addAnnouncement, getAnnouncements, updateAnnouncement, softDelete } =
-    useAnnouncementReq({
-      isPublic: false,
-      showAck: false,
-    });
+  const {
+    addAnnouncement,
+    getAnnouncements,
+    updateAnnouncement,
+    softDelete,
+    restore,
+    publish,
+  } = useAnnouncementReq({
+    isPublic: false,
+    showAck: false,
+  });
 
   const {
     data: announcementsData,
@@ -57,6 +63,25 @@ const AnnouncementsPage = () => {
       () => softDelete({ id })
     );
   };
+
+  const handleConfirmRestore = ({ id }) => {
+    handleConfirm(
+      "Restore",
+      <Typography>Restore this deleted announcement?</Typography>,
+      () => restore({ id })
+    );
+  };
+
+  // const handleConfirmPermDelete = (id) => {
+  //   handleConfirm(
+  //     "PERMANENT DELETION",
+  //     <Typography>
+  //       Are you sure you want to permanent delete this announcement? (This
+  //       action is not reversible)
+  //     </Typography>,
+  //     () => de({ id })
+  //   );
+  // };
 
   const handleConfirmAddAnnouncement = (formData) => {
     handleConfirm(
@@ -176,8 +201,8 @@ const AnnouncementsPage = () => {
                 <AnnouncementCard
                   key={index}
                   announcement={announcement}
-                  updateHandler={updateAnnouncementHandler}
-                  deleteHandler={deleteAnnouncementHandler}
+                  restoreHandler={handleConfirmRestore}
+                  permanentDelHandler={handleConfirmRestore}
                 />
               ))}
             </AnnouncementsBox>
