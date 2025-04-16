@@ -11,6 +11,7 @@ import FutureFeaturePage from "./pages/future/FutureFeaturePage";
 import RedirectToLastPath from "./components/RedirectToLastPath";
 import LayoutWithNavDial from "./layout/LayoutWithNavDial";
 import AnnouncementsPage from "./pages/announcements/AnnouncementsPage";
+import TasksPage from "./pages/tasks/TasksPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
                   },
                   {
                     path: "tasks",
-                    element: <FutureFeaturePage />,
+                    element: <TasksPage />,
                   },
                   {
                     path: "dues",
