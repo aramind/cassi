@@ -66,6 +66,7 @@ const TaskSchema = new Schema(
       type: Date,
     },
     attachments: { type: [String], default: [] },
+    remarks: { type: [String], default: [] },
     comments: {
       type: [
         {

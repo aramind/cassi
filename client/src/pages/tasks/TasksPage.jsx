@@ -6,24 +6,30 @@ import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
 import TaskDialog from "./TaskDialog";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
+import useTaskReq from "../../hooks/api/authenticated/task/useTaskReq";
 
 const TasksPage = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
+
+  const { addTask } = useTaskReq({ isPublic: false, showAck: false });
+
   const addTaskHandler = () => {
-    alert("Adding a task...");
     setOpenDialog(true);
   };
 
-  const dummySubmittingTask = (data) => {
-    alert("Submitting task...");
-    console.log("SUBMITTING", data);
-  };
   const handleConfirmAdd = (formData) => {
     handleConfirm("Add Task", <Typography>Add this task?</Typography>, () =>
-      dummySubmittingTask(formData)
+      addTask({
+        data: {
+          task: {
+            ...formData,
+            remarks: formData?.remarks?.split("/")?.map((c) => c.trim()),
+          },
+        },
+      })
     );
     setOpenDialog(false);
   };

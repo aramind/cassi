@@ -182,8 +182,8 @@ const TaskDialog = ({
                 )}
               </Stack>
               <ControlledLabelledTextField
-                label='comments (separate by "/")'
-                name="comments"
+                label='remarks (separate by "/")'
+                name="remarks"
               />
             </Stack>
           </FormWrapper>
