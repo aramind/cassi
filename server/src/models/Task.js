@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const CONSTANTS = require("../configs/constants");
 const HouseOccupant = require("./HouseOccupant");
+const House = require("./House");
 
 const Schema = mongoose.Schema;
 
@@ -31,7 +32,7 @@ const RECURRENCE_RULES = CONSTANTS?.TASK_RECURRENCE_RULES || [
   "annually",
 ];
 
-CONSTANTS?.VERSIONS || ["v0", "v1", "v2"];
+const VERSIONS = CONSTANTS?.VERSIONS || ["v0", "v1", "v2"];
 
 const TaskSchema = new Schema(
   {
