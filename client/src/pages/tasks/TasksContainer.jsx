@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import TaskDetails from "./TaskDetails";
 
 const TasksContainer = ({ tasks }) => {
   console.log(tasks);
@@ -20,10 +21,13 @@ const TasksContainer = ({ tasks }) => {
             expandIcon={<ExpandMoreRoundedIcon />}
             aria-controls={`panel${i}-content`}
             id={`panel${i}-header`}
+            key={i}
           >
             <Typography variant="h6">{t?.title}</Typography>
           </AccordionSummary>
-          <AccordionDetails>{/* <TaskDetails /> */}</AccordionDetails>
+          <AccordionDetails>
+            <TaskDetails task={t} />
+          </AccordionDetails>
         </Accordion>
       ))}
     </Stack>
