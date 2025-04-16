@@ -74,7 +74,6 @@ const TaskSchema = new Schema(
           date: { type: Date, default: Date.now },
         },
       ],
-      default: () => [{ comment: "", date: Date.now() }],
     },
     isRecurring: { type: Boolean, default: false },
     recurrenceRule: { type: String, enum: RECURRENCE_RULES },
