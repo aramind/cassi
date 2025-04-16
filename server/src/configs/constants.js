@@ -14,6 +14,7 @@ const keys = [
   "TASK_TYPES",
   "TASK_STATUSES",
   "TASK_PRIORITIES",
+  "TASK_RECURRENCE_RULES",
 ];
 
 const CONSTANTS = keys.reduce((acc, key) => {
