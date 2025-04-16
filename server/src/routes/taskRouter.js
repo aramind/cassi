@@ -8,5 +8,6 @@ router.use(verifyJWT);
 router.use(verifyHouse);
 // routes
 router.post("", taskController.add);
+router.get("", taskController.getTasks);
 
 module.exports = router;
