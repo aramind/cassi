@@ -7,6 +7,7 @@ import MyButton from "../../components/buttons/MyButton";
 import TaskDialog from "./TaskDialog";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import useTaskReq from "../../hooks/api/authenticated/task/useTaskReq";
+import useApiGet from "../../hooks/api/useApiGet";
 
 const TasksPage = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -14,8 +15,17 @@ const TasksPage = () => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
-  const { addTask } = useTaskReq({ isPublic: false, showAck: false });
+  const { addTask, getTasks } = useTaskReq({ isPublic: false, showAck: false });
 
+  const {
+    data: tasksData,
+    isLoading: isLoadingInFetchingTasks,
+    isError: isErrorInFetchingTasks,
+  } = useApiGet(["tasks"], () =>
+    getTasks(
+      "?fields=_id,title,description,type,status,priority,dueDate,attachments,remarks,isRecurring,recurrenceRule,comments,createdAt,updatedAt"
+    )
+  );
   const addTaskHandler = () => {
     setOpenDialog(true);
   };
@@ -33,6 +43,8 @@ const TasksPage = () => {
     );
     setOpenDialog(false);
   };
+
+  console.log(tasksData?.data);
   return (
     <BodyContainer justifyContent="flex-start">
       <Stack mt={2} alignItems="center" width={1} pb={2}>
