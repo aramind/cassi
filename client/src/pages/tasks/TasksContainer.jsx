@@ -8,16 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
-import SignalCellularAlt1BarRoundedIcon from "@mui/icons-material/SignalCellularAlt1BarRounded";
-import SignalCellularAlt2BarRoundedIcon from "@mui/icons-material/SignalCellularAlt2BarRounded";
-import SignalCellularAltRoundedIcon from "@mui/icons-material/SignalCellularAltRounded";
 import TaskDetails from "./TaskDetails";
 
-const PRIORITY_ICONS = {
-  //   low: <SignalCellularAlt1BarRoundedIcon />,
-  //   medium: <SignalCellularAlt2BarRoundedIcon />,
-  //   high: <SignalCellularAltRoundedIcon />,
-};
 const TasksContainer = ({ tasks }) => {
   console.log(tasks);
 
