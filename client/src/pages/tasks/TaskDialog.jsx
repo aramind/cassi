@@ -14,6 +14,7 @@ import ControlledLabelledTextField from "../../components/controlled/ControlledL
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import { TASK_CONSTANTS } from "../../constants/tasks";
 import ControlledSlider from "../../components/controlled/ControlledSlider";
+import ControlledCheckBox from "../../components/controlled/ControlledCheckBox";
 
 const getTitle = (action) => {
   let title = "";
@@ -156,6 +157,7 @@ const TaskDialog = ({
                 label="due date (mm/dd/yyy)"
                 name="dueDate"
               />
+              <ControlledCheckBox name="isRecurring" label="Recurring Task?" />
               <ControlledLabelledTextField
                 label='comments (separate by "/")'
                 name="comments"
