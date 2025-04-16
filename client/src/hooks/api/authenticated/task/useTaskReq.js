@@ -23,6 +23,11 @@ const useTaskReq = ({ isPublic, showAck }) => {
       invalidateQueries(["announcements"]);
       return res;
     },
+    getTasks: async (queryParams) =>
+      request({
+        url: `${url}${queryParams || ""}`,
+        method: "GET",
+      }),
   };
 
   return req;
