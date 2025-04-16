@@ -1,4 +1,3 @@
-import React from "react";
 import urls from "../../../../constants/urls";
 import useRequest from "../../useRequest";
 import { useQueryClient } from "react-query";
