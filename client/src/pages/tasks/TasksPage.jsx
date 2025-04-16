@@ -17,12 +17,13 @@ const TasksPage = () => {
     setOpenDialog(true);
   };
 
-  const dummySubmittingTask = () => {
+  const dummySubmittingTask = (data) => {
     alert("Submitting task...");
+    console.log("SUBMITTING", data);
   };
-  const handleConfirmAdd = () => {
+  const handleConfirmAdd = (formData) => {
     handleConfirm("Add Task", <Typography>Add this task?</Typography>, () =>
-      dummySubmittingTask()
+      dummySubmittingTask(formData)
     );
     setOpenDialog(false);
   };

@@ -93,7 +93,7 @@ const TaskDialog = ({
 
   const onSubmit = async (formData) => {
     if (action === "add") {
-      submitHandler();
+      submitHandler(formData);
     } else if (action === "update") {
       submitHandler();
     }
