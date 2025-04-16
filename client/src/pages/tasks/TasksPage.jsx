@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
@@ -10,6 +10,7 @@ import useTaskReq from "../../hooks/api/authenticated/task/useTaskReq";
 import useApiGet from "../../hooks/api/useApiGet";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
+import TasksContainer from "./TasksContainer";
 
 const TasksPage = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -62,6 +63,9 @@ const TasksPage = () => {
           variant="contained"
           onClickHandler={addTaskHandler}
         />
+
+        {tasksData?.data && <TasksContainer tasks={tasksData?.data} />}
+
         <br />
         <MyButton
           type="accent"
