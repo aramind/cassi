@@ -18,6 +18,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { yupResolver } from "@hookform/resolvers/yup";
 import newAnnouncementSchema from "../../schemas/newAnnouncementSchema";
 import useHouseProvider from "../../hooks/useHouseProvider";
+import Xbutton from "../../components/buttons/Xbutton";
 
 const getTitle = (action) => {
   let title = "";
@@ -189,11 +190,7 @@ const AnnouncementDialog = ({
         open={open}
         handleClose={handleClose}
         title={title}
-        closeButton={
-          <Button variant="text" onClick={handleClose} color="error">
-            <CloseRoundedIcon />
-          </Button>
-        }
+        closeButton={<Xbutton handleClose={handleClose} />}
       >
         <DialogContent>
           <FormWrapper formMethods={formMethods}>
