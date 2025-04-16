@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const CONSTANTS = require("../configs/constants");
 const HouseOccupant = require("./HouseOccupant");
 
@@ -83,3 +84,5 @@ const TaskSchema = new Schema(
   },
   { timestamps: true }
 );
+
+module.exports = mongoose.model("Task", TaskSchema);
