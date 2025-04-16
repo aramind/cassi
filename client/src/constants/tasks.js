@@ -43,22 +43,26 @@ export const TASK_CONSTANTS = {
       value: "deleted",
     },
   ],
-  PRIORITY_OPTIONS: [
+  RECURRENCE_OPTIONS: [
     {
-      label: "low",
-      value: "low",
+      label: "daily",
+      value: "daily",
     },
     {
-      label: "medium",
-      value: "medium",
+      label: "weekly",
+      value: "weekly",
     },
     {
-      label: "high",
-      value: "high",
+      label: "monthly",
+      value: "monthly",
     },
     {
-      label: "urgent",
-      value: "urgent",
+      label: "yearly",
+      value: "yearly",
+    },
+    {
+      label: "others",
+      value: "others",
     },
   ],
 };
