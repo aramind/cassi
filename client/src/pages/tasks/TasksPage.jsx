@@ -8,6 +8,8 @@ import TaskDialog from "./TaskDialog";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import useTaskReq from "../../hooks/api/authenticated/task/useTaskReq";
 import useApiGet from "../../hooks/api/useApiGet";
+import LoadingPage from "../LoadingPage";
+import ErrorPage from "../ErrorPage";
 
 const TasksPage = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -45,6 +47,9 @@ const TasksPage = () => {
   };
 
   console.log(tasksData?.data);
+
+  if (isLoadingInFetchingTasks) return <LoadingPage />;
+  if (isErrorInFetchingTasks) return <ErrorPage />;
   return (
     <BodyContainer justifyContent="flex-start">
       <Stack mt={2} alignItems="center" width={1} pb={2}>
