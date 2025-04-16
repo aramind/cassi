@@ -11,6 +11,10 @@ const keys = [
   "ANNOUNCE_STATUSES",
   "ANNOUNCE_TYPES",
   "ANNOUNCE_IMPORTANCES",
+  "TASK_TYPES",
+  "TASK_STATUSES",
+  "TASK_PRIORITIES",
+  "TASK_RECURRENCE_RULES",
 ];
 
 const CONSTANTS = keys.reduce((acc, key) => {

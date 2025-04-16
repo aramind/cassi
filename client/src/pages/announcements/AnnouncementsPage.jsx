@@ -31,7 +31,7 @@ const AnnouncementsPage = () => {
     updateAnnouncement,
     softDelete,
     restore,
-    publish,
+    // publish,
   } = useAnnouncementReq({
     isPublic: false,
     showAck: false,
@@ -127,7 +127,7 @@ const AnnouncementsPage = () => {
   if (isErrorInGetAnnouncements) return <ErrorPage />;
   return (
     <BodyContainer justifyContent="flex-start">
-      <Stack mt={2} alignItems="center" width={1} pb={4}>
+      <Stack mt={2} alignItems="center" width={1} pb={2}>
         <PageHeader text="announcements " />
         <Today />
         <br />

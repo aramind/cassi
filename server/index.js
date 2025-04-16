@@ -13,6 +13,7 @@ const houseRouter = require("./src/routes/houseRouter");
 const houseOccupantRouter = require("./src/routes/houseOccupantRouter");
 const trackerRouter = require("./src/routes/trackerRouter");
 const announcementRouter = require("./src/routes/announcementRouter");
+const taskRouter = require("./src/routes/taskRouter");
 
 // configs
 const credentials = require("./src/middlewares/credentials");
@@ -39,6 +40,7 @@ app.use("/v1/trackers", trackerRouter);
 app.use("/v1/house", houseRouter);
 app.use("/v1/house-occupant", houseOccupantRouter);
 app.use("/v1/announcements", announcementRouter);
+app.use("/v1/tasks", taskRouter);
 // for the static site
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
