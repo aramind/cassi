@@ -10,6 +10,10 @@ import {
 } from "@mui/material";
 import Xbutton from "../../components/buttons/Xbutton";
 import FormWrapper from "../../wrappers/FormWrapper";
+import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
+import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
+import { TASK_CONSTANTS } from "../../constants/tasks";
+import ControlledSlider from "../../components/controlled/ControlledSlider";
 
 const getTitle = (action) => {
   let title = "";
@@ -113,7 +117,49 @@ const TaskDialog = ({
         <DialogContent>
           <FormWrapper formMethods={formMethods}>
             <Stack spacing={1}>
-              <Typography>Fields here...</Typography>
+              <ControlledLabelledTextField
+                id="task-title"
+                label="title"
+                name="title"
+              />
+              <ControlledLabelledTextField
+                id="task-description"
+                label="description"
+                name="description"
+                multiline
+                tfProps={{ rows: 2 }}
+              />
+              <Stack direction="row" spacing={1} justifyContent="space-between">
+                <ControlledLabelledSelect
+                  id="task-type-select"
+                  label="type"
+                  name="type"
+                  options={TASK_CONSTANTS?.TYPE_OPTIONS}
+                  defaultValue={TASK_CONSTANTS?.TYPE_OPTIONS[0]?.value}
+                />
+                <ControlledLabelledSelect
+                  id="task-status-select"
+                  label="status"
+                  name="status"
+                  options={TASK_CONSTANTS?.STATUS_OPTIONS}
+                  defaultValue={TASK_CONSTANTS?.STATUS_OPTIONS[0]?.value}
+                />
+              </Stack>
+              <ControlledSlider
+                id="task-importance"
+                name="importance"
+                label="importance"
+                isOptionsText={true}
+                textLevelOptions={["low", "medium", "high"]}
+              />
+              <ControlledLabelledTextField
+                label="due date (mm/dd/yyy)"
+                name="dueDate"
+              />
+              <ControlledLabelledTextField
+                label='comments (separate by "/")'
+                name="comments"
+              />
             </Stack>
           </FormWrapper>
         </DialogContent>
