@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import DraggableDialog from "../../components/DraggableDialog";
 import {
+  Box,
   Button,
   DialogActions,
   DialogContent,
   Stack,
-  Typography,
 } from "@mui/material";
 import Xbutton from "../../components/buttons/Xbutton";
 import FormWrapper from "../../wrappers/FormWrapper";
@@ -15,17 +15,18 @@ import ControlledLabelledSelect from "../../components/controlled/ControlledLabe
 import { TASK_CONSTANTS } from "../../constants/tasks";
 import ControlledSlider from "../../components/controlled/ControlledSlider";
 import ControlledCheckBox from "../../components/controlled/ControlledCheckBox";
+import { DevTool } from "@hookform/devtools";
 
 const getTitle = (action) => {
   let title = "";
 
   switch (action) {
     case "add": {
-      title = "Add New Announcement";
+      title = "Add New Task";
       break;
     }
     case "update": {
-      title = "Update Announcement";
+      title = "Update Task";
       break;
     }
     default:
@@ -107,6 +108,8 @@ const TaskDialog = ({
 
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
+
+  const isRecurringTrue = useWatch({ control, name: "isRecurring" });
   return (
     <>
       <DraggableDialog
@@ -146,18 +149,38 @@ const TaskDialog = ({
                   defaultValue={TASK_CONSTANTS?.STATUS_OPTIONS[0]?.value}
                 />
               </Stack>
-              <ControlledSlider
-                id="task-importance"
-                name="importance"
-                label="importance"
-                isOptionsText={true}
-                textLevelOptions={["low", "medium", "high"]}
-              />
-              <ControlledLabelledTextField
-                label="due date (mm/dd/yyy)"
-                name="dueDate"
-              />
-              <ControlledCheckBox name="isRecurring" label="Recurring Task?" />
+              <Stack direction="row" spacing={1} justifyContent="space-between">
+                <Box pr={4} pl={1}>
+                  <ControlledSlider
+                    id="task-importance"
+                    name="importance"
+                    label="importance"
+                    isOptionsText={true}
+                    textLevelOptions={["low", "medium", "high"]}
+                  />
+                </Box>
+                <Box sx={{ flexShrink: 1, minWidth: 0 }}>
+                  <ControlledLabelledTextField
+                    label="due date (mm/dd/yyy)"
+                    name="dueDate"
+                  />
+                </Box>
+              </Stack>
+              <Stack spacing={1} direction="row" justifyContent="flex-start">
+                <ControlledCheckBox
+                  name="isRecurring"
+                  label="Recurring Task?"
+                />
+                {isRecurringTrue && (
+                  <ControlledLabelledSelect
+                    id="task-recurrenceRule-select"
+                    label="repeats every"
+                    name="recurrenceRule"
+                    options={TASK_CONSTANTS?.RECURRENCE_OPTIONS}
+                    defaultValue={TASK_CONSTANTS?.RECURRENCE_OPTIONS[0]?.value}
+                  />
+                )}
+              </Stack>
               <ControlledLabelledTextField
                 label='comments (separate by "/")'
                 name="comments"
@@ -179,6 +202,7 @@ const TaskDialog = ({
           </Button>
         </DialogActions>
       </DraggableDialog>
+      <DevTool control={control} />
     </>
   );
 };
