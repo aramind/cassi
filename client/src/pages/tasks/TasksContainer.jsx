@@ -112,7 +112,7 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                 <Stack direction="row" alignItems="center" spacing={0.5}>
                   <EventRoundedIcon fontSize="0.8rem" color="info" />
                   <Typography variant="narrowSmallText">
-                    {formatDate(t?.dueDate)}
+                    {formatDate(t?.dueDate) || "At any time"}
                   </Typography>
                   {t?.isRecurring && (
                     <Stack
