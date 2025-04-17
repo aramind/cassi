@@ -21,28 +21,6 @@ export const TASK_CONSTANTS = {
       value: "others",
     },
   ],
-  STATUS_OPTIONS: [
-    {
-      label: "pending",
-      value: "pending",
-    },
-    {
-      label: "in-progress",
-      value: "in-progress",
-    },
-    {
-      label: "completed",
-      value: "completed",
-    },
-    {
-      label: "cancelled",
-      value: "cancelled",
-    },
-    {
-      label: "deleted",
-      value: "deleted",
-    },
-  ],
   RECURRENCE_OPTIONS: [
     {
       label: "daily",
