@@ -28,6 +28,15 @@ const useTaskReq = ({ isPublic, showAck }) => {
         url: `${url}${queryParams || ""}`,
         method: "GET",
       }),
+    updateTask: async ({ id, data }) => {
+      const res = await request({
+        url: `${url}/${id}`,
+        method: "PATCH",
+        data: { updates: data },
+      });
+      invalidateQueries(["tasks"]);
+      return res;
+    },
   };
 
   return req;
