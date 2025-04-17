@@ -13,6 +13,7 @@ import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 
 import TaskDetails from "./TaskDetails";
+import { formatDate } from "../../utils/formatDate";
 
 const TasksContainer = ({ tasks, handleUpdateTask }) => {
   const [doneTasks, setDoneTasks] = useState(
@@ -60,32 +61,40 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                 icon={<CircleOutlinedIcon />}
                 checkedIcon={<CheckCircleRoundedIcon />}
               />
-              <Typography
-                variant="h6"
-                sx={{
-                  textDecoration: t?.isCompleted ? "line-through" : "none",
-                }}
-              >
-                {t?.title?.toUpperCase()}
-              </Typography>
-              {t?.status && (
-                <Chip
-                  variant="outlined"
-                  color="info"
-                  //   sx={{ bgcolor: importanceColor[announcement?.importance] }}
-                  label={t?.status?.toUpperCase()}
-                  size="small"
-                />
-              )}
-              {t?.priority && (
-                <Chip
-                  variant="outlined"
-                  color="error"
-                  //   sx={{ bgcolor: importanceColor[announcement?.importance] }}
-                  label={t?.priority?.toUpperCase()}
-                  size="small"
-                />
-              )}
+              <Stack>
+                <Stack direction="row" spacing={1}>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      textDecoration: t?.isCompleted ? "line-through" : "none",
+                    }}
+                  >
+                    {t?.title?.toUpperCase()}
+                  </Typography>
+
+                  {t?.priority && (
+                    <Chip
+                      variant="outlined"
+                      color="error"
+                      //   sx={{ bgcolor: importanceColor[announcement?.importance] }}
+                      label={t?.priority?.toUpperCase()}
+                      size="small"
+                    />
+                  )}
+                  {t?.status && (
+                    <Chip
+                      variant="outlined"
+                      color="info"
+                      //   sx={{ bgcolor: importanceColor[announcement?.importance] }}
+                      label={t?.type?.toUpperCase()}
+                      size="small"
+                    />
+                  )}
+                </Stack>
+                <Typography variant="narrowText">
+                  {formatDate(t?.dueDate)}
+                </Typography>
+              </Stack>
             </Stack>
           </AccordionSummary>
 
