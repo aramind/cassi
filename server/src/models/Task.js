@@ -12,13 +12,7 @@ const TYPES = CONSTANTS?.TASK_TYPES || [
   "bills",
   "others",
 ];
-const STATUSES = CONSTANTS?.TASK_STATUSES || [
-  "pending",
-  "in-progress",
-  "completed",
-  "cancelled",
-  "deleted",
-];
+const STATUSES = CONSTANTS?.TASK_STATUSES || ["active", "cancelled", "deleted"];
 const PRIORITIES = CONSTANTS?.TASK_PRIORITIES || [
   "low",
   "medium",
@@ -48,6 +42,10 @@ const TaskSchema = new Schema(
       type: String,
       enum: STATUSES,
       default: STATUSES[0],
+    },
+    isCompleted: {
+      type: Boolean,
+      default: false,
     },
     priority: {
       type: String,
