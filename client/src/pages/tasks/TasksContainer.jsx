@@ -11,6 +11,7 @@ import {
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import EventRoundedIcon from "@mui/icons-material/EventRounded";
 
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
@@ -91,9 +92,12 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                     />
                   )}
                 </Stack>
-                <Typography variant="narrowText">
-                  {formatDate(t?.dueDate)}
-                </Typography>
+                <Stack direction="row" alignItems="center" spacing={0.5}>
+                  <EventRoundedIcon fontSize="0.7rem" color="info" />
+                  <Typography variant="narrowText">
+                    {formatDate(t?.dueDate)}
+                  </Typography>
+                </Stack>
               </Stack>
             </Stack>
           </AccordionSummary>
