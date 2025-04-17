@@ -6,6 +6,7 @@ import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefault
 // import { formatDate } from "../../utils/formatDate";
 import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
 import FeedbackOutlinedIcon from "@mui/icons-material/FeedbackOutlined";
+
 const TextWithIcon = ({
   icon = <DisabledByDefaultOutlinedIcon fontSize="small" />,
   text = "",
@@ -18,7 +19,7 @@ const TextWithIcon = ({
     // className="outlined"
   >
     {icon}
-    <Typography>{text}</Typography>
+    {text}
   </Stack>
 );
 const TaskDetails = ({ task }) => {
@@ -30,7 +31,7 @@ const TaskDetails = ({ task }) => {
         {/* description */}
         <TextWithIcon
           icon={<DraftsOutlinedIcon fontSize="small" />}
-          text={task?.description}
+          text={<Typography>{task?.description}</Typography>}
         />
         {/* date created */}
         {/* <TextWithIcon
@@ -41,13 +42,19 @@ const TaskDetails = ({ task }) => {
         {/* attachments */}
         <TextWithIcon
           icon={<AttachmentOutlinedIcon fontSize="small" />}
-          text={task?.attachments?.join(";")}
+          text={<Typography>{task?.attachments?.join(";")}</Typography>}
         />
         {/* remarks */}
 
         <TextWithIcon
           icon={<FeedbackOutlinedIcon fontSize="small" />}
-          text={task?.remarks?.join(" ; ")}
+          text={
+            <Stack>
+              {task?.remarks?.map((t, i) => (
+                <Typography key={i}>{`${i + 1}. ${t}`}</Typography>
+              ))}
+            </Stack>
+          }
         />
       </Stack>
     </>
