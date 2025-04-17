@@ -134,22 +134,6 @@ const TaskDialog = ({
                 tfProps={{ rows: 2 }}
               />
               <Stack direction="row" spacing={1} justifyContent="space-between">
-                <ControlledLabelledSelect
-                  id="task-type-select"
-                  label="type"
-                  name="type"
-                  options={TASK_CONSTANTS?.TYPE_OPTIONS}
-                  defaultValue={TASK_CONSTANTS?.TYPE_OPTIONS[0]?.value}
-                />
-                <ControlledLabelledSelect
-                  id="task-status-select"
-                  label="status"
-                  name="status"
-                  options={TASK_CONSTANTS?.STATUS_OPTIONS}
-                  defaultValue={TASK_CONSTANTS?.STATUS_OPTIONS[0]?.value}
-                />
-              </Stack>
-              <Stack direction="row" spacing={1} justifyContent="space-between">
                 <Box pr={4} pl={1}>
                   <ControlledSlider
                     id="task-importance"
@@ -159,13 +143,20 @@ const TaskDialog = ({
                     textLevelOptions={["low", "medium", "high"]}
                   />
                 </Box>
-                <Box sx={{ flexShrink: 1, minWidth: 0 }}>
-                  <ControlledLabelledTextField
-                    label="due date (mm/dd/yyy)"
-                    name="dueDate"
-                  />
-                </Box>
+                <ControlledLabelledSelect
+                  id="task-type-select"
+                  label="type"
+                  name="type"
+                  options={TASK_CONSTANTS?.TYPE_OPTIONS}
+                  defaultValue={TASK_CONSTANTS?.TYPE_OPTIONS[0]?.value}
+                />
               </Stack>
+
+              <ControlledLabelledTextField
+                label="due date (mm/dd/yyy)"
+                name="dueDate"
+              />
+
               <Stack spacing={1} direction="row" justifyContent="flex-start">
                 <ControlledCheckBox
                   name="isRecurring"
