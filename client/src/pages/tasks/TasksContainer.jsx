@@ -3,8 +3,10 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Button,
   Checkbox,
   Chip,
+  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -13,6 +15,7 @@ import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import EventRoundedIcon from "@mui/icons-material/EventRounded";
 import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
+import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
@@ -50,20 +53,24 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
               direction="row"
               flexWrap="nowrap"
               justifyContent="flex-start"
-              //   className="outlined"
               width={1}
               alignItems="center"
               //   py={1}
             >
               {/* TODO: TO SET UP */}
-              <Checkbox
-                checked={!!doneTasks[t._id]} // default to false
-                onChange={handleCheckChange(t._id, { ...t })}
-                onClick={(e) => e.stopPropagation()}
-                icon={<CircleOutlinedIcon />}
-                checkedIcon={<CheckCircleRoundedIcon />}
-              />
               <Stack>
+                <Checkbox
+                  checked={!!doneTasks[t._id]} // default to false
+                  onChange={handleCheckChange(t._id, { ...t })}
+                  onClick={(e) => e.stopPropagation()}
+                  icon={<CircleOutlinedIcon fontSize="small" />}
+                  checkedIcon={<CheckCircleRoundedIcon fontSize="small" />}
+                />
+                <IconButton size="small">
+                  <ModeEditOutlineRoundedIcon fontSize="small" />
+                </IconButton>
+              </Stack>
+              <Stack height={1} width={1} justifyContent="center">
                 <Stack
                   direction="row"
                   spacing={1}
