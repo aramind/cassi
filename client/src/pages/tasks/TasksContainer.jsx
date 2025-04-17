@@ -12,6 +12,7 @@ import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import EventRoundedIcon from "@mui/icons-material/EventRounded";
+import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
 
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
@@ -47,7 +48,7 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
             <Stack
               spacing={1}
               direction="row"
-              flexWrap="wrap"
+              flexWrap="nowrap"
               justifyContent="flex-start"
               //   className="outlined"
               width={1}
@@ -63,7 +64,12 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                 checkedIcon={<CheckCircleRoundedIcon />}
               />
               <Stack>
-                <Stack direction="row" spacing={1}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  justifyContent="flex-start"
+                  alignItems="center"
+                >
                   <Typography
                     variant="h6"
                     sx={{
@@ -93,15 +99,27 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                   )}
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={0.5}>
-                  <EventRoundedIcon fontSize="0.7rem" color="info" />
-                  <Typography variant="narrowText">
+                  <EventRoundedIcon fontSize="small" color="error" />
+                  <Typography variant="narrowSmallText">
                     {formatDate(t?.dueDate)}
                   </Typography>
+                  {t?.isRecurring && (
+                    <Stack
+                      direction="row"
+                      spacing={0.5}
+                      justifyContent="flex-start"
+                      alignItems="center"
+                    >
+                      <RepeatRoundedIcon color="info" fontSize="small" />
+                      <Typography variant="narrowSmallText">
+                        {t?.recurrenceRule}
+                      </Typography>
+                    </Stack>
+                  )}
                 </Stack>
               </Stack>
             </Stack>
           </AccordionSummary>
-
           <AccordionDetails>
             <TaskDetails task={t} />
           </AccordionDetails>
