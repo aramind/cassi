@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Checkbox,
   Chip,
   Stack,
   Typography,
 } from "@mui/material";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+
 import TaskDetails from "./TaskDetails";
 
 const TasksContainer = ({ tasks }) => {
-  console.log(tasks);
+  const [doneTasks, setDoneTasks] = useState(
+    Object.fromEntries(tasks.map((t) => [t._id, false]))
+  );
 
+  const handleCheckChange = (taskId) => (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    // console.log(`TASK ID: ${taskId}: status: ${e.target.checked}`);
+    setDoneTasks((prev) => ({ ...prev, [taskId]: e.target.checked }));
+  };
+
+  // console.log(doneTasks);
   if (!tasks) return null;
   return (
     <Stack width={1} px={2} my={2}>
@@ -30,8 +44,17 @@ const TasksContainer = ({ tasks }) => {
               justifyContent="flex-start"
               //   className="outlined"
               width={1}
+              alignItems="center"
               //   py={1}
             >
+              {/* TODO: TO SET UP */}
+              <Checkbox
+                checked={!!doneTasks[t._id]} // default to false
+                onChange={handleCheckChange(t._id)}
+                onClick={(e) => e.stopPropagation()}
+                icon={<CircleOutlinedIcon />}
+                checkedIcon={<CheckCircleRoundedIcon />}
+              />
               <Typography variant="h6">{t?.title?.toUpperCase()}</Typography>
               {t?.status && (
                 <Chip
@@ -53,6 +76,7 @@ const TasksContainer = ({ tasks }) => {
               )}
             </Stack>
           </AccordionSummary>
+
           <AccordionDetails>
             <TaskDetails task={t} />
           </AccordionDetails>
