@@ -20,7 +20,7 @@ const useTaskReq = ({ isPublic, showAck }) => {
         method: "POST",
         data,
       });
-      invalidateQueries(["announcements"]);
+      invalidateQueries(["tasks"]);
       return res;
     },
     getTasks: async (queryParams) =>
