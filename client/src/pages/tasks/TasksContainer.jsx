@@ -3,7 +3,9 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Button,
+  ButtonGroup,
   Checkbox,
   Chip,
   IconButton,
@@ -17,6 +19,7 @@ import EventRoundedIcon from "@mui/icons-material/EventRounded";
 import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import TripOriginIcon from "@mui/icons-material/TripOrigin";
+import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
@@ -69,9 +72,6 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                     <CheckCircleRoundedIcon fontSize="small" color="error" />
                   }
                 />
-                <IconButton size="small">
-                  <ModeEditOutlineRoundedIcon fontSize="small" />
-                </IconButton>
               </Stack>
               <Stack height={1} width={1} justifyContent="center">
                 <Stack
@@ -110,7 +110,7 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                   )}
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={0.5}>
-                  <EventRoundedIcon fontSize="small" color="info" />
+                  <EventRoundedIcon fontSize="0.8rem" color="info" />
                   <Typography variant="narrowSmallText">
                     {formatDate(t?.dueDate)}
                   </Typography>
@@ -121,12 +121,21 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                       justifyContent="flex-start"
                       alignItems="center"
                     >
-                      <RepeatRoundedIcon color="info" fontSize="small" />
+                      <RepeatRoundedIcon color="info" fontSize="0.8rem" />
                       <Typography variant="narrowSmallText">
                         {t?.recurrenceRule}
                       </Typography>
                     </Stack>
                   )}
+                  <Box flex={1}></Box>
+                  <ButtonGroup sx={{ pr: "0.3rem" }}>
+                    <IconButton size="small">
+                      <ModeEditOutlineRoundedIcon fontSize="0.8rem" />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DeleteOutlineRoundedIcon fontSize="0.8rem" />
+                    </IconButton>
+                  </ButtonGroup>
                 </Stack>
               </Stack>
             </Stack>
