@@ -9,5 +9,6 @@ router.use(verifyHouse);
 // routes
 router.post("", taskController.add);
 router.get("", taskController.getTasks);
+router.patch("/:id", taskController.update);
 
 module.exports = router;
