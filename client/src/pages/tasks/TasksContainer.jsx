@@ -14,16 +14,21 @@ import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 
 import TaskDetails from "./TaskDetails";
 
-const TasksContainer = ({ tasks }) => {
+const TasksContainer = ({ tasks, handleUpdateTask }) => {
   const [doneTasks, setDoneTasks] = useState(
-    Object.fromEntries(tasks.map((t) => [t._id, false]))
+    Object.fromEntries(tasks.map((t) => [t._id, t.isCompleted]))
   );
 
-  const handleCheckChange = (taskId) => (e) => {
+  console.log(tasks);
+  const handleCheckChange = (taskId, taskDetails) => (e) => {
     e.stopPropagation();
     e.preventDefault();
     // console.log(`TASK ID: ${taskId}: status: ${e.target.checked}`);
     setDoneTasks((prev) => ({ ...prev, [taskId]: e.target.checked }));
+    handleUpdateTask({
+      id: taskId,
+      updates: { isCompleted: e.target.checked },
+    });
   };
 
   // console.log(doneTasks);
@@ -50,7 +55,7 @@ const TasksContainer = ({ tasks }) => {
               {/* TODO: TO SET UP */}
               <Checkbox
                 checked={!!doneTasks[t._id]} // default to false
-                onChange={handleCheckChange(t._id)}
+                onChange={handleCheckChange(t._id, { ...t })}
                 onClick={(e) => e.stopPropagation()}
                 icon={<CircleOutlinedIcon />}
                 checkedIcon={<CheckCircleRoundedIcon />}

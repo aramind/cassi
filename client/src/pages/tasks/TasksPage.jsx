@@ -18,7 +18,10 @@ const TasksPage = () => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
-  const { addTask, getTasks } = useTaskReq({ isPublic: false, showAck: false });
+  const { addTask, getTasks, updateTask } = useTaskReq({
+    isPublic: false,
+    showAck: false,
+  });
 
   const {
     data: tasksData,
@@ -26,7 +29,7 @@ const TasksPage = () => {
     isError: isErrorInFetchingTasks,
   } = useApiGet(["tasks"], () =>
     getTasks(
-      "?fields=_id,title,description,type,status,priority,dueDate,attachments,remarks,isRecurring,recurrenceRule,comments,createdAt,updatedAt"
+      "?fields=_id,title,description,type,status,isCompleted,priority,dueDate,attachments,remarks,isRecurring,recurrenceRule,comments,createdAt,updatedAt"
     )
   );
   const addTaskHandler = () => {
@@ -47,6 +50,12 @@ const TasksPage = () => {
     setOpenDialog(false);
   };
 
+  const handleUpdateTask = ({ id, updates }) => {
+    console.log("ID", id);
+    console.log("UPDATES", updates);
+    updateTask({ id, updates });
+  };
+
   console.log(tasksData?.data);
 
   if (isLoadingInFetchingTasks) return <LoadingPage />;
@@ -64,7 +73,12 @@ const TasksPage = () => {
           onClickHandler={addTaskHandler}
         />
 
-        {tasksData?.data && <TasksContainer tasks={tasksData?.data} />}
+        {tasksData?.data && (
+          <TasksContainer
+            tasks={tasksData?.data}
+            handleUpdateTask={handleUpdateTask}
+          />
+        )}
 
         <br />
         <MyButton
