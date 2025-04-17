@@ -60,7 +60,14 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                 icon={<CircleOutlinedIcon />}
                 checkedIcon={<CheckCircleRoundedIcon />}
               />
-              <Typography variant="h6">{t?.title?.toUpperCase()}</Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  textDecoration: t?.isCompleted ? "line-through" : "none",
+                }}
+              >
+                {t?.title?.toUpperCase()}
+              </Typography>
               {t?.status && (
                 <Chip
                   variant="outlined"
