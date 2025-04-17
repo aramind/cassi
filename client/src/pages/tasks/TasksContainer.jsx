@@ -16,6 +16,7 @@ import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import EventRoundedIcon from "@mui/icons-material/EventRounded";
 import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
+import TripOriginIcon from "@mui/icons-material/TripOrigin";
 
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
@@ -63,8 +64,10 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                   checked={!!doneTasks[t._id]} // default to false
                   onChange={handleCheckChange(t._id, { ...t })}
                   onClick={(e) => e.stopPropagation()}
-                  icon={<CircleOutlinedIcon fontSize="small" />}
-                  checkedIcon={<CheckCircleRoundedIcon fontSize="small" />}
+                  icon={<TripOriginIcon fontSize="small" color="primary" />}
+                  checkedIcon={
+                    <CheckCircleRoundedIcon fontSize="small" color="error" />
+                  }
                 />
                 <IconButton size="small">
                   <ModeEditOutlineRoundedIcon fontSize="small" />
@@ -79,6 +82,7 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                 >
                   <Typography
                     variant="h6"
+                    color={t?.isCompleted ? "error" : "primary.dark"}
                     sx={{
                       textDecoration: t?.isCompleted ? "line-through" : "none",
                     }}
@@ -89,7 +93,7 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                   {t?.priority && (
                     <Chip
                       variant="outlined"
-                      color="error"
+                      color="warning"
                       //   sx={{ bgcolor: importanceColor[announcement?.importance] }}
                       label={t?.priority?.toUpperCase()}
                       size="small"
@@ -106,7 +110,7 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                   )}
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={0.5}>
-                  <EventRoundedIcon fontSize="small" color="error" />
+                  <EventRoundedIcon fontSize="small" color="info" />
                   <Typography variant="narrowSmallText">
                     {formatDate(t?.dueDate)}
                   </Typography>
