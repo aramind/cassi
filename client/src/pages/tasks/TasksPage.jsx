@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
@@ -51,12 +51,8 @@ const TasksPage = () => {
   };
 
   const handleUpdateTask = ({ id, updates }) => {
-    console.log("ID", id);
-    console.log("UPDATES", updates);
     updateTask({ id, updates });
   };
-
-  console.log(tasksData?.data);
 
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
