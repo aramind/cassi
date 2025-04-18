@@ -72,8 +72,6 @@ const TasksPage = () => {
     handleCloseDialog();
   };
 
-  console.log(tasksData);
-
   // props
   const dialogProps = {
     ...dialogState,
