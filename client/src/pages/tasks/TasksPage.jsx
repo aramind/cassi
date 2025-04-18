@@ -13,9 +13,11 @@ import ErrorPage from "../ErrorPage";
 import TasksContainer from "./TasksContainer";
 
 const TasksPage = () => {
-  const [openDialog, setOpenDialog] = useState(false);
-  const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
-  const [selectedTask, setSelectedTask] = useState({});
+  const [dialogState, setDialogState] = useState({
+    open: false,
+    action: "add",
+    task: null,
+  });
 
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -35,13 +37,14 @@ const TasksPage = () => {
     )
   );
 
-  const addTaskHandler = () => {
-    setOpenDialog(true);
+  // handlers
+
+  const handleOpenDialog = (action, task = null) => {
+    setDialogState({ open: true, action, task });
   };
 
-  const handleOpenUpdateDialog = (task) => {
-    setSelectedTask((pv) => task);
-    setOpenUpdateDialog(true);
+  const handleCloseDialog = () => {
+    setDialogState({ open: false, action: null, task: null });
   };
 
   const handleConfirmAdd = (formData) => {
@@ -55,7 +58,7 @@ const TasksPage = () => {
         },
       })
     );
-    setOpenDialog(false);
+    handleCloseDialog();
   };
 
   const handleUpdateTask = ({ id, updates, needsToConfirm = false }) => {
@@ -63,8 +66,10 @@ const TasksPage = () => {
       handleConfirm("Update Task", <Typography>Continue?</Typography>, () =>
         updateTask({ id, updates })
       );
+    } else {
+      updateTask({ id, updates });
     }
-    updateTask({ id, updates });
+    handleCloseDialog();
   };
 
   if (isLoadingInFetchingTasks) return <LoadingPage />;
@@ -79,13 +84,13 @@ const TasksPage = () => {
           type="accent"
           text="add"
           variant="contained"
-          onClickHandler={addTaskHandler}
+          onClickHandler={() => handleOpenDialog("add")}
         />
         {tasksData?.data && (
           <TasksContainer
             tasks={tasksData?.data}
             handleUpdateTask={handleUpdateTask}
-            handleOpenUpdateDialog={handleOpenUpdateDialog}
+            handleOpenDialog={handleOpenDialog}
           />
         )}
 
@@ -94,21 +99,17 @@ const TasksPage = () => {
           type="accent"
           text="add"
           variant="contained"
-          onClickHandler={addTaskHandler}
+          onClickHandler={() => handleOpenDialog("add")}
         />
       </Stack>
       <TaskDialog
-        open={openDialog}
-        setOpen={setOpenDialog}
-        action="add"
-        submitHandler={handleConfirmAdd}
-      />
-      <TaskDialog
-        open={openUpdateDialog}
-        setOpen={setOpenUpdateDialog}
-        action="update"
-        task={selectedTask}
-        submitHandler={handleUpdateTask}
+        open={dialogState?.open}
+        handleCloseDialog={handleCloseDialog}
+        action={dialogState?.action}
+        task={dialogState?.task}
+        submitHandler={
+          dialogState?.action === "add" ? handleConfirmAdd : handleUpdateTask
+        }
       />
       {renderConfirmActionDialog()}
     </BodyContainer>

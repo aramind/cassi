@@ -57,7 +57,7 @@ const getSubmitBtnText = (action) => {
 
 const TaskDialog = ({
   open,
-  setOpen,
+  handleCloseDialog,
   task,
   action,
   submitHandler,
@@ -88,7 +88,6 @@ const TaskDialog = ({
     }
   }, [task, reset]);
 
-  console.log(task);
   //   hanlders
 
   const onSubmit = async (formData) => {
@@ -98,13 +97,12 @@ const TaskDialog = ({
       // submitHandler({id: });
       console.log("UPDATING");
     }
-    setOpen(false);
   };
   const handleClose = (e) => {
     e.preventDefault();
     e.stopPropagation();
     reset();
-    setOpen(false);
+    handleCloseDialog();
   };
 
   let title = getTitle(action);
