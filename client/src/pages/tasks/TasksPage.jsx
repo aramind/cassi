@@ -74,6 +74,14 @@ const TasksPage = () => {
 
   console.log(tasksData);
 
+  // props
+  const dialogProps = {
+    ...dialogState,
+    handleCloseDialog: handleCloseDialog,
+    submitHandler:
+      dialogState?.action === "add" ? handleConfirmAdd : handleUpdateTask,
+  };
+
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
   return (
@@ -104,15 +112,7 @@ const TasksPage = () => {
           onClickHandler={() => handleOpenDialog("add")}
         />
       </Stack>
-      <TaskDialog
-        open={dialogState?.open}
-        handleCloseDialog={handleCloseDialog}
-        action={dialogState?.action}
-        task={dialogState?.task}
-        submitHandler={
-          dialogState?.action === "add" ? handleConfirmAdd : handleUpdateTask
-        }
-      />
+      <TaskDialog {...dialogProps} />
       {renderConfirmActionDialog()}
     </BodyContainer>
   );

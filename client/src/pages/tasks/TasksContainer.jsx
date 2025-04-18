@@ -20,7 +20,6 @@ import {
   ExpandMoreIcon,
   RepeatIcon,
 } from "../../utils/muiIcons";
-
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
 
