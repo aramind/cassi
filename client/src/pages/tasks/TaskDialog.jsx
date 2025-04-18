@@ -16,6 +16,7 @@ import { TASK_CONSTANTS } from "../../constants/tasks";
 import ControlledSlider from "../../components/controlled/ControlledSlider";
 import ControlledCheckBox from "../../components/controlled/ControlledCheckBox";
 import { DevTool } from "@hookform/devtools";
+import { formatToMMDDYYYY } from "../../utils/date";
 
 const getTitle = (action) => {
   let title = "";
@@ -84,7 +85,7 @@ const TaskDialog = ({
 
   useEffect(() => {
     if (task) {
-      reset(task);
+      reset({ ...task, dueDate: formatToMMDDYYYY(task?.dueDate) });
     }
   }, [task, reset]);
 

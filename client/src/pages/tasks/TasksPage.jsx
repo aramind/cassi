@@ -72,6 +72,8 @@ const TasksPage = () => {
     handleCloseDialog();
   };
 
+  console.log(tasksData);
+
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
   return (
