@@ -14,49 +14,12 @@ import ControlledLabelledTextField from "../../components/controlled/ControlledL
 import { DevTool } from "@hookform/devtools";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import ControlledSlider from "../../components/controlled/ControlledSlider";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { yupResolver } from "@hookform/resolvers/yup";
 import newAnnouncementSchema from "../../schemas/newAnnouncementSchema";
 import useHouseProvider from "../../hooks/useHouseProvider";
 import Xbutton from "../../components/buttons/Xbutton";
-
-const getTitle = (action) => {
-  let title = "";
-
-  switch (action) {
-    case "add": {
-      title = "Add New Announcement";
-      break;
-    }
-    case "update": {
-      title = "Update Announcement";
-      break;
-    }
-    default:
-      title = "";
-  }
-
-  return title;
-};
-
-const getSubmitBtnText = (action) => {
-  let text = "";
-
-  switch (action) {
-    case "add": {
-      text = "Submit";
-      break;
-    }
-    case "update": {
-      text = "Update";
-      break;
-    }
-    default:
-      text = "";
-  }
-
-  return text;
-};
+import { dialogUtils } from "../../utils/dialogUtils";
+import { Send } from "@mui/icons-material";
 
 const TYPE_OPTIONS = [
   {
@@ -181,15 +144,12 @@ const AnnouncementDialog = ({
     alert("Clearing fields...");
   };
 
-  let title = getTitle(action);
-  let submitBtnText = getSubmitBtnText(action);
-
   return (
     <>
       <DraggableDialog
         open={open}
         handleClose={handleClose}
-        title={title}
+        title={dialogUtils?.getDialogTitle(action, "announcement")}
         closeButton={<Xbutton handleClose={handleClose} />}
       >
         <DialogContent>
@@ -269,8 +229,9 @@ const AnnouncementDialog = ({
             size="small"
             variant="contained"
             onClick={handleSubmit(onSubmit)}
+            endIcon={<Send />}
           >
-            {submitBtnText}
+            {action}
           </Button>
         </DialogActions>
       </DraggableDialog>
