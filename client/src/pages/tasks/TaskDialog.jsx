@@ -58,16 +58,15 @@ const getSubmitBtnText = (action) => {
 const TaskDialog = ({
   open,
   setOpen,
-  data,
+  task,
   action,
-  saveAsDraftHandler,
-  publishHandler,
   submitHandler,
   clearHandler,
 }) => {
   // form related
 
-  const defaultValues = data && {};
+  console.log(task);
+  const defaultValues = task && {};
 
   //   TODO: add schema validator
   const {
@@ -84,18 +83,20 @@ const TaskDialog = ({
   };
 
   useEffect(() => {
-    if (data) {
-      reset(data);
+    if (task) {
+      reset(task);
     }
-  }, [data, reset]);
+  }, [task, reset]);
 
+  console.log(task);
   //   hanlders
 
   const onSubmit = async (formData) => {
     if (action === "add") {
       submitHandler(formData);
     } else if (action === "update") {
-      submitHandler();
+      // submitHandler({id: });
+      console.log("UPDATING");
     }
     setOpen(false);
   };

@@ -4,7 +4,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   ButtonGroup,
   Checkbox,
   Chip,
@@ -14,7 +13,6 @@ import {
 } from "@mui/material";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import EventRoundedIcon from "@mui/icons-material/EventRounded";
 import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
@@ -24,16 +22,18 @@ import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
 
-const TasksContainer = ({ tasks, handleUpdateTask }) => {
+const TasksContainer = ({
+  tasks,
+  handleUpdateTask,
+  handleOpenUpdateDialog,
+}) => {
   const [doneTasks, setDoneTasks] = useState(
     Object.fromEntries(tasks.map((t) => [t._id, t.isCompleted]))
   );
 
-  console.log(tasks);
-  const handleCheckChange = (taskId, taskDetails) => (e) => {
+  const handleCheckChange = (taskId) => (e) => {
     e.stopPropagation();
     e.preventDefault();
-    // console.log(`TASK ID: ${taskId}: status: ${e.target.checked}`);
     setDoneTasks((prev) => ({ ...prev, [taskId]: e.target.checked }));
     handleUpdateTask({
       id: taskId,
@@ -41,8 +41,13 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
     });
   };
 
+  const handleUpdateBtnClick = (e, t) => {
+    e.stopPropagation();
+    handleOpenUpdateDialog(t);
+  };
   // console.log(doneTasks);
   if (!tasks) return null;
+
   return (
     <Stack width={1} px={2} my={2}>
       {tasks?.map((t, i) => (
@@ -129,7 +134,10 @@ const TasksContainer = ({ tasks, handleUpdateTask }) => {
                   )}
                   <Box flex={1}></Box>
                   <ButtonGroup sx={{ pr: "0.3rem" }}>
-                    <IconButton size="small">
+                    <IconButton
+                      size="small"
+                      onClick={(e) => handleUpdateBtnClick(e, t)}
+                    >
                       <ModeEditOutlineRoundedIcon fontSize="0.8rem" />
                     </IconButton>
                     <IconButton size="small">

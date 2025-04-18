@@ -14,6 +14,8 @@ import TasksContainer from "./TasksContainer";
 
 const TasksPage = () => {
   const [openDialog, setOpenDialog] = useState(false);
+  const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
+  const [selectedTask, setSelectedTask] = useState({});
 
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -32,8 +34,14 @@ const TasksPage = () => {
       "?fields=_id,title,description,type,status,isCompleted,priority,dueDate,attachments,remarks,isRecurring,recurrenceRule,comments,createdAt,updatedAt"
     )
   );
+
   const addTaskHandler = () => {
     setOpenDialog(true);
+  };
+
+  const handleOpenUpdateDialog = (task) => {
+    setSelectedTask((pv) => task);
+    setOpenUpdateDialog(true);
   };
 
   const handleConfirmAdd = (formData) => {
@@ -50,7 +58,12 @@ const TasksPage = () => {
     setOpenDialog(false);
   };
 
-  const handleUpdateTask = ({ id, updates }) => {
+  const handleUpdateTask = ({ id, updates, needsToConfirm = false }) => {
+    if (needsToConfirm) {
+      handleConfirm("Update Task", <Typography>Continue?</Typography>, () =>
+        updateTask({ id, updates })
+      );
+    }
     updateTask({ id, updates });
   };
 
@@ -68,11 +81,11 @@ const TasksPage = () => {
           variant="contained"
           onClickHandler={addTaskHandler}
         />
-
         {tasksData?.data && (
           <TasksContainer
             tasks={tasksData?.data}
             handleUpdateTask={handleUpdateTask}
+            handleOpenUpdateDialog={handleOpenUpdateDialog}
           />
         )}
 
@@ -89,6 +102,13 @@ const TasksPage = () => {
         setOpen={setOpenDialog}
         action="add"
         submitHandler={handleConfirmAdd}
+      />
+      <TaskDialog
+        open={openUpdateDialog}
+        setOpen={setOpenUpdateDialog}
+        action="update"
+        task={selectedTask}
+        submitHandler={handleUpdateTask}
       />
       {renderConfirmActionDialog()}
     </BodyContainer>
