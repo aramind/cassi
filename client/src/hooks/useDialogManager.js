@@ -7,18 +7,18 @@ const useDialogManager = () => {
     data: null,
   });
 
-  const openDialog = (action, data) => {
+  const handleOpenDialog = (action, data) => {
     setDialogState({ open: true, action, data });
   };
 
-  const closeDialog = () => {
+  const handleCloseDialog = () => {
     setDialogState({ open: false, action: "", data: null });
   };
 
   return {
     dialogState,
-    openDialog,
-    closeDialog,
+    handleOpenDialog,
+    handleCloseDialog,
   };
 };
 
