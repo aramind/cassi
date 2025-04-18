@@ -17,44 +17,8 @@ import ControlledSlider from "../../components/controlled/ControlledSlider";
 import ControlledCheckBox from "../../components/controlled/ControlledCheckBox";
 import { DevTool } from "@hookform/devtools";
 import { formatToMMDDYYYY } from "../../utils/date";
-
-const getTitle = (action) => {
-  let title = "";
-
-  switch (action) {
-    case "add": {
-      title = "Add New Task";
-      break;
-    }
-    case "update": {
-      title = "Update Task";
-      break;
-    }
-    default:
-      title = "";
-  }
-
-  return title;
-};
-
-const getSubmitBtnText = (action) => {
-  let text = "";
-
-  switch (action) {
-    case "add": {
-      text = "Submit";
-      break;
-    }
-    case "update": {
-      text = "Update";
-      break;
-    }
-    default:
-      text = "";
-  }
-
-  return text;
-};
+import { dialogUtils } from "../../utils/dialogUtils";
+import { Send } from "../../utils/muiIcons";
 
 const TaskDialog = ({
   open,
@@ -107,16 +71,13 @@ const TaskDialog = ({
     handleCloseDialog();
   };
 
-  let title = getTitle(action);
-  let submitBtnText = getSubmitBtnText(action);
-
   const isRecurringTrue = useWatch({ control, name: "isRecurring" });
   return (
     <>
       <DraggableDialog
         open={open}
         handleClose={handleClose}
-        title={title}
+        title={dialogUtils?.getDialogTitle(action, "task")}
         closeButton={<Xbutton handleClose={handleClose} />}
       >
         <DialogContent>
@@ -189,8 +150,9 @@ const TaskDialog = ({
             size="small"
             variant="contained"
             onClick={handleSubmit(onSubmit)}
+            endIcon={<Send />}
           >
-            {submitBtnText}
+            {action}
           </Button>
         </DialogActions>
       </DraggableDialog>

@@ -6,4 +6,5 @@ export {
   ModeEditOutlineRounded as EditIcon,
   TripOrigin as DotIcon,
   DeleteOutlineRounded as DeleteIcon,
+  SendRounded as Send,
 } from "@mui/icons-material";
