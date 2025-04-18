@@ -11,22 +11,20 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import EventRoundedIcon from "@mui/icons-material/EventRounded";
-import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
-import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
-import TripOriginIcon from "@mui/icons-material/TripOrigin";
-import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+import {
+  CheckIcon,
+  DeleteIcon,
+  DotIcon,
+  EditIcon,
+  EventIcon,
+  ExpandMoreIcon,
+  RepeatIcon,
+} from "../../utils/muiIcons";
 
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
 
-const TasksContainer = ({
-  tasks,
-  handleUpdateTask,
-  handleOpenUpdateDialog,
-}) => {
+const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
   const [doneTasks, setDoneTasks] = useState(
     Object.fromEntries(tasks.map((t) => [t._id, t.isCompleted]))
   );
@@ -40,11 +38,6 @@ const TasksContainer = ({
       updates: { isCompleted: e.target.checked },
     });
   };
-
-  const handleUpdateBtnClick = (e, t) => {
-    e.stopPropagation();
-    handleOpenUpdateDialog(t);
-  };
   // console.log(doneTasks);
   if (!tasks) return null;
 
@@ -53,7 +46,7 @@ const TasksContainer = ({
       {tasks?.map((t, i) => (
         <Accordion key={i}>
           <AccordionSummary
-            expandIcon={<ExpandMoreRoundedIcon />}
+            expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${i}-content`}
             id={`panel${i}-header`}
           >
@@ -72,10 +65,8 @@ const TasksContainer = ({
                   checked={!!doneTasks[t._id]} // default to false
                   onChange={handleCheckChange(t._id, { ...t })}
                   onClick={(e) => e.stopPropagation()}
-                  icon={<TripOriginIcon fontSize="small" color="primary" />}
-                  checkedIcon={
-                    <CheckCircleRoundedIcon fontSize="small" color="error" />
-                  }
+                  icon={<DotIcon fontSize="small" color="primary" />}
+                  checkedIcon={<CheckIcon fontSize="small" color="error" />}
                 />
               </Stack>
               <Stack height={1} width={1} justifyContent="center">
@@ -115,7 +106,7 @@ const TasksContainer = ({
                   )}
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={0.5}>
-                  <EventRoundedIcon fontSize="0.8rem" color="info" />
+                  <EventIcon fontSize="0.8rem" color="info" />
                   <Typography variant="narrowSmallText">
                     {formatDate(t?.dueDate) || "At any time"}
                   </Typography>
@@ -126,7 +117,7 @@ const TasksContainer = ({
                       justifyContent="flex-start"
                       alignItems="center"
                     >
-                      <RepeatRoundedIcon color="info" fontSize="0.8rem" />
+                      <RepeatIcon color="info" fontSize="0.8rem" />
                       <Typography variant="narrowSmallText">
                         {t?.recurrenceRule}
                       </Typography>
@@ -136,12 +127,15 @@ const TasksContainer = ({
                   <ButtonGroup sx={{ pr: "0.3rem" }}>
                     <IconButton
                       size="small"
-                      onClick={(e) => handleUpdateBtnClick(e, t)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenDialog("update", t);
+                      }}
                     >
-                      <ModeEditOutlineRoundedIcon fontSize="0.8rem" />
+                      <EditIcon fontSize="0.8rem" />
                     </IconButton>
                     <IconButton size="small">
-                      <DeleteOutlineRoundedIcon fontSize="0.8rem" />
+                      <DeleteIcon fontSize="0.8rem" />
                     </IconButton>
                   </ButtonGroup>
                 </Stack>
