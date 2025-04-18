@@ -20,6 +20,13 @@ import { formatToMMDDYYYY } from "../../utils/date";
 import { dialogUtils } from "../../utils/dialogUtils";
 import { Send } from "../../utils/muiIcons";
 
+const getFormattedValues = (task) => {
+  return {
+    ...task,
+    dueDate: formatToMMDDYYYY(task?.dueDate),
+    remarks: task?.remarks?.join("/"),
+  };
+};
 const TaskDialog = ({
   open,
   handleCloseDialog,
@@ -36,7 +43,7 @@ const TaskDialog = ({
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onTouched" });
+  } = useForm({ mode: "onTouched", defaultValues: getFormattedValues(task) });
 
   const formMethods = {
     control,
@@ -46,11 +53,7 @@ const TaskDialog = ({
 
   useEffect(() => {
     if (task) {
-      reset({
-        ...task,
-        dueDate: formatToMMDDYYYY(task?.dueDate),
-        remarks: task?.remarks?.join("/"),
-      });
+      reset(getFormattedValues(task));
     }
   }, [task, reset]);
 
