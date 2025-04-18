@@ -73,11 +73,24 @@ const TasksPage = () => {
   };
 
   // props
-  const dialogProps = {
-    ...dialogState,
-    handleCloseDialog: handleCloseDialog,
-    submitHandler:
-      dialogState?.action === "add" ? handleConfirmAdd : handleUpdateTask,
+  const props = {
+    myButton: {
+      type: "accent",
+      text: "add",
+      variant: "contained",
+      onClickHandler: () => handleOpenDialog("add"),
+    },
+    taskContainer: {
+      tasks: tasksData?.data,
+      handleUpdateTask,
+      handleOpenDialog,
+    },
+    dialog: {
+      ...dialogState,
+      handleCloseDialog: handleCloseDialog,
+      submitHandler:
+        dialogState?.action === "add" ? handleConfirmAdd : handleUpdateTask,
+    },
   };
 
   if (isLoadingInFetchingTasks) return <LoadingPage />;
@@ -88,29 +101,12 @@ const TasksPage = () => {
         <PageHeader text="tasks" />
         <Today />
         <br />
-        <MyButton
-          type="accent"
-          text="add"
-          variant="contained"
-          onClickHandler={() => handleOpenDialog("add")}
-        />
-        {tasksData?.data && (
-          <TasksContainer
-            tasks={tasksData?.data}
-            handleUpdateTask={handleUpdateTask}
-            handleOpenDialog={handleOpenDialog}
-          />
-        )}
-
+        <MyButton {...props?.myButton} />
+        {tasksData?.data && <TasksContainer {...props?.taskContainer} />}
         <br />
-        <MyButton
-          type="accent"
-          text="add"
-          variant="contained"
-          onClickHandler={() => handleOpenDialog("add")}
-        />
+        <MyButton {...props?.myButton} />
       </Stack>
-      <TaskDialog {...dialogProps} />
+      <TaskDialog {...props?.dialog} />
       {renderConfirmActionDialog()}
     </BodyContainer>
   );
