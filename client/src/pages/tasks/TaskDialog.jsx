@@ -66,16 +66,13 @@ const TaskDialog = ({
 }) => {
   // form related
 
-  console.log(task);
-  const defaultValues = task && {};
-
   //   TODO: add schema validator
   const {
     control,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onTouched", defaultValues });
+  } = useForm({ mode: "onTouched" });
 
   const formMethods = {
     control,
@@ -85,11 +82,15 @@ const TaskDialog = ({
 
   useEffect(() => {
     if (task) {
-      reset({ ...task, dueDate: formatToMMDDYYYY(task?.dueDate) });
+      reset({
+        ...task,
+        dueDate: formatToMMDDYYYY(task?.dueDate),
+        remarks: task?.remarks?.join("/"),
+      });
     }
   }, [task, reset]);
 
-  //   hanlders
+  //   handlers
 
   const onSubmit = async (formData) => {
     if (action === "add") {
