@@ -99,6 +99,10 @@ const TasksPage = () => {
     },
   };
 
+  console.log(tasksData?.data)
+
+  const activeTasks = Array.isArray(tasksData?.data) ? tasksData?.data?.filter(t => t.status === "active") : []
+  const deletedTasks = Array.isArray(tasksData?.data) ? tasksData?.data?.filter(t => t.status === "deleted") : []
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
   return (
@@ -108,9 +112,16 @@ const TasksPage = () => {
         <Today />
         <br />
         <MyButton {...props?.myButton} />
-        {tasksData?.data && <TasksContainer {...props?.taskContainer} />}
+        {activeTasks?.length > 0 && <TasksContainer {...props?.taskContainer} />}
         <br />
         <MyButton {...props?.myButton} />
+        <br />
+        {deletedTasks?.length > 0 && 
+        <>
+        <Typography>DELETED</Typography>
+        <TasksContainer {...props?.taskContainer} />
+        </>}
+        <br />
       </Stack>
       
       {renderConfirmActionDialog()}
