@@ -13,6 +13,16 @@ import TasksContainer from "./TasksContainer";
 import useDialogManager from "../../hooks/useDialogManager";
 import TaskDialog from "./TaskDialog";
 
+
+const getConfirmText = (type) => {
+  const messages = {
+    add: "Add this task?",
+    update: "Continue?",
+    delete: "Delete this task?",
+  };
+  return <Typography>{messages[type]}</Typography>;
+};
+
 const TasksPage = () => {
   const {dialogState, handleOpenDialog, handleCloseDialog} = useDialogManager();
 
@@ -35,7 +45,7 @@ const TasksPage = () => {
   );
 
   const handleAddTask = (formData) => {
-    handleConfirm("Add Task", <Typography>Add this task?</Typography>, () =>
+    handleConfirm("Add Task", getConfirmText("add"), () =>
       addTask({
         data: {
           task: {
@@ -50,7 +60,7 @@ const TasksPage = () => {
 
   const handleUpdateTask = ({ id, updates, needsToConfirm = false }) => {
     if (needsToConfirm) {
-      handleConfirm("Update Task", <Typography>Continue?</Typography>, () =>
+      handleConfirm("Update Task", getConfirmText("update"), () =>
         updateTask({ id, updates })
       );
     } else {
