@@ -86,9 +86,8 @@ const TaskDialog = ({
     if (action === "add") {
       submitHandler(formData);
     } else if (action === "update" && task?._id) {
-      // submitHandler({id: });
-      console.log("UPDATING");
-      console.log(formData)
+      await submitHandler({id: task?._id, updates: formData, needsToConfirm: true  });
+      handleCloseDialog()
     }
   };
   const handleClose = (e) => {
