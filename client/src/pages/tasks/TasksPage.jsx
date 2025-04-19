@@ -108,7 +108,7 @@ const TasksPage = () => {
         <Today />
         <br />
         <MyButton {...props?.myButton} />
-        {tasksData?.data && <TasksContainer {...props?.taskContainer} dialogProps={{...props?.dialog}}/>}
+        {tasksData?.data && <TasksContainer {...props?.taskContainer} />}
         <br />
         <MyButton {...props?.myButton} />
       </Stack>
