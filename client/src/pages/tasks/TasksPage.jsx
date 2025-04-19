@@ -23,6 +23,15 @@ const getConfirmText = (type) => {
   return <Typography>{messages[type]}</Typography>;
 };
 
+const prepRemarks = (remarks) => {
+  if (typeof remarks === "string") {
+    return remarks.split("/")?.map((c) => c.trim())
+  }
+  if (Array.isArray(remarks)) {
+    return remarks;
+  }
+  return [];
+}
 const TasksPage = () => {
   const {dialogState, handleOpenDialog, handleCloseDialog} = useDialogManager();
 
@@ -50,7 +59,7 @@ const TasksPage = () => {
         data: {
           task: {
             ...formData,
-            remarks: formData?.remarks?.split("/")?.map((c) => c.trim()),
+            remarks: prepRemarks(formData?.remarks),
           },
         },
       })
