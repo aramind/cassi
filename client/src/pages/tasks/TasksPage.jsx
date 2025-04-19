@@ -16,12 +16,6 @@ import TaskDialog from "./TaskDialog";
 const TasksPage = () => {
   const {dialogState, handleOpenDialog, handleCloseDialog} = useDialogManager();
 
-  // const [dialogState, setDialogState] = useState({
-  //   open: false,
-  //   action: "add",
-  //   task: null,
-  // });
-
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
@@ -39,16 +33,6 @@ const TasksPage = () => {
       "?fields=_id,title,description,type,status,isCompleted,priority,dueDate,attachments,remarks,isRecurring,recurrenceRule,comments,createdAt,updatedAt"
     )
   );
-
-  // handlers
-
-  // const handleOpenDialog = (action, task = null) => {
-  //   setDialogState({ open: true, action, task });
-  // };
-
-  // const handleCloseDialog = () => {
-  //   setDialogState({ open: false, action: null, task: null });
-  // };
 
   const handleAddTask = (formData) => {
     handleConfirm("Add Task", <Typography>Add this task?</Typography>, () =>
