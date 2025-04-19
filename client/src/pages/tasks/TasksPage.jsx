@@ -100,8 +100,6 @@ const TasksPage = () => {
     },
   };
 
-  console.log(tasksData?.data)
-
   const activeTasks = filterArrByStatus(tasksData?.data, "active")
   const deletedTasks = filterArrByStatus(tasksData?.data, "deleted")
   const cancelledTasks = filterArrByStatus(tasksData?.data, "cancelled")
