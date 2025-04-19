@@ -103,6 +103,8 @@ const TasksPage = () => {
 
   const activeTasks = Array.isArray(tasksData?.data) ? tasksData?.data?.filter(t => t.status === "active") : []
   const deletedTasks = Array.isArray(tasksData?.data) ? tasksData?.data?.filter(t => t.status === "deleted") : []
+  const cancelledTasks = Array.isArray(tasksData?.data) ? tasksData?.data?.filter(t => t.status === "cancelled") : []
+
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
   return (
@@ -116,6 +118,11 @@ const TasksPage = () => {
         <br />
         <MyButton {...props?.myButton} />
         <br />
+        {cancelledTasks?.length > 0 && 
+        <>
+        <Typography>CANCELLED</Typography>
+        <TasksContainer {...props?.taskContainer} />
+        </>}
         {deletedTasks?.length > 0 && 
         <>
         <Typography>DELETED</Typography>
