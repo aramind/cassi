@@ -23,7 +23,7 @@ import {
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
 
-const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog, dialogProps }) => {
+const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
   const [doneTasks, setDoneTasks] = useState(
     Object.fromEntries(tasks.map((t) => [t._id, t.isCompleted]))
   );
@@ -43,7 +43,7 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog, dialogProps
   return (
     <Stack width={1} px={2} my={2}>
       {tasks?.map((t, i) => (
-        <Accordion key={i}>
+        <Accordion key={t?._id}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${i}-content`}
