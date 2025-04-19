@@ -133,7 +133,17 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
                     >
                       <EditIcon fontSize="0.8rem" />
                     </IconButton>
-                    <IconButton size="small">
+                    <IconButton size="small" 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleUpdateTask({
+                        id: t?._id,
+                        updates: { status: "deleted" },
+                        needsToConfirm: true, 
+                        actionToConfirm: "delete"
+                      })
+                    }}
+                     >
                       <DeleteIcon fontSize="0.8rem" />
                     </IconButton>
                   </ButtonGroup>

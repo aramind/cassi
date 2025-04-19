@@ -12,6 +12,7 @@ import ErrorPage from "../ErrorPage";
 import TasksContainer from "./TasksContainer";
 import useDialogManager from "../../hooks/useDialogManager";
 import TaskDialog from "./TaskDialog";
+import { filterArrByStatus } from "../../utils/filterArrByStatus";
 
 
 const getConfirmText = (type) => {
@@ -67,9 +68,9 @@ const TasksPage = () => {
     handleCloseDialog();
   };
 
-  const handleUpdateTask = ({ id, updates, needsToConfirm = false }) => {
+  const handleUpdateTask = ({ id, updates, needsToConfirm = false, actionToConfirm = "update" }) => {
     if (needsToConfirm) {
-      handleConfirm("Update Task", getConfirmText("update"), () =>
+      handleConfirm("Update Task", getConfirmText(actionToConfirm), () =>
         updateTask({ id, updates })
       );
     } else {
@@ -87,7 +88,6 @@ const TasksPage = () => {
       onClickHandler: () => handleOpenDialog("add", null),
     },
     taskContainer: {
-      tasks: tasksData?.data,
       handleUpdateTask,
       handleOpenDialog,
     },
@@ -99,6 +99,10 @@ const TasksPage = () => {
     },
   };
 
+  const activeTasks = filterArrByStatus(tasksData?.data, "active")
+  // const deletedTasks = filterArrByStatus(tasksData?.data, "deleted")
+  // const cancelledTasks = filterArrByStatus(tasksData?.data, "cancelled")
+
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
   return (
@@ -108,9 +112,21 @@ const TasksPage = () => {
         <Today />
         <br />
         <MyButton {...props?.myButton} />
-        {tasksData?.data && <TasksContainer {...props?.taskContainer} dialogProps={{...props?.dialog}}/>}
+        {activeTasks?.length > 0 && <TasksContainer {...props?.taskContainer} tasks={activeTasks} />}
         <br />
         <MyButton {...props?.myButton} />
+        {/* <br />
+        {cancelledTasks?.length > 0 && 
+        <>
+        <Typography>CANCELLED</Typography>
+        <TasksContainer {...props?.taskContainer} tasks={cancelledTasks} />
+        </>}
+        {deletedTasks?.length > 0 && 
+        <>
+        <Typography>DELETED</Typography>
+        <TasksContainer {...props?.taskContainer} tasks={deletedTasks} />
+        </>}
+        <br /> */}
       </Stack>
       
       {renderConfirmActionDialog()}
