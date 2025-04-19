@@ -68,9 +68,9 @@ const TasksPage = () => {
     handleCloseDialog();
   };
 
-  const handleUpdateTask = ({ id, updates, needsToConfirm = false }) => {
+  const handleUpdateTask = ({ id, updates, needsToConfirm = false, actionToConfirm = "update" }) => {
     if (needsToConfirm) {
-      handleConfirm("Update Task", getConfirmText("update"), () =>
+      handleConfirm("Update Task", getConfirmText(actionToConfirm), () =>
         updateTask({ id, updates })
       );
     } else {
