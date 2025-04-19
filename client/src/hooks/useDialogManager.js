@@ -12,7 +12,6 @@ const useDialogManager = () => {
         setDialogState({open: false, action: "", data: null})
     }
 
-    console.log(dialogState?.data)
   return {
     dialogState,
     handleOpenDialog,
