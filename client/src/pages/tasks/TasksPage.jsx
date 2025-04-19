@@ -88,7 +88,6 @@ const TasksPage = () => {
       onClickHandler: () => handleOpenDialog("add", null),
     },
     taskContainer: {
-      tasks: tasksData?.data,
       handleUpdateTask,
       handleOpenDialog,
     },
@@ -113,19 +112,19 @@ const TasksPage = () => {
         <Today />
         <br />
         <MyButton {...props?.myButton} />
-        {activeTasks?.length > 0 && <TasksContainer {...props?.taskContainer} />}
+        {activeTasks?.length > 0 && <TasksContainer {...props?.taskContainer} tasks={activeTasks} />}
         <br />
         <MyButton {...props?.myButton} />
         <br />
         {cancelledTasks?.length > 0 && 
         <>
         <Typography>CANCELLED</Typography>
-        <TasksContainer {...props?.taskContainer} />
+        <TasksContainer {...props?.taskContainer} tasks={cancelledTasks} />
         </>}
         {deletedTasks?.length > 0 && 
         <>
         <Typography>DELETED</Typography>
-        <TasksContainer {...props?.taskContainer} />
+        <TasksContainer {...props?.taskContainer} tasks={deletedTasks} />
         </>}
         <br />
       </Stack>
