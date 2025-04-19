@@ -23,7 +23,7 @@ import {
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
 
-const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
+const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog, dialogProps }) => {
   const [doneTasks, setDoneTasks] = useState(
     Object.fromEntries(tasks.map((t) => [t._id, t.isCompleted]))
   );
@@ -37,7 +37,7 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
       updates: { isCompleted: e.target.checked },
     });
   };
-  // console.log(doneTasks);
+
   if (!tasks) return null;
 
   return (
@@ -146,6 +146,7 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
           </AccordionDetails>
         </Accordion>
       ))}
+      
     </Stack>
   );
 };
