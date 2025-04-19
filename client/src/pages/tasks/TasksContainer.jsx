@@ -62,7 +62,7 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog, dialogProps
               <Stack>
                 <Checkbox
                   checked={!!doneTasks[t._id]} // default to false
-                  onChange={handleCheckChange(t._id, { ...t })}
+                  onChange={handleCheckChange(t._id)}
                   onClick={(e) => e.stopPropagation()}
                   icon={<DotIcon fontSize="small" color="primary" />}
                   checkedIcon={<CheckIcon fontSize="small" color="error" />}
