@@ -100,8 +100,8 @@ const TasksPage = () => {
   };
 
   const activeTasks = filterArrByStatus(tasksData?.data, "active")
-  const deletedTasks = filterArrByStatus(tasksData?.data, "deleted")
-  const cancelledTasks = filterArrByStatus(tasksData?.data, "cancelled")
+  // const deletedTasks = filterArrByStatus(tasksData?.data, "deleted")
+  // const cancelledTasks = filterArrByStatus(tasksData?.data, "cancelled")
 
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
@@ -115,7 +115,7 @@ const TasksPage = () => {
         {activeTasks?.length > 0 && <TasksContainer {...props?.taskContainer} tasks={activeTasks} />}
         <br />
         <MyButton {...props?.myButton} />
-        <br />
+        {/* <br />
         {cancelledTasks?.length > 0 && 
         <>
         <Typography>CANCELLED</Typography>
@@ -126,7 +126,7 @@ const TasksPage = () => {
         <Typography>DELETED</Typography>
         <TasksContainer {...props?.taskContainer} tasks={deletedTasks} />
         </>}
-        <br />
+        <br /> */}
       </Stack>
       
       {renderConfirmActionDialog()}
