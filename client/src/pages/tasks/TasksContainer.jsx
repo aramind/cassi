@@ -37,13 +37,13 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
       updates: { isCompleted: e.target.checked },
     });
   };
-  // console.log(doneTasks);
+
   if (!tasks) return null;
 
   return (
     <Stack width={1} px={2} my={2}>
       {tasks?.map((t, i) => (
-        <Accordion key={i}>
+        <Accordion key={t?._id}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${i}-content`}
@@ -62,7 +62,7 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
               <Stack>
                 <Checkbox
                   checked={!!doneTasks[t._id]} // default to false
-                  onChange={handleCheckChange(t._id, { ...t })}
+                  onChange={handleCheckChange(t._id)}
                   onClick={(e) => e.stopPropagation()}
                   icon={<DotIcon fontSize="small" color="primary" />}
                   checkedIcon={<CheckIcon fontSize="small" color="error" />}
@@ -146,6 +146,7 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
           </AccordionDetails>
         </Accordion>
       ))}
+      
     </Stack>
   );
 };

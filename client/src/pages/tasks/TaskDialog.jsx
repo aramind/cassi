@@ -27,10 +27,22 @@ const getFormattedValues = (task) => {
     remarks: task?.remarks?.join("/"),
   };
 };
+
+const initialValues = {
+  title: "",
+  description: "",
+  importance: 0,
+  type: TASK_CONSTANTS?.TYPE_OPTIONS[0]?.value || "",
+  dueDate: "",
+  isRecurring: false,
+  recurrenceRule: TASK_CONSTANTS?.RECURRENCE_OPTIONS[0]?.value || "",
+  remarks: "",
+}
+
 const TaskDialog = ({
   open,
   handleCloseDialog,
-  task,
+  data : task,
   action,
   submitHandler,
   clearHandler,
@@ -43,7 +55,16 @@ const TaskDialog = ({
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onTouched", defaultValues: getFormattedValues(task) });
+  } = useForm({ mode: "onTouched", defaultValues: action === "update" && task ? getFormattedValues(task) : {
+    title: "",
+    description: "",
+    importance: 0,
+    type: TASK_CONSTANTS?.TYPE_OPTIONS[0]?.value || "",
+    dueDate: "",
+    isRecurring: false,
+    recurrenceRule: TASK_CONSTANTS?.RECURRENCE_OPTIONS[0]?.value || "",
+    remarks: "",
+  } });
 
   const formMethods = {
     control,
@@ -52,19 +73,22 @@ const TaskDialog = ({
   };
 
   useEffect(() => {
-    if (task) {
+    if (task && action === "update") {
       reset(getFormattedValues(task));
+    } else {
+      reset(initialValues)
     }
-  }, [task, reset]);
+  }, [task, reset, action]);
 
   //   handlers
 
   const onSubmit = async (formData) => {
     if (action === "add") {
       submitHandler(formData);
-    } else if (action === "update") {
+    } else if (action === "update" && task?._id) {
       // submitHandler({id: });
       console.log("UPDATING");
+      console.log(formData)
     }
   };
   const handleClose = (e) => {
@@ -75,6 +99,8 @@ const TaskDialog = ({
   };
 
   const isRecurringTrue = useWatch({ control, name: "isRecurring" });
+
+  // console.log(task)
   return (
     <>
       <DraggableDialog

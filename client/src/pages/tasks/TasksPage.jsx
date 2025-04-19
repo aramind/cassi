@@ -1,23 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import { Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
-import TaskDialog from "./TaskDialog";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import useTaskReq from "../../hooks/api/authenticated/task/useTaskReq";
 import useApiGet from "../../hooks/api/useApiGet";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import TasksContainer from "./TasksContainer";
+import useDialogManager from "../../hooks/useDialogManager";
+import TaskDialog from "./TaskDialog";
 
+
+const getConfirmText = (type) => {
+  const messages = {
+    add: "Add this task?",
+    update: "Continue?",
+    delete: "Delete this task?",
+  };
+  return <Typography>{messages[type]}</Typography>;
+};
+
+const prepRemarks = (remarks) => {
+  if (typeof remarks === "string") {
+    return remarks.split("/")?.map((c) => c.trim())
+  }
+  if (Array.isArray(remarks)) {
+    return remarks;
+  }
+  return [];
+}
 const TasksPage = () => {
-  const [dialogState, setDialogState] = useState({
-    open: false,
-    action: "add",
-    task: null,
-  });
+  const {dialogState, handleOpenDialog, handleCloseDialog} = useDialogManager();
 
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -37,23 +53,13 @@ const TasksPage = () => {
     )
   );
 
-  // handlers
-
-  const handleOpenDialog = (action, task = null) => {
-    setDialogState({ open: true, action, task });
-  };
-
-  const handleCloseDialog = () => {
-    setDialogState({ open: false, action: null, task: null });
-  };
-
-  const handleConfirmAdd = (formData) => {
-    handleConfirm("Add Task", <Typography>Add this task?</Typography>, () =>
+  const handleAddTask = (formData) => {
+    handleConfirm("Add Task", getConfirmText("add"), () =>
       addTask({
         data: {
           task: {
             ...formData,
-            remarks: formData?.remarks?.split("/")?.map((c) => c.trim()),
+            remarks: prepRemarks(formData?.remarks),
           },
         },
       })
@@ -63,7 +69,7 @@ const TasksPage = () => {
 
   const handleUpdateTask = ({ id, updates, needsToConfirm = false }) => {
     if (needsToConfirm) {
-      handleConfirm("Update Task", <Typography>Continue?</Typography>, () =>
+      handleConfirm("Update Task", getConfirmText("update"), () =>
         updateTask({ id, updates })
       );
     } else {
@@ -78,7 +84,7 @@ const TasksPage = () => {
       type: "accent",
       text: "add",
       variant: "contained",
-      onClickHandler: () => handleOpenDialog("add"),
+      onClickHandler: () => handleOpenDialog("add", null),
     },
     taskContainer: {
       tasks: tasksData?.data,
@@ -89,7 +95,7 @@ const TasksPage = () => {
       ...dialogState,
       handleCloseDialog: handleCloseDialog,
       submitHandler:
-        dialogState?.action === "add" ? handleConfirmAdd : handleUpdateTask,
+        dialogState?.action === "add" ? handleAddTask : handleUpdateTask,
     },
   };
 
@@ -102,12 +108,13 @@ const TasksPage = () => {
         <Today />
         <br />
         <MyButton {...props?.myButton} />
-        {tasksData?.data && <TasksContainer {...props?.taskContainer} />}
+        {tasksData?.data && <TasksContainer {...props?.taskContainer} dialogProps={{...props?.dialog}}/>}
         <br />
         <MyButton {...props?.myButton} />
       </Stack>
-      <TaskDialog {...props?.dialog} />
+      
       {renderConfirmActionDialog()}
+      <TaskDialog {...props.dialog} />
     </BodyContainer>
   );
 };
