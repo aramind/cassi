@@ -12,6 +12,7 @@ import ErrorPage from "../ErrorPage";
 import TasksContainer from "./TasksContainer";
 import useDialogManager from "../../hooks/useDialogManager";
 import TaskDialog from "./TaskDialog";
+import { filterArrByStatus } from "../../utils/filterArrByStatus";
 
 
 const getConfirmText = (type) => {
@@ -101,9 +102,9 @@ const TasksPage = () => {
 
   console.log(tasksData?.data)
 
-  const activeTasks = Array.isArray(tasksData?.data) ? tasksData?.data?.filter(t => t.status === "active") : []
-  const deletedTasks = Array.isArray(tasksData?.data) ? tasksData?.data?.filter(t => t.status === "deleted") : []
-  const cancelledTasks = Array.isArray(tasksData?.data) ? tasksData?.data?.filter(t => t.status === "cancelled") : []
+  const activeTasks = filterArrByStatus(tasksData?.data, "active")
+  const deletedTasks = filterArrByStatus(tasksData?.data, "deleted")
+  const cancelledTasks = filterArrByStatus(tasksData?.data, "cancelled")
 
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
