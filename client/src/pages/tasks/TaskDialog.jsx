@@ -37,12 +37,12 @@ const initialValues = {
   isRecurring: false,
   recurrenceRule: TASK_CONSTANTS?.RECURRENCE_OPTIONS[0]?.value || "",
   remarks: "",
-}
+};
 
 const TaskDialog = ({
   open,
   handleCloseDialog,
-  data : task,
+  data: task,
   action,
   submitHandler,
   clearHandler,
@@ -55,16 +55,22 @@ const TaskDialog = ({
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onTouched", defaultValues: action === "update" && task ? getFormattedValues(task) : {
-    title: "",
-    description: "",
-    importance: 0,
-    type: TASK_CONSTANTS?.TYPE_OPTIONS[0]?.value || "",
-    dueDate: "",
-    isRecurring: false,
-    recurrenceRule: TASK_CONSTANTS?.RECURRENCE_OPTIONS[0]?.value || "",
-    remarks: "",
-  } });
+  } = useForm({
+    mode: "onTouched",
+    defaultValues:
+      action === "update" && task
+        ? getFormattedValues(task)
+        : {
+            title: "",
+            description: "",
+            importance: 0,
+            type: TASK_CONSTANTS?.TYPE_OPTIONS[0]?.value || "",
+            dueDate: "",
+            isRecurring: false,
+            recurrenceRule: TASK_CONSTANTS?.RECURRENCE_OPTIONS[0]?.value || "",
+            remarks: "",
+          },
+  });
 
   const formMethods = {
     control,
@@ -76,7 +82,7 @@ const TaskDialog = ({
     if (task && action === "update") {
       reset(getFormattedValues(task));
     } else {
-      reset(initialValues)
+      reset(initialValues);
     }
   }, [task, reset, action]);
 
@@ -86,8 +92,12 @@ const TaskDialog = ({
     if (action === "add") {
       submitHandler(formData);
     } else if (action === "update" && task?._id) {
-      await submitHandler({id: task?._id, updates: formData, needsToConfirm: true  });
-      handleCloseDialog()
+      await submitHandler({
+        id: task?._id,
+        updates: formData,
+        needsToConfirm: true,
+      });
+      handleCloseDialog();
     }
   };
   const handleClose = (e) => {
@@ -126,9 +136,9 @@ const TaskDialog = ({
               <Stack direction="row" spacing={1} justifyContent="space-between">
                 <Box pr={4} pl={1}>
                   <ControlledSlider
-                    id="task-importance"
-                    name="importance"
-                    label="importance"
+                    id="task-priority"
+                    name="priority"
+                    label="priority"
                     isOptionsText={true}
                     textLevelOptions={["low", "medium", "high"]}
                   />
@@ -146,7 +156,6 @@ const TaskDialog = ({
                 label="due date (mm/dd/yyy)"
                 name="dueDate"
               />
-
               <Stack spacing={1} direction="row" justifyContent="flex-start">
                 <ControlledCheckBox
                   name="isRecurring"
