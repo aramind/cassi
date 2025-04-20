@@ -10,4 +10,5 @@ export {
   AddCircleOutlineRounded as CircledPlus,
   SwapVert as Sort,
   FilterAltRounded as Filter,
+  AddRounded as Plus,
 } from "@mui/icons-material";

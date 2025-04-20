@@ -41,7 +41,7 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
   if (!tasks) return null;
 
   return (
-    <Stack width={1} px={2} my={2}>
+    <Stack width={1} my={2}>
       {tasks?.map((t, i) => (
         <Accordion key={t?._id}>
           <AccordionSummary
@@ -133,17 +133,18 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
                     >
                       <EditIcon fontSize="0.8rem" />
                     </IconButton>
-                    <IconButton size="small" 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleUpdateTask({
-                        id: t?._id,
-                        updates: { status: "deleted" },
-                        needsToConfirm: true, 
-                        actionToConfirm: "delete"
-                      })
-                    }}
-                     >
+                    <IconButton
+                      size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleUpdateTask({
+                          id: t?._id,
+                          updates: { status: "deleted" },
+                          needsToConfirm: true,
+                          actionToConfirm: "delete",
+                        });
+                      }}
+                    >
                       <DeleteIcon fontSize="0.8rem" />
                     </IconButton>
                   </ButtonGroup>
@@ -156,7 +157,6 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
           </AccordionDetails>
         </Accordion>
       ))}
-      
     </Stack>
   );
 };

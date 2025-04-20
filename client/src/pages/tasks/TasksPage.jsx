@@ -14,7 +14,7 @@ import useDialogManager from "../../hooks/useDialogManager";
 import TaskDialog from "./TaskDialog";
 import { filterArrByStatus } from "../../utils/filterArrByStatus";
 import OptionsMenu from "../../components/OptionsMenu";
-import { Filter, Sort } from "../../utils/muiIcons";
+import { Filter, Plus, Sort } from "../../utils/muiIcons";
 
 const getConfirmText = (type) => {
   const messages = {
@@ -194,24 +194,25 @@ const TasksPage = () => {
           width={1}
           spacing={2}
         >
-          <MyButton {...props?.myButton} width={1} />
+          {/* <MyButton {...props?.myButton} width={1} /> */}
+          <Button
+            fullWidth
+            variant="contained"
+            endIcon={<Plus />}
+            sx={{ boxShadow: "none" }}
+            onClick={() => handleOpenDialog("add", null)}
+          >
+            add
+          </Button>
           <OptionsMenu
-            text={
-              <Stack direction="row" spacing={0.5}>
-                <Box>sort</Box>
-                <Sort />
-              </Stack>
-            }
+            text="sort"
+            icon={<Sort />}
             menuItems={sortMenuItems}
             width={1}
           />
           <OptionsMenu
-            text={
-              <Stack direction="row" spacing={0.5}>
-                <Box>filter</Box>
-                <Filter />
-              </Stack>
-            }
+            text="filter"
+            icon={<Filter />}
             menuItems={sortMenuItems}
             width={1}
           />
@@ -220,19 +221,6 @@ const TasksPage = () => {
           <TasksContainer {...props?.taskContainer} tasks={sortedTasks} />
         )}
         <br />
-        <MyButton {...props?.myButton} />
-        {/* <br />
-        {cancelledTasks?.length > 0 && 
-        <>
-        <Typography>CANCELLED</Typography>
-        <TasksContainer {...props?.taskContainer} tasks={cancelledTasks} />
-        </>}
-        {deletedTasks?.length > 0 && 
-        <>
-        <Typography>DELETED</Typography>
-        <TasksContainer {...props?.taskContainer} tasks={deletedTasks} />
-        </>}
-        <br /> */}
       </Stack>
 
       {renderConfirmActionDialog()}

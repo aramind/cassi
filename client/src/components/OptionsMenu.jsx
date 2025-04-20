@@ -1,7 +1,7 @@
 import { Box, Button, Menu, MenuItem } from "@mui/material";
 import React, { useState } from "react";
 
-const OptionsMenu = ({ text, menuItems, width = 1 }) => {
+const OptionsMenu = ({ text, icon, menuItems, width = 1 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -23,6 +23,7 @@ const OptionsMenu = ({ text, menuItems, width = 1 }) => {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         fullWidth
+        endIcon={icon || null}
       >
         {text}
       </Button>
