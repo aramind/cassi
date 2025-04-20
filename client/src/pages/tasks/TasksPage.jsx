@@ -186,6 +186,7 @@ const TasksPage = () => {
     []
   );
 
+  console.log(tasksData?.data);
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
 
