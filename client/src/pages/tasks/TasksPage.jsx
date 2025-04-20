@@ -14,7 +14,7 @@ import useDialogManager from "../../hooks/useDialogManager";
 import TaskDialog from "./TaskDialog";
 import { filterArrByStatus } from "../../utils/filterArrByStatus";
 import OptionsMenu from "../../components/OptionsMenu";
-import { Sort } from "../../utils/muiIcons";
+import { Filter, Sort } from "../../utils/muiIcons";
 
 const getConfirmText = (type) => {
   const messages = {
@@ -202,7 +202,16 @@ const TasksPage = () => {
             menuItems={sortMenuItems}
             width={1}
           />
-          <Button>filter</Button>
+          <OptionsMenu
+            text={
+              <Stack direction="row" spacing={0.5}>
+                <Box>filter</Box>
+                <Filter />
+              </Stack>
+            }
+            menuItems={sortMenuItems}
+            width={1}
+          />
         </Stack>
         {sortedTasks?.length > 0 && (
           <TasksContainer {...props?.taskContainer} tasks={sortedTasks} />
