@@ -66,9 +66,27 @@ const getSortedTasks = (tasks, method) => {
       return sorted;
   }
 };
-const TasksPage = () => {
-  const [sortMethod, setSortMethod] = useState("DATE-NEWEST");
 
+const isMatchToFilters = (task, filters) => {
+  return (
+    (filters?.type?.length === 0 || filters?.type?.includes(task?.type)) &&
+    (filters?.priority?.length === 0 ||
+      filters?.priority?.includes(task?.priority)) &&
+    (filters?.isCompleted?.length === 0 ||
+      filters?.isCompleted?.includes(task?.isCompleted)) &&
+    (filters?.isRecurring?.length === 0 ||
+      filters?.isRecurring?.includes(task?.isRecurring))
+  );
+};
+const TasksPage = () => {
+  // states
+  const [sortMethod, setSortMethod] = useState("DATE-NEWEST");
+  const [filters, setFilters] = useState({
+    type: [],
+    isCompleted: [],
+    priority: [],
+    isRecurring: [],
+  });
   // hooks
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
@@ -145,7 +163,10 @@ const TasksPage = () => {
   // const deletedTasks = filterArrByStatus(tasksData?.data, "deleted")
   // const cancelledTasks = filterArrByStatus(tasksData?.data, "cancelled")
 
-  const sortedTasks = getSortedTasks(activeTasks, sortMethod);
+  const filteredTasks = activeTasks.filter((task) =>
+    isMatchToFilters(task, filters)
+  );
+  const sortedFilteredTasks = getSortedTasks(filteredTasks, sortMethod);
 
   const sortMenuItems = useMemo(
     () => [
@@ -177,6 +198,12 @@ const TasksPage = () => {
     []
   );
 
+  // console logs
+
+  console.log(tasksData?.data);
+  console.log(sortedFilteredTasks);
+
+  // start of return
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
 
@@ -224,8 +251,11 @@ const TasksPage = () => {
             />
           </ButtonGroup>
         </Stack>
-        {sortedTasks?.length > 0 && (
-          <TasksContainer {...props?.taskContainer} tasks={sortedTasks} />
+        {sortedFilteredTasks?.length > 0 && (
+          <TasksContainer
+            {...props?.taskContainer}
+            tasks={sortedFilteredTasks}
+          />
         )}
         <br />
       </Stack>
