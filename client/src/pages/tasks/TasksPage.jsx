@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
@@ -149,32 +149,35 @@ const TasksPage = () => {
   const sortedTasks = getSortedTasks(activeTasks, sortMethod);
   console.log(sortMethod);
 
-  const sortMenuItems = [
-    {
-      label: "by date (newest first)",
-      onClick: () => setSortMethod((pv) => "DATE-NEWEST"),
-    },
-    {
-      label: "by date (oldest first)",
-      onClick: () => setSortMethod((pv) => "DATE-OLDEST"),
-    },
-    {
-      label: "by priority (highest first)",
-      onClick: () => setSortMethod((pv) => "PRIORITY-HIGHEST"),
-    },
-    {
-      label: "by priority (lowest first)",
-      onClick: () => setSortMethod((pv) => "PRIORITY-LOWEST"),
-    },
-    {
-      label: "by name (A to Z)",
-      onClick: () => setSortMethod((pv) => "NAME-ASC"),
-    },
-    {
-      label: "by name (Z to A)",
-      onClick: () => setSortMethod((pv) => "NAME-DESC"),
-    },
-  ];
+  const sortMenuItems = useMemo(
+    () => [
+      {
+        label: "by date (newest first)",
+        onClick: () => setSortMethod((pv) => "DATE-NEWEST"),
+      },
+      {
+        label: "by date (oldest first)",
+        onClick: () => setSortMethod((pv) => "DATE-OLDEST"),
+      },
+      {
+        label: "by priority (highest first)",
+        onClick: () => setSortMethod((pv) => "PRIORITY-HIGHEST"),
+      },
+      {
+        label: "by priority (lowest first)",
+        onClick: () => setSortMethod((pv) => "PRIORITY-LOWEST"),
+      },
+      {
+        label: "by name (A to Z)",
+        onClick: () => setSortMethod((pv) => "NAME-ASC"),
+      },
+      {
+        label: "by name (Z to A)",
+        onClick: () => setSortMethod((pv) => "NAME-DESC"),
+      },
+    ],
+    []
+  );
 
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
