@@ -22,7 +22,7 @@ const OptionsMenu = ({ text, menuItems, width = 1 }) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        fullWidt
+        fullWidth
       >
         {text}
       </Button>
