@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
@@ -14,6 +14,7 @@ import useDialogManager from "../../hooks/useDialogManager";
 import TaskDialog from "./TaskDialog";
 import { filterArrByStatus } from "../../utils/filterArrByStatus";
 import OptionsMenu from "../../components/OptionsMenu";
+import { Sort } from "../../utils/muiIcons";
 
 const getConfirmText = (type) => {
   const messages = {
@@ -191,7 +192,16 @@ const TasksPage = () => {
           spacing={2}
         >
           <MyButton {...props?.myButton} width={1} />
-          <OptionsMenu text="sort" menuItems={sortMenuItems} width={1} />
+          <OptionsMenu
+            text={
+              <Stack direction="row" spacing={0.5}>
+                <Box>sort</Box>
+                <Sort />
+              </Stack>
+            }
+            menuItems={sortMenuItems}
+            width={1}
+          />
           <Button>filter</Button>
         </Stack>
         {sortedTasks?.length > 0 && (

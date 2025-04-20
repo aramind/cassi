@@ -8,4 +8,5 @@ export {
   DeleteOutlineRounded as DeleteIcon,
   SendRounded as Send,
   AddCircleOutlineRounded as CircledPlus,
+  SwapVert as Sort,
 } from "@mui/icons-material";

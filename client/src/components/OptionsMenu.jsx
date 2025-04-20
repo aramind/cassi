@@ -14,10 +14,10 @@ const OptionsMenu = ({ text, menuItems, width = 1 }) => {
   };
 
   return (
-    <Box width={width} className="outlined">
+    <Box width={width}>
       <Button
         id="options-button"
-        variant="text"
+        variant="outlined"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
