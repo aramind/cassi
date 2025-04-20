@@ -7,4 +7,5 @@ export {
   TripOrigin as DotIcon,
   DeleteOutlineRounded as DeleteIcon,
   SendRounded as Send,
+  AddCircleOutlineRounded as CircledPlus,
 } from "@mui/icons-material";

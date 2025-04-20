@@ -1,7 +1,7 @@
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Box, Button, Menu, MenuItem } from "@mui/material";
 import React, { useState } from "react";
 
-const OptionsMenu = ({ text, menuItems }) => {
+const OptionsMenu = ({ text, menuItems, width = 1 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -12,8 +12,9 @@ const OptionsMenu = ({ text, menuItems }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
-    <div>
+    <Box width={width} className="outlined">
       <Button
         id="options-button"
         variant="text"
@@ -21,6 +22,7 @@ const OptionsMenu = ({ text, menuItems }) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        fullWidt
       >
         {text}
       </Button>
@@ -31,6 +33,14 @@ const OptionsMenu = ({ text, menuItems }) => {
         onClose={handleClose}
         MenuListProps={{
           "aria-labelledby": "options-button",
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
         }}
       >
         {Array?.isArray(menuItems) &&
@@ -46,7 +56,7 @@ const OptionsMenu = ({ text, menuItems }) => {
             </MenuItem>
           ))}
       </Menu>
-    </div>
+    </Box>
   );
 };
 
