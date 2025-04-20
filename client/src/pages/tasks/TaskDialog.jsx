@@ -156,7 +156,6 @@ const TaskDialog = ({
                 label="due date (mm/dd/yyy)"
                 name="dueDate"
               />
-
               <Stack spacing={1} direction="row" justifyContent="flex-start">
                 <ControlledCheckBox
                   name="isRecurring"
