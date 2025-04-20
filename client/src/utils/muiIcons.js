@@ -11,4 +11,5 @@ export {
   SwapVert as Sort,
   FilterAltRounded as Filter,
   AddRounded as Plus,
+  NotInterestedRounded as Disabled,
 } from "@mui/icons-material";

@@ -1,6 +1,13 @@
 import React, { useMemo, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
@@ -193,10 +200,9 @@ const TasksPage = () => {
           justifyContent="space-between"
           width={1}
           spacing={2}
+          alignItems="center"
         >
-          {/* <MyButton {...props?.myButton} width={1} /> */}
           <Button
-            fullWidth
             variant="contained"
             endIcon={<Plus />}
             sx={{ boxShadow: "none" }}
@@ -204,18 +210,28 @@ const TasksPage = () => {
           >
             add
           </Button>
-          <OptionsMenu
-            text="sort"
-            icon={<Sort />}
-            menuItems={sortMenuItems}
-            width={1}
-          />
-          <OptionsMenu
-            text="filter"
-            icon={<Filter />}
-            menuItems={sortMenuItems}
-            width={1}
-          />
+          <Box flex={1} />
+          <ButtonGroup variant="outlined">
+            <OptionsMenu
+              button={
+                <Button endIcon={<Sort />} variant="outlined">
+                  sort
+                </Button>
+              }
+              menuItems={sortMenuItems}
+              width={1}
+            />
+            <OptionsMenu
+              button={
+                <Button endIcon={<Filter />} variant="outlined">
+                  filter
+                </Button>
+              }
+              menuItems={sortMenuItems}
+              width={1}
+              disabled={true}
+            />
+          </ButtonGroup>
         </Stack>
         {sortedTasks?.length > 0 && (
           <TasksContainer {...props?.taskContainer} tasks={sortedTasks} />

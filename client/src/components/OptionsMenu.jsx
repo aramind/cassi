@@ -1,7 +1,7 @@
-import { Box, Button, Menu, MenuItem } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Menu, MenuItem } from "@mui/material";
+import React, { cloneElement, useState } from "react";
 
-const OptionsMenu = ({ text, icon, menuItems, width = 1 }) => {
+const OptionsMenu = ({ button, menuItems, width = 1, disabled = false }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -15,18 +15,13 @@ const OptionsMenu = ({ text, icon, menuItems, width = 1 }) => {
 
   return (
     <Box width={width}>
-      <Button
-        id="options-button"
-        variant="outlined"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-        fullWidth
-        endIcon={icon || null}
-      >
-        {text}
-      </Button>
+      {cloneElement(button, {
+        onClick: handleClick,
+        disabled: disabled,
+        ariaControls: open ? "basic-menu" : undefined,
+        ariaHaspopup: "true",
+        ariaExpanded: open ? "true" : undefined,
+      })}
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
