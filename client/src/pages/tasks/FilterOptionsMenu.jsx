@@ -1,14 +1,7 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  IconButton,
-  Menu,
-  Stack,
-} from "@mui/material";
+import { Box, Button, IconButton, Menu, Stack } from "@mui/material";
 import React, { cloneElement, useState } from "react";
 import FilterSwitchGroup from "../../components/FilterSwitchGroup";
-import Xbutton from "../../components/buttons/Xbutton";
+
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
 import { XIcon } from "../../utils/muiIcons";
 
