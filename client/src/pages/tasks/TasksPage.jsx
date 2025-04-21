@@ -213,9 +213,6 @@ const TasksPage = () => {
 
   // console logs
 
-  console.log(tasksData?.data);
-  console.log(sortedFilteredTasks);
-
   // start of return
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
