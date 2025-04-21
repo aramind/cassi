@@ -14,6 +14,7 @@ import TaskDialog from "./TaskDialog";
 import { filterArrByStatus } from "../../utils/filterArrByStatus";
 import OptionsMenu from "../../components/OptionsMenu";
 import { Filter, Plus, Sort } from "../../utils/muiIcons";
+import FilterOptionsMenu from "./FilterOptionsMenu";
 
 const getConfirmText = (type) => {
   const messages = {
@@ -239,15 +240,17 @@ const TasksPage = () => {
               menuItems={sortMenuItems}
               width={1}
             />
-            <OptionsMenu
+            <FilterOptionsMenu
               button={
                 <Button endIcon={<Filter />} variant="outlined">
                   filter
                 </Button>
               }
-              menuItems={sortMenuItems}
+              filters={filters}
+              setFilters={setFilters}
+              // menuItems={sortMenuItems}
               width={1}
-              disabled={true}
+              // disabled={true}
             />
           </ButtonGroup>
         </Stack>

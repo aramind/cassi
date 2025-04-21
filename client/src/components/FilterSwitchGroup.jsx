@@ -29,7 +29,7 @@ const FilterSwitchGroup = ({
   return (
     <FormControl component="fieldset" variant="standard" sx={{ mb: 2 }}>
       <FormLabel component="legend">{label}</FormLabel>
-      <FormGroup row>
+      <FormGroup>
         {options?.map((option) => (
           <FormControlLabel
             key={option.toString()}
@@ -43,7 +43,6 @@ const FilterSwitchGroup = ({
           />
         ))}
       </FormGroup>
-      FilterSwitchGroup
     </FormControl>
   );
 };
