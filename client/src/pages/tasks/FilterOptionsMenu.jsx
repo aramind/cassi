@@ -1,7 +1,16 @@
-import { Box, Menu, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  IconButton,
+  Menu,
+  Stack,
+} from "@mui/material";
 import React, { cloneElement, useState } from "react";
 import FilterSwitchGroup from "../../components/FilterSwitchGroup";
+import Xbutton from "../../components/buttons/Xbutton";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
+import { XIcon } from "../../utils/muiIcons";
 
 const FILTERS = {
   type: {
@@ -74,7 +83,28 @@ const FilterOptionsMenu = ({
           horizontal: "left",
         }}
       >
-        <Box p={2}>{options}</Box>
+        <Box px={2} py={1}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            width="auto"
+            mb={1}
+          >
+            <Stack direction="row" spacing={1}>
+              <Button variant="outlined" size="small">
+                select all
+              </Button>
+              <Button variant="outlined" size="small">
+                reset filters
+              </Button>
+            </Stack>
+
+            <IconButton>
+              <XIcon color="error" />
+            </IconButton>
+          </Stack>
+          <Box px={3}>{options}</Box>
+        </Box>
       </Menu>
     </Box>
   );

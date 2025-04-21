@@ -12,4 +12,7 @@ export {
   FilterAltRounded as Filter,
   AddRounded as Plus,
   NotInterestedRounded as Disabled,
+  CloseRounded as XIcon,
+  RestartAltRounded as ResetIcon,
+  CheckBoxRounded as SquaredCheckIcon,
 } from "@mui/icons-material";
