@@ -32,6 +32,7 @@ const FilterOptionsMenu = ({
   setFilters,
   handleSelectAllFilters,
   handleResetFilters,
+  onClick,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -57,7 +58,10 @@ const FilterOptionsMenu = ({
   return (
     <Box width={width}>
       {cloneElement(button, {
-        onClick: handleClick,
+        onClick: (e) => {
+          if (button.props.onClick) button.props.onClick(e); // original
+          else handleClick(e); // fallback
+        },
         disabled: disabled,
         ariaControls: open ? "basic-menu" : undefined,
         ariaHaspopup: "true",
