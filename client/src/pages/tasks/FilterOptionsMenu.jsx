@@ -92,7 +92,7 @@ const FilterOptionsMenu = ({
               </Button>
             </Stack>
 
-            <IconButton>
+            <IconButton onClick={handleClose}>
               <XIcon color="error" />
             </IconButton>
           </Stack>
