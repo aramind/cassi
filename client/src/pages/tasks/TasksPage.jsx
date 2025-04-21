@@ -254,19 +254,13 @@ const TasksPage = () => {
             />
             <FilterOptionsMenu
               button={
-                hasActiveFilters ? (
-                  <Button
-                    endIcon={<Filter />}
-                    variant="contained"
-                    onClick={handleResetFilters}
-                  >
-                    reset
-                  </Button>
-                ) : (
-                  <Button endIcon={<UnFilterIcon />} variant="outlined">
-                    filter
-                  </Button>
-                )
+                <Button
+                  endIcon={hasActiveFilters ? <Filter /> : <UnFilterIcon />}
+                  variant={hasActiveFilters ? "contained" : "outlined"}
+                  onClick={hasActiveFilters ? handleResetFilters : undefined}
+                >
+                  {hasActiveFilters ? "reset" : "filter"}
+                </Button>
               }
               filters={filters}
               setFilters={setFilters}
