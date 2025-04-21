@@ -1,16 +1,8 @@
 import React, { useMemo, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, ButtonGroup, Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
-import MyButton from "../../components/buttons/MyButton";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import useTaskReq from "../../hooks/api/authenticated/task/useTaskReq";
 import useApiGet from "../../hooks/api/useApiGet";
@@ -22,6 +14,8 @@ import TaskDialog from "./TaskDialog";
 import { filterArrByStatus } from "../../utils/filterArrByStatus";
 import OptionsMenu from "../../components/OptionsMenu";
 import { Filter, Plus, Sort } from "../../utils/muiIcons";
+import FilterOptionsMenu from "./FilterOptionsMenu";
+import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
 
 const getConfirmText = (type) => {
   const messages = {
@@ -74,9 +68,27 @@ const getSortedTasks = (tasks, method) => {
       return sorted;
   }
 };
-const TasksPage = () => {
-  const [sortMethod, setSortMethod] = useState("DATE-NEWEST");
 
+const isMatchToFilters = (task, filters) => {
+  return (
+    (filters?.type?.length === 0 || filters?.type?.includes(task?.type)) &&
+    (filters?.priority?.length === 0 ||
+      filters?.priority?.includes(task?.priority)) &&
+    (filters?.isCompleted?.length === 0 ||
+      filters?.isCompleted?.includes(task?.isCompleted)) &&
+    (filters?.isRecurring?.length === 0 ||
+      filters?.isRecurring?.includes(task?.isRecurring))
+  );
+};
+const TasksPage = () => {
+  // states
+  const [sortMethod, setSortMethod] = useState("DATE-NEWEST");
+  const [filters, setFilters] = useState({
+    type: [],
+    priority: [],
+    isCompleted: [],
+    isRecurring: [],
+  });
   // hooks
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
@@ -129,6 +141,17 @@ const TasksPage = () => {
     handleCloseDialog();
   };
 
+  // filter handlers
+  const handleResetFilters = () =>
+    setFilters((pv) => ({
+      type: [],
+      priority: [],
+      isCompleted: [],
+      isRecurring: [],
+    }));
+
+  const handleSelectAllFilters = () => setFilters((pv) => OPTIONS_FOR_FILTERS);
+
   // props
   const props = {
     myButton: {
@@ -153,8 +176,10 @@ const TasksPage = () => {
   // const deletedTasks = filterArrByStatus(tasksData?.data, "deleted")
   // const cancelledTasks = filterArrByStatus(tasksData?.data, "cancelled")
 
-  const sortedTasks = getSortedTasks(activeTasks, sortMethod);
-  console.log(sortMethod);
+  const filteredTasks = activeTasks.filter((task) =>
+    isMatchToFilters(task, filters)
+  );
+  const sortedFilteredTasks = getSortedTasks(filteredTasks, sortMethod);
 
   const sortMenuItems = useMemo(
     () => [
@@ -186,7 +211,9 @@ const TasksPage = () => {
     []
   );
 
-  console.log(tasksData?.data);
+  // console logs
+
+  // start of return
   if (isLoadingInFetchingTasks) return <LoadingPage />;
   if (isErrorInFetchingTasks) return <ErrorPage />;
 
@@ -222,20 +249,27 @@ const TasksPage = () => {
               menuItems={sortMenuItems}
               width={1}
             />
-            <OptionsMenu
+            <FilterOptionsMenu
               button={
                 <Button endIcon={<Filter />} variant="outlined">
                   filter
                 </Button>
               }
-              menuItems={sortMenuItems}
+              filters={filters}
+              setFilters={setFilters}
+              // menuItems={sortMenuItems}
               width={1}
-              disabled={true}
+              // disabled={true}
+              handleResetFilters={handleResetFilters}
+              handleSelectAllFilters={handleSelectAllFilters}
             />
           </ButtonGroup>
         </Stack>
-        {sortedTasks?.length > 0 && (
-          <TasksContainer {...props?.taskContainer} tasks={sortedTasks} />
+        {sortedFilteredTasks?.length > 0 && (
+          <TasksContainer
+            {...props?.taskContainer}
+            tasks={sortedFilteredTasks}
+          />
         )}
         <br />
       </Stack>

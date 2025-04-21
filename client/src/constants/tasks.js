@@ -44,3 +44,10 @@ export const TASK_CONSTANTS = {
     },
   ],
 };
+
+export const OPTIONS_FOR_FILTERS = {
+  type: ["general", "cleaning", "maintenance", "bills", "others"],
+  priority: ["low", "medium", "high"],
+  isCompleted: [true, false],
+  isRecurring: [true, false],
+};
