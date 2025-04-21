@@ -15,6 +15,7 @@ import { filterArrByStatus } from "../../utils/filterArrByStatus";
 import OptionsMenu from "../../components/OptionsMenu";
 import { Filter, Plus, Sort } from "../../utils/muiIcons";
 import FilterOptionsMenu from "./FilterOptionsMenu";
+import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
 
 const getConfirmText = (type) => {
   const messages = {
@@ -84,8 +85,8 @@ const TasksPage = () => {
   const [sortMethod, setSortMethod] = useState("DATE-NEWEST");
   const [filters, setFilters] = useState({
     type: [],
-    isCompleted: [],
     priority: [],
+    isCompleted: [],
     isRecurring: [],
   });
   // hooks
@@ -139,6 +140,17 @@ const TasksPage = () => {
     }
     handleCloseDialog();
   };
+
+  // filter handlers
+  const handleResetFilters = () =>
+    setFilters((pv) => ({
+      type: [],
+      priority: [],
+      isCompleted: [],
+      isRecurring: [],
+    }));
+
+  const handleSelectAllFilters = () => setFilters((pv) => OPTIONS_FOR_FILTERS);
 
   // props
   const props = {
@@ -251,6 +263,8 @@ const TasksPage = () => {
               // menuItems={sortMenuItems}
               width={1}
               // disabled={true}
+              handleResetFilters={handleResetFilters}
+              handleSelectAllFilters={handleSelectAllFilters}
             />
           </ButtonGroup>
         </Stack>

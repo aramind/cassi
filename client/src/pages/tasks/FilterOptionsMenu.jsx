@@ -8,19 +8,19 @@ import { XIcon } from "../../utils/muiIcons";
 const FILTERS = {
   type: {
     label: "type",
-    options: OPTIONS_FOR_FILTERS.TYPE,
+    options: OPTIONS_FOR_FILTERS.type,
   },
   priority: {
     label: "priority",
-    options: OPTIONS_FOR_FILTERS.PRIORITY,
+    options: OPTIONS_FOR_FILTERS.priority,
   },
   isCompleted: {
     label: "completed",
-    options: OPTIONS_FOR_FILTERS.ISCOMPLETED,
+    options: OPTIONS_FOR_FILTERS.isCompleted,
   },
   isRecurring: {
     label: "recurring",
-    options: OPTIONS_FOR_FILTERS.ISRECURRING,
+    options: OPTIONS_FOR_FILTERS.isRecurring,
   },
 };
 const FilterOptionsMenu = ({
@@ -30,6 +30,8 @@ const FilterOptionsMenu = ({
   disabled = false,
   filters,
   setFilters,
+  handleSelectAllFilters,
+  handleResetFilters,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -84,10 +86,18 @@ const FilterOptionsMenu = ({
             mb={1}
           >
             <Stack direction="row" spacing={1}>
-              <Button variant="outlined" size="small">
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={handleSelectAllFilters}
+              >
                 select all
               </Button>
-              <Button variant="outlined" size="small">
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={handleResetFilters}
+              >
                 reset filters
               </Button>
             </Stack>

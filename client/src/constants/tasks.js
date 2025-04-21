@@ -46,8 +46,8 @@ export const TASK_CONSTANTS = {
 };
 
 export const OPTIONS_FOR_FILTERS = {
-  PRIORITY: ["low", "medium", "high"],
-  TYPE: ["general", "cleaning", "maintenance", "bills", "others"],
-  ISCOMPLETED: [true, false],
-  ISRECURRING: [true, false],
+  type: ["general", "cleaning", "maintenance", "bills", "others"],
+  priority: ["low", "medium", "high"],
+  isCompleted: [true, false],
+  isRecurring: [true, false],
 };
