@@ -27,19 +27,27 @@ const FilterSwitchGroup = ({
     }));
   };
   return (
-    <FormControl component="fieldset" variant="standard" sx={{ mb: 2 }}>
-      <FormLabel component="legend">{label}</FormLabel>
+    <FormControl component="fieldset" variant="standard" sx={{ mb: 2, mr: 2 }}>
+      <FormLabel component="legend" sx={{ fontWeight: "bold" }}>
+        {label.toUpperCase()}
+      </FormLabel>
       <FormGroup>
         {options?.map((option) => (
           <FormControlLabel
             key={option.toString()}
+            sx={{
+              "& .MuiFormControlLabel-label": {
+                fontSize: "0.8rem",
+              },
+            }}
             control={
               <Switch
                 checked={filters[filterKey].includes(option)}
                 onChange={() => handleToggle(option)}
+                size="small"
               />
             }
-            label={option.toString()}
+            label={option.toString()?.toUpperCase()}
           />
         ))}
       </FormGroup>
