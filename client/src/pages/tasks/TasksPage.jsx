@@ -13,7 +13,7 @@ import useDialogManager from "../../hooks/useDialogManager";
 import TaskDialog from "./TaskDialog";
 import { filterArrByStatus } from "../../utils/filterArrByStatus";
 import OptionsMenu from "../../components/OptionsMenu";
-import { Filter, Plus, Sort } from "../../utils/muiIcons";
+import { Filter, Plus, Sort, UnFilterIcon } from "../../utils/muiIcons";
 import FilterOptionsMenu from "./FilterOptionsMenu";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
 
@@ -141,6 +141,9 @@ const TasksPage = () => {
     handleCloseDialog();
   };
 
+  const hasActiveFilters = Object.values(filters).some(
+    (arr) => Array.isArray(arr) && arr.length > 0
+  );
   // filter handlers
   const handleResetFilters = () =>
     setFilters((pv) => ({
@@ -251,8 +254,12 @@ const TasksPage = () => {
             />
             <FilterOptionsMenu
               button={
-                <Button endIcon={<Filter />} variant="outlined">
-                  filter
+                <Button
+                  endIcon={hasActiveFilters ? <Filter /> : <UnFilterIcon />}
+                  variant={hasActiveFilters ? "contained" : "outlined"}
+                  onClick={hasActiveFilters ? handleResetFilters : undefined}
+                >
+                  {hasActiveFilters ? "reset" : "filter"}
                 </Button>
               }
               filters={filters}

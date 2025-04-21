@@ -10,6 +10,7 @@ export {
   AddCircleOutlineRounded as CircledPlus,
   SwapVert as Sort,
   FilterAltRounded as Filter,
+  FilterAltOffRounded as UnFilterIcon,
   AddRounded as Plus,
   NotInterestedRounded as Disabled,
   CloseRounded as XIcon,
