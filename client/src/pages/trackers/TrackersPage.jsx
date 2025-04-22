@@ -16,11 +16,11 @@ import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import FullScreenDialog from "../../components/FullScreenDialog";
 import TrackersContainer from "./TrackersContainer";
 import useDialogManager from "../../hooks/useDialogManager";
+import { getConfirmText } from "../../utils/dialogUtils";
 
 const TrackersPage = () => {
   // states
   const [openDeletedTrackers, setOpenDeletedTrackers] = useState(false);
-  const [openTrackerDialog, setOpenTrackerDialog] = useState(false);
   // hooks
   const { auth } = useAuth();
   const { dialogState, handleOpenDialog, handleCloseDialog } =
@@ -45,21 +45,10 @@ const TrackersPage = () => {
   );
 
   const handleConfirmAddTracker = (formData) => {
-    handleConfirm(
-      "Add tracker",
-      <Stack spacing={2}>
-        <Typography>Continue adding this tracker?</Typography>
-
-        <Typography variant="h4">
-          <strong>TITLE : </strong>
-          {formData?.title}
-        </Typography>
-      </Stack>,
-      async () => {
-        await addTracker({ data: { tracker: formData } });
-        setOpenTrackerDialog(false);
-      }
-    );
+    handleConfirm("Add tracker", getConfirmText("add", "tracker"), async () => {
+      await addTracker({ data: { tracker: formData } });
+      handleCloseDialog();
+    });
   };
 
   const handleConfirmRestore = (trackerId, trackerTitle) => {
