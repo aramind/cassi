@@ -11,9 +11,13 @@ import { ExpandMoreIcon } from "../../utils/muiIcons";
 import TrackerActionsGroup from "./TrackerActionsGroup";
 import TrackerEntries from "./TrackerEntries";
 
-const TrackersContainer = ({ trackers }) => {
+const TrackersContainer = ({
+  trackers,
+  handleUpdatingTrackerInfo,
+  handleDeletingTrackerInfo,
+}) => {
   if (!trackers || !Array.isArray(trackers)) {
-    return <Typography>No tracker(s) to be displayed</Typography>;
+    return <Typography>No tracker(s) to be displayed.</Typography>;
   }
 
   return (
@@ -28,9 +32,10 @@ const TrackersContainer = ({ trackers }) => {
             <Stack direction="row" alignItems="center" spacing={2}>
               <TrackerActionsGroup
                 tracker={tracker}
-                //   updateHandler={updateTrackerMetaInfoHandler}
-                //   deleteHandler={updateTrackerMetaInfoHandler}
-                //   setOpenEntryDialog={setOpenEntryDialog}
+                updateHandler={() => handleUpdatingTrackerInfo(tracker)}
+                deleteHandler={() =>
+                  handleDeletingTrackerInfo(tracker, { status: "deleted" })
+                }
               />
               <Stack width={1} alignItems="flex-start">
                 <Typography

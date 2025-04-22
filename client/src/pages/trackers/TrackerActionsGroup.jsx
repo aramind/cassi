@@ -5,12 +5,7 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import TrackerDialog from "./TrackerDialog";
 
-const TrackerActionsGroup = ({
-  tracker,
-  updateHandler,
-  deleteHandler,
-  direction,
-}) => {
+const TrackerActionsGroup = ({ updateHandler, deleteHandler, direction }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleEdit = useCallback(() => {
@@ -20,15 +15,15 @@ const TrackerActionsGroup = ({
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
-  const handleDelete = () => {
-    handleConfirm(
-      "Confirm Delete",
-      <Typography>
-        Are you sure you want to proceed with the delete?
-      </Typography>,
-      () => deleteHandler({ status: "deleted" })
-    );
-  };
+  // const handleDelete = () => {
+  //   handleConfirm(
+  //     "Confirm Delete",
+  //     <Typography>
+  //       Are you sure you want to proceed with the delete?
+  //     </Typography>,
+  //     () => deleteHandler({ status: "deleted" })
+  //   );
+  // };
 
   return (
     <Stack spacing={1} direction={direction}>
@@ -41,17 +36,21 @@ const TrackerActionsGroup = ({
       >
         <EditRoundedIcon />
       </IconButton>
-      <IconButton aria-label="delete" onClick={handleDelete} size="small">
+      <IconButton
+        aria-label="delete"
+        onClick={() => deleteHandler()}
+        size="small"
+      >
         <DeleteRoundedIcon />
       </IconButton>
-      <TrackerDialog
+      {/* <TrackerDialog
         open={openDialog}
         setOpen={setOpenDialog}
         data={tracker}
         action="update"
         submitHandler={updateHandler}
-      />
-      {renderConfirmActionDialog()}
+      /> */}
+      {/* {renderConfirmActionDialog()} */}
     </Stack>
   );
 };

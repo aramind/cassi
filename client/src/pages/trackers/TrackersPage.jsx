@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import PageHeader from "../../components/PageHeader";
 import { Stack, Typography } from "@mui/material";
@@ -17,6 +17,7 @@ import FullScreenDialog from "../../components/FullScreenDialog";
 import TrackersContainer from "./TrackersContainer";
 import useDialogManager from "../../hooks/useDialogManager";
 import { getConfirmText } from "../../utils/dialogUtils";
+import { convertToISOFormat } from "../../utils/date";
 
 const TrackersPage = () => {
   // states
@@ -70,6 +71,74 @@ const TrackersPage = () => {
     );
   };
 
+  // handlers for entries
+
+  const handleAddingEntry = (tracker) => async (data) => {
+    const newEntry = {
+      ...data,
+      date: convertToISOFormat(data?.date),
+      comments: data?.comments?.split("/"),
+    };
+    const updatedEntries = [newEntry, ...(tracker?.entries || [])];
+
+    sendUpdateTracker({
+      trackerId: tracker?._id,
+      data: { entries: updatedEntries },
+    });
+  };
+
+  // const handleUpdatingEntry = (tracker) => async (data) => {
+  //   const formattedData = {
+  //     ...data,
+  //     date: convertToISOFormat(data?.date),
+  //     comments: data?.comments?.split("/"),
+  //   };
+
+  //   const updatedEntries = tracker?.entries?.map((entry) =>
+  //     entry?._id === formattedData?._id ? { ...entry, ...formattedData } : entry
+  //   );
+
+  //   sendUpdateTracker({
+  //     trackerId: tracker?._id,
+  //     data: { entries: updatedEntries },
+  //   });
+  // };
+
+  const handleConfirmDeleteEntry = (tracker) =>
+    handleConfirm(
+      "Confirm Delete",
+      <Typography>Are you sure you want to restore this tracker?</Typography>,
+      async (entryId) => {
+        const updatedEntries = tracker?.entries?.filter(
+          (entry) => entry._id !== entryId
+        );
+
+        sendUpdateTracker({
+          trackerId: tracker?._id,
+          data: { entries: updatedEntries },
+        });
+      }
+    );
+
+  const handleUpdatingTrackerInfo = (tracker) => async (updates) => {
+    sendUpdateTracker({
+      trackerId: tracker?._id,
+      data: updates,
+    });
+  };
+
+  const handleDeletingTrackerInfo = (tracker, updates) =>
+    handleConfirm(
+      "Confirm Delete",
+      <Typography>Continue delete?</Typography>,
+      () => {
+        sendUpdateTracker({
+          trackerId: tracker?._id,
+          data: updates,
+        });
+      }
+    );
+
   // calculated values before rendering
   const activeTrackers = trackersData?.data?.filter(
     (tracker) => tracker?.status?.toLowerCase() === "active"
@@ -100,7 +169,13 @@ const TrackersPage = () => {
           onClickHandler={() => handleOpenDialog("add", null)}
         />
         <br />
-        {activeTrackers && <TrackersContainer trackers={activeTrackers} />}
+        {activeTrackers && (
+          <TrackersContainer
+            trackers={activeTrackers}
+            handleUpdatingTrackerInfo={handleUpdatingTrackerInfo}
+            handleDeletingTrackerInfo={handleDeletingTrackerInfo}
+          />
+        )}
         {/* {activeTrackers && <Trackers trackers={activeTrackers} />} */}
         <br />
 
