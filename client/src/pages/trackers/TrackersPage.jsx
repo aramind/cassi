@@ -9,7 +9,6 @@ import useAuth from "../../hooks/useAuth";
 import useTrackerReq from "../../hooks/api/authenticated/useTrackerReq";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
-import Trackers from "./Trackers";
 import TrackerDialog from "./TrackerDialog";
 import DeletedTrackers from "./DeletedTrackers";
 import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
