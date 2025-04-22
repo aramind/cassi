@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Chip, Divider, Stack, Typography } from "@mui/material";
+import { Box, Chip, Stack, Typography } from "@mui/material";
 import ActionsGroup from "./ActionsGroup";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import useHouseProvider from "../../hooks/useHouseProvider";
@@ -74,12 +74,6 @@ const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
         <>
           {paginatedEntries?.map((entry) => (
             <Stack key={entry?._id} direction="column" width={1}>
-              {/* <Divider
-                sx={{
-                  borderBottomWidth: 10,
-                  borderColor: "primary.main",
-                }}
-              /> */}
               <Stack
                 direction="row"
                 justifyContent="space-between"
