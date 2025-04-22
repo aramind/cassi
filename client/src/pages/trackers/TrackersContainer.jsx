@@ -9,12 +9,9 @@ import {
 import React from "react";
 import { ExpandMoreIcon } from "../../utils/muiIcons";
 import TrackerActionsGroup from "./TrackerActionsGroup";
-import Tracker from "./Tracker";
 import TrackerEntries from "./TrackerEntries";
 
 const TrackersContainer = ({ trackers }) => {
-  console.log(trackers);
-
   if (!trackers || !Array.isArray(trackers)) {
     return <Typography>No tracker(s) to be displayed</Typography>;
   }
