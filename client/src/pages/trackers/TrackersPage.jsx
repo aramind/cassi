@@ -15,6 +15,7 @@ import DeletedTrackers from "./DeletedTrackers";
 import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import FullScreenDialog from "../../components/FullScreenDialog";
+import TrackersContainer from "./TrackersContainer";
 
 const TrackersPage = () => {
   const { auth } = useAuth();
@@ -115,7 +116,8 @@ const TrackersPage = () => {
           onClickHandler={addTrackerHandler}
         />
         <br />
-        {activeTrackers && <Trackers trackers={activeTrackers} />}
+        {activeTrackers && <TrackersContainer trackers={activeTrackers} />}
+        {/* {activeTrackers && <Trackers trackers={activeTrackers} />} */}
         <br />
 
         <MyButton

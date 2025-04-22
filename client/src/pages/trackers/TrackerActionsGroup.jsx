@@ -5,7 +5,12 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import TrackerDialog from "./TrackerDialog";
 
-const TrackerActionsGroup = ({ tracker, updateHandler, deleteHandler }) => {
+const TrackerActionsGroup = ({
+  tracker,
+  updateHandler,
+  deleteHandler,
+  direction,
+}) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleEdit = useCallback(() => {
@@ -26,16 +31,17 @@ const TrackerActionsGroup = ({ tracker, updateHandler, deleteHandler }) => {
   };
 
   return (
-    <Stack spacing={1}>
+    <Stack spacing={1} direction={direction}>
       <IconButton
         aria-label="edit"
         onClick={() => {
           handleEdit();
         }}
+        size="small"
       >
         <EditRoundedIcon />
       </IconButton>
-      <IconButton aria-label="delete" onClick={handleDelete}>
+      <IconButton aria-label="delete" onClick={handleDelete} size="small">
         <DeleteRoundedIcon />
       </IconButton>
       <TrackerDialog
