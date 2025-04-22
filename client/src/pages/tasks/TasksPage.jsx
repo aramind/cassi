@@ -18,15 +18,6 @@ import FilterOptionsMenu from "./FilterOptionsMenu";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
 import { getConfirmText } from "../../utils/dialogUtils";
 
-// const getConfirmText = (type) => {
-//   const messages = {
-//     add: "Add this task?",
-//     update: "Continue?",
-//     delete: "Delete this task?",
-//   };
-//   return <Typography>{messages[type]}</Typography>;
-// };
-
 const PRIORITY_MAP = {
   low: 1,
   medium: 2,
