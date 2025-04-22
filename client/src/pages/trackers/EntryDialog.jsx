@@ -89,7 +89,8 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
           ho.occupant?.name?.nickName || ho.occupant?.name?.firstName;
         return { label, value: ho?._id };
       });
-    setOptions((pv) => [...options, { label: "", value: "" }]);
+
+    setOptions((pv) => [...options, { label: "UNASSIGNED", value: null }]);
   }, [houseProfile?.data?.occupants]);
 
   let title = getTitle(action);
@@ -171,7 +172,9 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
                   name="originalAssignee"
                   options={options}
                   defaultValue={
-                    data ? getOptionsValue(options, data?.originalAssignee) : ""
+                    data
+                      ? getOptionsValue(options, data?.originalAssignee)
+                      : null
                   }
                 />
                 <ControlledLabelledSelect
@@ -180,7 +183,7 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
                   name="completedBy"
                   options={options}
                   defaultValue={
-                    data ? getOptionsValue(options, data?.completedBy) : ""
+                    data ? getOptionsValue(options, data?.completedBy) : null
                   }
                 />
                 <ControlledLabelledTextField
@@ -200,9 +203,9 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
             {submitBtnText}
           </Button>
         </DialogActions>
+        <DevTool control={control} />
       </DraggableDialog>
       {renderConfirmActionDialog()}
-      {/* <DevTool control={control} /> */}
     </>
   );
 };
