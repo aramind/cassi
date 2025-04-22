@@ -3,8 +3,9 @@ import { Box, Chip, Divider, Stack, Typography } from "@mui/material";
 import ActionsGroup from "./ActionsGroup";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import useHouseProvider from "../../hooks/useHouseProvider";
-import { formatToMMDDYYYY } from "../../utils/date";
+import { convertToISOFormat, formatToMMDDYYYY } from "../../utils/date";
 import CustomPagination from "../../components/CustomPagination";
+import { formatDate } from "../../utils/formatDate";
 
 const PAGE_SIZE = 5;
 
@@ -34,6 +35,9 @@ const Entry = ({ label, value, hasIcon }) => {
   );
 };
 
+const Line = () => (
+  <Box width={1} height="4px" bgcolor="primary.light" borderRadius="2px" />
+);
 const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
   const [page, setPage] = useState(1);
   const { occupantOptions } = useHouseProvider();
@@ -70,7 +74,29 @@ const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
         <>
           {paginatedEntries?.map((entry) => (
             <Stack key={entry?._id} direction="column" width={1}>
-              <Divider>{entry?.date}</Divider>
+              {/* <Divider
+                sx={{
+                  borderBottomWidth: 10,
+                  borderColor: "primary.main",
+                }}
+              /> */}
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Line />
+                <Box width={1}>
+                  <Typography
+                    color="primary.dark"
+                    variant="h6"
+                    textAlign="center"
+                  >
+                    {formatDate(convertToISOFormat(entry?.date))}
+                  </Typography>
+                </Box>
+                <Line />
+              </Stack>
               <Stack direction="row">
                 <Stack flex={1}>
                   <ActionsGroup
