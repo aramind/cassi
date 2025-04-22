@@ -52,7 +52,14 @@ const getSubmitBtnText = (action) => {
   return text;
 };
 
-const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
+const TrackerDialog = ({
+  open,
+  handleCloseDialog,
+  data: tracker,
+  action,
+  submitHandler,
+  clearHandler,
+}) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
@@ -64,7 +71,7 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
     formState: { errors },
   } = useForm({
     mode: "onTouched",
-    defaultValues: action === "add" ? {} : data || {},
+    defaultValues: action === "add" ? {} : tracker || {},
   });
 
   const formMethods = {
@@ -75,13 +82,14 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
   //   handlers
   const onSubmit = async (formData) => {
     submitHandler(formData);
-    setOpen(false);
+    handleCloseDialog();
   };
 
   const handleClose = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setOpen(false);
+    reset();
+    handleCloseDialog();
   };
 
   const handleConfirmClear = () => {

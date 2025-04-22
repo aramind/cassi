@@ -15,6 +15,7 @@ import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTra
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import FullScreenDialog from "../../components/FullScreenDialog";
 import TrackersContainer from "./TrackersContainer";
+import useDialogManager from "../../hooks/useDialogManager";
 
 const TrackersPage = () => {
   // states
@@ -22,6 +23,9 @@ const TrackersPage = () => {
   const [openTrackerDialog, setOpenTrackerDialog] = useState(false);
   // hooks
   const { auth } = useAuth();
+  const { dialogState, handleOpenDialog, handleCloseDialog } =
+    useDialogManager();
+
   const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -108,7 +112,7 @@ const TrackersPage = () => {
           type="accent"
           text="add tracker"
           variant="contained"
-          onClickHandler={addTrackerHandler}
+          onClickHandler={() => handleOpenDialog("add", null)}
         />
         <br />
         {activeTrackers && <TrackersContainer trackers={activeTrackers} />}
@@ -119,7 +123,7 @@ const TrackersPage = () => {
           type="accent"
           text="add tracker"
           variant="contained"
-          onClickHandler={addTrackerHandler}
+          onClickHandler={() => handleOpenDialog("add", null)}
         />
         <br />
 
@@ -139,9 +143,8 @@ const TrackersPage = () => {
       </Stack>
 
       <TrackerDialog
-        open={openTrackerDialog}
-        setOpen={setOpenTrackerDialog}
-        action="add"
+        {...dialogState}
+        handleCloseDialog={handleCloseDialog}
         submitHandler={handleConfirmAddTracker}
       />
       {renderConfirmActionDialog()}
