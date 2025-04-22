@@ -16,15 +16,16 @@ import OptionsMenu from "../../components/OptionsMenu";
 import { Filter, Plus, Sort, UnFilterIcon } from "../../utils/muiIcons";
 import FilterOptionsMenu from "./FilterOptionsMenu";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
+import { getConfirmText } from "../../utils/dialogUtils";
 
-const getConfirmText = (type) => {
-  const messages = {
-    add: "Add this task?",
-    update: "Continue?",
-    delete: "Delete this task?",
-  };
-  return <Typography>{messages[type]}</Typography>;
-};
+// const getConfirmText = (type) => {
+//   const messages = {
+//     add: "Add this task?",
+//     update: "Continue?",
+//     delete: "Delete this task?",
+//   };
+//   return <Typography>{messages[type]}</Typography>;
+// };
 
 const PRIORITY_MAP = {
   low: 1,
@@ -112,7 +113,7 @@ const TasksPage = () => {
   );
 
   const handleAddTask = (formData) => {
-    handleConfirm("Add Task", getConfirmText("add"), () =>
+    handleConfirm("Add Task", getConfirmText("add", "task"), () =>
       addTask({
         data: {
           task: {
@@ -132,8 +133,10 @@ const TasksPage = () => {
     actionToConfirm = "update",
   }) => {
     if (needsToConfirm) {
-      handleConfirm("Update Task", getConfirmText(actionToConfirm), () =>
-        updateTask({ id, updates })
+      handleConfirm(
+        "Update Task",
+        getConfirmText(actionToConfirm, "task"),
+        () => updateTask({ id, updates })
       );
     } else {
       updateTask({ id, updates });

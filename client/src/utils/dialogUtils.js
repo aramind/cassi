@@ -7,12 +7,16 @@ export const dialogUtils = {
 };
 
 export const getConfirmText = (action, item) => {
-  const message = {
-    add: `Continue adding this ${item}?`,
-    update: `Continue updating this ${item}?`,
-    delete: `Are you sure you want to delete this ${item}`,
-  };
-
-  let text = message[action] || "Continue?";
-  return <Typography>{text.toUpperCase()}</Typography>;
+  let text = "Continue?";
+  if (!item) {
+    return <Typography>{text}</Typography>;
+  } else {
+    const message = {
+      add: `Continue adding this ${item}?`,
+      update: `Continue updating this ${item}?`,
+      delete: `Are you sure you want to delete this ${item}?`,
+    };
+    text = message[action] || "Continue?";
+    return <Typography>{text}</Typography>;
+  }
 };
