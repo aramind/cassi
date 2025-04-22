@@ -17,11 +17,11 @@ import FullScreenDialog from "../../components/FullScreenDialog";
 import TrackersContainer from "./TrackersContainer";
 
 const TrackersPage = () => {
-  const { auth } = useAuth();
+  // states
   const [openDeletedTrackers, setOpenDeletedTrackers] = useState(false);
-  const [activeTrackers, setActiveTrackers] = useState([]);
-  const [deletedTrackers, setDeletedTrackers] = useState([]);
   const [openTrackerDialog, setOpenTrackerDialog] = useState(false);
+  // hooks
+  const { auth } = useAuth();
   const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -39,19 +39,6 @@ const TrackersPage = () => {
     () => getTrackers(`house=${auth?.houseInfo?._id}`),
     { enabled: !!auth?.houseInfo?._id }
   );
-
-  useEffect(() => {
-    const activeTrackers = trackersData?.data?.filter(
-      (tracker) => tracker?.status?.toLowerCase() === "active"
-    );
-
-    const deletedTrackers = trackersData?.data?.filter(
-      (tracker) => tracker?.status?.toLowerCase() === "deleted"
-    );
-
-    setActiveTrackers((pv) => activeTrackers);
-    setDeletedTrackers((pv) => deletedTrackers);
-  }, [trackersData]);
 
   const addTrackerHandler = () => {
     setOpenTrackerDialog(true);
@@ -93,6 +80,15 @@ const TrackersPage = () => {
       }
     );
   };
+
+  // calculated values before rendering
+  const activeTrackers = trackersData?.data?.filter(
+    (tracker) => tracker?.status?.toLowerCase() === "active"
+  );
+
+  const deletedTrackers = trackersData?.data?.filter(
+    (tracker) => tracker?.status?.toLowerCase() === "deleted"
+  );
 
   if (isLoadingInGetReq) {
     return <LoadingPage />;
