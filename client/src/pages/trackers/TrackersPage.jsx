@@ -44,10 +44,6 @@ const TrackersPage = () => {
     { enabled: !!auth?.houseInfo?._id }
   );
 
-  const addTrackerHandler = () => {
-    setOpenTrackerDialog(true);
-  };
-
   const handleConfirmAddTracker = (formData) => {
     handleConfirm(
       "Add tracker",
