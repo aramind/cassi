@@ -1,7 +1,9 @@
 import { useMutation, useQueryClient } from "react-query";
+import useMinorAlert from "../useMinorAlert";
 
 const useApiSendAsync = (fn, invalidateKey, options) => {
   const queryClient = useQueryClient();
+  const { showAlert } = useMinorAlert();
 
   const mutation = useMutation({ mutationFn: fn, retry: 0, ...options });
 
@@ -17,8 +19,12 @@ const useApiSendAsync = (fn, invalidateKey, options) => {
       }
 
       if (showSuccess) {
-        alert(
-          typeof showSuccess === "string" ? showSuccess : "Operation successful"
+        showAlert(
+          typeof showSuccess === "string"
+            ? showSuccess
+            : "Operation successful",
+          "success",
+          3000
         );
       }
 

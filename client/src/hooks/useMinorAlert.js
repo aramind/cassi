@@ -15,7 +15,7 @@ const useMinorAlert = () => {
     });
   };
 
-  return showAlert;
+  return { showAlert };
 };
 
 export default useMinorAlert;

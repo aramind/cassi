@@ -18,12 +18,14 @@ import TrackersContainer from "./TrackersContainer";
 import useDialogManager from "../../hooks/useDialogManager";
 import { getConfirmText } from "../../utils/dialogUtils";
 import { convertToISOFormat } from "../../utils/date";
+import useSnackBar from "../../hooks/useSnackBar";
 
 const TrackersPage = () => {
   // states
   const [openDeletedTrackers, setOpenDeletedTrackers] = useState(false);
   // hooks
   const { auth } = useAuth();
+  const { showFeedbackMessage, FeedbackMessage } = useSnackBar();
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
 
@@ -266,6 +268,7 @@ const TrackersPage = () => {
         }
       />
       {renderConfirmActionDialog()}
+      {FeedbackMessage}
     </BodyContainer>
   );
 };
