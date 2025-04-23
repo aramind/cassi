@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
@@ -71,8 +71,14 @@ const TrackerDialog = ({
     formState: { errors },
   } = useForm({
     mode: "onTouched",
-    defaultValues: action === "add" ? {} : tracker || {},
+    defaultValues: action === "add" ? {} : tracker,
   });
+
+  useEffect(() => {
+    if (tracker && open) {
+      reset(tracker);
+    }
+  }, [open, reset, tracker]);
 
   const formMethods = {
     control,
@@ -81,7 +87,12 @@ const TrackerDialog = ({
   };
   //   handlers
   const onSubmit = async (formData) => {
-    submitHandler(formData);
+    if (action === "add") {
+      submitHandler(formData);
+    } else if (action === "update" && formData?._id) {
+      await submitHandler(formData?._id, formData);
+    }
+
     handleCloseDialog();
   };
 

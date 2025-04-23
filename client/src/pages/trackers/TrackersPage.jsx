@@ -87,22 +87,22 @@ const TrackersPage = () => {
     });
   };
 
-  // const handleUpdatingEntry = (tracker) => async (data) => {
-  //   const formattedData = {
-  //     ...data,
-  //     date: convertToISOFormat(data?.date),
-  //     comments: data?.comments?.split("/"),
-  //   };
+  const handleUpdatingEntry = (tracker) => async (data) => {
+    const formattedData = {
+      ...data,
+      date: convertToISOFormat(data?.date),
+      comments: data?.comments?.split("/"),
+    };
 
-  //   const updatedEntries = tracker?.entries?.map((entry) =>
-  //     entry?._id === formattedData?._id ? { ...entry, ...formattedData } : entry
-  //   );
+    const updatedEntries = tracker?.entries?.map((entry) =>
+      entry?._id === formattedData?._id ? { ...entry, ...formattedData } : entry
+    );
 
-  //   sendUpdateTracker({
-  //     trackerId: tracker?._id,
-  //     data: { entries: updatedEntries },
-  //   });
-  // };
+    sendUpdateTracker({
+      trackerId: tracker?._id,
+      data: { entries: updatedEntries },
+    });
+  };
 
   const handleConfirmDeleteEntry = (tracker) =>
     handleConfirm(
@@ -120,11 +120,17 @@ const TrackersPage = () => {
       }
     );
 
-  const handleUpdatingTrackerInfo = (tracker) => async (updates) => {
-    sendUpdateTracker({
-      trackerId: tracker?._id,
-      data: updates,
-    });
+  const handleUpdatingTrackerInfo = (id, updates) => {
+    handleConfirm(
+      "Confirm Update",
+      <Typography>Continue update?</Typography>,
+      () => {
+        sendUpdateTracker({
+          trackerId: id,
+          data: updates,
+        });
+      }
+    );
   };
 
   const handleDeletingTrackerInfo = (tracker, updates) =>
@@ -156,6 +162,7 @@ const TrackersPage = () => {
     return <ErrorPage />;
   }
 
+  // console.log(dialogState?.data);
   return (
     <BodyContainer justifyContent="flex-start">
       <Stack mt={2} alignItems="center" width={1} pb={4}>
@@ -174,6 +181,7 @@ const TrackersPage = () => {
             trackers={activeTrackers}
             handleUpdatingTrackerInfo={handleUpdatingTrackerInfo}
             handleDeletingTrackerInfo={handleDeletingTrackerInfo}
+            handleOpenDialog={handleOpenDialog}
           />
         )}
         {/* {activeTrackers && <Trackers trackers={activeTrackers} />} */}
@@ -205,7 +213,11 @@ const TrackersPage = () => {
       <TrackerDialog
         {...dialogState}
         handleCloseDialog={handleCloseDialog}
-        submitHandler={handleConfirmAddTracker}
+        submitHandler={
+          dialogState?.action === "add"
+            ? handleConfirmAddTracker
+            : handleUpdatingTrackerInfo
+        }
       />
       {renderConfirmActionDialog()}
     </BodyContainer>

@@ -15,6 +15,7 @@ const TrackersContainer = ({
   trackers,
   handleUpdatingTrackerInfo,
   handleDeletingTrackerInfo,
+  handleOpenDialog,
 }) => {
   if (!trackers || !Array.isArray(trackers)) {
     return <Typography>No tracker(s) to be displayed.</Typography>;
@@ -32,7 +33,7 @@ const TrackersContainer = ({
             <Stack direction="row" alignItems="center" spacing={2}>
               <TrackerActionsGroup
                 tracker={tracker}
-                updateHandler={() => handleUpdatingTrackerInfo(tracker)}
+                updateHandler={() => handleOpenDialog("update", tracker)}
                 deleteHandler={() =>
                   handleDeletingTrackerInfo(tracker, { status: "deleted" })
                 }
