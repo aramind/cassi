@@ -31,10 +31,12 @@ const useApiSendAsync = (fn, invalidateKey, options) => {
       return res;
     } catch (error) {
       if (showError) {
-        alert(
+        showAlert(
           typeof showError === "string"
             ? showError
-            : `Request failed: ${error?.message}`
+            : `Request failed: ${error?.message}`,
+          "error",
+          3000
         );
       }
       throw error;
