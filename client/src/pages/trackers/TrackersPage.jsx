@@ -62,11 +62,17 @@ const TrackersPage = () => {
           {trackerTitle}
         </Typography>
       </>,
-      () => {
-        sendUpdateTracker({
-          trackerId: trackerId,
-          data: { status: "active" },
-        });
+      async () => {
+        await sendUpdateTracker(
+          {
+            trackerId: trackerId,
+            data: { status: "active" },
+          },
+          {
+            showSuccess: "Tracker restored.",
+            showError: true,
+          }
+        );
       }
     );
   };
@@ -81,10 +87,16 @@ const TrackersPage = () => {
     };
     const updatedEntries = [newEntry, ...(tracker?.entries || [])];
 
-    sendUpdateTracker({
-      trackerId: tracker?._id,
-      data: { entries: updatedEntries },
-    });
+    await sendUpdateTracker(
+      {
+        trackerId: tracker?._id,
+        data: { entries: updatedEntries },
+      },
+      {
+        showSuccess: "Entry added successfully!",
+        showError: true,
+      }
+    );
   };
 
   const handleUpdatingEntry = (tracker) => async (data) => {
@@ -98,10 +110,16 @@ const TrackersPage = () => {
       entry?._id === formattedData?._id ? { ...entry, ...formattedData } : entry
     );
 
-    sendUpdateTracker({
-      trackerId: tracker?._id,
-      data: { entries: updatedEntries },
-    });
+    await sendUpdateTracker(
+      {
+        trackerId: tracker?._id,
+        data: { entries: updatedEntries },
+      },
+      {
+        showSuccess: "Entry updated successfully!",
+        showError: true,
+      }
+    );
   };
 
   const handleConfirmDeleteEntry = (tracker) =>
@@ -113,10 +131,16 @@ const TrackersPage = () => {
           (entry) => entry._id !== entryId
         );
 
-        sendUpdateTracker({
-          trackerId: tracker?._id,
-          data: { entries: updatedEntries },
-        });
+        await sendUpdateTracker(
+          {
+            trackerId: tracker?._id,
+            data: { entries: updatedEntries },
+          },
+          {
+            showSuccess: "Entry deleted successfully!",
+            showError: true,
+          }
+        );
       }
     );
 
@@ -124,11 +148,22 @@ const TrackersPage = () => {
     handleConfirm(
       "Confirm Update",
       <Typography>Continue update?</Typography>,
-      () => {
-        sendUpdateTracker({
-          trackerId: id,
-          data: updates,
-        });
+      async () => {
+        try {
+          await sendUpdateTracker(
+            {
+              trackerId: id,
+              data: updates,
+            },
+            {
+              showSuccess: "Tracker updated successfully!",
+              showError: true,
+            }
+          );
+          handleCloseDialog();
+        } catch (error) {
+          console.log(error);
+        }
       }
     );
   };
@@ -137,11 +172,22 @@ const TrackersPage = () => {
     handleConfirm(
       "Confirm Delete",
       <Typography>Continue delete?</Typography>,
-      () => {
-        sendUpdateTracker({
-          trackerId: tracker?._id,
-          data: updates,
-        });
+      async () => {
+        try {
+          await sendUpdateTracker(
+            {
+              trackerId: tracker?._id,
+              data: updates,
+            },
+            {
+              showSuccess: "Tracker deleted successfully!",
+              showError: true,
+            }
+          );
+          handleCloseDialog();
+        } catch (error) {
+          console.log(error);
+        }
       }
     );
 
