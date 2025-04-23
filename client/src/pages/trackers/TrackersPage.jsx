@@ -147,7 +147,7 @@ const TrackersPage = () => {
   const handleUpdatingTrackerInfo = (id, updates) => {
     handleConfirm(
       "Confirm Update",
-      <Typography>Continue update?</Typography>,
+      getConfirmText("update", "tracker"),
       async () => {
         try {
           await sendUpdateTracker(
@@ -171,7 +171,7 @@ const TrackersPage = () => {
   const handleDeletingTrackerInfo = (tracker, updates) =>
     handleConfirm(
       "Confirm Delete",
-      <Typography>Continue delete?</Typography>,
+      getConfirmText("delete", "tracker"),
       async () => {
         try {
           await sendUpdateTracker(

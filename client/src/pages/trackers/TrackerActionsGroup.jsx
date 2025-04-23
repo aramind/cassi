@@ -8,8 +8,8 @@ const TrackerActionsGroup = ({ updateHandler, deleteHandler, direction }) => {
     <Stack spacing={1} direction={direction}>
       <IconButton
         aria-label="edit"
-        onClick={() => {
-          console.log("CLICKIN UPDATE...");
+        onClick={(e) => {
+          e.stopPropagation();
           updateHandler();
         }}
         size="small"
@@ -18,7 +18,10 @@ const TrackerActionsGroup = ({ updateHandler, deleteHandler, direction }) => {
       </IconButton>
       <IconButton
         aria-label="delete"
-        onClick={() => deleteHandler()}
+        onClick={(e) => {
+          e.stopPropagation();
+          deleteHandler();
+        }}
         size="small"
       >
         <DeleteRoundedIcon />
