@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import PageHeader from "../../components/PageHeader";
 import { Stack, Typography } from "@mui/material";
@@ -200,7 +200,7 @@ const TrackersPage = () => {
     (tracker) => tracker?.status?.toLowerCase() === "deleted"
   );
 
-  if (isLoadingInGetReq) {
+  if (isLoadingInGetReq || isLoadingInUpdatingTracker) {
     return <LoadingPage />;
   }
 
