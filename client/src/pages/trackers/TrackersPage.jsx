@@ -66,17 +66,20 @@ const TrackersPage = () => {
         </Typography>
       </>,
       async () => {
-        const res = await sendUpdateTracker(
-          {
-            trackerId: trackerId,
-            data: { status: "active" },
-          },
-          {
-            showSuccess: "Tracker restored.",
-            showError: true,
-          }
-        );
-        console.log("RRRRRRRRRRRES", res);
+        try {
+          await sendUpdateTracker(
+            {
+              trackerId: trackerId,
+              data: { status: "active" },
+            },
+            {
+              showFeedbackMsg: true,
+              message: "Tracker restored",
+            }
+          );
+        } catch (error) {
+          console.error(error);
+        }
       }
     );
   };
