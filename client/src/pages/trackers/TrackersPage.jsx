@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import PageHeader from "../../components/PageHeader";
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
 import useApiGet from "../../hooks/api/useApiGet";
@@ -11,14 +11,12 @@ import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import TrackerDialog from "./TrackerDialog";
 import DeletedTrackers from "./DeletedTrackers";
-import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import FullScreenDialog from "../../components/FullScreenDialog";
 import TrackersContainer from "./TrackersContainer";
 import useDialogManager from "../../hooks/useDialogManager";
-import { getConfirmText } from "../../utils/dialogUtils";
-import { convertToISOFormat } from "../../utils/date";
 import useSnackBar from "../../hooks/useSnackBar";
+import useTrackerActions from "../../hooks/api/authenticated/tracker/useTrackerActions";
 
 const TrackersPage = () => {
   // states
@@ -29,9 +27,17 @@ const TrackersPage = () => {
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
 
-  const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
-  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
-    useConfirmActionDialog();
+  const {
+    handleConfirmAddTracker,
+    handleAddingEntry,
+    handleUpdatingEntry,
+    handleConfirmDeleteEntry,
+    handleConfirmRestore,
+    handleUpdatingTrackerInfo,
+    handleDeletingTrackerInfo,
+    renderConfirmActionDialog,
+    isLoadingInUpdatingTracker,
+  } = useTrackerActions(useConfirmActionDialog);
 
   const { getTrackers, addTracker } = useTrackerReq({
     isPublic: false,
@@ -47,151 +53,6 @@ const TrackersPage = () => {
     () => getTrackers(`house=${auth?.houseInfo?._id}`),
     { enabled: !!auth?.houseInfo?._id }
   );
-
-  const handleConfirmAddTracker = (formData) => {
-    handleConfirm("Add tracker", getConfirmText("add", "tracker"), async () => {
-      await addTracker({ data: { tracker: formData } });
-      handleCloseDialog();
-    });
-  };
-
-  const handleConfirmRestore = (trackerId, trackerTitle) => {
-    handleConfirm(
-      "Confirm Restore",
-      <>
-        <Typography>Are you sure you want to restore this tracker?</Typography>
-        <br />
-        <Typography width={1} variant="h4" textAlign="center">
-          {trackerTitle}
-        </Typography>
-      </>,
-      async () => {
-        try {
-          await sendUpdateTracker(
-            {
-              trackerId: trackerId,
-              data: { status: "active" },
-            },
-            {
-              showFeedbackMsg: true,
-              message: "Tracker restored",
-            }
-          );
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    );
-  };
-
-  // handlers for entries
-
-  const handleAddingEntry = (tracker) => async (data) => {
-    const newEntry = {
-      ...data,
-      date: convertToISOFormat(data?.date),
-      comments: data?.comments?.split("/"),
-    };
-    const updatedEntries = [newEntry, ...(tracker?.entries || [])];
-
-    await sendUpdateTracker(
-      {
-        trackerId: tracker?._id,
-        data: { entries: updatedEntries },
-      },
-      {
-        showSuccess: "Entry added successfully!",
-        showError: true,
-      }
-    );
-  };
-
-  const handleUpdatingEntry = (tracker) => async (data) => {
-    const formattedData = {
-      ...data,
-      date: convertToISOFormat(data?.date),
-      comments: data?.comments?.split("/"),
-    };
-
-    const updatedEntries = tracker?.entries?.map((entry) =>
-      entry?._id === formattedData?._id ? { ...entry, ...formattedData } : entry
-    );
-
-    await sendUpdateTracker(
-      {
-        trackerId: tracker?._id,
-        data: { entries: updatedEntries },
-      },
-      {
-        showSuccess: "Entry updated successfully!",
-        showError: true,
-      }
-    );
-  };
-
-  const handleConfirmDeleteEntry = (tracker) =>
-    handleConfirm(
-      "Confirm Delete",
-      <Typography>Are you sure you want to restore this tracker?</Typography>,
-      async (entryId) => {
-        const updatedEntries = tracker?.entries?.filter(
-          (entry) => entry._id !== entryId
-        );
-
-        await sendUpdateTracker(
-          {
-            trackerId: tracker?._id,
-            data: { entries: updatedEntries },
-          },
-          {
-            showSuccess: "Entry deleted successfully!",
-            showError: true,
-          }
-        );
-      }
-    );
-
-  const handleUpdatingTrackerInfo = (id, updates) => {
-    handleConfirm(
-      "Confirm Update",
-      getConfirmText("update", "tracker"),
-      async () => {
-        try {
-          await sendUpdateTracker(
-            {
-              trackerId: id,
-              data: updates,
-            },
-            { showFeedbackMsg: true }
-          );
-
-          handleCloseDialog();
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    );
-  };
-
-  const handleDeletingTrackerInfo = (tracker, updates) =>
-    handleConfirm(
-      "Confirm Delete",
-      getConfirmText("delete", "tracker"),
-      async () => {
-        try {
-          await sendUpdateTracker(
-            {
-              trackerId: tracker?._id,
-              data: updates,
-            },
-            { showFeedbackMsg: true, message: "Tracker deleted successfully." }
-          );
-          handleCloseDialog();
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    );
 
   // calculated values before rendering
   const activeTrackers = trackersData?.data?.filter(
