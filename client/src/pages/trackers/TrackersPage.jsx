@@ -14,7 +14,6 @@ import DeletedTrackers from "./DeletedTrackers";
 import FullScreenDialog from "../../components/FullScreenDialog";
 import TrackersContainer from "./TrackersContainer";
 import useDialogManager from "../../hooks/useDialogManager";
-import useSnackBar from "../../hooks/useSnackBar";
 import useTrackerActions from "../../hooks/api/authenticated/tracker/useTrackerActions";
 
 const TrackersPage = () => {
@@ -22,7 +21,6 @@ const TrackersPage = () => {
   const [openDeletedTrackers, setOpenDeletedTrackers] = useState(false);
   // hooks
   const { auth } = useAuth();
-  const { showFeedbackMessage, FeedbackMessage } = useSnackBar();
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
 
@@ -117,7 +115,6 @@ const TrackersPage = () => {
           </FullScreenDialog>
         )}
       </Stack>
-
       <TrackerDialog
         {...dialogState}
         handleCloseDialog={handleCloseDialog}
@@ -128,7 +125,6 @@ const TrackersPage = () => {
         }
       />
       {renderConfirmActionDialog()}
-      {FeedbackMessage}
     </BodyContainer>
   );
 };
