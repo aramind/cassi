@@ -7,7 +7,10 @@ const useApiSendAsync = (fn, invalidateKey, options) => {
 
   const mutation = useMutation({ mutationFn: fn, retry: 0, ...options });
 
-  const send = async (variables, { showFeedbackMsg = false } = {}) => {
+  const send = async (
+    variables,
+    { showFeedbackMsg = false, message = null } = {}
+  ) => {
     try {
       const res = await mutation.mutateAsync(variables);
 
@@ -17,9 +20,15 @@ const useApiSendAsync = (fn, invalidateKey, options) => {
 
       if (showFeedbackMsg) {
         if (res?.success) {
-          showAlert(res?.message || "Operation successful.", "success");
+          showAlert(
+            message || res?.message || "Operation successful.",
+            "success"
+          );
         } else {
-          showAlert(res?.message || "Something went wrong.", "error");
+          showAlert(
+            message || res?.message || "Something went wrong.",
+            "error"
+          );
         }
       }
 
