@@ -7,10 +7,7 @@ const useApiSendAsync = (fn, invalidateKey, options) => {
 
   const mutation = useMutation({ mutationFn: fn, retry: 0, ...options });
 
-  const send = async (
-    variables,
-    { showSuccess = true, showError = true } = {}
-  ) => {
+  const send = async (variables, { showFeedbackMsg = false } = {}) => {
     try {
       const res = await mutation.mutateAsync(variables);
 
@@ -18,26 +15,18 @@ const useApiSendAsync = (fn, invalidateKey, options) => {
         invalidateKey.forEach((key) => queryClient.invalidateQueries(key));
       }
 
-      if (showSuccess) {
-        showAlert(
-          typeof showSuccess === "string"
-            ? showSuccess
-            : "Operation successful",
-          "success",
-          3000
-        );
+      if (showFeedbackMsg) {
+        if (res?.success) {
+          showAlert(res?.message || "Operation successful.", "success");
+        } else {
+          showAlert(res?.message || "Something went wrong.", "error");
+        }
       }
 
       return res;
     } catch (error) {
-      if (showError) {
-        showAlert(
-          typeof showError === "string"
-            ? showError
-            : `Request failed: ${error?.message}`,
-          "error",
-          3000
-        );
+      if (showFeedbackMsg) {
+        showAlert(`Request failed: ${error?.message}`, "error");
       }
       throw error;
     }

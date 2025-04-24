@@ -35,8 +35,9 @@ const TrackersPage = () => {
 
   const { getTrackers, addTracker } = useTrackerReq({
     isPublic: false,
-    showAck: false,
+    showAck: true,
   });
+
   const {
     data: trackersData,
     isLoading: isLoadingInGetReq,
@@ -65,7 +66,7 @@ const TrackersPage = () => {
         </Typography>
       </>,
       async () => {
-        await sendUpdateTracker(
+        const res = await sendUpdateTracker(
           {
             trackerId: trackerId,
             data: { status: "active" },
@@ -75,6 +76,7 @@ const TrackersPage = () => {
             showError: true,
           }
         );
+        console.log("RRRRRRRRRRRES", res);
       }
     );
   };
@@ -157,14 +159,12 @@ const TrackersPage = () => {
               trackerId: id,
               data: updates,
             },
-            {
-              showSuccess: "Tracker updated successfully!",
-              showError: true,
-            }
+            { showFeedbackMsg: true }
           );
+
           handleCloseDialog();
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }
     );
