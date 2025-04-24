@@ -11,7 +11,6 @@ import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import TrackerDialog from "./TrackerDialog";
 import DeletedTrackers from "./DeletedTrackers";
-import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import FullScreenDialog from "../../components/FullScreenDialog";
 import TrackersContainer from "./TrackersContainer";
 import useDialogManager from "../../hooks/useDialogManager";
@@ -37,7 +36,7 @@ const TrackersPage = () => {
     handleDeletingTrackerInfo,
     renderConfirmActionDialog,
     isLoadingInUpdatingTracker,
-  } = useTrackerActions(useConfirmActionDialog);
+  } = useTrackerActions(handleCloseDialog);
 
   const { getTrackers, addTracker } = useTrackerReq({
     isPublic: false,
