@@ -181,10 +181,7 @@ const TrackersPage = () => {
               trackerId: tracker?._id,
               data: updates,
             },
-            {
-              showSuccess: "Tracker deleted successfully!",
-              showError: true,
-            }
+            { showFeedbackMsg: true, message: "Tracker deleted successfully." }
           );
           handleCloseDialog();
         } catch (error) {
