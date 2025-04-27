@@ -17,6 +17,10 @@ const TrackersContainer = ({
   handleUpdatingTrackerInfo,
   handleDeletingTrackerInfo,
   handleOpenDialog,
+  handleAddingEntry,
+  handleUpdatingEntry,
+  handleConfirmDeleteEntry,
+  handleOpenEntryDialog,
 }) => {
   if (!trackers || !Array.isArray(trackers)) {
     return <Typography>No tracker(s) to be displayed.</Typography>;
@@ -70,7 +74,7 @@ const TrackersContainer = ({
                 type="primary"
                 text="add entry"
                 variant="contained"
-                onClickHandler={addEntryHandler}
+                onClickHandler={() => handleOpenEntryDialog("add", null)}
               />
             </Stack>
           </AccordionDetails>
