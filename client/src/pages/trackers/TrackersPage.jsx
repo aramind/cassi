@@ -87,6 +87,9 @@ const TrackersPage = () => {
             trackers={activeTrackers}
             handleUpdatingTrackerInfo={handleUpdatingTrackerInfo}
             handleDeletingTrackerInfo={handleDeletingTrackerInfo}
+            handleAddingEntry={handleAddingEntry}
+            handleUpdatingEntry={handleUpdatingEntry}
+            handleConfirmDeleteEntry={handleConfirmDeleteEntry}
             handleOpenDialog={handleOpenDialog}
           />
         )}
