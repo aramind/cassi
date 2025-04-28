@@ -16,7 +16,6 @@ export const convertToISOFormat = (dateString) => {
 
   const date = new Date(`${year}-${month}-${day}`);
 
-  console.log(date.toISOString());
   return date.toISOString();
 };
 
