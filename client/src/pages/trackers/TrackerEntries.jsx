@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Box, Chip, Stack, Typography } from "@mui/material";
+import { Box, Chip, IconButton, Stack, Typography } from "@mui/material";
 import ActionsGroup from "./ActionsGroup";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import useHouseProvider from "../../hooks/useHouseProvider";
 import { convertToISOFormat, formatToMMDDYYYY } from "../../utils/date";
 import CustomPagination from "../../components/CustomPagination";
 import { formatDate } from "../../utils/formatDate";
-import MyButton from "../../components/buttons/MyButton";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
 const PAGE_SIZE = 5;
 
@@ -39,7 +40,11 @@ const Entry = ({ label, value, hasIcon }) => {
 const Line = () => (
   <Box width={1} height="4px" bgcolor="primary.light" borderRadius="2px" />
 );
-const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
+const TrackerEntries = ({
+  tracker,
+  handleOpenEntryDialog,
+  handleConfirmDeleteEntry,
+}) => {
   const [page, setPage] = useState(1);
   const { occupantOptions } = useHouseProvider();
 
@@ -94,11 +99,31 @@ const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
               </Stack>
               <Stack direction="row">
                 <Stack flex={1}>
-                  <ActionsGroup
+                  {/* <ActionsGroup
+                    tracker={tracker}
                     data={entry}
                     submitHandler={submitHandler}
                     deleteEntryHandler={deleteEntryHandler}
-                  />
+                  /> */}
+                  <>
+                    <IconButton
+                      aria-label="edit"
+                      onClick={() =>
+                        handleOpenEntryDialog("update", {
+                          tracker,
+                          entryData: entry,
+                        })
+                      }
+                    >
+                      <EditRoundedIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => handleConfirmDeleteEntry()}
+                    >
+                      <DeleteRoundedIcon />
+                    </IconButton>
+                  </>
                 </Stack>
                 <Stack flex={4} p={1} spacing={0.5}>
                   <Entry

@@ -136,7 +136,11 @@ const TrackersPage = () => {
       />
       <EntryDialog
         {...entryDialogState}
-        submitHandler={handleAddingEntry}
+        submitHandler={
+          entryDialogState?.action === "add"
+            ? handleAddingEntry
+            : handleUpdatingEntry
+        }
         handleCloseEntryDialog={handleCloseEntryDialog}
       />
       {renderConfirmActionDialog()}

@@ -42,7 +42,7 @@ const useTrackerActions = ({ handleCloseDialog }) => {
     );
   };
 
-  const handleUpdatingEntry = (tracker) => async (data) => {
+  const handleUpdatingEntry = async (tracker, data) => {
     const formattedData = {
       ...data,
       date: convertToISOFormat(data?.date),

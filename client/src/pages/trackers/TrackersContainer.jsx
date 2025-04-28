@@ -14,7 +14,6 @@ import MyButton from "../../components/buttons/MyButton";
 
 const TrackersContainer = ({
   trackers,
-  handleUpdatingTrackerInfo,
   handleDeletingTrackerInfo,
   handleOpenDialog,
   handleAddingEntry,
@@ -67,6 +66,8 @@ const TrackersContainer = ({
             <Stack justifyContent="center" alignItems="center" spacing={2}>
               <TrackerEntries
                 tracker={tracker}
+                handleConfirmDeleteEntry={handleConfirmDeleteEntry}
+                handleOpenEntryDialog={handleOpenEntryDialog}
                 // submitHandler={updatingEntryHandler}
                 // deleteEntryHandler={deleteEntryHandler}
               />
