@@ -74,7 +74,9 @@ const TrackersContainer = ({
                 type="primary"
                 text="add entry"
                 variant="contained"
-                onClickHandler={() => handleOpenEntryDialog("add", null)}
+                onClickHandler={() =>
+                  handleOpenEntryDialog("add", { tracker, entry: null })
+                }
               />
             </Stack>
           </AccordionDetails>
