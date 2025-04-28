@@ -22,7 +22,7 @@ const useTrackerActions = ({ handleCloseDialog }) => {
 
   // handlers for entries
 
-  const handleAddingEntry = (tracker) => async (data) => {
+  const handleAddingEntry = async (tracker, data) => {
     const newEntry = {
       ...data,
       date: convertToISOFormat(data?.date),

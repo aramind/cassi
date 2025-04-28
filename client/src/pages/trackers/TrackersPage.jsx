@@ -20,6 +20,7 @@ import EntryDialog from "./EntryDialog";
 const TrackersPage = () => {
   // states
   const [openDeletedTrackers, setOpenDeletedTrackers] = useState(false);
+  const [selectedTracker, setSelectedTracker] = useState(false);
   // hooks
   const { auth } = useAuth();
   const { dialogState, handleOpenDialog, handleCloseDialog } =
@@ -133,7 +134,11 @@ const TrackersPage = () => {
             : handleUpdatingTrackerInfo
         }
       />
-      <EntryDialog {...entryDialogState} submitHandler={handleAddingEntry} />
+      <EntryDialog
+        {...entryDialogState}
+        submitHandler={handleAddingEntry}
+        handleCloseEntryDialog={handleCloseEntryDialog}
+      />
       {renderConfirmActionDialog()}
     </BodyContainer>
   );

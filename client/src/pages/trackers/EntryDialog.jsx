@@ -143,7 +143,7 @@ const EntryDialog = ({
   //   form handlers
 
   const onSubmit = async (formData) => {
-    await submitHandler(data, formData);
+    await submitHandler(tracker, formData);
     handleCloseEntryDialog();
   };
 
