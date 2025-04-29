@@ -16,8 +16,6 @@ const TrackersContainer = ({
   trackers,
   handleDeletingTrackerInfo,
   handleOpenDialog,
-  handleAddingEntry,
-  handleUpdatingEntry,
   handleConfirmDeleteEntry,
   handleOpenEntryDialog,
 }) => {
@@ -68,8 +66,6 @@ const TrackersContainer = ({
                 tracker={tracker}
                 handleConfirmDeleteEntry={handleConfirmDeleteEntry}
                 handleOpenEntryDialog={handleOpenEntryDialog}
-                // submitHandler={updatingEntryHandler}
-                // deleteEntryHandler={deleteEntryHandler}
               />
               <MyButton
                 type="primary"

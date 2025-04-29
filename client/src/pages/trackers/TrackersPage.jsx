@@ -42,7 +42,7 @@ const TrackersPage = () => {
     isLoadingInUpdatingTracker,
   } = useTrackerActions(handleCloseDialog);
 
-  const { getTrackers, addTracker } = useTrackerReq({
+  const { getTrackers } = useTrackerReq({
     isPublic: false,
     showAck: true,
   });
