@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Box, Chip, IconButton, Stack, Typography } from "@mui/material";
-import ActionsGroup from "./ActionsGroup";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import useHouseProvider from "../../hooks/useHouseProvider";
 import { convertToISOFormat, formatToMMDDYYYY } from "../../utils/date";
@@ -99,12 +98,6 @@ const TrackerEntries = ({
               </Stack>
               <Stack direction="row">
                 <Stack flex={1}>
-                  {/* <ActionsGroup
-                    tracker={tracker}
-                    data={entry}
-                    submitHandler={submitHandler}
-                    deleteEntryHandler={deleteEntryHandler}
-                  /> */}
                   <>
                     <IconButton
                       aria-label="edit"
