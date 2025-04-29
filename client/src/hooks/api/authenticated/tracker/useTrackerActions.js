@@ -68,7 +68,7 @@ const useTrackerActions = ({ handleCloseDialog }) => {
   const handleConfirmDeleteEntry = (tracker) =>
     handleConfirm(
       "Confirm Delete",
-      <Typography>Are you sure you want to restore this tracker?</Typography>,
+      <Typography>Are you sure you want to delete this entry?</Typography>,
       async (entryId) => {
         const updatedEntries = tracker?.entries?.filter(
           (entry) => entry._id !== entryId
