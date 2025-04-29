@@ -119,7 +119,9 @@ const TrackerEntries = ({
                     </IconButton>
                     <IconButton
                       aria-label="delete"
-                      onClick={() => handleConfirmDeleteEntry()}
+                      onClick={() =>
+                        handleConfirmDeleteEntry(tracker, entry?._id)
+                      }
                     >
                       <DeleteRoundedIcon />
                     </IconButton>
