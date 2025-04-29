@@ -48,18 +48,20 @@ const TrackerEntries = ({
   const { occupantOptions } = useHouseProvider();
 
   const formattedEntries =
-    tracker?.entries?.map((entry) => ({
-      ...entry,
-      // date: formatDate(entry?.date),
-      date: formatToMMDDYYYY(entry?.date),
-      originalAssignee: occupantOptions.find(
-        (option) => option.id === entry?.originalAssignee
-      )?.name,
-      completedBy: occupantOptions.find(
-        (option) => option.id === entry?.completedBy
-      )?.name,
-      comments: entry?.comments?.join(";"),
-    })) || [];
+    tracker?.entries
+      ?.sort((a, b) => new Date(b.date) - new Date(a.date))
+      ?.map((entry) => ({
+        ...entry,
+        // date: formatDate(entry?.date),
+        date: formatToMMDDYYYY(entry?.date),
+        originalAssignee: occupantOptions.find(
+          (option) => option.id === entry?.originalAssignee
+        )?.name,
+        completedBy: occupantOptions.find(
+          (option) => option.id === entry?.completedBy
+        )?.name,
+        comments: entry?.comments?.join(";"),
+      })) || [];
 
   // pagination logic
 
