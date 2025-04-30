@@ -25,7 +25,7 @@ const TrackerAccordion = ({
     false
   );
 
-  const handleChange = () => setExpanded((prev) => !prev);
+  const handleChange = (_, isExpanded) => setExpanded(isExpanded);
 
   return (
     <Accordion expanded={expanded} onChange={handleChange}>
