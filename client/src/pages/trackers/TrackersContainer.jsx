@@ -40,16 +40,23 @@ const TrackersContainer = ({
   };
   return (
     <Box width={1} my={2}>
-      <Stack
-        width={1}
-        justifyContent="flex-end"
-        direction="row"
-        mb={1}
-        spacing={2}
+      <Box
+        mb={2}
+        sx={{ display: "flex", justifyContent: "space-between", gap: 1 }}
       >
+        <Button
+          color="accent"
+          variant="contained"
+          size="small"
+          onClick={() => handleOpenDialog("add", null)}
+        >
+          Add +
+        </Button>
+        <Box flex={1} />
         <ExpandUnExpandBtn label="expand all" onClick={handleExpandAll} />
         <ExpandUnExpandBtn label="collapse all" onClick={handleCollapseAll} />
-      </Stack>
+      </Box>
+
       {trackers.map((tracker, i) => (
         <TrackerAccordion
           key={tracker._id}

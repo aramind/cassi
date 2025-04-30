@@ -80,14 +80,6 @@ const TrackersPage = () => {
       <Stack mt={2} alignItems="center" width={1} pb={4}>
         <PageHeader text="trackers " />
         <Today />
-        <br />
-        <MyButton
-          type="accent"
-          text="add tracker"
-          variant="contained"
-          onClickHandler={() => handleOpenDialog("add", null)}
-        />
-        <br />
         {activeTrackers && (
           <TrackersContainer
             trackers={activeTrackers}
