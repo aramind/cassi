@@ -1,17 +1,6 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
-import { ExpandMoreIcon } from "../../utils/muiIcons";
-import TrackerActionsGroup from "./TrackerActionsGroup";
-import TrackerEntries from "./TrackerEntries";
-import MyButton from "../../components/buttons/MyButton";
-import useAppState from "../../hooks/useAppState";
+
 import TrackerAccordion from "./TrackerAccordion";
 
 const TrackersContainer = ({
