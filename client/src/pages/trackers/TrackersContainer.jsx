@@ -1,8 +1,19 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
 
 import TrackerAccordion from "./TrackerAccordion";
+import { updateAppState } from "../../utils/localStorageAppState";
 
+const ExpandUnExpandBtn = ({ label, onClick }) => (
+  <Button
+    onClick={onClick}
+    variant="outlined"
+    size="small"
+    sx={{ width: "120px" }}
+  >
+    {label}
+  </Button>
+);
 const TrackersContainer = ({
   trackers,
   handleDeletingTrackerInfo,
@@ -14,8 +25,31 @@ const TrackersContainer = ({
     return <Typography>No tracker(s) to be displayed.</Typography>;
   }
 
+  const handleExpandAll = () => {
+    trackers.forEach((tracker) => {
+      updateAppState(`accordion.trackers.${tracker._id}`, true);
+    });
+    window.location.reload();
+  };
+
+  const handleCollapseAll = () => {
+    trackers.forEach((tracker) => {
+      updateAppState(`accordion.trackers.${tracker._id}`, false);
+    });
+    window.location.reload();
+  };
   return (
     <Box width={1} my={2}>
+      <Stack
+        width={1}
+        justifyContent="flex-end"
+        direction="row"
+        mb={1}
+        spacing={2}
+      >
+        <ExpandUnExpandBtn label="expand all" onClick={handleExpandAll} />
+        <ExpandUnExpandBtn label="collapse all" onClick={handleCollapseAll} />
+      </Stack>
       {trackers.map((tracker, i) => (
         <TrackerAccordion
           key={tracker._id}
