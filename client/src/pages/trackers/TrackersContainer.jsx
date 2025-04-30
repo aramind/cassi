@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Stack, Typography } from "@mui/material";
 import React from "react";
 
 import TrackerAccordion from "./TrackerAccordion";
@@ -53,8 +53,10 @@ const TrackersContainer = ({
           Add +
         </Button>
         <Box flex={1} />
-        <ExpandUnExpandBtn label="expand all" onClick={handleExpandAll} />
-        <ExpandUnExpandBtn label="collapse all" onClick={handleCollapseAll} />
+        <ButtonGroup>
+          <ExpandUnExpandBtn label="expand all" onClick={handleExpandAll} />
+          <ExpandUnExpandBtn label="collapse all" onClick={handleCollapseAll} />
+        </ButtonGroup>
       </Box>
 
       {trackers.map((tracker, i) => (
