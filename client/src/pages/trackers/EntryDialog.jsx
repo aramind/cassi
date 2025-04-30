@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
 import {
@@ -63,10 +63,19 @@ const getOptionsValue = (options, label) => {
   return options?.find((option) => option.label === label)?.value;
 };
 
-const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
+const EntryDialog = ({
+  open,
+  action,
+  data,
+  submitHandler,
+  handleCloseEntryDialog,
+}) => {
   const [options, setOptions] = useState([]);
   const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
   const { auth } = useAuth();
+
+  // values from props
+  const tracker = data?.tracker;
 
   const {
     data: houseProfile,
@@ -113,26 +122,29 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
   };
 
   useEffect(() => {
-    if (data) {
+    const entryData = data?.entryData;
+
+    if (entryData) {
       reset({
-        ...data,
-        originalAssignee: getOptionsValue(options, data?.originalAssignee),
-        completedBy: getOptionsValue(options, data?.completedBy),
+        ...entryData,
+        originalAssignee: getOptionsValue(options, entryData?.originalAssignee),
+        completedBy: getOptionsValue(options, entryData?.completedBy),
       });
     }
-  }, [data, options, reset]);
+  }, [data?.entryData, options, reset]);
+
   // handlers
   const handleClose = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setOpen(false);
+    handleCloseEntryDialog();
   };
 
   //   form handlers
 
   const onSubmit = async (formData) => {
-    await submitHandler(formData);
-    setOpen(false);
+    await submitHandler(tracker, formData);
+    handleCloseEntryDialog();
   };
 
   //   confirm action dialog handlers
@@ -172,8 +184,11 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
                   name="originalAssignee"
                   options={options}
                   defaultValue={
-                    data
-                      ? getOptionsValue(options, data?.originalAssignee)
+                    data?.entryData
+                      ? getOptionsValue(
+                          options,
+                          data?.entryData?.originalAssignee
+                        )
                       : null
                   }
                 />
@@ -183,7 +198,9 @@ const EntryDialog = ({ open, setOpen, data, action, submitHandler }) => {
                   name="completedBy"
                   options={options}
                   defaultValue={
-                    data ? getOptionsValue(options, data?.completedBy) : null
+                    data?.entryData
+                      ? getOptionsValue(options, data?.entryData?.completedBy)
+                      : null
                   }
                 />
                 <ControlledLabelledTextField

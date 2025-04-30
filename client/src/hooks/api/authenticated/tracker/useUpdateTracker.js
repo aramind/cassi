@@ -1,11 +1,11 @@
-import useApiSend from "../../useApiSend";
+import useApiSendAsync from "../../useApiSendAsync";
 import useTrackerReq from "../useTrackerReq";
 
 const useUpdateTracker = () => {
   const { updateTracker } = useTrackerReq({ isPublic: false, showAck: true });
 
-  const { mutate: sendUpdateTracker, isLoading: isLoadingInUpdatingTracker } =
-    useApiSend(updateTracker, ["trackers"]);
+  const { send: sendUpdateTracker, isLoading: isLoadingInUpdatingTracker } =
+    useApiSendAsync(updateTracker, ["trackers"]);
 
   return { sendUpdateTracker, isLoadingInUpdatingTracker };
 };

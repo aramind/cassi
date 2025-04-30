@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
@@ -52,7 +52,14 @@ const getSubmitBtnText = (action) => {
   return text;
 };
 
-const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
+const TrackerDialog = ({
+  open,
+  handleCloseDialog,
+  data: tracker,
+  action,
+  submitHandler,
+  clearHandler,
+}) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
@@ -64,8 +71,14 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
     formState: { errors },
   } = useForm({
     mode: "onTouched",
-    defaultValues: action === "add" ? {} : data || {},
+    defaultValues: action === "add" ? {} : tracker,
   });
+
+  useEffect(() => {
+    if (tracker && open) {
+      reset(tracker);
+    }
+  }, [open, reset, tracker]);
 
   const formMethods = {
     control,
@@ -74,14 +87,20 @@ const TrackerDialog = ({ open, setOpen, data, action, submitHandler }) => {
   };
   //   handlers
   const onSubmit = async (formData) => {
-    submitHandler(formData);
-    setOpen(false);
+    if (action === "add") {
+      submitHandler(formData);
+    } else if (action === "update" && formData?._id) {
+      await submitHandler(formData?._id, formData);
+    }
+
+    handleCloseDialog();
   };
 
   const handleClose = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setOpen(false);
+    reset();
+    handleCloseDialog();
   };
 
   const handleConfirmClear = () => {

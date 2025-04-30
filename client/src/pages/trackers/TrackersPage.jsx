@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import PageHeader from "../../components/PageHeader";
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
 import useApiGet from "../../hooks/api/useApiGet";
@@ -9,27 +9,44 @@ import useAuth from "../../hooks/useAuth";
 import useTrackerReq from "../../hooks/api/authenticated/useTrackerReq";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
-import Trackers from "./Trackers";
 import TrackerDialog from "./TrackerDialog";
 import DeletedTrackers from "./DeletedTrackers";
-import useUpdateTracker from "../../hooks/api/authenticated/tracker/useUpdateTracker";
-import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import FullScreenDialog from "../../components/FullScreenDialog";
+import TrackersContainer from "./TrackersContainer";
+import useDialogManager from "../../hooks/useDialogManager";
+import useTrackerActions from "../../hooks/api/authenticated/tracker/useTrackerActions";
+import EntryDialog from "./EntryDialog";
 
 const TrackersPage = () => {
-  const { auth } = useAuth();
+  // states
   const [openDeletedTrackers, setOpenDeletedTrackers] = useState(false);
-  const [activeTrackers, setActiveTrackers] = useState([]);
-  const [deletedTrackers, setDeletedTrackers] = useState([]);
-  const [openTrackerDialog, setOpenTrackerDialog] = useState(false);
-  const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
-  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
-    useConfirmActionDialog();
+  const [selectedTracker, setSelectedTracker] = useState(false);
+  // hooks
+  const { auth } = useAuth();
+  const { dialogState, handleOpenDialog, handleCloseDialog } =
+    useDialogManager();
+  const {
+    dialogState: entryDialogState,
+    handleOpenDialog: handleOpenEntryDialog,
+    handleCloseDialog: handleCloseEntryDialog,
+  } = useDialogManager();
+  const {
+    handleConfirmAddTracker,
+    handleAddingEntry,
+    handleUpdatingEntry,
+    handleConfirmDeleteEntry,
+    handleConfirmRestore,
+    handleUpdatingTrackerInfo,
+    handleDeletingTrackerInfo,
+    renderConfirmActionDialog,
+    isLoadingInUpdatingTracker,
+  } = useTrackerActions(handleCloseDialog);
 
-  const { getTrackers, addTracker } = useTrackerReq({
+  const { getTrackers } = useTrackerReq({
     isPublic: false,
-    showAck: false,
+    showAck: true,
   });
+
   const {
     data: trackersData,
     isLoading: isLoadingInGetReq,
@@ -40,61 +57,16 @@ const TrackersPage = () => {
     { enabled: !!auth?.houseInfo?._id }
   );
 
-  useEffect(() => {
-    const activeTrackers = trackersData?.data?.filter(
-      (tracker) => tracker?.status?.toLowerCase() === "active"
-    );
+  // calculated values before rendering
+  const activeTrackers = trackersData?.data?.filter(
+    (tracker) => tracker?.status?.toLowerCase() === "active"
+  );
 
-    const deletedTrackers = trackersData?.data?.filter(
-      (tracker) => tracker?.status?.toLowerCase() === "deleted"
-    );
+  const deletedTrackers = trackersData?.data?.filter(
+    (tracker) => tracker?.status?.toLowerCase() === "deleted"
+  );
 
-    setActiveTrackers((pv) => activeTrackers);
-    setDeletedTrackers((pv) => deletedTrackers);
-  }, [trackersData]);
-
-  const addTrackerHandler = () => {
-    setOpenTrackerDialog(true);
-  };
-
-  const handleConfirmAddTracker = (formData) => {
-    handleConfirm(
-      "Add tracker",
-      <Stack spacing={2}>
-        <Typography>Continue adding this tracker?</Typography>
-
-        <Typography variant="h4">
-          <strong>TITLE : </strong>
-          {formData?.title}
-        </Typography>
-      </Stack>,
-      async () => {
-        await addTracker({ data: { tracker: formData } });
-        setOpenTrackerDialog(false);
-      }
-    );
-  };
-
-  const handleConfirmRestore = (trackerId, trackerTitle) => {
-    handleConfirm(
-      "Confirm Restore",
-      <>
-        <Typography>Are you sure you want to restore this tracker?</Typography>
-        <br />
-        <Typography width={1} variant="h4" textAlign="center">
-          {trackerTitle}
-        </Typography>
-      </>,
-      () => {
-        sendUpdateTracker({
-          trackerId: trackerId,
-          data: { status: "active" },
-        });
-      }
-    );
-  };
-
-  if (isLoadingInGetReq) {
+  if (isLoadingInGetReq || isLoadingInUpdatingTracker) {
     return <LoadingPage />;
   }
 
@@ -102,27 +74,32 @@ const TrackersPage = () => {
     return <ErrorPage />;
   }
 
+  // console.log(dialogState?.data);
   return (
     <BodyContainer justifyContent="flex-start">
       <Stack mt={2} alignItems="center" width={1} pb={4}>
         <PageHeader text="trackers " />
         <Today />
-        <br />
-        <MyButton
-          type="accent"
-          text="add tracker"
-          variant="contained"
-          onClickHandler={addTrackerHandler}
-        />
-        <br />
-        {activeTrackers && <Trackers trackers={activeTrackers} />}
+        {activeTrackers && (
+          <TrackersContainer
+            trackers={activeTrackers}
+            handleUpdatingTrackerInfo={handleUpdatingTrackerInfo}
+            handleDeletingTrackerInfo={handleDeletingTrackerInfo}
+            handleAddingEntry={handleAddingEntry}
+            handleUpdatingEntry={handleUpdatingEntry}
+            handleConfirmDeleteEntry={handleConfirmDeleteEntry}
+            handleOpenDialog={handleOpenDialog}
+            handleOpenEntryDialog={handleOpenEntryDialog}
+          />
+        )}
+        {/* {activeTrackers && <Trackers trackers={activeTrackers} />} */}
         <br />
 
         <MyButton
           type="accent"
           text="add tracker"
           variant="contained"
-          onClickHandler={addTrackerHandler}
+          onClickHandler={() => handleOpenDialog("add", null)}
         />
         <br />
 
@@ -140,12 +117,23 @@ const TrackersPage = () => {
           </FullScreenDialog>
         )}
       </Stack>
-
       <TrackerDialog
-        open={openTrackerDialog}
-        setOpen={setOpenTrackerDialog}
-        action="add"
-        submitHandler={handleConfirmAddTracker}
+        {...dialogState}
+        handleCloseDialog={handleCloseDialog}
+        submitHandler={
+          dialogState?.action === "add"
+            ? handleConfirmAddTracker
+            : handleUpdatingTrackerInfo
+        }
+      />
+      <EntryDialog
+        {...entryDialogState}
+        submitHandler={
+          entryDialogState?.action === "add"
+            ? handleAddingEntry
+            : handleUpdatingEntry
+        }
+        handleCloseEntryDialog={handleCloseEntryDialog}
       />
       {renderConfirmActionDialog()}
     </BodyContainer>

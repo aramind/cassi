@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Box, Chip, Stack, Typography } from "@mui/material";
-import ActionsGroup from "./ActionsGroup";
+import { Box, Chip, IconButton, Stack, Typography } from "@mui/material";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import useHouseProvider from "../../hooks/useHouseProvider";
 import { convertToISOFormat, formatToMMDDYYYY } from "../../utils/date";
 import CustomPagination from "../../components/CustomPagination";
 import { formatDate } from "../../utils/formatDate";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
 const PAGE_SIZE = 5;
 
@@ -38,23 +39,29 @@ const Entry = ({ label, value, hasIcon }) => {
 const Line = () => (
   <Box width={1} height="4px" bgcolor="primary.light" borderRadius="2px" />
 );
-const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
+const TrackerEntries = ({
+  tracker,
+  handleOpenEntryDialog,
+  handleConfirmDeleteEntry,
+}) => {
   const [page, setPage] = useState(1);
   const { occupantOptions } = useHouseProvider();
 
   const formattedEntries =
-    tracker?.entries?.map((entry) => ({
-      ...entry,
-      // date: formatDate(entry?.date),
-      date: formatToMMDDYYYY(entry?.date),
-      originalAssignee: occupantOptions.find(
-        (option) => option.id === entry?.originalAssignee
-      )?.name,
-      completedBy: occupantOptions.find(
-        (option) => option.id === entry?.completedBy
-      )?.name,
-      comments: entry?.comments?.join(";"),
-    })) || [];
+    tracker?.entries
+      ?.sort((a, b) => new Date(b.date) - new Date(a.date))
+      ?.map((entry) => ({
+        ...entry,
+        // date: formatDate(entry?.date),
+        date: formatToMMDDYYYY(entry?.date),
+        originalAssignee: occupantOptions.find(
+          (option) => option.id === entry?.originalAssignee
+        )?.name,
+        completedBy: occupantOptions.find(
+          (option) => option.id === entry?.completedBy
+        )?.name,
+        comments: entry?.comments?.join(";"),
+      })) || [];
 
   // pagination logic
 
@@ -93,11 +100,27 @@ const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
               </Stack>
               <Stack direction="row">
                 <Stack flex={1}>
-                  <ActionsGroup
-                    data={entry}
-                    submitHandler={submitHandler}
-                    deleteEntryHandler={deleteEntryHandler}
-                  />
+                  <>
+                    <IconButton
+                      aria-label="edit"
+                      onClick={() =>
+                        handleOpenEntryDialog("update", {
+                          tracker,
+                          entryData: entry,
+                        })
+                      }
+                    >
+                      <EditRoundedIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() =>
+                        handleConfirmDeleteEntry(tracker, entry?._id)
+                      }
+                    >
+                      <DeleteRoundedIcon />
+                    </IconButton>
+                  </>
                 </Stack>
                 <Stack flex={4} p={1} spacing={0.5}>
                   <Entry
@@ -117,7 +140,7 @@ const TrackerEntries = ({ tracker, submitHandler, deleteEntryHandler }) => {
               <CustomPagination
                 count={totalPages}
                 page={page}
-                onChange={(event, value) => setPage(value)}
+                onChange={(_, value) => setPage(value)}
               />
             </Box>
           )}

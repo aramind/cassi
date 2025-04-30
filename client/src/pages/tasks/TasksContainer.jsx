@@ -131,7 +131,7 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
                         handleOpenDialog("update", t);
                       }}
                     >
-                      <EditIcon fontSize="0.8rem" />
+                      <EditIcon />
                     </IconButton>
                     <IconButton
                       size="small"
