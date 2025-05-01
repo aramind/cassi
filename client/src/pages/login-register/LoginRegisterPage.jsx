@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import { Box, Stack, Typography } from "@mui/material";
 import HeroImage from "./HeroImage";
@@ -10,9 +10,13 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../LoadingPage";
 import useMinorAlert from "../../hooks/useMinorAlert";
+import RegisterSuccessDialog from "./RegisterSuccessDialog";
 
 const LoginRegisterPage = ({ action }) => {
+  const [openRegisterSuccessDialog, setOpenRegisterSuccessDialog] =
+    useState(true);
   const { login, signup } = useRootReq({ isPublic: true, showAck: true });
+
   const { showAlert } = useMinorAlert();
   const { setAuth } = useAuth();
   const navigate = useNavigate();
@@ -88,6 +92,10 @@ const LoginRegisterPage = ({ action }) => {
         </Box>
         <NavigateLink to={values?.navigateTo} />
       </Stack>
+      <RegisterSuccessDialog
+        open={openRegisterSuccessDialog}
+        handleClose={() => setOpenRegisterSuccessDialog(false)}
+      />
     </BodyContainer>
   );
 };
