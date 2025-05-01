@@ -12,7 +12,7 @@ import LoadingPage from "../LoadingPage";
 
 const LoginRegisterPage = ({ action }) => {
   const { login, signup } = useRootReq({ isPublic: true, showAck: true });
-  const { setAuth, auth, persist, setPersist } = useAuth();
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
 
   const { mutate: sendLogin, isLoading } = useApiSend(
