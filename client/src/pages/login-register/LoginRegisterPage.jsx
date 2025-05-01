@@ -14,7 +14,7 @@ import RegisterSuccessDialog from "./RegisterSuccessDialog";
 
 const LoginRegisterPage = ({ action }) => {
   const [openRegisterSuccessDialog, setOpenRegisterSuccessDialog] =
-    useState(true);
+    useState(false);
   const { login, signup } = useRootReq({ isPublic: true, showAck: true });
 
   const { showAlert } = useMinorAlert();
@@ -35,7 +35,7 @@ const LoginRegisterPage = ({ action }) => {
     signup,
     ["house"],
     () => {
-      alert("Signup successful. Please wait for approval.");
+      setOpenRegisterSuccessDialog(true);
     }
   );
 
