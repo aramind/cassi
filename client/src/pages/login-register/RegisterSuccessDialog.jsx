@@ -38,7 +38,13 @@ const RegisterSuccessDialog = ({ open, handleClose }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>later</Button>
-        <Button onClick={() => navigate("/login")} variant="outlined">
+        <Button
+          onClick={() => {
+            navigate("/login");
+            handleClose();
+          }}
+          variant="outlined"
+        >
           now
         </Button>
       </DialogActions>
