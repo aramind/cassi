@@ -24,7 +24,7 @@ const ActionButton = ({ bgcolor, sxProps, text, onClickHandler }) => {
 const Landing = () => {
   const navigate = useNavigate();
   return (
-    <BodyContainer>
+    <BodyContainer withTopBar={false} withInfoIcon={true}>
       <Stack
         width={{ xs: "100%", md: "500px" }}
         className=" centered"
@@ -42,14 +42,16 @@ const Landing = () => {
         <Typography variant="h6" textAlign="center">
           Convenient Assistant for Space Sharing Interactions
         </Typography>
-        <Box height="3rem"></Box>
+        <Box height="1.5rem"></Box>
         <Typography
           variant="h6"
           textAlign="center"
           sx={{ ...localStyles.text }}
         >
-          <b>Manage your home here!</b> — keep track of everything, right at
-          your fingertips.
+          <span>
+            <b>Manage your home here!</b>
+          </span>{" "}
+          — keep track of everything, right at your fingertips.
         </Typography>
         <Box height="3rem"></Box>
         <Stack direction="row">
@@ -81,7 +83,6 @@ const Landing = () => {
             onClickHandler={() => navigate("/login")}
           />
         </Stack>
-        <Button onClick={() => navigate("/dashboard")}>DASHBOARD</Button>
       </Stack>
     </BodyContainer>
   );

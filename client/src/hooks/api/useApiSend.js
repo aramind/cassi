@@ -12,7 +12,7 @@ const useApiSend = (fn, invalidateKey, successFn, errorFn, options) => {
         invalidateKey.forEach((key) => queryClient.invalidateQueries(key));
       }
       successFn && successFn(data);
-      showAlert("Operation successful.", "success", 3000);
+      // showAlert("Request successful.", "success", 3000);
     },
     onError: async (err) => {
       errorFn && errorFn(err);

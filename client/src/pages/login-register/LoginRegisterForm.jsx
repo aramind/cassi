@@ -18,37 +18,15 @@ import {
 import ControlledTextField from "../../components/controlled/ControlledTextField";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextFieldError from "../../components/controlled/TextFieldError";
-import useRootReq from "../../hooks/api/public/useRootReq";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import useApiSend from "../../hooks/api/useApiSend";
 
-const LoginRegisterForm = ({ action, buttonColor }) => {
-  const { login, signup } = useRootReq({ isPublic: true, showAck: true });
-  const navigate = useNavigate();
+const LoginRegisterForm = ({ action, buttonColor, sendSignUp, sendLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { setAuth, auth, persist, setPersist } = useAuth();
+  const { persist, setPersist } = useAuth();
 
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
   };
-
-  const { mutate: sendLogin, isLoading } = useApiSend(
-    login,
-    ["house"],
-    (data) => {
-      setAuth((pv) => data?.data);
-      data?.success && navigate("/dashboard");
-    }
-  );
-
-  const { mutate: sendSignUp, isLoadingSignUp } = useApiSend(
-    signup,
-    ["house"],
-    (data) => {
-      alert("Signup successful. Please wait for approval.");
-    }
-  );
 
   const {
     control,
@@ -72,8 +50,6 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
       sendSignUp({ data });
     }
   };
-
-  console.log("AUUUTH:", auth);
 
   return (
     <FormWrapper formMethods={formMethods}>
