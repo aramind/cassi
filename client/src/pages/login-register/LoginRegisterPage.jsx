@@ -9,9 +9,11 @@ import useRootReq from "../../hooks/api/public/useRootReq";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../LoadingPage";
+import useMinorAlert from "../../hooks/useMinorAlert";
 
 const LoginRegisterPage = ({ action }) => {
   const { login, signup } = useRootReq({ isPublic: true, showAck: true });
+  const { showAlert } = useMinorAlert();
   const { setAuth } = useAuth();
   const navigate = useNavigate();
 
@@ -21,13 +23,14 @@ const LoginRegisterPage = ({ action }) => {
     (data) => {
       setAuth((pv) => data?.data);
       data?.success && navigate("/dashboard");
+      showAlert("Log in successful.", "success", 3000);
     }
   );
 
   const { mutate: sendSignUp, isLoadingSignUp } = useApiSend(
     signup,
     ["house"],
-    (data) => {
+    () => {
       alert("Signup successful. Please wait for approval.");
     }
   );
