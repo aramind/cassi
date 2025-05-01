@@ -1,5 +1,6 @@
 import React from "react";
 import DraggableDialog from "../../components/DraggableDialog";
+
 import {
   Button,
   DialogActions,
@@ -7,9 +8,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 const RegisterSuccessDialog = ({ open, handleClose }) => {
   const navigate = useNavigate();
+
   return (
     <DraggableDialog
       open={open}
@@ -17,14 +18,9 @@ const RegisterSuccessDialog = ({ open, handleClose }) => {
       title="Registration Successful!"
     >
       <DialogContent>
-        {/* <Typography
-          color="primary.dark"
-          textTransform="uppercase"
-          fontWeight="bold"
-          textAlign="center"
-        >
-          Registration Successful!
-        </Typography> */}
+        <Typography textAlign="center" fontSize="2rem">
+          🥳🎉🎊
+        </Typography>
         <Typography textAlign="center">
           <Typography
             color="primary.dark"
