@@ -18,17 +18,11 @@ import {
 import ControlledTextField from "../../components/controlled/ControlledTextField";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextFieldError from "../../components/controlled/TextFieldError";
-import useRootReq from "../../hooks/api/public/useRootReq";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import useApiSend from "../../hooks/api/useApiSend";
-import AnimatedLoader from "../../components/AnimatedLoader";
-import LoadingPage from "../LoadingPage";
 
 const LoginRegisterForm = ({ action, buttonColor, sendSignUp, sendLogin }) => {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const { setAuth, auth, persist, setPersist } = useAuth();
+  const { persist, setPersist } = useAuth();
 
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
