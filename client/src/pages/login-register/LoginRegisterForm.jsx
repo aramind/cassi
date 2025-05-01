@@ -22,6 +22,7 @@ import useRootReq from "../../hooks/api/public/useRootReq";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useApiSend from "../../hooks/api/useApiSend";
+import AnimatedLoader from "../../components/AnimatedLoader";
 
 const LoginRegisterForm = ({ action, buttonColor }) => {
   const { login, signup } = useRootReq({ isPublic: true, showAck: true });
@@ -72,8 +73,6 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
       sendSignUp({ data });
     }
   };
-
-  console.log("AUUUTH:", auth);
 
   return (
     <FormWrapper formMethods={formMethods}>
