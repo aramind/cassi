@@ -24,7 +24,7 @@ const LoginRegisterPage = ({ action }) => {
     color: (theme) => theme.palette.primary.light,
   };
   return (
-    <BodyContainer>
+    <BodyContainer withTopBar={false} withInfoIcon={true}>
       <Stack
         width={{ xs: "90%", md: "500px" }}
         className="centered"

@@ -24,7 +24,7 @@ const ActionButton = ({ bgcolor, sxProps, text, onClickHandler }) => {
 const Landing = () => {
   const navigate = useNavigate();
   return (
-    <BodyContainer>
+    <BodyContainer withTopBar={false} withInfoIcon={true}>
       <Stack
         width={{ xs: "100%", md: "500px" }}
         className=" centered"

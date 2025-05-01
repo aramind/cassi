@@ -1,8 +1,14 @@
-import { Stack } from "@mui/material";
+import { Box, IconButton, Stack } from "@mui/material";
 import React from "react";
 import TopBar from "../components/TopBar";
+import { InfoIcon } from "../utils/muiIcons";
 
-const BodyContainer = ({ justifyContent, withTopBar = true, children }) => {
+const BodyContainer = ({
+  justifyContent,
+  withTopBar = true,
+  withInfoIcon = false,
+  children,
+}) => {
   return (
     <Stack
       bgcolor={(theme) => theme.palette.myWhite.main}
@@ -16,6 +22,20 @@ const BodyContainer = ({ justifyContent, withTopBar = true, children }) => {
       }}
     >
       {withTopBar && <TopBar />}
+      {withInfoIcon && (
+        <Stack
+          width={1}
+          // className="outlined"
+          direction="row"
+          justifyContent="flex-end"
+          spacing={1}
+        >
+          <IconButton color="info" disabled>
+            {" "}
+            <InfoIcon />
+          </IconButton>
+        </Stack>
+      )}
       {children}
     </Stack>
     // <Box

@@ -16,4 +16,5 @@ export {
   CloseRounded as XIcon,
   RestartAltRounded as ResetIcon,
   CheckBoxRounded as SquaredCheckIcon,
+  InfoOutlined as InfoIcon,
 } from "@mui/icons-material";
