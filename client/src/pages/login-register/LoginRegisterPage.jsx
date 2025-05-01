@@ -4,8 +4,34 @@ import { Box, Stack, Typography } from "@mui/material";
 import HeroImage from "./HeroImage";
 import NavigateLink from "./NavigateLink";
 import LoginRegisterForm from "./LoginRegisterForm";
+import useApiSend from "../../hooks/api/useApiSend";
+import useRootReq from "../../hooks/api/public/useRootReq";
+import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import LoadingPage from "../LoadingPage";
 
 const LoginRegisterPage = ({ action }) => {
+  const { login, signup } = useRootReq({ isPublic: true, showAck: true });
+  const { setAuth, auth, persist, setPersist } = useAuth();
+  const navigate = useNavigate();
+
+  const { mutate: sendLogin, isLoading } = useApiSend(
+    login,
+    ["house"],
+    (data) => {
+      setAuth((pv) => data?.data);
+      data?.success && navigate("/dashboard");
+    }
+  );
+
+  const { mutate: sendSignUp, isLoadingSignUp } = useApiSend(
+    signup,
+    ["house"],
+    (data) => {
+      alert("Signup successful. Please wait for approval.");
+    }
+  );
+
   const values = {
     color: action === "login" ? "accent" : "primary",
     headerText: action === "login" ? "Welcome Back!" : "Get Started!",
@@ -23,6 +49,10 @@ const LoginRegisterPage = ({ action }) => {
   const defaultValues = {
     color: (theme) => theme.palette.primary.light,
   };
+
+  if (isLoading || isLoadingSignUp) {
+    return <LoadingPage />;
+  }
   return (
     <BodyContainer withTopBar={false} withInfoIcon={true}>
       <Stack
@@ -46,7 +76,12 @@ const LoginRegisterPage = ({ action }) => {
         </Typography>
         <br />
         <Box width={1}>
-          <LoginRegisterForm action={action} buttonColor={values?.color} />
+          <LoginRegisterForm
+            action={action}
+            buttonColor={values?.color}
+            sendLogin={sendLogin}
+            sendSignUp={sendSignUp}
+          />
         </Box>
         <NavigateLink to={values?.navigateTo} />
       </Stack>

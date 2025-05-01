@@ -23,9 +23,9 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useApiSend from "../../hooks/api/useApiSend";
 import AnimatedLoader from "../../components/AnimatedLoader";
+import LoadingPage from "../LoadingPage";
 
-const LoginRegisterForm = ({ action, buttonColor }) => {
-  const { login, signup } = useRootReq({ isPublic: true, showAck: true });
+const LoginRegisterForm = ({ action, buttonColor, sendSignUp, sendLogin }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const { setAuth, auth, persist, setPersist } = useAuth();
@@ -33,23 +33,6 @@ const LoginRegisterForm = ({ action, buttonColor }) => {
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
   };
-
-  const { mutate: sendLogin, isLoading } = useApiSend(
-    login,
-    ["house"],
-    (data) => {
-      setAuth((pv) => data?.data);
-      data?.success && navigate("/dashboard");
-    }
-  );
-
-  const { mutate: sendSignUp, isLoadingSignUp } = useApiSend(
-    signup,
-    ["house"],
-    (data) => {
-      alert("Signup successful. Please wait for approval.");
-    }
-  );
 
   const {
     control,
