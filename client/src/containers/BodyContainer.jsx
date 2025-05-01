@@ -1,4 +1,4 @@
-import { Box, IconButton, Stack } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
 import React from "react";
 import TopBar from "../components/TopBar";
 import { InfoIcon } from "../utils/muiIcons";
@@ -14,7 +14,6 @@ const BodyContainer = ({
       bgcolor={(theme) => theme.palette.myWhite.main}
       p={{ xs: 1, md: 2 }}
       alignItems="center"
-      // className="outlined"
       sx={{
         minHeight: "100vh",
         minWidth: "100vw",
@@ -23,13 +22,7 @@ const BodyContainer = ({
     >
       {withTopBar && <TopBar />}
       {withInfoIcon && (
-        <Stack
-          width={1}
-          // className="outlined"
-          direction="row"
-          justifyContent="flex-end"
-          spacing={1}
-        >
+        <Stack width={1} direction="row" justifyContent="flex-end" spacing={1}>
           <IconButton color="info" disabled>
             {" "}
             <InfoIcon />
@@ -38,15 +31,6 @@ const BodyContainer = ({
       )}
       {children}
     </Stack>
-    // <Box
-    //   minHeight="100vh"
-    //   minWidth="100vw"
-    //   bgcolor={(theme) => theme.palette.myWhite.main}
-    //   p={{ xs: 1, md: 2 }}
-    //   className=" centered"
-    // >
-    //   {children}
-    // </Box>
   );
 };
 
