@@ -40,7 +40,7 @@ const TrackersPage = () => {
     handleDeletingTrackerInfo,
     renderConfirmActionDialog,
     isLoadingInUpdatingTracker,
-  } = useTrackerActions(handleCloseDialog);
+  } = useTrackerActions({ handleCloseDialog });
 
   const { getTrackers } = useTrackerReq({
     isPublic: false,
