@@ -20,7 +20,7 @@ import EntryDialog from "./EntryDialog";
 const TrackersPage = () => {
   // states
   const [openDeletedTrackers, setOpenDeletedTrackers] = useState(false);
-  const [selectedTracker, setSelectedTracker] = useState(false);
+
   // hooks
   const { auth } = useAuth();
   const { dialogState, handleOpenDialog, handleCloseDialog } =
