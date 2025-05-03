@@ -36,6 +36,47 @@ const useTrackerActions = ({ handleCloseDialog }) => {
     });
   };
 
+  const handleUpdatingTrackerInfo = (id, updates) => {
+    handleConfirm(
+      "Confirm Update",
+      getConfirmText("update", "tracker"),
+      async () => {
+        try {
+          await sendUpdateTracker(
+            {
+              trackerId: id,
+              data: updates,
+            },
+            { showFeedbackMsg: true }
+          );
+
+          handleCloseDialog();
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    );
+  };
+
+  const handleDeletingTrackerInfo = (tracker, updates) =>
+    handleConfirm(
+      "Confirm Delete",
+      getConfirmText("delete", "tracker"),
+      async () => {
+        try {
+          await sendUpdateTracker(
+            {
+              trackerId: tracker?._id,
+              data: updates,
+            },
+            { showFeedbackMsg: true, message: "Tracker deleted successfully." }
+          );
+          handleCloseDialog();
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    );
   // handlers for entries
 
   const handleAddingEntry = async (tracker, data) => {
@@ -131,48 +172,6 @@ const useTrackerActions = ({ handleCloseDialog }) => {
       }
     );
   };
-
-  const handleUpdatingTrackerInfo = (id, updates) => {
-    handleConfirm(
-      "Confirm Update",
-      getConfirmText("update", "tracker"),
-      async () => {
-        try {
-          await sendUpdateTracker(
-            {
-              trackerId: id,
-              data: updates,
-            },
-            { showFeedbackMsg: true }
-          );
-
-          handleCloseDialog();
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    );
-  };
-
-  const handleDeletingTrackerInfo = (tracker, updates) =>
-    handleConfirm(
-      "Confirm Delete",
-      getConfirmText("delete", "tracker"),
-      async () => {
-        try {
-          await sendUpdateTracker(
-            {
-              trackerId: tracker?._id,
-              data: updates,
-            },
-            { showFeedbackMsg: true, message: "Tracker deleted successfully." }
-          );
-          handleCloseDialog();
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    );
 
   return {
     handleConfirmAddTracker,
