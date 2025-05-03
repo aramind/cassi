@@ -97,7 +97,6 @@ const TaskDialog = ({
         updates: formData,
         needsToConfirm: true,
       });
-      handleCloseDialog();
     }
   };
   const handleClose = (e) => {
