@@ -175,7 +175,7 @@ const EntryDialog = ({
             <form noValidate>
               <Stack spacing={1}>
                 <ControlledLabelledTextField
-                  label="date (mm/dd/yyy)"
+                  label="date (mm/dd/yyyy)"
                   name="date"
                 />
                 <ControlledLabelledSelect
