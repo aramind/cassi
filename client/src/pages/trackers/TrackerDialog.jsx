@@ -154,7 +154,7 @@ const TrackerDialog = ({
         </DialogActions>
       </DraggableDialog>
       {renderConfirmActionDialog()}
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
     </>
   );
 };

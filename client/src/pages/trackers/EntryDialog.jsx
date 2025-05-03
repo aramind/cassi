@@ -220,7 +220,7 @@ const EntryDialog = ({
             {submitBtnText}
           </Button>
         </DialogActions>
-        <DevTool control={control} />
+        {/* <DevTool control={control} /> */}
       </DraggableDialog>
       {renderConfirmActionDialog()}
     </>

@@ -236,7 +236,7 @@ const AnnouncementDialog = ({
                 />
               </Stack>
             </form>
-            <DevTool control={control} />
+            {/* <DevTool control={control} /> */}
           </FormWrapper>
         </DialogContent>
         <br />

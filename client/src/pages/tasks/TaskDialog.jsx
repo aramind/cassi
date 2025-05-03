@@ -192,7 +192,7 @@ const TaskDialog = ({
           </Button>
         </DialogActions>
       </DraggableDialog>
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
     </>
   );
 };
