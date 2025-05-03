@@ -5,7 +5,7 @@ const CONSTANTS = require("../configs/constants");
 const Schema = mongoose.Schema;
 
 const TrackerSchema = new Schema({
-  title: { type: String, required: true },
+  title: { type: String, required: true, unique: true },
   description: { type: String },
   house: { type: Schema.Types.ObjectId, ref: House, required: true },
   entries: [
