@@ -83,6 +83,10 @@ const TYPE_OPTIONS = [
     label: "inquiry",
     value: "inquiry",
   },
+  {
+    label: "others",
+    value: "others",
+  },
 ];
 
 const AnnouncementDialog = ({
