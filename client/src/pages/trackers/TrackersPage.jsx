@@ -58,20 +58,6 @@ const TrackersPage = () => {
     { enabled: !!auth?.houseInfo?._id }
   );
 
-  const handleAddTrackerSubmit = (formData) => {
-    const res = handleConfirmAddTracker(formData);
-    if (res?.success) {
-      handleCloseDialog();
-    }
-  };
-
-  const handleUpdateTrackerSubmit = (id, formData) => {
-    const res = handleUpdatingTrackerInfo(id, formData);
-    if (res?.success) {
-      handleCloseDialog();
-    }
-  };
-
   // calculated values before rendering
   const activeTrackers = trackersData?.data?.filter(
     (tracker) => tracker?.status?.toLowerCase() === "active"
@@ -141,8 +127,8 @@ const TrackersPage = () => {
         handleCloseDialog={handleCloseDialog}
         submitHandler={
           dialogState?.action === "add"
-            ? handleAddTrackerSubmit
-            : handleUpdateTrackerSubmit
+            ? handleConfirmAddTracker
+            : handleUpdatingTrackerInfo
         }
       />
       <EntryDialog

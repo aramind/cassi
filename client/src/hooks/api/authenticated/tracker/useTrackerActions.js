@@ -30,7 +30,6 @@ const useTrackerActions = ({ handleCloseDialog }) => {
         if (res?.success) {
           handleCloseDialog();
         }
-        console.log(res);
       } catch (error) {
         console.error(error);
       }
