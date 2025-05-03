@@ -42,7 +42,7 @@ const useTrackerActions = ({ handleCloseDialog }) => {
       getConfirmText("update", "tracker"),
       async () => {
         try {
-          await sendUpdateTracker(
+          const res = await sendUpdateTracker(
             {
               trackerId: id,
               data: updates,
@@ -50,7 +50,9 @@ const useTrackerActions = ({ handleCloseDialog }) => {
             { showFeedbackMsg: true }
           );
 
-          handleCloseDialog();
+          if (res?.success) {
+            handleCloseDialog();
+          }
         } catch (error) {
           console.error(error);
         }
