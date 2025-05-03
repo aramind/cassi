@@ -153,7 +153,7 @@ const TaskDialog = ({
               </Stack>
 
               <ControlledLabelledTextField
-                label="due date (mm/dd/yyy)"
+                label="due date (mm/dd/yyyy)"
                 name="dueDate"
               />
               <Stack spacing={1} direction="row" justifyContent="flex-start">
