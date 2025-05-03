@@ -40,6 +40,7 @@ const TrackersPage = () => {
     handleDeletingTrackerInfo,
     renderConfirmActionDialog,
     isLoadingInUpdatingTracker,
+    isLoadingInAddingTracker,
   } = useTrackerActions({ handleCloseDialog });
 
   const { getTrackers } = useTrackerReq({
@@ -57,6 +58,20 @@ const TrackersPage = () => {
     { enabled: !!auth?.houseInfo?._id }
   );
 
+  const handleAddTrackerSubmit = (formData) => {
+    const res = handleConfirmAddTracker(formData);
+    if (res?.success) {
+      handleCloseDialog();
+    }
+  };
+
+  const handleUpdateTrackerSubmit = (id, formData) => {
+    const res = handleUpdatingTrackerInfo(id, formData);
+    if (res?.success) {
+      handleCloseDialog();
+    }
+  };
+
   // calculated values before rendering
   const activeTrackers = trackersData?.data?.filter(
     (tracker) => tracker?.status?.toLowerCase() === "active"
@@ -66,7 +81,11 @@ const TrackersPage = () => {
     (tracker) => tracker?.status?.toLowerCase() === "deleted"
   );
 
-  if (isLoadingInGetReq || isLoadingInUpdatingTracker) {
+  if (
+    isLoadingInGetReq ||
+    isLoadingInUpdatingTracker ||
+    isLoadingInAddingTracker
+  ) {
     return <LoadingPage />;
   }
 
@@ -122,8 +141,8 @@ const TrackersPage = () => {
         handleCloseDialog={handleCloseDialog}
         submitHandler={
           dialogState?.action === "add"
-            ? handleConfirmAddTracker
-            : handleUpdatingTrackerInfo
+            ? handleAddTrackerSubmit
+            : handleUpdateTrackerSubmit
         }
       />
       <EntryDialog

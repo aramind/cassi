@@ -5,18 +5,35 @@ import useTrackerReq from "../useTrackerReq";
 import { getConfirmText } from "../../../../utils/dialogUtils";
 import { Typography } from "@mui/material";
 import { convertToISOFormat } from "../../../../utils/date";
+import useApiSendAsync from "../../useApiSendAsync";
 
 const useTrackerActions = ({ handleCloseDialog }) => {
+  const { addTracker } = useTrackerReq({ isPublic: false, showAck: false });
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
   const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
-
-  const { addTracker } = useTrackerReq({ isPublic: false, showAck: false });
+  const { send: sendAdd, isLoadingInAddingTracker } = useApiSendAsync(
+    addTracker,
+    ["trackers"]
+  );
 
   const handleConfirmAddTracker = (formData) => {
     handleConfirm("Add tracker", getConfirmText("add", "tracker"), async () => {
-      await addTracker({ data: { tracker: formData } });
-      handleCloseDialog();
+      // await addTracker({ data: { tracker: formData } });
+
+      try {
+        const res = await sendAdd(
+          { data: { tracker: formData } },
+          { showFeedbackMsg: true }
+        );
+
+        if (res?.success) {
+          handleCloseDialog();
+        }
+        console.log(res);
+      } catch (error) {
+        console.error(error);
+      }
     });
   };
 
@@ -168,6 +185,7 @@ const useTrackerActions = ({ handleCloseDialog }) => {
     handleDeletingTrackerInfo,
     renderConfirmActionDialog,
     isLoadingInUpdatingTracker,
+    isLoadingInAddingTracker,
   };
 };
 
