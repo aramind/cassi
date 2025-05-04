@@ -8,12 +8,19 @@ import { convertToISOFormat } from "../../../../utils/date";
 import useApiSendAsync from "../../useApiSendAsync";
 
 const useTrackerActions = ({ handleCloseDialog }) => {
-  const { addTracker } = useTrackerReq({ isPublic: false, showAck: false });
+  const { addTracker, hardDeleteTracker } = useTrackerReq({
+    isPublic: false,
+    showAck: false,
+  });
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
   const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
   const { send: sendAdd, isLoadingInAddingTracker } = useApiSendAsync(
     addTracker,
+    ["trackers"]
+  );
+  const { send: sendHardDelete, isLoadingInHardDelete } = useApiSendAsync(
+    hardDeleteTracker,
     ["trackers"]
   );
 
@@ -79,6 +86,25 @@ const useTrackerActions = ({ handleCloseDialog }) => {
         }
       }
     );
+
+  const handleHardDelete = (trackerId) => {
+    handleConfirm(
+      "Are you sure you want to permanently delete this tracker from database? (This is process is not reversible)",
+      async () => {
+        try {
+          const res = await sendHardDelete(trackerId, {
+            showFeedbackMsg: true,
+            message: "Tracker deleted successfully.",
+          });
+          if (res?.success) {
+            handleCloseDialog();
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    );
+  };
   // handlers for entries
 
   const handleAddingEntry = async (tracker, data) => {
