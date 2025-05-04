@@ -24,7 +24,14 @@ const FeedbackNotif = () => {
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
       sx={{ zIndex: "999999" }}
     >
-      <Alert severity={alert.severity}>{alert.message}</Alert>
+      <Alert
+        severity={alert.severity}
+        onClose={handleClose}
+        className="outlined"
+        sx={{ display: "flex", alignItems: "center" }}
+      >
+        {alert.message}
+      </Alert>
     </Snackbar>
   );
 };
