@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "react-query";
-import useMinorAlert from "../useMinorAlert";
+import useAlerts from "../useAlerts";
 
 const useApiSend = (fn, invalidateKey, successFn, errorFn, options) => {
   const queryClient = useQueryClient();
-  const { showAlert } = useMinorAlert();
+  const { showAckAlert } = useAlerts();
 
   return useMutation({
     mutationFn: fn,
@@ -16,7 +16,7 @@ const useApiSend = (fn, invalidateKey, successFn, errorFn, options) => {
     },
     onError: async (err) => {
       errorFn && errorFn(err);
-      showAlert(`Error in request : ${err?.message}`, "error", 3000);
+      showAckAlert(`Error in request : ${err?.message}`, "error", 3000);
     },
     retry: 0,
     ...options,

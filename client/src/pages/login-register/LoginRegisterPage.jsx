@@ -9,15 +9,15 @@ import useRootReq from "../../hooks/api/public/useRootReq";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../LoadingPage";
-import useMinorAlert from "../../hooks/useMinorAlert";
 import RegisterSuccessDialog from "./RegisterSuccessDialog";
+import useAlerts from "../../hooks/useAlerts";
 
 const LoginRegisterPage = ({ action }) => {
   const [openRegisterSuccessDialog, setOpenRegisterSuccessDialog] =
     useState(false);
   const { login, signup } = useRootReq({ isPublic: true, showAck: true });
 
-  const { showAlert } = useMinorAlert();
+  const { showAutoHideAlert } = useAlerts();
   const { setAuth } = useAuth();
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const LoginRegisterPage = ({ action }) => {
     (data) => {
       setAuth((pv) => data?.data);
       data?.success && navigate("/dashboard");
-      showAlert("Log in successful.", "success", 3000);
+      showAutoHideAlert("Log in successful.", "success", 3000);
     }
   );
 
