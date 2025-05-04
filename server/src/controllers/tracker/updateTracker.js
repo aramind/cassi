@@ -25,7 +25,12 @@ const updateTracker = async (req, res) => {
   } catch (error) {
     console.log(error);
     if (error.code === 11000) {
-      return sendResponse.failed(res, "Tracker title already exist!");
+      return sendResponse.failed(
+        res,
+        "Tracker title already exist!",
+        error,
+        409
+      );
     }
     return sendResponse.failed(
       res,
