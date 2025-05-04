@@ -1,13 +1,13 @@
 import { Box, Divider, IconButton, Stack, Typography } from "@mui/material";
-import React from "react";
-import RestoreOutlinedIcon from "@mui/icons-material/RestoreOutlined";
+import React, { Fragment } from "react";
+import { RestoreIcon } from "../../utils/muiIcons";
 
 const DeletedTrackers = ({ trackers, restoreTrackerHandler }) => {
   return (
     <Stack width={1}>
       {trackers?.map((tracker, index) => {
         return (
-          <>
+          <Fragment key={tracker?._id}>
             <Stack
               width={1}
               justifyContent="space-between"
@@ -27,12 +27,12 @@ const DeletedTrackers = ({ trackers, restoreTrackerHandler }) => {
                     restoreTrackerHandler(tracker?._id, tracker?.title)
                   }
                 >
-                  <RestoreOutlinedIcon />
+                  <RestoreIcon />
                 </IconButton>
               </Box>
             </Stack>
             <Divider />
-          </>
+          </Fragment>
         );
       })}
     </Stack>
