@@ -38,6 +38,14 @@ const useTrackerReq = ({ isPublic, showAck }) => {
       refreshTrackers();
       return res;
     },
+    hardDeleteTracker: async (trackerId) => {
+      const res = request({
+        url: `${url}/${trackerId}`,
+        method: "DELETE",
+      });
+      refreshTrackers();
+      return res;
+    },
   };
 
   return req;
