@@ -5,7 +5,7 @@ import { DeleteIcon, RestoreIcon } from "../../utils/muiIcons";
 const DeletedTrackers = ({ trackers, restoreTrackerHandler }) => {
   return (
     <Stack width={1}>
-      {trackers?.map((tracker, index) => {
+      {trackers?.map((tracker) => {
         return (
           <Fragment key={tracker?._id}>
             <Stack
