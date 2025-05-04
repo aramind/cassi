@@ -26,7 +26,7 @@ function AckAlert() {
       <Alert
         severity={alert.severity}
         onClose={handleClose}
-        className="outlined"
+        // className="outlined"
         sx={{ display: "flex", alignItems: "center" }}
       >
         {alert.message}
