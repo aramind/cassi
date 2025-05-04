@@ -1,6 +1,6 @@
 import { Box, Divider, IconButton, Stack, Typography } from "@mui/material";
 import React, { Fragment } from "react";
-import { RestoreIcon } from "../../utils/muiIcons";
+import { DeleteIcon, RestoreIcon } from "../../utils/muiIcons";
 
 const DeletedTrackers = ({ trackers, restoreTrackerHandler }) => {
   return (
@@ -21,6 +21,13 @@ const DeletedTrackers = ({ trackers, restoreTrackerHandler }) => {
                 </Typography>
               </Stack>
               <Box>
+                <IconButton
+                  conButton
+                  aria-label="delete-icon-button"
+                  onClick={() => alert(`permanent deleting ${tracker?._id}`)}
+                >
+                  <DeleteIcon />
+                </IconButton>
                 <IconButton
                   aria-label="restore"
                   onClick={() =>
