@@ -62,7 +62,6 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
             { showFeedbackMsg: true }
           );
 
-          console.log(res);
           if (res?.success) {
             handleCloseDialog();
           }
