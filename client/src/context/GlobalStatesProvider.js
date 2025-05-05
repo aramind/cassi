@@ -7,7 +7,7 @@ const globalReducer = (state, action) => {
         ...state,
         alert: action.payload,
       };
-    case "SHOW_ACK_NOTIFICATION":
+    case "SHOW_ACK_ALERT":
       return {
         ...state,
         ackAlert: action.payload,
@@ -19,12 +19,12 @@ const globalReducer = (state, action) => {
 };
 
 const initialGlobalState = {
-  alert: { open: false, severity: "info", message: "" },
+  alert: { open: false, severity: "info", message: "", autoHideDuration: 3000 },
   ackAlert: {
     open: false,
     severity: "info",
     message: "",
-    autoHideDuration: 3000,
+    autoHideDuration: 300000,
   },
 };
 

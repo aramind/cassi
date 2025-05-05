@@ -10,5 +10,6 @@ router.use(verifyHouse);
 router.post("/add", trackerController.addTracker);
 router.get("", trackerController.getTrackers);
 router.patch("/:trackerId", trackerController.updateTracker);
+router.delete("/:trackerId", trackerController.deleteTracker);
 
 module.exports = router;

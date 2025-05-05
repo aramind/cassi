@@ -36,6 +36,14 @@ const update = async (req, res) => {
     return sendResponse.success(res, "Update successful", updated, 200);
   } catch (error) {
     console.log(error);
+    if (error.code === 11000) {
+      return sendResponse.failed(
+        res,
+        "Announcement title already exist!",
+        error,
+        409
+      );
+    }
     return sendResponse.failed(
       res,
       "Server Error: Updating announcement.",

@@ -6,7 +6,7 @@ const CONSTANTS = require("../configs/constants");
 
 const AnnouncementSchema = new Schema(
   {
-    title: { type: String, default: "Untitled Announcement" },
+    title: { type: String, default: "Untitled Announcement", unique: true },
     content: { type: String },
     house: { type: Schema.Types.ObjectId, ref: House, required: true },
     createdBy: { type: Schema.Types.ObjectId, ref: Occupant, required: true },

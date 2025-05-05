@@ -3,23 +3,126 @@ import useUpdateTracker from "./useUpdateTracker";
 import useConfirmActionDialog from "../../../useConfirmActionDialog";
 import useTrackerReq from "../useTrackerReq";
 import { getConfirmText } from "../../../../utils/dialogUtils";
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { convertToISOFormat } from "../../../../utils/date";
+import useApiSendAsync from "../../useApiSendAsync";
 
 const useTrackerActions = ({ handleCloseDialog }) => {
+  const { addTracker, hardDeleteTracker } = useTrackerReq({
+    isPublic: false,
+    showAck: false,
+  });
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
   const { sendUpdateTracker, isLoadingInUpdatingTracker } = useUpdateTracker();
-
-  const { addTracker } = useTrackerReq({ isPublic: false, showAck: false });
+  const { send: sendAdd, isLoadingInAddingTracker } = useApiSendAsync(
+    addTracker,
+    ["trackers"]
+  );
+  const { send: sendHardDelete, isLoadingInHardDelete } = useApiSendAsync(
+    hardDeleteTracker,
+    ["trackers"]
+  );
 
   const handleConfirmAddTracker = (formData) => {
     handleConfirm("Add tracker", getConfirmText("add", "tracker"), async () => {
-      await addTracker({ data: { tracker: formData } });
-      handleCloseDialog();
+      // await addTracker({ data: { tracker: formData } });
+
+      try {
+        const res = await sendAdd(
+          { data: { tracker: formData } },
+          { showFeedbackMsg: true }
+        );
+
+        if (res?.success) {
+          handleCloseDialog();
+        }
+      } catch (error) {
+        console.error(error);
+      }
     });
   };
 
+  const handleUpdatingTrackerInfo = (id, updates) => {
+    handleConfirm(
+      "Confirm Update",
+      getConfirmText("update", "tracker"),
+      async () => {
+        try {
+          const res = await sendUpdateTracker(
+            {
+              trackerId: id,
+              data: updates,
+            },
+            { showFeedbackMsg: true }
+          );
+
+          if (res?.success) {
+            handleCloseDialog();
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    );
+  };
+
+  const handleDeletingTrackerInfo = (tracker, updates) =>
+    handleConfirm(
+      "Confirm Delete",
+      getConfirmText("delete", "tracker"),
+      async () => {
+        try {
+          await sendUpdateTracker(
+            {
+              trackerId: tracker?._id,
+              data: updates,
+            },
+            { showFeedbackMsg: true, message: "Tracker deleted successfully." }
+          );
+          handleCloseDialog();
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    );
+
+  const handleHardDelete = (trackerId) => {
+    handleConfirm(
+      "Confirm Delete",
+      <Stack spacing={2}>
+        <Typography component="span">
+          Are you sure you want to{" "}
+          <Typography
+            textTransform="uppercase"
+            color="error"
+            component="span"
+            fontWeight="bold"
+          >
+            permanently
+          </Typography>{" "}
+          remove this tracker from database?
+        </Typography>
+        <Typography textTransform="uppercase" color="error">
+          NOTE: This is process is not reversible
+        </Typography>
+      </Stack>,
+
+      async () => {
+        try {
+          const res = await sendHardDelete(trackerId, {
+            showFeedbackMsg: true,
+            message: "Tracker deleted successfully.",
+          });
+          if (res?.success) {
+            handleCloseDialog();
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    );
+  };
   // handlers for entries
 
   const handleAddingEntry = async (tracker, data) => {
@@ -116,48 +219,6 @@ const useTrackerActions = ({ handleCloseDialog }) => {
     );
   };
 
-  const handleUpdatingTrackerInfo = (id, updates) => {
-    handleConfirm(
-      "Confirm Update",
-      getConfirmText("update", "tracker"),
-      async () => {
-        try {
-          await sendUpdateTracker(
-            {
-              trackerId: id,
-              data: updates,
-            },
-            { showFeedbackMsg: true }
-          );
-
-          handleCloseDialog();
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    );
-  };
-
-  const handleDeletingTrackerInfo = (tracker, updates) =>
-    handleConfirm(
-      "Confirm Delete",
-      getConfirmText("delete", "tracker"),
-      async () => {
-        try {
-          await sendUpdateTracker(
-            {
-              trackerId: tracker?._id,
-              data: updates,
-            },
-            { showFeedbackMsg: true, message: "Tracker deleted successfully." }
-          );
-          handleCloseDialog();
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    );
-
   return {
     handleConfirmAddTracker,
     handleAddingEntry,
@@ -167,7 +228,10 @@ const useTrackerActions = ({ handleCloseDialog }) => {
     handleUpdatingTrackerInfo,
     handleDeletingTrackerInfo,
     renderConfirmActionDialog,
+    handleHardDelete,
     isLoadingInUpdatingTracker,
+    isLoadingInAddingTracker,
+    isLoadingInHardDelete,
   };
 };
 

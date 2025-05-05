@@ -2,20 +2,19 @@ import React from "react";
 import { useGlobalState } from "../../context/GlobalStatesProvider";
 import { Alert, Snackbar } from "@mui/material";
 
-const FeedbackNotif = () => {
+function AckAlert() {
   const {
-    globalState: { alert },
+    globalState: { ackAlert },
     dispatch,
   } = useGlobalState();
 
   const handleClose = (_, reason) => {
     if (reason === "clickaway") return;
     dispatch({
-      type: "SHOW_MINOR_ALERT",
-      payload: { ...alert, open: false },
+      type: "SHOW_ACK_ALERT",
+      payload: { ...ackAlert, open: false },
     });
   };
-
   return (
     <Snackbar
       open={alert.open}
@@ -33,6 +32,6 @@ const FeedbackNotif = () => {
       </Alert>
     </Snackbar>
   );
-};
+}
 
-export default FeedbackNotif;
+export default AckAlert;

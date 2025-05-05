@@ -6,6 +6,7 @@ export {
   ModeEditOutlineRounded as EditIcon,
   TripOrigin as DotIcon,
   DeleteOutlineRounded as DeleteIcon,
+  RestoreOutlined as RestoreIcon,
   SendRounded as Send,
   AddCircleOutlineRounded as CircledPlus,
   SwapVert as Sort,

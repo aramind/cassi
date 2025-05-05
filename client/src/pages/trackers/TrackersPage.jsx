@@ -20,7 +20,7 @@ import EntryDialog from "./EntryDialog";
 const TrackersPage = () => {
   // states
   const [openDeletedTrackers, setOpenDeletedTrackers] = useState(false);
-  const [selectedTracker, setSelectedTracker] = useState(false);
+
   // hooks
   const { auth } = useAuth();
   const { dialogState, handleOpenDialog, handleCloseDialog } =
@@ -36,11 +36,14 @@ const TrackersPage = () => {
     handleUpdatingEntry,
     handleConfirmDeleteEntry,
     handleConfirmRestore,
+    handleHardDelete,
     handleUpdatingTrackerInfo,
     handleDeletingTrackerInfo,
     renderConfirmActionDialog,
     isLoadingInUpdatingTracker,
-  } = useTrackerActions(handleCloseDialog);
+    isLoadingInAddingTracker,
+    isLoadingInHardDelete,
+  } = useTrackerActions({ handleCloseDialog });
 
   const { getTrackers } = useTrackerReq({
     isPublic: false,
@@ -66,7 +69,12 @@ const TrackersPage = () => {
     (tracker) => tracker?.status?.toLowerCase() === "deleted"
   );
 
-  if (isLoadingInGetReq || isLoadingInUpdatingTracker) {
+  if (
+    isLoadingInGetReq ||
+    isLoadingInUpdatingTracker ||
+    isLoadingInAddingTracker ||
+    isLoadingInHardDelete
+  ) {
     return <LoadingPage />;
   }
 
@@ -113,6 +121,7 @@ const TrackersPage = () => {
             <DeletedTrackers
               trackers={deletedTrackers}
               restoreTrackerHandler={handleConfirmRestore}
+              handleHardDelete={handleHardDelete}
             />
           </FullScreenDialog>
         )}

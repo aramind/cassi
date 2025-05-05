@@ -92,8 +92,6 @@ const TrackerDialog = ({
     } else if (action === "update" && formData?._id) {
       await submitHandler(formData?._id, formData);
     }
-
-    handleCloseDialog();
   };
 
   const handleClose = (e) => {
@@ -156,7 +154,7 @@ const TrackerDialog = ({
         </DialogActions>
       </DraggableDialog>
       {renderConfirmActionDialog()}
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
     </>
   );
 };

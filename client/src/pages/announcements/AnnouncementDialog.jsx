@@ -83,6 +83,10 @@ const TYPE_OPTIONS = [
     label: "inquiry",
     value: "inquiry",
   },
+  {
+    label: "others",
+    value: "others",
+  },
 ];
 
 const AnnouncementDialog = ({
@@ -232,7 +236,7 @@ const AnnouncementDialog = ({
                 />
               </Stack>
             </form>
-            <DevTool control={control} />
+            {/* <DevTool control={control} /> */}
           </FormWrapper>
         </DialogContent>
         <br />
