@@ -3,7 +3,7 @@ import useUpdateTracker from "./useUpdateTracker";
 import useConfirmActionDialog from "../../../useConfirmActionDialog";
 import useTrackerReq from "../useTrackerReq";
 import { getConfirmText } from "../../../../utils/dialogUtils";
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { convertToISOFormat } from "../../../../utils/date";
 import useApiSendAsync from "../../useApiSendAsync";
 
@@ -89,7 +89,25 @@ const useTrackerActions = ({ handleCloseDialog }) => {
 
   const handleHardDelete = (trackerId) => {
     handleConfirm(
-      "Are you sure you want to permanently delete this tracker from database? (This is process is not reversible)",
+      "Confirm Delete",
+      <Stack spacing={2}>
+        <Typography component="span">
+          Are you sure you want to{" "}
+          <Typography
+            textTransform="uppercase"
+            color="error"
+            component="span"
+            fontWeight="bold"
+          >
+            permanently
+          </Typography>{" "}
+          remove this tracker from database?
+        </Typography>
+        <Typography textTransform="uppercase" color="error">
+          NOTE: This is process is not reversible
+        </Typography>
+      </Stack>,
+
       async () => {
         try {
           const res = await sendHardDelete(trackerId, {
@@ -210,8 +228,10 @@ const useTrackerActions = ({ handleCloseDialog }) => {
     handleUpdatingTrackerInfo,
     handleDeletingTrackerInfo,
     renderConfirmActionDialog,
+    handleHardDelete,
     isLoadingInUpdatingTracker,
     isLoadingInAddingTracker,
+    isLoadingInHardDelete,
   };
 };
 
