@@ -24,16 +24,20 @@ const DeletedTrackers = ({
                   {tracker?.description}
                 </Typography>
               </Stack>
+
               <Box>
                 <IconButton
+                  color="error"
                   conButton
                   aria-label="delete-icon-button"
                   onClick={() => handleHardDelete(tracker?._id)}
                 >
                   <DeleteIcon />
                 </IconButton>
+
                 <IconButton
                   aria-label="restore"
+                  color="info"
                   onClick={() =>
                     restoreTrackerHandler(tracker?._id, tracker?.title)
                   }
