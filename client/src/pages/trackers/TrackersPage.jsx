@@ -36,11 +36,13 @@ const TrackersPage = () => {
     handleUpdatingEntry,
     handleConfirmDeleteEntry,
     handleConfirmRestore,
+    handleHardDelete,
     handleUpdatingTrackerInfo,
     handleDeletingTrackerInfo,
     renderConfirmActionDialog,
     isLoadingInUpdatingTracker,
     isLoadingInAddingTracker,
+    isLoadingInHardDelete,
   } = useTrackerActions({ handleCloseDialog });
 
   const { getTrackers } = useTrackerReq({
@@ -70,7 +72,8 @@ const TrackersPage = () => {
   if (
     isLoadingInGetReq ||
     isLoadingInUpdatingTracker ||
-    isLoadingInAddingTracker
+    isLoadingInAddingTracker ||
+    isLoadingInHardDelete
   ) {
     return <LoadingPage />;
   }
@@ -118,6 +121,7 @@ const TrackersPage = () => {
             <DeletedTrackers
               trackers={deletedTrackers}
               restoreTrackerHandler={handleConfirmRestore}
+              handleHardDelete={handleHardDelete}
             />
           </FullScreenDialog>
         )}
