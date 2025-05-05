@@ -6,9 +6,6 @@ import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
 import AnnouncementDialog from "./AnnouncementDialog";
 import useAnnouncementReq from "../../hooks/api/authenticated/announcement/useAnnouncementReq";
-import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
-
-import useAuth from "../../hooks/useAuth";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import AnnouncementCard from "./AnnouncementCard";
@@ -21,15 +18,13 @@ const AnnouncementsPage = () => {
   // hooks
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
-  const [openAnnouncementDialog, setOpenAnnouncementDialog] = useState(false);
+
   const [openDraftedAnnouncements, setOpenDraftedAnnouncements] =
     useState(false);
   const [openDeletedAnnouncements, setOpenDeletedAnnouncements] =
     useState(false);
 
   const {
-    addAnnouncement,
-
     updateAnnouncement,
     softDelete,
     restore,
@@ -49,10 +44,6 @@ const AnnouncementsPage = () => {
     handleCloseDialog,
   });
 
-  const addAnnouncementHandler = () => {
-    setOpenAnnouncementDialog(true);
-  };
-
   const handleConfirm = () => {};
   const deleteAnnouncementHandler = (id) => {
     handleConfirm(
@@ -69,24 +60,6 @@ const AnnouncementsPage = () => {
       () => restore({ id })
     );
   };
-
-  // const handleConfirmAddAnnouncement = (formData) => {
-  //   handleConfirm(
-  //     "Publish Announcement",
-  //     <Stack spacing={2}>
-  //       <Typography>Proceed publishing this announcement?</Typography>
-
-  //       <Typography variant="h4">
-  //         <strong>TITLE : </strong>
-  //         {formData?.title}
-  //       </Typography>
-  //     </Stack>,
-  //     async () => {
-  //       await addAnnouncement({ data: { announcement: formData } });
-  //       setOpenAnnouncementDialog(false);
-  //     }
-  //   );
-  // };
 
   const handleConfirmSaveAsDraft = ({ id, data }) => {
     handleConfirm(
