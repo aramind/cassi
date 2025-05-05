@@ -7,7 +7,7 @@ import MyButton from "../../components/buttons/MyButton";
 import AnnouncementDialog from "./AnnouncementDialog";
 import useAnnouncementReq from "../../hooks/api/authenticated/announcement/useAnnouncementReq";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
-import useApiGet from "../../hooks/api/useApiGet";
+
 import useAuth from "../../hooks/useAuth";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
@@ -18,7 +18,7 @@ import useAnnouncementActions from "../../hooks/api/authenticated/announcement/u
 
 const AnnouncementsPage = () => {
   // hooks
-  const { auth } = useAuth();
+
   const [openAnnouncementDialog, setOpenAnnouncementDialog] = useState(false);
   const [openDraftedAnnouncements, setOpenDraftedAnnouncements] =
     useState(false);
@@ -29,7 +29,7 @@ const AnnouncementsPage = () => {
     useConfirmActionDialog();
   const {
     addAnnouncement,
-    getAnnouncements,
+
     updateAnnouncement,
     softDelete,
     restore,
@@ -43,21 +43,6 @@ const AnnouncementsPage = () => {
   const { announcementsData, isLoading, isError } = useAnnouncementActions({
     handleCloseDialog,
   });
-
-  // const {
-  //   data: announcementsData,
-  //   isLoading: isLoadingInGetAnnouncements,
-  //   isError: isErrorInGetAnnouncements,
-  // } = useApiGet(
-  //   ["announcements"],
-  //   () =>
-  //     getAnnouncements(
-  //       `?fields=_id,title,content,house,createdBy,isPinned,status,type,importance,createdAt,updatedAt,revisions`
-  //     ),
-  //   {
-  //     enabled: !!auth?.houseInfo?._id,
-  //   }
-  // );
 
   const addAnnouncementHandler = () => {
     setOpenAnnouncementDialog(true);
