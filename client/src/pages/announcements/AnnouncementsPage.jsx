@@ -14,8 +14,10 @@ import ErrorPage from "../ErrorPage";
 import AnnouncementCard from "./AnnouncementCard";
 import AnnouncementsBox from "./AnnouncementsBox";
 import FullScreenDialog from "../../components/FullScreenDialog";
+import useAnnouncementActions from "../../hooks/api/authenticated/announcement/useAnnouncementActions";
 
 const AnnouncementsPage = () => {
+  // hooks
   const { auth } = useAuth();
   const [openAnnouncementDialog, setOpenAnnouncementDialog] = useState(false);
   const [openDraftedAnnouncements, setOpenDraftedAnnouncements] =
@@ -37,20 +39,25 @@ const AnnouncementsPage = () => {
     showAck: false,
   });
 
-  const {
-    data: announcementsData,
-    isLoading: isLoadingInGetAnnouncements,
-    isError: isErrorInGetAnnouncements,
-  } = useApiGet(
-    ["announcements"],
-    () =>
-      getAnnouncements(
-        `?fields=_id,title,content,house,createdBy,isPinned,status,type,importance,createdAt,updatedAt,revisions`
-      ),
-    {
-      enabled: !!auth?.houseInfo?._id,
-    }
-  );
+  const handleCloseDialog = () => {};
+  const { announcementsData, isLoading, isError } = useAnnouncementActions({
+    handleCloseDialog,
+  });
+
+  // const {
+  //   data: announcementsData,
+  //   isLoading: isLoadingInGetAnnouncements,
+  //   isError: isErrorInGetAnnouncements,
+  // } = useApiGet(
+  //   ["announcements"],
+  //   () =>
+  //     getAnnouncements(
+  //       `?fields=_id,title,content,house,createdBy,isPinned,status,type,importance,createdAt,updatedAt,revisions`
+  //     ),
+  //   {
+  //     enabled: !!auth?.houseInfo?._id,
+  //   }
+  // );
 
   const addAnnouncementHandler = () => {
     setOpenAnnouncementDialog(true);
@@ -123,8 +130,8 @@ const AnnouncementsPage = () => {
   const draftedAnnouncements = announcementsData?.data?.filter(
     (ann) => ann.status === "draft"
   );
-  if (isLoadingInGetAnnouncements) return <LoadingPage />;
-  if (isErrorInGetAnnouncements) return <ErrorPage />;
+  if (isLoading) return <LoadingPage />;
+  if (isError) return <ErrorPage />;
   return (
     <BodyContainer justifyContent="flex-start">
       <Stack mt={2} alignItems="center" width={1} pb={2}>
