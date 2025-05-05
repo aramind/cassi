@@ -91,12 +91,12 @@ const TYPE_OPTIONS = [
 
 const AnnouncementDialog = ({
   open,
-  setOpen,
-  data,
+  handleCloseDialog,
   action,
+  data,
+  submitHandler,
   saveAsDraftHandler,
   publishHandler,
-  submitHandler,
 }) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -143,19 +143,19 @@ const AnnouncementDialog = ({
   //   handlers
   const onSubmit = async (formData) => {
     if (action === "add") {
+      console.log("ADDING...");
+      console.log(formData);
       submitHandler({ ...formData, status: "published" });
     } else if (action === "update") {
       submitHandler({ id: data?._id, data: formData });
     }
-    console.log(formData);
-    setOpen(false);
   };
 
   const handleClose = (e) => {
     e.preventDefault();
     e.stopPropagation();
     reset();
-    setOpen(false);
+    handleCloseDialog();
   };
 
   const handleConfirmClear = () => {
@@ -171,7 +171,7 @@ const AnnouncementDialog = ({
       id: data?._id,
       data: { ...formData, status: "draft" },
     });
-    setOpen(false);
+    handleCloseDialog();
   };
 
   const onPublish = async (formData) => {
@@ -179,7 +179,7 @@ const AnnouncementDialog = ({
       id: data?._id,
       data: { ...formData, status: "published" },
     });
-    setOpen(false);
+    handleCloseDialog();
   };
   const handleClear = () => {
     alert("Clearing fields...");
