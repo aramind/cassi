@@ -40,6 +40,7 @@ const AnnouncementsPage = () => {
     handleConfirmPublish,
     handleConfirmUpdate,
     handleConfirmRestore,
+    handleConfirmSaveAsDraft,
     renderConfirmActionDialog,
     isLoading,
     isError,
@@ -65,13 +66,13 @@ const AnnouncementsPage = () => {
   //   );
   // };
 
-  const handleConfirmSaveAsDraft = ({ id, data }) => {
-    handleConfirm(
-      "Save as Draft",
-      <Typography>Save as draft?</Typography>,
-      () => updateAnnouncement({ id, data })
-    );
-  };
+  // const handleConfirmSaveAsDraft = ({ id, data }) => {
+  //   handleConfirm(
+  //     "Save as Draft",
+  //     <Typography>Save as draft?</Typography>,
+  //     () => updateAnnouncement({ id, data })
+  //   );
+  // };
 
   // const handleConfirmPublish = ({ id, data }) => {
   //   handleConfirm(

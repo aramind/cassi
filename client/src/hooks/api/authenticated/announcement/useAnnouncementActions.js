@@ -106,12 +106,27 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
   const handleConfirmRestore = ({ id }) => {
     handleConfirm("Restore", "Restore this deleted announcement?", async () => {
       try {
-        await restore({ id }, { showFeedbackMsg: true });
+        await sendRestore({ id }, { showFeedbackMsg: true });
       } catch (error) {
         console.error(error);
       }
     });
   };
+
+  const handleConfirmSaveAsDraft = ({ id, data }) => {
+    handleConfirm("Save as Draft", "Save as Draft?", async () => {
+      try {
+        const res = await sendUpdate({ id, data }, { showFeedbackMsg: true });
+
+        if (res?.success) {
+          handleCloseDialog();
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  };
+
   const {
     data: announcementsData,
     isLoading: isLoadingInGetAnnouncements,
@@ -140,6 +155,7 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     handleConfirmPublish,
     handleConfirmUpdate,
     handleConfirmRestore,
+    handleConfirmSaveAsDraft,
     announcementsData,
     isLoading,
     isError,
