@@ -37,6 +37,8 @@ const AnnouncementsPage = () => {
   const {
     announcementsData,
     handleConfirmAddAnnouncement,
+    handleConfirmPublish,
+    handleConfirmUpdate,
     renderConfirmActionDialog,
     isLoading,
     isError,
@@ -69,21 +71,21 @@ const AnnouncementsPage = () => {
     );
   };
 
-  const handleConfirmPublish = ({ id, data }) => {
-    handleConfirm(
-      "Publish Announcement",
-      <Typography>Continue?</Typography>,
-      () => updateAnnouncement({ id, data })
-    );
-  };
+  // const handleConfirmPublish = ({ id, data }) => {
+  //   handleConfirm(
+  //     "Publish Announcement",
+  //     <Typography>Continue?</Typography>,
+  //     () => updateAnnouncement({ id, data })
+  //   );
+  // };
 
-  const updateAnnouncementHandler = ({ id, data }) => {
-    handleConfirm(
-      "Update Announcement",
-      <Typography>Proceed updating?</Typography>,
-      () => updateAnnouncement({ id, data })
-    );
-  };
+  // const updateAnnouncementHandler = ({ id, data }) => {
+  //   handleConfirm(
+  //     "Update Announcement",
+  //     <Typography>Proceed updating?</Typography>,
+  //     () => updateAnnouncement({ id, data })
+  //   );
+  // };
 
   const publishedAnnouncements = announcementsData?.data?.filter(
     (ann) => ann.status === "published"
@@ -115,7 +117,7 @@ const AnnouncementsPage = () => {
               <AnnouncementCard
                 key={index}
                 announcement={announcement}
-                updateHandler={updateAnnouncementHandler}
+                updateHandler={handleConfirmUpdate}
                 deleteHandler={deleteAnnouncementHandler}
                 saveAsDraftHandler={handleConfirmSaveAsDraft}
               />
@@ -157,7 +159,7 @@ const AnnouncementsPage = () => {
                   key={index}
                   announcement={announcement}
                   publishHandler={handleConfirmPublish}
-                  updateHandler={updateAnnouncementHandler}
+                  updateHandler={handleConfirmUpdate}
                   deleteHandler={deleteAnnouncementHandler}
                 />
               ))}

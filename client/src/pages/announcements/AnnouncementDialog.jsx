@@ -177,7 +177,6 @@ const AnnouncementDialog = ({
       id: data?._id,
       data: { ...formData, status: "published" },
     });
-    handleCloseDialog();
   };
   const handleClear = () => {
     alert("Clearing fields...");

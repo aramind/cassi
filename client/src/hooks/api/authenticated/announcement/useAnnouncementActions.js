@@ -14,7 +14,6 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     updateAnnouncement,
     softDelete,
     restore,
-    publish,
     getAnnouncements,
   } = useAnnouncementReq({ isPublic: false, showAck: false });
 
@@ -37,10 +36,6 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
   );
 
   const { send: sendRestore, isLoadingInRestore } = useApiSendAsync(restore, [
-    "announcements",
-  ]);
-
-  const { send: sendPublish, isLoadingInPublish } = useApiSendAsync(publish, [
     "announcements",
   ]);
 
@@ -72,6 +67,41 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     );
   };
 
+  const handleConfirmUpdate = ({ id, data }) => {
+    handleConfirm(
+      "Update Announcement",
+      "Update this announcement?",
+      async () => {
+        try {
+          const res = await sendUpdate({ id, data }, { showFeedbackMsg: true });
+
+          if (res?.success) {
+            handleCloseDialog();
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    );
+  };
+
+  const handleConfirmPublish = ({ id, data }) => {
+    handleConfirm(
+      "Publish Announcement",
+      "Publish this announcement?",
+      async () => {
+        try {
+          const res = await sendUpdate({ id, data }, { showFeedbackMsg: true });
+
+          if (res?.success) {
+            handleCloseDialog();
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    );
+  };
   const {
     data: announcementsData,
     isLoading: isLoadingInGetAnnouncements,
@@ -92,12 +122,13 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     isLoadingInUpdate ||
     isLoadingInSoftDelete ||
     isLoadingInRestore ||
-    isLoadingInPublish ||
     isLoadingInGetAnnouncements;
 
   const isError = isErrorInGetAnnouncements;
   return {
     handleConfirmAddAnnouncement,
+    handleConfirmPublish,
+    handleConfirmUpdate,
     announcementsData,
     isLoading,
     isError,
