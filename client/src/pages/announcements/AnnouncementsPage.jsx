@@ -122,7 +122,7 @@ const AnnouncementsPage = () => {
                 announcement={announcement}
                 updateHandler={handleConfirmUpdate}
                 deleteHandler={deleteAnnouncementHandler}
-                saveAsDraftHandler={handleConfirmSaveAsDraft}
+                // saveAsDraftHandler={handleConfirmSaveAsDraft}
               />
             ))}
           </AnnouncementsBox>
@@ -145,6 +145,7 @@ const AnnouncementsPage = () => {
             ? handleConfirmAddAnnouncement
             : () => alert("not adding...")
         }
+        saveAsDraftHandler={handleConfirmSaveAsDraft}
       />
       {renderConfirmActionDialog()}
       <Stack direction="row" spacing={1} width={1} justifyContent="center">

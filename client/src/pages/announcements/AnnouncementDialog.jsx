@@ -165,11 +165,14 @@ const AnnouncementDialog = ({
   };
 
   const onSaveAsDraft = async (formData) => {
-    saveAsDraftHandler({
-      id: data?._id,
-      data: { ...formData, status: "draft" },
-    });
-    handleCloseDialog();
+    if (action === "add") {
+      submitHandler({ ...formData, status: "draft" });
+    } else {
+      saveAsDraftHandler({
+        id: data?._id,
+        data: { ...formData, status: "draft" },
+      });
+    }
   };
 
   const onPublish = async (formData) => {
@@ -185,6 +188,7 @@ const AnnouncementDialog = ({
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
 
+  console.log(saveAsDraftHandler);
   return (
     <>
       <DraggableDialog
@@ -238,9 +242,6 @@ const AnnouncementDialog = ({
         </DialogContent>
         <br />
         <DialogActions>
-          {/* <Button size="small" onClick={handleClose}>
-            Cancel
-          </Button> */}
           {data?.status === "draft" && (
             <Button size="small" variant="outlined" onClick={handleClear}>
               Clear

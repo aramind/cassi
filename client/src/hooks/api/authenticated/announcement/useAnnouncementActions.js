@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import useAnnouncementReq from "./useAnnouncementReq";
 import useConfirmActionDialog from "../../../useConfirmActionDialog";
 import useApiSendAsync from "../../useApiSendAsync";
@@ -113,19 +113,22 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     });
   };
 
-  const handleConfirmSaveAsDraft = ({ id, data }) => {
-    handleConfirm("Save as Draft", "Save as Draft?", async () => {
-      try {
-        const res = await sendUpdate({ id, data }, { showFeedbackMsg: true });
+  const handleConfirmSaveAsDraft = useCallback(
+    ({ id, data }) => {
+      handleConfirm("Save as Draft", "Save as Draft?", async () => {
+        try {
+          const res = await sendUpdate({ id, data }, { showFeedbackMsg: true });
 
-        if (res?.success) {
-          handleCloseDialog();
+          if (res?.success) {
+            handleCloseDialog();
+          }
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
-      }
-    });
-  };
+      });
+    },
+    [handleCloseDialog, handleConfirm, sendUpdate]
+  );
 
   const {
     data: announcementsData,

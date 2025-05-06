@@ -6,13 +6,14 @@ const AnnounceActionsGroup = ({
   updateHandler,
   deleteHandler,
   publishHandler,
-  saveAsDraftHandler,
+  // saveAsDraftHandler,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const handleEdit = useCallback(() => {
     setOpenDialog(true);
   }, []);
 
+  // console.log(saveAsDraftHandler);
   return (
     <>
       <ActionButtons
@@ -28,7 +29,7 @@ const AnnounceActionsGroup = ({
         action="update"
         submitHandler={updateHandler}
         publishHandler={publishHandler}
-        saveAsDraftHandler={saveAsDraftHandler}
+        // saveAsDraftHandler={saveAsDraftHandler}
       />
     </>
   );
