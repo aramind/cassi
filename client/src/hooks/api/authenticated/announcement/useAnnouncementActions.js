@@ -102,6 +102,16 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
       }
     );
   };
+
+  const handleConfirmRestore = ({ id }) => {
+    handleConfirm("Restore", "Restore this deleted announcement?", async () => {
+      try {
+        await restore({ id }, { showFeedbackMsg: true });
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  };
   const {
     data: announcementsData,
     isLoading: isLoadingInGetAnnouncements,
@@ -129,6 +139,7 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     handleConfirmAddAnnouncement,
     handleConfirmPublish,
     handleConfirmUpdate,
+    handleConfirmRestore,
     announcementsData,
     isLoading,
     isError,

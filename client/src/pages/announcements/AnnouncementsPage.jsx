@@ -39,6 +39,7 @@ const AnnouncementsPage = () => {
     handleConfirmAddAnnouncement,
     handleConfirmPublish,
     handleConfirmUpdate,
+    handleConfirmRestore,
     renderConfirmActionDialog,
     isLoading,
     isError,
@@ -47,6 +48,7 @@ const AnnouncementsPage = () => {
   });
 
   const handleConfirm = () => {};
+
   const deleteAnnouncementHandler = (id) => {
     handleConfirm(
       "Delete Announcement",
@@ -55,13 +57,13 @@ const AnnouncementsPage = () => {
     );
   };
 
-  const handleConfirmRestore = ({ id }) => {
-    handleConfirm(
-      "Restore",
-      <Typography>Restore this deleted announcement?</Typography>,
-      () => restore({ id })
-    );
-  };
+  // const handleConfirmRestore = ({ id }) => {
+  //   handleConfirm(
+  //     "Restore",
+  //     <Typography>Restore this deleted announcement?</Typography>,
+  //     () => restore({ id })
+  //   );
+  // };
 
   const handleConfirmSaveAsDraft = ({ id, data }) => {
     handleConfirm(
