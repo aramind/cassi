@@ -188,7 +188,6 @@ const AnnouncementDialog = ({
   let title = getTitle(action);
   let submitBtnText = getSubmitBtnText(action);
 
-  console.log(saveAsDraftHandler);
   return (
     <>
       <DraggableDialog
