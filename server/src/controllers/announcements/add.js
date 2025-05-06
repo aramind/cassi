@@ -11,9 +11,11 @@ const add = async (req, res) => {
       house: houseId,
     });
 
+    const status = newAnnouncement?.status;
+
     return sendResponse.success(
       res,
-      "New Announcement created",
+      `New Announcement created (${status.toUpperCase()})`,
       newAnnouncement,
       201
     );
