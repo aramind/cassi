@@ -127,8 +127,10 @@ const AnnouncementDialog = ({
       reset(data);
     }
   }, [data, reset]);
+
   useEffect(() => {
     if (action === "add") {
+      reset({});
       setValue("type", "general", {
         shouldTouch: true,
         shouldValidate: true,
@@ -138,7 +140,7 @@ const AnnouncementDialog = ({
         shouldValidate: true,
       });
     }
-  }, [action, setValue]);
+  }, [action, reset, setValue]);
 
   //   handlers
   const onSubmit = async (formData) => {
