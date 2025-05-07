@@ -130,19 +130,22 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     [handleCloseDialog, handleConfirm, sendUpdate]
   );
 
-  const handleConfirmSoftDelete = useCallback((id) => {
-    handleConfirm(
-      "Delete",
-      "Are you sure you want to delete this announcement?",
-      async () => {
-        try {
-          const res = await sendSoftDelete(id, { showFeedbackMsg: true });
-        } catch (error) {
-          console.error(error);
+  const handleConfirmSoftDelete = useCallback(
+    (id) => {
+      handleConfirm(
+        "Delete",
+        "Are you sure you want to delete this announcement?",
+        async () => {
+          try {
+            await sendSoftDelete(id, { showFeedbackMsg: true });
+          } catch (error) {
+            console.error(error);
+          }
         }
-      }
-    );
-  });
+      );
+    },
+    [handleConfirm, sendSoftDelete]
+  );
   const {
     data: announcementsData,
     isLoading: isLoadingInGetAnnouncements,
