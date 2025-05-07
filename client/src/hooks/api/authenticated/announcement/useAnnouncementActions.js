@@ -213,6 +213,7 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     handleConfirmRestore,
     handleConfirmSaveAsDraft,
     handleConfirmSoftDelete,
+    handleConfirmHardDelete,
     announcementsData,
     isLoading,
     isError,
