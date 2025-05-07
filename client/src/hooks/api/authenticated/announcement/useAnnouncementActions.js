@@ -153,35 +153,39 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     [handleConfirm, sendSoftDelete]
   );
 
-  const handleConfirmHardDelete = useCallback((id) => {
-    handleConfirm(
-      "Delete",
-      <Stack spacing={2}>
-        <Typography component="span">
-          Are you sure you want to{" "}
-          <Typography
-            textTransform="uppercase"
-            color="error"
-            component="span"
-            fontWeight="bold"
-          >
-            permanently
-          </Typography>{" "}
-          remove this from database?
-        </Typography>
-        <Typography textTransform="uppercase" color="error">
-          NOTE: This is process is not reversible
-        </Typography>
-      </Stack>,
-      async () => {
-        try {
-          await sendHardDelete(id, { showFeedbackMsg: true });
-        } catch (error) {
-          console.error(error);
+  const handleConfirmHardDelete = useCallback(
+    (id) => {
+      handleConfirm(
+        "Delete",
+        <Stack spacing={2}>
+          <Typography component="span">
+            Are you sure you want to{" "}
+            <Typography
+              textTransform="uppercase"
+              color="error"
+              component="span"
+              fontWeight="bold"
+            >
+              permanently
+            </Typography>{" "}
+            remove this from database?
+          </Typography>
+          <Typography textTransform="uppercase" color="error">
+            NOTE: This is process is not reversible
+          </Typography>
+        </Stack>,
+        async () => {
+          try {
+            await sendHardDelete(id, { showFeedbackMsg: true });
+          } catch (error) {
+            console.error(error);
+          }
         }
-      }
-    );
-  });
+      );
+    },
+    [handleConfirm, sendHardDelete]
+  );
+
   const {
     data: announcementsData,
     isLoading: isLoadingInGetAnnouncements,
