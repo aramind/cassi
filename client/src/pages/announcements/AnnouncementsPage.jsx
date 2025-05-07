@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
 import AnnouncementDialog from "./AnnouncementDialog";
-import useAnnouncementReq from "../../hooks/api/authenticated/announcement/useAnnouncementReq";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import AnnouncementCard from "./AnnouncementCard";
@@ -24,11 +23,6 @@ const AnnouncementsPage = () => {
   const [openDeletedAnnouncements, setOpenDeletedAnnouncements] =
     useState(false);
 
-  const { softDelete } = useAnnouncementReq({
-    isPublic: false,
-    showAck: false,
-  });
-
   const {
     announcementsData,
     handleConfirmAddAnnouncement,
@@ -43,16 +37,6 @@ const AnnouncementsPage = () => {
   } = useAnnouncementActions({
     handleCloseDialog,
   });
-
-  const handleConfirm = () => {};
-
-  // const deleteAnnouncementHandler = (id) => {
-  //   handleConfirm(
-  //     "Delete Announcement",
-  //     <Typography>Continue with the deletion?</Typography>,
-  //     () => softDelete({ id })
-  //   );
-  // };
 
   const publishedAnnouncements = announcementsData?.data?.filter(
     (ann) => ann.status === "published"
