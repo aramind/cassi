@@ -37,6 +37,7 @@ const AnnouncementsPage = () => {
     handleConfirmRestore,
     handleConfirmSaveAsDraft,
     renderConfirmActionDialog,
+    handleConfirmSoftDelete,
     isLoading,
     isError,
   } = useAnnouncementActions({
@@ -45,13 +46,13 @@ const AnnouncementsPage = () => {
 
   const handleConfirm = () => {};
 
-  const deleteAnnouncementHandler = (id) => {
-    handleConfirm(
-      "Delete Announcement",
-      <Typography>Continue with the deletion?</Typography>,
-      () => softDelete({ id })
-    );
-  };
+  // const deleteAnnouncementHandler = (id) => {
+  //   handleConfirm(
+  //     "Delete Announcement",
+  //     <Typography>Continue with the deletion?</Typography>,
+  //     () => softDelete({ id })
+  //   );
+  // };
 
   const publishedAnnouncements = announcementsData?.data?.filter(
     (ann) => ann.status === "published"
@@ -84,7 +85,7 @@ const AnnouncementsPage = () => {
                 key={index}
                 announcement={announcement}
                 updateHandler={handleConfirmUpdate}
-                deleteHandler={deleteAnnouncementHandler}
+                deleteHandler={handleConfirmSoftDelete}
               />
             ))}
           </AnnouncementsBox>
@@ -126,7 +127,7 @@ const AnnouncementsPage = () => {
                   key={index}
                   announcement={announcement}
                   updateHandler={handleConfirmUpdate}
-                  deleteHandler={deleteAnnouncementHandler}
+                  deleteHandler={handleConfirmSoftDelete}
                   handleOpenDialog={handleOpenDialog}
                 />
               ))}
