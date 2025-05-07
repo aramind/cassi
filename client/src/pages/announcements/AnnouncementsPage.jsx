@@ -66,14 +66,6 @@ const AnnouncementsPage = () => {
   //   );
   // };
 
-  // const handleConfirmSaveAsDraft = ({ id, data }) => {
-  //   handleConfirm(
-  //     "Save as Draft",
-  //     <Typography>Save as draft?</Typography>,
-  //     () => updateAnnouncement({ id, data })
-  //   );
-  // };
-
   // const handleConfirmPublish = ({ id, data }) => {
   //   handleConfirm(
   //     "Publish Announcement",
@@ -122,7 +114,6 @@ const AnnouncementsPage = () => {
                 announcement={announcement}
                 updateHandler={handleConfirmUpdate}
                 deleteHandler={deleteAnnouncementHandler}
-                // saveAsDraftHandler={handleConfirmSaveAsDraft}
               />
             ))}
           </AnnouncementsBox>
@@ -143,9 +134,10 @@ const AnnouncementsPage = () => {
         submitHandler={
           dialogState?.action === "add"
             ? handleConfirmAddAnnouncement
-            : () => alert("not adding...")
+            : handleConfirmUpdate
         }
         saveAsDraftHandler={handleConfirmSaveAsDraft}
+        publishHandler={handleConfirmPublish}
       />
       {renderConfirmActionDialog()}
       <Stack direction="row" spacing={1} width={1} justifyContent="center">
@@ -162,7 +154,6 @@ const AnnouncementsPage = () => {
                 <AnnouncementCard
                   key={index}
                   announcement={announcement}
-                  publishHandler={handleConfirmPublish}
                   updateHandler={handleConfirmUpdate}
                   deleteHandler={deleteAnnouncementHandler}
                 />

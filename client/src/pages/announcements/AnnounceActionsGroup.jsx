@@ -1,19 +1,12 @@
 import React, { useCallback, useState } from "react";
 import ActionButtons from "../../components/ActionButtons";
 import AnnouncementDialog from "./AnnouncementDialog";
-const AnnounceActionsGroup = ({
-  data,
-  updateHandler,
-  deleteHandler,
-  publishHandler,
-  // saveAsDraftHandler,
-}) => {
+const AnnounceActionsGroup = ({ data, updateHandler, deleteHandler }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const handleEdit = useCallback(() => {
     setOpenDialog(true);
   }, []);
 
-  // console.log(saveAsDraftHandler);
   return (
     <>
       <ActionButtons
@@ -28,8 +21,6 @@ const AnnounceActionsGroup = ({
         data={data}
         action="update"
         submitHandler={updateHandler}
-        publishHandler={publishHandler}
-        // saveAsDraftHandler={saveAsDraftHandler}
       />
     </>
   );
