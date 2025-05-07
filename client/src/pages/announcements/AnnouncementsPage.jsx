@@ -39,6 +39,17 @@ const AnnouncementsPage = () => {
     handleCloseDialog,
   });
 
+  const confirmHandlers = {
+    handleConfirmAddAnnouncement,
+    handleConfirmPublish,
+    handleConfirmUpdate,
+    handleConfirmRestore,
+    handleConfirmSaveAsDraft,
+    renderConfirmActionDialog,
+    handleConfirmSoftDelete,
+    handleConfirmHardDelete,
+  };
+
   const publishedAnnouncements = announcementsData?.data?.filter(
     (ann) => ann.status === "published"
   );
@@ -69,7 +80,7 @@ const AnnouncementsPage = () => {
               <AnnouncementCard
                 key={index}
                 announcement={announcement}
-                deleteHandler={handleConfirmSoftDelete}
+                {...confirmHandlers}
                 handleOpenDialog={handleOpenDialog}
               />
             ))}
@@ -93,8 +104,7 @@ const AnnouncementsPage = () => {
             ? handleConfirmAddAnnouncement
             : handleConfirmUpdate
         }
-        saveAsDraftHandler={handleConfirmSaveAsDraft}
-        publishHandler={handleConfirmPublish}
+        {...confirmHandlers}
       />
       {renderConfirmActionDialog()}
       <Stack direction="row" spacing={1} width={1} justifyContent="center">
@@ -111,9 +121,8 @@ const AnnouncementsPage = () => {
                 <AnnouncementCard
                   key={index}
                   announcement={announcement}
-                  updateHandler={handleConfirmUpdate}
-                  deleteHandler={handleConfirmSoftDelete}
                   handleOpenDialog={handleOpenDialog}
+                  {...confirmHandlers}
                 />
               ))}
             </AnnouncementsBox>
@@ -132,9 +141,8 @@ const AnnouncementsPage = () => {
                 <AnnouncementCard
                   key={index}
                   announcement={announcement}
-                  restoreHandler={handleConfirmRestore}
-                  permanentDelHandler={handleConfirmHardDelete}
                   handleOpenDialog={handleOpenDialog}
+                  {...confirmHandlers}
                 />
               ))}
             </AnnouncementsBox>

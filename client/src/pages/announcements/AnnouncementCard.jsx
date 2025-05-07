@@ -24,10 +24,8 @@ const HeaderChip = ({ label }) => (
 );
 const AnnouncementCard = ({
   announcement,
-  deleteHandler,
-  restoreHandler,
-  permanentDelHandler,
   handleOpenDialog,
+  ...confirmHandlers
 }) => {
   const { listOfHouseOccupants } = useHouseProvider();
 
@@ -91,13 +89,12 @@ const AnnouncementCard = ({
         {announcement?.status === "deleted" ? (
           <DeletedAnnounceActionsGroup
             data={announcement}
-            restoreHandler={restoreHandler}
-            permanentDelHandler={permanentDelHandler}
+            {...confirmHandlers}
           />
         ) : (
           <AnnounceActionsGroup
             data={announcement}
-            deleteHandler={deleteHandler}
+            {...confirmHandlers}
             handleOpenDialog={handleOpenDialog}
           />
         )}

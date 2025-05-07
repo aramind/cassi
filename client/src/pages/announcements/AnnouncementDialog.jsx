@@ -94,8 +94,8 @@ const AnnouncementDialog = ({
   action,
   data,
   submitHandler,
-  saveAsDraftHandler,
-  publishHandler,
+  handleConfirmSaveAsDraft,
+  handleConfirmPublish,
 }) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -169,7 +169,7 @@ const AnnouncementDialog = ({
     if (action === "add") {
       submitHandler({ ...formData, status: "draft" });
     } else {
-      saveAsDraftHandler({
+      handleConfirmSaveAsDraft({
         id: data?._id,
         data: { ...formData, status: "draft" },
       });
@@ -177,7 +177,7 @@ const AnnouncementDialog = ({
   };
 
   const onPublish = async (formData) => {
-    publishHandler({
+    handleConfirmPublish({
       id: data?._id,
       data: { ...formData, status: "published" },
     });
