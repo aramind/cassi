@@ -13,6 +13,7 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     addAnnouncement,
     updateAnnouncement,
     softDelete,
+    hardDelete,
     restore,
     getAnnouncements,
   } = useAnnouncementReq({ isPublic: false, showAck: false });
@@ -32,6 +33,11 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
 
   const { send: sendSoftDelete, isLoadingInSoftDelete } = useApiSendAsync(
     softDelete,
+    ["announcements"]
+  );
+
+  const { send: sendHardDelete, isLoadingInHardDelete } = useApiSendAsync(
+    hardDelete,
     ["announcements"]
   );
 
@@ -146,6 +152,36 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     },
     [handleConfirm, sendSoftDelete]
   );
+
+  const handleConfirmHardDelete = useCallback((id) => {
+    handleConfirm(
+      "Delete",
+      <Stack spacing={2}>
+        <Typography component="span">
+          Are you sure you want to{" "}
+          <Typography
+            textTransform="uppercase"
+            color="error"
+            component="span"
+            fontWeight="bold"
+          >
+            permanently
+          </Typography>{" "}
+          remove this from database?
+        </Typography>
+        <Typography textTransform="uppercase" color="error">
+          NOTE: This is process is not reversible
+        </Typography>
+      </Stack>,
+      async () => {
+        try {
+          await sendHardDelete(id, { showFeedbackMsg: true });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    );
+  });
   const {
     data: announcementsData,
     isLoading: isLoadingInGetAnnouncements,
@@ -166,6 +202,7 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     isLoadingInUpdate ||
     isLoadingInSoftDelete ||
     isLoadingInRestore ||
+    isLoadingInHardDelete ||
     isLoadingInGetAnnouncements;
 
   const isError = isErrorInGetAnnouncements;
