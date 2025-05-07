@@ -6,9 +6,6 @@ import { formatDate } from "../../utils/formatDate";
 import { amber, green, red } from "@mui/material/colors";
 import AnnounceActionsGroup from "./AnnounceActionsGroup";
 import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
-import HourglassTopOutlinedIcon from "@mui/icons-material/HourglassTopOutlined";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import DeletedAnnounceActionsGroup from "./DeletedAnnounceActionsGroup";
 
 const importanceColor = {
@@ -17,11 +14,9 @@ const importanceColor = {
   high: red[100],
 };
 
-const statusIcon = {
-  published: <CampaignOutlinedIcon color="info" />,
-  draft: <HourglassTopOutlinedIcon color="warning" />,
-  deleted: <DeleteOutlinedIcon color="error" />,
-  archived: <ArchiveOutlinedIcon color="secondary" />,
+const getStatusIcon = (status) => {
+  if (status === "published") return <CampaignOutlinedIcon color="info" />;
+  return <Chip variant="contained" color="info" label={status} size="small" />;
 };
 const AnnouncementCard = ({
   announcement,
@@ -99,7 +94,8 @@ const AnnouncementCard = ({
       </Box>
       <Divider />
       <Stack width={1} direction="row" alignItems="center">
-        {announcement?.status && statusIcon[announcement?.status]}
+        {/* {announcement?.status && statusIcon[announcement?.status]} */}
+        {getStatusIcon(announcement?.status)}
         <Box flex={1} />
         {announcement?.status === "deleted" ? (
           <DeletedAnnounceActionsGroup
