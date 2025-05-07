@@ -6,9 +6,6 @@ import { formatDate } from "../../utils/formatDate";
 import { amber, green, red } from "@mui/material/colors";
 import AnnounceActionsGroup from "./AnnounceActionsGroup";
 import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
-import HourglassTopOutlinedIcon from "@mui/icons-material/HourglassTopOutlined";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import DeletedAnnounceActionsGroup from "./DeletedAnnounceActionsGroup";
 
 const importanceColor = {
@@ -17,20 +14,20 @@ const importanceColor = {
   high: red[100],
 };
 
-const statusIcon = {
-  published: <CampaignOutlinedIcon color="info" />,
-  draft: <HourglassTopOutlinedIcon color="warning" />,
-  deleted: <DeleteOutlinedIcon color="error" />,
-  archived: <ArchiveOutlinedIcon color="secondary" />,
+const getStatusIcon = (status) => {
+  if (status === "published") return <CampaignOutlinedIcon color="info" />;
+  return <Chip variant="contained" color="info" label={status} size="small" />;
 };
+
+const HeaderChip = ({ label }) => (
+  <Chip variant="outlined" color="info" label={label} size="small" />
+);
 const AnnouncementCard = ({
   announcement,
-  saveAsDraftHandler,
-  publishHandler,
-  updateHandler,
   deleteHandler,
   restoreHandler,
   permanentDelHandler,
+  handleOpenDialog,
 }) => {
   const { listOfHouseOccupants } = useHouseProvider();
 
@@ -61,19 +58,8 @@ const AnnouncementCard = ({
         flexWrap="wrap"
         mb={0.5}
       >
-        <Chip
-          variant="outlined"
-          color="info"
-          label={announcement?.type}
-          size="small"
-        />
-        <Chip
-          variant="outlined"
-          color="info"
-          //   sx={{ bgcolor: importanceColor[announcement?.importance] }}
-          label={announcement?.importance}
-          size="small"
-        />
+        <HeaderChip label={announcement?.type} />
+        <HeaderChip label={announcement?.importance} />
       </Stack>
 
       <Typography variant="h6">{announcement?.title}</Typography>
@@ -100,7 +86,7 @@ const AnnouncementCard = ({
       </Box>
       <Divider />
       <Stack width={1} direction="row" alignItems="center">
-        {announcement?.status && statusIcon[announcement?.status]}
+        {getStatusIcon(announcement?.status)}
         <Box flex={1} />
         {announcement?.status === "deleted" ? (
           <DeletedAnnounceActionsGroup
@@ -111,16 +97,11 @@ const AnnouncementCard = ({
         ) : (
           <AnnounceActionsGroup
             data={announcement}
-            updateHandler={updateHandler}
             deleteHandler={deleteHandler}
-            publishHandler={publishHandler}
-            saveAsDraftHandler={saveAsDraftHandler}
+            handleOpenDialog={handleOpenDialog}
           />
         )}
       </Stack>
-      {/* <Box>
-          <Chip color="primary" label={announcement?.status} size="small" />
-        </Box> */}
     </Stack>
   );
 };

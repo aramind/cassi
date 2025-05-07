@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
 import {
@@ -14,7 +14,6 @@ import ControlledLabelledTextField from "../../components/controlled/ControlledL
 import { DevTool } from "@hookform/devtools";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import ControlledSlider from "../../components/controlled/ControlledSlider";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { yupResolver } from "@hookform/resolvers/yup";
 import newAnnouncementSchema from "../../schemas/newAnnouncementSchema";
 import useHouseProvider from "../../hooks/useHouseProvider";
@@ -91,12 +90,12 @@ const TYPE_OPTIONS = [
 
 const AnnouncementDialog = ({
   open,
-  setOpen,
-  data,
+  handleCloseDialog,
   action,
+  data,
+  submitHandler,
   saveAsDraftHandler,
   publishHandler,
-  submitHandler,
 }) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -127,8 +126,10 @@ const AnnouncementDialog = ({
       reset(data);
     }
   }, [data, reset]);
+
   useEffect(() => {
     if (action === "add") {
+      reset({});
       setValue("type", "general", {
         shouldTouch: true,
         shouldValidate: true,
@@ -138,7 +139,7 @@ const AnnouncementDialog = ({
         shouldValidate: true,
       });
     }
-  }, [action, setValue]);
+  }, [action, reset, setValue]);
 
   //   handlers
   const onSubmit = async (formData) => {
@@ -147,15 +148,13 @@ const AnnouncementDialog = ({
     } else if (action === "update") {
       submitHandler({ id: data?._id, data: formData });
     }
-    console.log(formData);
-    setOpen(false);
   };
 
   const handleClose = (e) => {
     e.preventDefault();
     e.stopPropagation();
     reset();
-    setOpen(false);
+    handleCloseDialog();
   };
 
   const handleConfirmClear = () => {
@@ -167,11 +166,14 @@ const AnnouncementDialog = ({
   };
 
   const onSaveAsDraft = async (formData) => {
-    saveAsDraftHandler({
-      id: data?._id,
-      data: { ...formData, status: "draft" },
-    });
-    setOpen(false);
+    if (action === "add") {
+      submitHandler({ ...formData, status: "draft" });
+    } else {
+      saveAsDraftHandler({
+        id: data?._id,
+        data: { ...formData, status: "draft" },
+      });
+    }
   };
 
   const onPublish = async (formData) => {
@@ -179,7 +181,6 @@ const AnnouncementDialog = ({
       id: data?._id,
       data: { ...formData, status: "published" },
     });
-    setOpen(false);
   };
   const handleClear = () => {
     alert("Clearing fields...");
@@ -241,9 +242,6 @@ const AnnouncementDialog = ({
         </DialogContent>
         <br />
         <DialogActions>
-          {/* <Button size="small" onClick={handleClose}>
-            Cancel
-          </Button> */}
           {data?.status === "draft" && (
             <Button size="small" variant="outlined" onClick={handleClear}>
               Clear

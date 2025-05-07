@@ -14,7 +14,7 @@ const deleteTracker = async (req, res) => {
     return sendResponse.success(
       res,
       "Tracker removed successfully!",
-      deleteTracker,
+      deletedTracker,
       200
     );
   } catch (error) {
