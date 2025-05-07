@@ -36,7 +36,7 @@ const useAnnouncementReq = ({ isPublic, showAck }) => {
       invalidateQueries(["announcements"]);
       return res;
     },
-    softDelete: async ({ id }) => {
+    softDelete: async (id) => {
       const res = await request({
         url: `${url}/${id}/soft-delete`,
         method: "PATCH",
