@@ -44,6 +44,12 @@ const useAnnouncementReq = ({ isPublic, showAck }) => {
       invalidateQueries(["announcements"]);
       return res;
     },
+    hardDelete: async (id) => {
+      await request({
+        url: `${url}/${id}`,
+        method: "DELETE",
+      });
+    },
     restore: async ({ id }) => {
       const res = await request({
         url: `${url}/${id}/restore`,
