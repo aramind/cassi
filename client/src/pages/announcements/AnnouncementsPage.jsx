@@ -156,6 +156,7 @@ const AnnouncementsPage = () => {
                   announcement={announcement}
                   updateHandler={handleConfirmUpdate}
                   deleteHandler={deleteAnnouncementHandler}
+                  handleOpenDialog={handleOpenDialog}
                 />
               ))}
             </AnnouncementsBox>
@@ -176,6 +177,7 @@ const AnnouncementsPage = () => {
                   announcement={announcement}
                   restoreHandler={handleConfirmRestore}
                   permanentDelHandler={handleConfirmRestore}
+                  handleOpenDialog={handleOpenDialog}
                 />
               ))}
             </AnnouncementsBox>

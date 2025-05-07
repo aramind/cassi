@@ -29,6 +29,7 @@ const AnnouncementCard = ({
   deleteHandler,
   restoreHandler,
   permanentDelHandler,
+  handleOpenDialog,
 }) => {
   const { listOfHouseOccupants } = useHouseProvider();
 
@@ -111,6 +112,7 @@ const AnnouncementCard = ({
             data={announcement}
             updateHandler={updateHandler}
             deleteHandler={deleteHandler}
+            handleOpenDialog={handleOpenDialog}
           />
         )}
       </Stack>
