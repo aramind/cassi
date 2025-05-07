@@ -64,7 +64,6 @@ const AnnouncementCard = ({
         <Chip
           variant="outlined"
           color="info"
-          //   sx={{ bgcolor: importanceColor[announcement?.importance] }}
           label={announcement?.importance}
           size="small"
         />
@@ -94,7 +93,6 @@ const AnnouncementCard = ({
       </Box>
       <Divider />
       <Stack width={1} direction="row" alignItems="center">
-        {/* {announcement?.status && statusIcon[announcement?.status]} */}
         {getStatusIcon(announcement?.status)}
         <Box flex={1} />
         {announcement?.status === "deleted" ? (
@@ -112,9 +110,6 @@ const AnnouncementCard = ({
           />
         )}
       </Stack>
-      {/* <Box>
-          <Chip color="primary" label={announcement?.status} size="small" />
-        </Box> */}
     </Stack>
   );
 };
