@@ -177,9 +177,6 @@ const AnnouncementDialog = ({
     }
   };
 
-  console.log(publishHandler);
-  console.log(action);
-
   const onPublish = async (formData) => {
     publishHandler({
       id: data?._id,

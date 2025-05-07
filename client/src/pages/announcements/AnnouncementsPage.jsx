@@ -24,12 +24,7 @@ const AnnouncementsPage = () => {
   const [openDeletedAnnouncements, setOpenDeletedAnnouncements] =
     useState(false);
 
-  const {
-    updateAnnouncement,
-    softDelete,
-    restore,
-    // publish,
-  } = useAnnouncementReq({
+  const { softDelete } = useAnnouncementReq({
     isPublic: false,
     showAck: false,
   });
@@ -57,30 +52,6 @@ const AnnouncementsPage = () => {
       () => softDelete({ id })
     );
   };
-
-  // const handleConfirmRestore = ({ id }) => {
-  //   handleConfirm(
-  //     "Restore",
-  //     <Typography>Restore this deleted announcement?</Typography>,
-  //     () => restore({ id })
-  //   );
-  // };
-
-  // const handleConfirmPublish = ({ id, data }) => {
-  //   handleConfirm(
-  //     "Publish Announcement",
-  //     <Typography>Continue?</Typography>,
-  //     () => updateAnnouncement({ id, data })
-  //   );
-  // };
-
-  // const updateAnnouncementHandler = ({ id, data }) => {
-  //   handleConfirm(
-  //     "Update Announcement",
-  //     <Typography>Proceed updating?</Typography>,
-  //     () => updateAnnouncement({ id, data })
-  //   );
-  // };
 
   const publishedAnnouncements = announcementsData?.data?.filter(
     (ann) => ann.status === "published"
