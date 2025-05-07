@@ -32,6 +32,7 @@ const AnnouncementsPage = () => {
     handleConfirmSaveAsDraft,
     renderConfirmActionDialog,
     handleConfirmSoftDelete,
+    handleConfirmHardDelete,
     isLoading,
     isError,
   } = useAnnouncementActions({
@@ -132,7 +133,7 @@ const AnnouncementsPage = () => {
                   key={index}
                   announcement={announcement}
                   restoreHandler={handleConfirmRestore}
-                  permanentDelHandler={handleConfirmRestore}
+                  permanentDelHandler={handleConfirmHardDelete}
                   handleOpenDialog={handleOpenDialog}
                 />
               ))}

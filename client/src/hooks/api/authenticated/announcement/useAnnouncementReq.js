@@ -45,10 +45,11 @@ const useAnnouncementReq = ({ isPublic, showAck }) => {
       return res;
     },
     hardDelete: async (id) => {
-      await request({
+      const res = await request({
         url: `${url}/${id}`,
         method: "DELETE",
       });
+      return res;
     },
     restore: async ({ id }) => {
       const res = await request({
