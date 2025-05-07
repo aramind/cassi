@@ -13,5 +13,6 @@ router.get("", announcementController.getAnnouncements);
 router.patch("/:id/soft-delete", announcementController.softDelete);
 router.patch("/:id/restore", announcementController.restoreDeleted);
 router.patch("/:id", announcementController.update);
+router.delete("/:id", announcementController.hardDelete);
 
 module.exports = router;

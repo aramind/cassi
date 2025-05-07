@@ -2,11 +2,9 @@ const Announcement = require("../../models/Announcement");
 const sendResponse = require("../../utils/senResponse");
 const hardDelete = async (req, res) => {
   try {
-    const { announcementId } = req.params;
+    const { id } = req.params;
 
-    const deletedAnnouncement = await Announcement.findByIdAndDelete(
-      announcementId
-    );
+    const deletedAnnouncement = await Announcement.findByIdAndDelete(id);
 
     if (!deletedAnnouncement) {
       return sendResponse.failed(res, "Announcement not found!", null, 404);
