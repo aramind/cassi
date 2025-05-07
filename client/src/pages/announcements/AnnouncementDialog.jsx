@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
 import {
@@ -14,7 +14,6 @@ import ControlledLabelledTextField from "../../components/controlled/ControlledL
 import { DevTool } from "@hookform/devtools";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import ControlledSlider from "../../components/controlled/ControlledSlider";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { yupResolver } from "@hookform/resolvers/yup";
 import newAnnouncementSchema from "../../schemas/newAnnouncementSchema";
 import useHouseProvider from "../../hooks/useHouseProvider";
