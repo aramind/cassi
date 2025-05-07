@@ -18,6 +18,10 @@ const getStatusIcon = (status) => {
   if (status === "published") return <CampaignOutlinedIcon color="info" />;
   return <Chip variant="contained" color="info" label={status} size="small" />;
 };
+
+const HeaderChip = ({ label }) => (
+  <Chip variant="outlined" color="info" label={label} size="small" />
+);
 const AnnouncementCard = ({
   announcement,
   deleteHandler,
@@ -54,18 +58,8 @@ const AnnouncementCard = ({
         flexWrap="wrap"
         mb={0.5}
       >
-        <Chip
-          variant="outlined"
-          color="info"
-          label={announcement?.type}
-          size="small"
-        />
-        <Chip
-          variant="outlined"
-          color="info"
-          label={announcement?.importance}
-          size="small"
-        />
+        <HeaderChip label={announcement?.type} />
+        <HeaderChip label={announcement?.importance} />
       </Stack>
 
       <Typography variant="h6">{announcement?.title}</Typography>
