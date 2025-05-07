@@ -68,8 +68,8 @@ const AnnouncementsPage = () => {
               <AnnouncementCard
                 key={index}
                 announcement={announcement}
-                updateHandler={handleConfirmUpdate}
                 deleteHandler={handleConfirmSoftDelete}
+                handleOpenDialog={handleOpenDialog}
               />
             ))}
           </AnnouncementsBox>

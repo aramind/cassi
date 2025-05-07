@@ -20,7 +20,6 @@ const getStatusIcon = (status) => {
 };
 const AnnouncementCard = ({
   announcement,
-  updateHandler,
   deleteHandler,
   restoreHandler,
   permanentDelHandler,
@@ -104,7 +103,6 @@ const AnnouncementCard = ({
         ) : (
           <AnnounceActionsGroup
             data={announcement}
-            updateHandler={updateHandler}
             deleteHandler={deleteHandler}
             handleOpenDialog={handleOpenDialog}
           />
