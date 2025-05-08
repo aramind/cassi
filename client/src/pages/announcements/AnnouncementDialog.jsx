@@ -23,6 +23,7 @@ import {
   dialogTitle,
   TYPE_OPTIONS,
 } from "../../utils/announcementUtils";
+import useFormActions from "../../hooks/useFormActions";
 
 const AnnouncementDialog = ({
   open,
@@ -33,9 +34,11 @@ const AnnouncementDialog = ({
   handleConfirmSaveAsDraft,
   handleConfirmPublish,
 }) => {
-  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
-    useConfirmActionDialog();
+  // const { handleOpen: handleConfirm, renderConfirmActionDialog } =
+  //   useConfirmActionDialog();
   const { activeOccupantOptions } = useHouseProvider();
+  const { handleConfirmReset, handleClear, renderConfirmDialog } =
+    useFormActions();
 
   // form related
   const defaultValues = data && data;
@@ -93,14 +96,6 @@ const AnnouncementDialog = ({
     handleCloseDialog();
   };
 
-  const handleConfirmClear = () => {
-    handleConfirm(
-      "Confirm Reset",
-      <Typography>Are you sure you want to reset all fields</Typography>,
-      () => reset(data)
-    );
-  };
-
   const onSaveAsDraft = async (formData) => {
     if (action === "add") {
       submitHandler({ ...formData, status: "draft" });
@@ -118,10 +113,10 @@ const AnnouncementDialog = ({
       data: { ...formData, status: "published" },
     });
   };
-  const handleClear = () => {
-    reset({ title: "", content: "" });
-  };
 
+  const onClear = () => handleClear(reset, { title: "", content: "" });
+
+  const onReset = () => handleConfirmReset(reset, data);
   return (
     <>
       <DraggableDialog
@@ -176,11 +171,11 @@ const AnnouncementDialog = ({
         <br />
         <DialogActions>
           {data?.status === "draft" && (
-            <Button size="small" variant="outlined" onClick={handleClear}>
+            <Button size="small" variant="outlined" onClick={onClear}>
               Clear
             </Button>
           )}
-          <Button size="small" variant="outlined" onClick={handleConfirmClear}>
+          <Button size="small" variant="outlined" onClick={onReset}>
             Reset
           </Button>
           {data?.status === "draft" ? (
@@ -209,7 +204,7 @@ const AnnouncementDialog = ({
           </Button>
         </DialogActions>
       </DraggableDialog>
-      {renderConfirmActionDialog()}
+      {renderConfirmDialog()}
     </>
   );
 };
