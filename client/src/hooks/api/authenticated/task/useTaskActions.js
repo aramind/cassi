@@ -18,6 +18,9 @@ const useTaskActions = ({ handleCloseDialog }) => {
     "tasks",
   ]);
 
+  const { send: sendUpdate, isLoadingInUpdate } = useApiSendAsync(updateTask, [
+    "tasks",
+  ]);
   const add = (taskData) => {
     handleConfirm("Add Task", getConfirmText("add", "task"), async () => {
       try {
@@ -39,6 +42,24 @@ const useTaskActions = ({ handleCloseDialog }) => {
     });
   };
 
+  const update = ({ id, updates }) => {
+    handleConfirm("Update", getConfirmText("update", "task"), async () => {
+      try {
+        const res = await sendUpdate(
+          { id, updates },
+          { showFeedbackMsg: true }
+        );
+
+        if (res?.success) {
+          handleCloseDialog();
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  };
+
+  //   fetch tasks
   const {
     data: tasksData,
     isLoading: isLoadingInFetchingTasks,
@@ -49,11 +70,12 @@ const useTaskActions = ({ handleCloseDialog }) => {
     )
   );
 
-  const isLoading = isLoadingInFetchingTasks;
+  const isLoading = isLoadingInFetchingTasks || isLoadingInAdding;
   const isError = isErrorInFetchingTasks;
 
   const confirmHandlers = {
     add,
+    update,
   };
   return {
     tasks: tasksData?.data,
