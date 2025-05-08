@@ -132,7 +132,9 @@ const TasksPage = () => {
       ...dialogState,
       handleCloseDialog: handleCloseDialog,
       submitHandler:
-        dialogState?.action === "add" ? confirmHandlers?.add : handleUpdateTask,
+        dialogState?.action === "add"
+          ? confirmHandlers?.add
+          : confirmHandlers?.update,
     },
   };
 
