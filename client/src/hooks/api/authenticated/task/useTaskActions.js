@@ -28,8 +28,8 @@ const useTaskActions = ({ handleCloseDialog }) => {
   );
 
   //   util function
-  const closeDialog = (willClose) => {
-    if (willClose) handleCloseDialog();
+  const closeDialog = (isSuccessful) => {
+    if (isSuccessful) handleCloseDialog();
   };
   //actions
   const add = (taskData) => {
@@ -51,10 +51,7 @@ const useTaskActions = ({ handleCloseDialog }) => {
   const update = ({ id, updates }) => {
     handleConfirm("Update", getConfirmText("update", "task"), async () => {
       try {
-        const res = await sendUpdate(
-          { id, updates },
-          { showFeedbackMsg: true }
-        );
+        const res = await sendUpdate({ id, updates });
         closeDialog(res?.success);
       } catch (error) {
         console.error(error);
@@ -70,9 +67,7 @@ const useTaskActions = ({ handleCloseDialog }) => {
         try {
           const res = await sendSoftDelete(id);
 
-          if (res?.success) {
-            handleCloseDialog();
-          }
+          closeDialog(res?.success);
         } catch (error) {}
       }
     );
