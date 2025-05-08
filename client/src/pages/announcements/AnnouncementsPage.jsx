@@ -1,6 +1,6 @@
 import React from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
 import MyButton from "../../components/buttons/MyButton";
@@ -13,6 +13,7 @@ import useAnnouncementActions from "../../hooks/api/authenticated/announcement/u
 import useDialogManager from "../../hooks/useDialogManager";
 import DraftsSection from "./DraftsSection";
 import DeletedSection from "./DeletedSection";
+import PublishedSection from "./PublishedSection";
 
 const AnnouncementsPage = () => {
   // hooks
@@ -82,7 +83,7 @@ const AnnouncementsPage = () => {
         <br />
         <AddButton />
         <br />
-        {publishedAnnouncements && (
+        {/* {publishedAnnouncements && (
           <AnnouncementsBox>
             {publishedAnnouncements?.map((announcement, index) => (
               <AnnouncementCard
@@ -93,10 +94,22 @@ const AnnouncementsPage = () => {
               />
             ))}
           </AnnouncementsBox>
+        )} */}
+        {publishedAnnouncements?.length > 0 ? (
+          <>
+            <PublishedSection
+              announcements={publishedAnnouncements}
+              {...props.sectionProps}
+            />
+            <br />
+            <AddButton />
+          </>
+        ) : (
+          <Typography variant="smallText" color="error" textAlign="center">
+            No published announcements to be displayed.
+          </Typography>
         )}
 
-        <br />
-        <AddButton />
         <br />
       </Stack>
       <AnnouncementDialog
