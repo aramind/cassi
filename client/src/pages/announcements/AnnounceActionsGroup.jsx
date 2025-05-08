@@ -1,7 +1,11 @@
 import React, { useCallback } from "react";
 import ActionButtons from "../../components/ActionButtons";
 
-const AnnounceActionsGroup = ({ data, deleteHandler, handleOpenDialog }) => {
+const AnnounceActionsGroup = ({
+  data,
+  handleConfirmSoftDelete,
+  handleOpenDialog,
+}) => {
   const handleEdit = useCallback(() => {
     handleOpenDialog("update", data);
   }, [data, handleOpenDialog]);
@@ -12,7 +16,7 @@ const AnnounceActionsGroup = ({ data, deleteHandler, handleOpenDialog }) => {
         size="small"
         direction="row"
         editHandler={handleEdit}
-        deleteHandler={() => deleteHandler(data?._id)}
+        deleteHandler={() => handleConfirmSoftDelete(data?._id)}
       />
     </>
   );

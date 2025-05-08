@@ -1,13 +1,6 @@
 import React, { useEffect } from "react";
-import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  DialogActions,
-  DialogContent,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, DialogActions, DialogContent, Stack } from "@mui/material";
 import DraggableDialog from "../../components/DraggableDialog";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
@@ -18,75 +11,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import newAnnouncementSchema from "../../schemas/newAnnouncementSchema";
 import useHouseProvider from "../../hooks/useHouseProvider";
 import Xbutton from "../../components/buttons/Xbutton";
-
-const getTitle = (action) => {
-  let title = "";
-
-  switch (action) {
-    case "add": {
-      title = "Add New Announcement";
-      break;
-    }
-    case "update": {
-      title = "Update Announcement";
-      break;
-    }
-    default:
-      title = "";
-  }
-
-  return title;
-};
-
-const getSubmitBtnText = (action) => {
-  let text = "";
-
-  switch (action) {
-    case "add": {
-      text = "Submit";
-      break;
-    }
-    case "update": {
-      text = "Update";
-      break;
-    }
-    default:
-      text = "";
-  }
-
-  return text;
-};
-
-const TYPE_OPTIONS = [
-  {
-    label: "general",
-    value: "general",
-  },
-  {
-    label: "reminder",
-    value: "reminder",
-  },
-  {
-    label: "rules",
-    value: "rules",
-  },
-  {
-    label: "emergency",
-    value: "emergency",
-  },
-  {
-    label: "maintenance",
-    value: "maintenance",
-  },
-  {
-    label: "inquiry",
-    value: "inquiry",
-  },
-  {
-    label: "others",
-    value: "others",
-  },
-];
+import {
+  actionButtonText,
+  dialogTitle,
+  TYPE_OPTIONS,
+} from "../../utils/announcementUtils";
+import useFormActions from "../../hooks/useFormActions";
 
 const AnnouncementDialog = ({
   open,
@@ -94,12 +24,12 @@ const AnnouncementDialog = ({
   action,
   data,
   submitHandler,
-  saveAsDraftHandler,
-  publishHandler,
+  handleConfirmSaveAsDraft,
+  handleConfirmPublish,
 }) => {
-  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
-    useConfirmActionDialog();
   const { activeOccupantOptions } = useHouseProvider();
+  const { handleConfirmReset, handleClear, renderConfirmDialog } =
+    useFormActions();
 
   // form related
   const defaultValues = data && data;
@@ -157,19 +87,11 @@ const AnnouncementDialog = ({
     handleCloseDialog();
   };
 
-  const handleConfirmClear = () => {
-    handleConfirm(
-      "Confirm Clear",
-      <Typography>Are you sure you want to reset all fields</Typography>,
-      () => reset(data && {})
-    );
-  };
-
   const onSaveAsDraft = async (formData) => {
     if (action === "add") {
       submitHandler({ ...formData, status: "draft" });
     } else {
-      saveAsDraftHandler({
+      handleConfirmSaveAsDraft({
         id: data?._id,
         data: { ...formData, status: "draft" },
       });
@@ -177,24 +99,21 @@ const AnnouncementDialog = ({
   };
 
   const onPublish = async (formData) => {
-    publishHandler({
+    handleConfirmPublish({
       id: data?._id,
       data: { ...formData, status: "published" },
     });
   };
-  const handleClear = () => {
-    alert("Clearing fields...");
-  };
 
-  let title = getTitle(action);
-  let submitBtnText = getSubmitBtnText(action);
+  const onClear = () => handleClear(reset, { title: "", content: "" });
 
+  const onReset = () => handleConfirmReset(reset, data);
   return (
     <>
       <DraggableDialog
         open={open}
         handleClose={handleClose}
-        title={title}
+        title={dialogTitle?.[action] || ""}
         closeButton={<Xbutton handleClose={handleClose} />}
       >
         <DialogContent>
@@ -243,11 +162,11 @@ const AnnouncementDialog = ({
         <br />
         <DialogActions>
           {data?.status === "draft" && (
-            <Button size="small" variant="outlined" onClick={handleClear}>
+            <Button size="small" variant="outlined" onClick={onClear}>
               Clear
             </Button>
           )}
-          <Button size="small" variant="outlined" onClick={handleConfirmClear}>
+          <Button size="small" variant="outlined" onClick={onReset}>
             Reset
           </Button>
           {data?.status === "draft" ? (
@@ -272,11 +191,11 @@ const AnnouncementDialog = ({
             variant="contained"
             onClick={handleSubmit(onSubmit)}
           >
-            {submitBtnText}
+            {actionButtonText?.[action]}
           </Button>
         </DialogActions>
       </DraggableDialog>
-      {renderConfirmActionDialog()}
+      {renderConfirmDialog()}
     </>
   );
 };

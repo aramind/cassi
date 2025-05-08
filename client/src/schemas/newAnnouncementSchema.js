@@ -9,6 +9,7 @@ const allowedTypes = [
   "emergency",
   "maintenance",
   "inquiry",
+  "others",
 ];
 
 const newAnnouncementSchema = y.object().shape({
