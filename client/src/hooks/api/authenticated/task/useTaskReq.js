@@ -37,6 +37,12 @@ const useTaskReq = ({ isPublic, showAck }) => {
       // invalidateQueries(["tasks"]);
       return res;
     },
+    softDelete: async (id) => {
+      return await request({
+        url: `${url}/${id}/soft-delete`,
+        method: "PATCH",
+      });
+    },
   };
 
   return req;
