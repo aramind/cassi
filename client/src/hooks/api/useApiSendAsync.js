@@ -9,7 +9,7 @@ const useApiSendAsync = (fn, invalidateKey, options) => {
 
   const send = async (
     variables,
-    { showFeedbackMsg = false, message = null } = {}
+    { showFeedbackMsg = true, message = null } = {}
   ) => {
     try {
       const res = await mutation.mutateAsync(variables);
