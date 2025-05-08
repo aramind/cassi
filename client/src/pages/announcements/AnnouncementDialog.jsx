@@ -159,9 +159,9 @@ const AnnouncementDialog = ({
 
   const handleConfirmClear = () => {
     handleConfirm(
-      "Confirm Clear",
+      "Confirm Reset",
       <Typography>Are you sure you want to reset all fields</Typography>,
-      () => reset(data && {})
+      () => reset(data)
     );
   };
 
@@ -183,7 +183,7 @@ const AnnouncementDialog = ({
     });
   };
   const handleClear = () => {
-    alert("Clearing fields...");
+    reset({ title: "", content: "" });
   };
 
   let title = getTitle(action);
