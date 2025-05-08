@@ -12,13 +12,13 @@ import AnnouncementsBox from "./AnnouncementsBox";
 import FullScreenDialog from "../../components/FullScreenDialog";
 import useAnnouncementActions from "../../hooks/api/authenticated/announcement/useAnnouncementActions";
 import useDialogManager from "../../hooks/useDialogManager";
+import DraftsSection from "./DraftsSection";
 
 const AnnouncementsPage = () => {
   // hooks
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
-  const [openDraftedAnnouncements, setOpenDraftedAnnouncements] =
-    useState(false);
+
   const [openDeletedAnnouncements, setOpenDeletedAnnouncements] =
     useState(false);
 
@@ -44,7 +44,6 @@ const AnnouncementsPage = () => {
     handleConfirmUpdate,
     handleConfirmRestore,
     handleConfirmSaveAsDraft,
-    renderConfirmActionDialog,
     handleConfirmSoftDelete,
     handleConfirmHardDelete,
   };
@@ -109,25 +108,13 @@ const AnnouncementsPage = () => {
       {renderConfirmActionDialog()}
       <Stack direction="row" spacing={1} width={1} justifyContent="center">
         {draftedAnnouncements?.length > 0 && (
-          <FullScreenDialog
-            open={openDraftedAnnouncements}
-            setOpen={setOpenDraftedAnnouncements}
-            actionText="open draft(s)"
-            title="Drafts"
-          >
-            <br />
-            <AnnouncementsBox>
-              {draftedAnnouncements?.map((announcement, index) => (
-                <AnnouncementCard
-                  key={index}
-                  announcement={announcement}
-                  handleOpenDialog={handleOpenDialog}
-                  {...confirmHandlers}
-                />
-              ))}
-            </AnnouncementsBox>
-          </FullScreenDialog>
+          <DraftsSection
+            announcements={draftedAnnouncements}
+            handleOpenDialog={handleOpenDialog}
+            {...confirmHandlers}
+          />
         )}
+
         {deletedAnnouncements?.length > 0 && (
           <FullScreenDialog
             open={openDeletedAnnouncements}
