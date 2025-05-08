@@ -17,6 +17,7 @@ import { Filter, Plus, Sort, UnFilterIcon } from "../../utils/muiIcons";
 import FilterOptionsMenu from "./FilterOptionsMenu";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
 import { getConfirmText } from "../../utils/dialogUtils";
+import useTaskActions from "../../hooks/api/authenticated/task/useTaskActions";
 
 const PRIORITY_MAP = {
   low: 1,
@@ -72,6 +73,7 @@ const isMatchToFilters = (task, filters) => {
       filters?.isRecurring?.includes(task?.isRecurring))
   );
 };
+
 const TasksPage = () => {
   // states
   const [sortMethod, setSortMethod] = useState("DATE-NEWEST");
@@ -93,15 +95,19 @@ const TasksPage = () => {
     showAck: false,
   });
 
-  const {
-    data: tasksData,
-    isLoading: isLoadingInFetchingTasks,
-    isError: isErrorInFetchingTasks,
-  } = useApiGet(["tasks"], () =>
-    getTasks(
-      "?fields=_id,title,description,type,status,isCompleted,priority,dueDate,attachments,remarks,isRecurring,recurrenceRule,comments,createdAt,updatedAt"
-    )
-  );
+  const { tasks, isLoading, isError } = useTaskActions({
+    handleCloseDialog,
+  });
+
+  // const {
+  //   data: tasksData,
+  //   isLoading: isLoadingInFetchingTasks,
+  //   isError: isErrorInFetchingTasks,
+  // } = useApiGet(["tasks"], () =>
+  //   getTasks(
+  //     "?fields=_id,title,description,type,status,isCompleted,priority,dueDate,attachments,remarks,isRecurring,recurrenceRule,comments,createdAt,updatedAt"
+  //   )
+  // );
 
   const handleAddTask = (formData) => {
     handleConfirm("Add Task", getConfirmText("add", "task"), () =>
@@ -169,7 +175,7 @@ const TasksPage = () => {
     },
   };
 
-  const activeTasks = filterArrByStatus(tasksData?.data, "active");
+  const activeTasks = filterArrByStatus(tasks, "active");
   // const deletedTasks = filterArrByStatus(tasksData?.data, "deleted")
   // const cancelledTasks = filterArrByStatus(tasksData?.data, "cancelled")
 
@@ -211,8 +217,8 @@ const TasksPage = () => {
   // console logs
 
   // start of return
-  if (isLoadingInFetchingTasks) return <LoadingPage />;
-  if (isErrorInFetchingTasks) return <ErrorPage />;
+  if (isLoading) return <LoadingPage />;
+  if (isError) return <ErrorPage />;
 
   return (
     <BodyContainer justifyContent="flex-start">
