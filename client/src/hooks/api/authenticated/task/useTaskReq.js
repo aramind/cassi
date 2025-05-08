@@ -1,17 +1,17 @@
 import urls from "../../../../constants/urls";
 import useRequest from "../../useRequest";
-import { useQueryClient } from "react-query";
+// import { useQueryClient } from "react-query";
 
 const url = urls?.TASKS;
 
 const useTaskReq = ({ isPublic, showAck }) => {
   const request = useRequest({ isPublic, showAck });
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   // keys must be array of key(s)
-  const invalidateQueries = (keys) => {
-    queryClient.invalidateQueries(keys);
-  };
+  // const invalidateQueries = (keys) => {
+  //   queryClient.invalidateQueries(keys);
+  // };
 
   const req = {
     addTask: async ({ data }) => {
@@ -20,7 +20,7 @@ const useTaskReq = ({ isPublic, showAck }) => {
         method: "POST",
         data,
       });
-      invalidateQueries(["tasks"]);
+      // invalidateQueries(["tasks"]);
       return res;
     },
     getTasks: async (queryParams) =>
@@ -34,7 +34,7 @@ const useTaskReq = ({ isPublic, showAck }) => {
         method: "PATCH",
         data: { updates },
       });
-      invalidateQueries(["tasks"]);
+      // invalidateQueries(["tasks"]);
       return res;
     },
   };
