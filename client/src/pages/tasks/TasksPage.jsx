@@ -3,8 +3,6 @@ import BodyContainer from "../../containers/BodyContainer";
 import { Box, Button, ButtonGroup, Stack } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
-import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
-import useTaskReq from "../../hooks/api/authenticated/task/useTaskReq";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import TasksContainer from "./TasksContainer";
@@ -15,23 +13,13 @@ import OptionsMenu from "../../components/OptionsMenu";
 import { Filter, Plus, Sort, UnFilterIcon } from "../../utils/muiIcons";
 import FilterOptionsMenu from "./FilterOptionsMenu";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
-import { getConfirmText } from "../../utils/dialogUtils";
+
 import useTaskActions from "../../hooks/api/authenticated/task/useTaskActions";
 
 const PRIORITY_MAP = {
   low: 1,
   medium: 2,
   high: 3,
-};
-
-const prepRemarks = (remarks) => {
-  if (typeof remarks === "string") {
-    return remarks.split("/")?.map((c) => c.trim());
-  }
-  if (Array.isArray(remarks)) {
-    return remarks;
-  }
-  return [];
 };
 
 const getSortedTasks = (tasks, method) => {
