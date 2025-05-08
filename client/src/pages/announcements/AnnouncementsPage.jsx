@@ -17,7 +17,6 @@ const AnnouncementsPage = () => {
   // hooks
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
-
   const [openDraftedAnnouncements, setOpenDraftedAnnouncements] =
     useState(false);
   const [openDeletedAnnouncements, setOpenDeletedAnnouncements] =
@@ -59,6 +58,7 @@ const AnnouncementsPage = () => {
   const draftedAnnouncements = announcementsData?.data?.filter(
     (ann) => ann.status === "draft"
   );
+
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
   return (
