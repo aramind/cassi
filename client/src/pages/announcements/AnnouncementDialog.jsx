@@ -18,75 +18,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import newAnnouncementSchema from "../../schemas/newAnnouncementSchema";
 import useHouseProvider from "../../hooks/useHouseProvider";
 import Xbutton from "../../components/buttons/Xbutton";
-
-const getTitle = (action) => {
-  let title = "";
-
-  switch (action) {
-    case "add": {
-      title = "Add New Announcement";
-      break;
-    }
-    case "update": {
-      title = "Update Announcement";
-      break;
-    }
-    default:
-      title = "";
-  }
-
-  return title;
-};
-
-const getSubmitBtnText = (action) => {
-  let text = "";
-
-  switch (action) {
-    case "add": {
-      text = "Submit";
-      break;
-    }
-    case "update": {
-      text = "Update";
-      break;
-    }
-    default:
-      text = "";
-  }
-
-  return text;
-};
-
-const TYPE_OPTIONS = [
-  {
-    label: "general",
-    value: "general",
-  },
-  {
-    label: "reminder",
-    value: "reminder",
-  },
-  {
-    label: "rules",
-    value: "rules",
-  },
-  {
-    label: "emergency",
-    value: "emergency",
-  },
-  {
-    label: "maintenance",
-    value: "maintenance",
-  },
-  {
-    label: "inquiry",
-    value: "inquiry",
-  },
-  {
-    label: "others",
-    value: "others",
-  },
-];
+import {
+  actionButtonText,
+  dialogTitle,
+  TYPE_OPTIONS,
+} from "../../utils/announcementUtils";
 
 const AnnouncementDialog = ({
   open,
@@ -186,15 +122,12 @@ const AnnouncementDialog = ({
     reset({ title: "", content: "" });
   };
 
-  let title = getTitle(action);
-  let submitBtnText = getSubmitBtnText(action);
-
   return (
     <>
       <DraggableDialog
         open={open}
         handleClose={handleClose}
-        title={title}
+        title={dialogTitle?.[action] || ""}
         closeButton={<Xbutton handleClose={handleClose} />}
       >
         <DialogContent>
@@ -272,7 +205,7 @@ const AnnouncementDialog = ({
             variant="contained"
             onClick={handleSubmit(onSubmit)}
           >
-            {submitBtnText}
+            {actionButtonText?.[action]}
           </Button>
         </DialogActions>
       </DraggableDialog>
