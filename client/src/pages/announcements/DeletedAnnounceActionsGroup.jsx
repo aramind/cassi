@@ -4,14 +4,14 @@ import DeletedActionButtons from "./DeletedActionButtons";
 const DeletedAnnounceActionsGroup = ({
   data,
   handleConfirmRestore,
-  permanentDelHandler,
+  handleConfirmHardDelete,
 }) => {
   return (
     <DeletedActionButtons
       size="small"
       direction="row"
       restoreHandler={() => handleConfirmRestore({ id: data?._id })}
-      permanentDelHandler={() => permanentDelHandler(data?._id)}
+      permanentDelHandler={() => handleConfirmHardDelete(data?._id)}
     />
   );
 };
