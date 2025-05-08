@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import { Stack } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
@@ -9,7 +9,6 @@ import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import AnnouncementCard from "./AnnouncementCard";
 import AnnouncementsBox from "./AnnouncementsBox";
-import FullScreenDialog from "../../components/FullScreenDialog";
 import useAnnouncementActions from "../../hooks/api/authenticated/announcement/useAnnouncementActions";
 import useDialogManager from "../../hooks/useDialogManager";
 import DraftsSection from "./DraftsSection";
@@ -56,6 +55,23 @@ const AnnouncementsPage = () => {
     (ann) => ann.status === "draft"
   );
 
+  const AddButton = () => (
+    <MyButton
+      type="accent"
+      text="add"
+      variant="contained"
+      onClickHandler={() => handleOpenDialog("add", null)}
+    />
+  );
+  // preset props
+
+  const props = {
+    addBtn: {},
+    sectionProps: {
+      handleOpenDialog,
+      ...confirmHandlers,
+    },
+  };
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
   return (
@@ -64,12 +80,7 @@ const AnnouncementsPage = () => {
         <PageHeader text="announcements " />
         <Today />
         <br />
-        <MyButton
-          type="accent"
-          text="add"
-          variant="contained"
-          onClickHandler={() => handleOpenDialog("add", null)}
-        />
+        <AddButton />
         <br />
         {publishedAnnouncements && (
           <AnnouncementsBox>
@@ -85,12 +96,7 @@ const AnnouncementsPage = () => {
         )}
 
         <br />
-        <MyButton
-          type="accent"
-          text="add"
-          variant="contained"
-          onClickHandler={() => handleOpenDialog("add", null)}
-        />
+        <AddButton />
         <br />
       </Stack>
       <AnnouncementDialog
@@ -108,15 +114,13 @@ const AnnouncementsPage = () => {
         {draftedAnnouncements?.length > 0 && (
           <DraftsSection
             announcements={draftedAnnouncements}
-            handleOpenDialog={handleOpenDialog}
-            {...confirmHandlers}
+            {...props.sectionProps}
           />
         )}
         {deletedAnnouncements?.length > 0 && (
           <DeletedSection
             announcements={deletedAnnouncements}
-            handleOpenDialog={handleOpenDialog}
-            {...confirmHandlers}
+            {...props.sectionProps}
           />
         )}
       </Stack>
