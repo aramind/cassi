@@ -20,9 +20,6 @@ const AnnouncementsPage = () => {
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
 
-  const [openDeletedAnnouncements, setOpenDeletedAnnouncements] =
-    useState(false);
-
   const {
     announcementsData,
     handleConfirmAddAnnouncement,
@@ -122,27 +119,6 @@ const AnnouncementsPage = () => {
             {...confirmHandlers}
           />
         )}
-
-        {/* {deletedAnnouncements?.length > 0 && (
-          <FullScreenDialog
-            open={openDeletedAnnouncements}
-            setOpen={setOpenDeletedAnnouncements}
-            actionText="review deleted"
-            title="Deleted"
-          >
-            <br />
-            <AnnouncementsBox>
-              {deletedAnnouncements?.map((announcement, index) => (
-                <AnnouncementCard
-                  key={index}
-                  announcement={announcement}
-                  handleOpenDialog={handleOpenDialog}
-                  {...confirmHandlers}
-                />
-              ))}
-            </AnnouncementsBox>
-          </FullScreenDialog>
-        )} */}
       </Stack>
     </BodyContainer>
   );
