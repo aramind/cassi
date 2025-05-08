@@ -1,11 +1,10 @@
 import React, { useMemo, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Box, Button, ButtonGroup, Stack, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Stack } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
 import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import useTaskReq from "../../hooks/api/authenticated/task/useTaskReq";
-import useApiGet from "../../hooks/api/useApiGet";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import TasksContainer from "./TasksContainer";
@@ -90,7 +89,7 @@ const TasksPage = () => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
-  const { addTask, getTasks, updateTask } = useTaskReq({
+  const { addTask, updateTask } = useTaskReq({
     isPublic: false,
     showAck: false,
   });
@@ -98,16 +97,6 @@ const TasksPage = () => {
   const { tasks, isLoading, isError } = useTaskActions({
     handleCloseDialog,
   });
-
-  // const {
-  //   data: tasksData,
-  //   isLoading: isLoadingInFetchingTasks,
-  //   isError: isErrorInFetchingTasks,
-  // } = useApiGet(["tasks"], () =>
-  //   getTasks(
-  //     "?fields=_id,title,description,type,status,isCompleted,priority,dueDate,attachments,remarks,isRecurring,recurrenceRule,comments,createdAt,updatedAt"
-  //   )
-  // );
 
   const handleAddTask = (formData) => {
     handleConfirm("Add Task", getConfirmText("add", "task"), () =>
