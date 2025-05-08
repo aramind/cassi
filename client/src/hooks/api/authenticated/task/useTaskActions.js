@@ -1,7 +1,7 @@
 import useApiGet from "../../useApiGet";
 import useTaskReq from "./useTaskReq";
 
-const useTaskActions = () => {
+const useTaskActions = ({ handleCloseDialog }) => {
   const { addTask, getTasks, updateTask } = useTaskReq({
     isPublic: false,
     showAck: false,
@@ -21,7 +21,7 @@ const useTaskActions = () => {
   const isError = isErrorInFetchingTasks;
 
   return {
-    tasksData,
+    tasks: tasksData?.data,
     isLoading,
     isError,
   };
