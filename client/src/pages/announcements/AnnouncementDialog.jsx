@@ -1,13 +1,6 @@
 import React, { useEffect } from "react";
-import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  DialogActions,
-  DialogContent,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, DialogActions, DialogContent, Stack } from "@mui/material";
 import DraggableDialog from "../../components/DraggableDialog";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
@@ -34,8 +27,6 @@ const AnnouncementDialog = ({
   handleConfirmSaveAsDraft,
   handleConfirmPublish,
 }) => {
-  // const { handleOpen: handleConfirm, renderConfirmActionDialog } =
-  //   useConfirmActionDialog();
   const { activeOccupantOptions } = useHouseProvider();
   const { handleConfirmReset, handleClear, renderConfirmDialog } =
     useFormActions();
