@@ -86,31 +86,37 @@ const TasksPage = () => {
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
 
-  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
-    useConfirmActionDialog();
+  // const { handleOpen: handleConfirm, renderConfirmActionDialog } =
+  //   useConfirmActionDialog();
 
   const { addTask, updateTask } = useTaskReq({
     isPublic: false,
     showAck: false,
   });
 
-  const { tasks, isLoading, isError } = useTaskActions({
+  const {
+    tasks,
+    isLoading,
+    isError,
+    confirmHandlers,
+    renderConfirmActionDialog,
+  } = useTaskActions({
     handleCloseDialog,
   });
 
-  const handleAddTask = (formData) => {
-    handleConfirm("Add Task", getConfirmText("add", "task"), () =>
-      addTask({
-        data: {
-          task: {
-            ...formData,
-            remarks: prepRemarks(formData?.remarks),
-          },
-        },
-      })
-    );
-    handleCloseDialog();
-  };
+  // const handleAddTask = (formData) => {
+  //   handleConfirm("Add Task", getConfirmText("add", "task"), () =>
+  //     addTask({
+  //       data: {
+  //         task: {
+  //           ...formData,
+  //           remarks: prepRemarks(formData?.remarks),
+  //         },
+  //       },
+  //     })
+  //   );
+  //   handleCloseDialog();
+  // };
 
   const handleUpdateTask = ({
     id,
@@ -118,16 +124,16 @@ const TasksPage = () => {
     needsToConfirm = false,
     actionToConfirm = "update",
   }) => {
-    if (needsToConfirm) {
-      handleConfirm(
-        "Update Task",
-        getConfirmText(actionToConfirm, "task"),
-        () => updateTask({ id, updates })
-      );
-    } else {
-      updateTask({ id, updates });
-    }
-    handleCloseDialog();
+    // if (needsToConfirm) {
+    //   handleConfirm(
+    //     "Update Task",
+    //     getConfirmText(actionToConfirm, "task"),
+    //     () => updateTask({ id, updates })
+    //   );
+    // } else {
+    //   updateTask({ id, updates });
+    // }
+    // handleCloseDialog();
   };
 
   const hasActiveFilters = Object.values(filters).some(
@@ -160,7 +166,7 @@ const TasksPage = () => {
       ...dialogState,
       handleCloseDialog: handleCloseDialog,
       submitHandler:
-        dialogState?.action === "add" ? handleAddTask : handleUpdateTask,
+        dialogState?.action === "add" ? confirmHandlers?.add : handleUpdateTask,
     },
   };
 
