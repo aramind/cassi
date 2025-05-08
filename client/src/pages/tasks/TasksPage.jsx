@@ -127,6 +127,7 @@ const TasksPage = () => {
     taskContainer: {
       handleUpdateTask,
       handleOpenDialog,
+      confirmHandlers,
     },
     dialog: {
       ...dialogState,
