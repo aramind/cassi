@@ -9,7 +9,7 @@ const useTaskActions = ({ handleCloseDialog }) => {
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
-  const { addTask, getTasks, updateTask } = useTaskReq({
+  const { addTask, getTasks, updateTask, softDelete } = useTaskReq({
     isPublic: false,
     showAck: false,
   });
@@ -21,21 +21,27 @@ const useTaskActions = ({ handleCloseDialog }) => {
   const { send: sendUpdate, isLoadingInUpdate } = useApiSendAsync(updateTask, [
     "tasks",
   ]);
+
+  const { send: sendSoftDelete, isLoadingInSoftDelete } = useApiSendAsync(
+    softDelete,
+    ["tasks"]
+  );
+
+  //   util function
+  const closeDialog = (willClose) => {
+    if (willClose) handleCloseDialog();
+  };
+  //actions
   const add = (taskData) => {
     handleConfirm("Add Task", getConfirmText("add", "task"), async () => {
       try {
-        const res = await sendAdd(
-          {
-            data: {
-              task: { ...taskData, remarks: prepRemarks(taskData?.remarks) },
-            },
+        const res = await sendAdd({
+          data: {
+            task: { ...taskData, remarks: prepRemarks(taskData?.remarks) },
           },
-          { showFeedbackMsg: true }
-        );
+        });
 
-        if (res?.success) {
-          handleCloseDialog();
-        }
+        closeDialog(res?.success);
       } catch (error) {
         console.error(error);
       }
@@ -49,16 +55,28 @@ const useTaskActions = ({ handleCloseDialog }) => {
           { id, updates },
           { showFeedbackMsg: true }
         );
-
-        if (res?.success) {
-          handleCloseDialog();
-        }
+        closeDialog(res?.success);
       } catch (error) {
         console.error(error);
       }
     });
   };
 
+  const softDel = (id) => {
+    handleConfirm(
+      "Delete",
+      "Are you sure you want to delete this task?",
+      async () => {
+        try {
+          const res = await sendSoftDelete(id);
+
+          if (res?.success) {
+            handleCloseDialog();
+          }
+        } catch (error) {}
+      }
+    );
+  };
   //   fetch tasks
   const {
     data: tasksData,
@@ -70,7 +88,11 @@ const useTaskActions = ({ handleCloseDialog }) => {
     )
   );
 
-  const isLoading = isLoadingInFetchingTasks || isLoadingInAdding;
+  const isLoading =
+    isLoadingInFetchingTasks ||
+    isLoadingInAdding ||
+    isLoadingInUpdate ||
+    isLoadingInSoftDelete;
   const isError = isErrorInFetchingTasks;
 
   const confirmHandlers = {
