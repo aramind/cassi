@@ -13,6 +13,7 @@ import FullScreenDialog from "../../components/FullScreenDialog";
 import useAnnouncementActions from "../../hooks/api/authenticated/announcement/useAnnouncementActions";
 import useDialogManager from "../../hooks/useDialogManager";
 import DraftsSection from "./DraftsSection";
+import DeletedSection from "./DeletedSection";
 
 const AnnouncementsPage = () => {
   // hooks
@@ -114,8 +115,15 @@ const AnnouncementsPage = () => {
             {...confirmHandlers}
           />
         )}
-
         {deletedAnnouncements?.length > 0 && (
+          <DeletedSection
+            announcements={deletedAnnouncements}
+            handleOpenDialog={handleOpenDialog}
+            {...confirmHandlers}
+          />
+        )}
+
+        {/* {deletedAnnouncements?.length > 0 && (
           <FullScreenDialog
             open={openDeletedAnnouncements}
             setOpen={setOpenDeletedAnnouncements}
@@ -134,7 +142,7 @@ const AnnouncementsPage = () => {
               ))}
             </AnnouncementsBox>
           </FullScreenDialog>
-        )}
+        )} */}
       </Stack>
     </BodyContainer>
   );
