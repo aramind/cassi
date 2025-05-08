@@ -12,10 +12,7 @@ import useDialogManager from "../../hooks/useDialogManager";
 import DraftsSection from "./DraftsSection";
 import DeletedSection from "./DeletedSection";
 import PublishedSection from "./PublishedSection";
-import {
-  filterByStatus,
-  filteredAnnouncementByStatus,
-} from "../../utils/announcementUtils";
+import { filteredAnnouncementByStatus } from "../../utils/announcementUtils";
 
 const AnnouncementsPage = () => {
   // hooks
