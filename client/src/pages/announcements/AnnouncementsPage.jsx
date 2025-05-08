@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import { Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
@@ -7,13 +7,15 @@ import MyButton from "../../components/buttons/MyButton";
 import AnnouncementDialog from "./AnnouncementDialog";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
-import AnnouncementCard from "./AnnouncementCard";
-import AnnouncementsBox from "./AnnouncementsBox";
 import useAnnouncementActions from "../../hooks/api/authenticated/announcement/useAnnouncementActions";
 import useDialogManager from "../../hooks/useDialogManager";
 import DraftsSection from "./DraftsSection";
 import DeletedSection from "./DeletedSection";
 import PublishedSection from "./PublishedSection";
+import {
+  filterByStatus,
+  filteredAnnouncementByStatus,
+} from "../../utils/announcementUtils";
 
 const AnnouncementsPage = () => {
   // hooks
@@ -46,15 +48,11 @@ const AnnouncementsPage = () => {
     handleConfirmHardDelete,
   };
 
-  const publishedAnnouncements = announcementsData?.data?.filter(
-    (ann) => ann.status === "published"
-  );
-  const deletedAnnouncements = announcementsData?.data?.filter(
-    (ann) => ann.status === "deleted"
-  );
-  const draftedAnnouncements = announcementsData?.data?.filter(
-    (ann) => ann.status === "draft"
-  );
+  const { publishedAnnouncements, draftedAnnouncements, deletedAnnouncements } =
+    useMemo(
+      () => filteredAnnouncementByStatus(announcementsData?.data),
+      [announcementsData?.data]
+    );
 
   const AddButton = () => (
     <MyButton
@@ -83,18 +81,6 @@ const AnnouncementsPage = () => {
         <br />
         <AddButton />
         <br />
-        {/* {publishedAnnouncements && (
-          <AnnouncementsBox>
-            {publishedAnnouncements?.map((announcement, index) => (
-              <AnnouncementCard
-                key={index}
-                announcement={announcement}
-                {...confirmHandlers}
-                handleOpenDialog={handleOpenDialog}
-              />
-            ))}
-          </AnnouncementsBox>
-        )} */}
         {publishedAnnouncements?.length > 0 ? (
           <>
             <PublishedSection
