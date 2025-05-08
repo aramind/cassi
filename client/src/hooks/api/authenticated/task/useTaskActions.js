@@ -68,7 +68,9 @@ const useTaskActions = ({ handleCloseDialog }) => {
           const res = await sendSoftDelete(id);
 
           closeDialog(res?.success);
-        } catch (error) {}
+        } catch (error) {
+          console.error(error);
+        }
       }
     );
   };
@@ -93,6 +95,7 @@ const useTaskActions = ({ handleCloseDialog }) => {
   const confirmHandlers = {
     add,
     update,
+    softDel,
   };
   return {
     tasks: tasksData?.data,
