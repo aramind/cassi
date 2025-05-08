@@ -86,14 +86,6 @@ const TasksPage = () => {
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
 
-  // const { handleOpen: handleConfirm, renderConfirmActionDialog } =
-  //   useConfirmActionDialog();
-
-  const { addTask, updateTask } = useTaskReq({
-    isPublic: false,
-    showAck: false,
-  });
-
   const {
     tasks,
     isLoading,
@@ -103,20 +95,6 @@ const TasksPage = () => {
   } = useTaskActions({
     handleCloseDialog,
   });
-
-  // const handleAddTask = (formData) => {
-  //   handleConfirm("Add Task", getConfirmText("add", "task"), () =>
-  //     addTask({
-  //       data: {
-  //         task: {
-  //           ...formData,
-  //           remarks: prepRemarks(formData?.remarks),
-  //         },
-  //       },
-  //     })
-  //   );
-  //   handleCloseDialog();
-  // };
 
   const handleUpdateTask = ({
     id,
