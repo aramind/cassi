@@ -10,7 +10,17 @@ const add = async (req, res) => {
       sendResponse.failed(res, "No task details", null, 400);
     }
 
-    const newTask = await Task.create({ ...task, house: houseId });
+    const existing = await Task.findOne({
+      title: task?.title?.trim().toUpperCase(),
+    });
+    if (existing) {
+      return sendResponse.failed(res, "Task already exists!", null, 409);
+    }
+    const newTask = await Task.create({
+      ...task,
+      title: task?.title?.trim().toUpperCase(),
+      house: houseId,
+    });
 
     return sendResponse.success(res, "New task created.", newTask, 201);
   } catch (error) {

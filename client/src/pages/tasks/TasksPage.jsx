@@ -1,11 +1,8 @@
 import React, { useMemo, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
-import { Box, Button, ButtonGroup, Stack, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Stack } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Today from "../../components/Today";
-import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
-import useTaskReq from "../../hooks/api/authenticated/task/useTaskReq";
-import useApiGet from "../../hooks/api/useApiGet";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 import TasksContainer from "./TasksContainer";
@@ -16,62 +13,9 @@ import OptionsMenu from "../../components/OptionsMenu";
 import { Filter, Plus, Sort, UnFilterIcon } from "../../utils/muiIcons";
 import FilterOptionsMenu from "./FilterOptionsMenu";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
-import { getConfirmText } from "../../utils/dialogUtils";
+import useTaskActions from "../../hooks/api/authenticated/task/useTaskActions";
+import { getSortedTasks, isMatchToFilters } from "../../utils/taskUtils";
 
-const PRIORITY_MAP = {
-  low: 1,
-  medium: 2,
-  high: 3,
-};
-
-const prepRemarks = (remarks) => {
-  if (typeof remarks === "string") {
-    return remarks.split("/")?.map((c) => c.trim());
-  }
-  if (Array.isArray(remarks)) {
-    return remarks;
-  }
-  return [];
-};
-
-const getSortedTasks = (tasks, method) => {
-  if (!tasks || !Array.isArray(tasks)) return [];
-
-  const sorted = [...tasks];
-
-  switch (method) {
-    case "DATE-NEWEST":
-      return sorted.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate));
-    case "DATE-OLDEST":
-      return sorted.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-    case "PRIORITY-HIGHEST":
-      return sorted.sort(
-        (a, b) => PRIORITY_MAP[b.priority] - PRIORITY_MAP[a.priority]
-      );
-    case "PRIORITY-LOWEST":
-      return sorted.sort(
-        (a, b) => PRIORITY_MAP[a.priority] - PRIORITY_MAP[b.priority]
-      );
-    case "NAME-ASC":
-      return sorted.sort((a, b) => a.title?.localeCompare(b.title));
-    case "NAME-DES":
-      return sorted.sort((a, b) => b.title?.localeCompare(a.title));
-    default:
-      return sorted;
-  }
-};
-
-const isMatchToFilters = (task, filters) => {
-  return (
-    (filters?.type?.length === 0 || filters?.type?.includes(task?.type)) &&
-    (filters?.priority?.length === 0 ||
-      filters?.priority?.includes(task?.priority)) &&
-    (filters?.isCompleted?.length === 0 ||
-      filters?.isCompleted?.includes(task?.isCompleted)) &&
-    (filters?.isRecurring?.length === 0 ||
-      filters?.isRecurring?.includes(task?.isRecurring))
-  );
-};
 const TasksPage = () => {
   // states
   const [sortMethod, setSortMethod] = useState("DATE-NEWEST");
@@ -85,59 +29,21 @@ const TasksPage = () => {
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
 
-  const { handleOpen: handleConfirm, renderConfirmActionDialog } =
-    useConfirmActionDialog();
-
-  const { addTask, getTasks, updateTask } = useTaskReq({
-    isPublic: false,
-    showAck: false,
-  });
-
   const {
-    data: tasksData,
-    isLoading: isLoadingInFetchingTasks,
-    isError: isErrorInFetchingTasks,
-  } = useApiGet(["tasks"], () =>
-    getTasks(
-      "?fields=_id,title,description,type,status,isCompleted,priority,dueDate,attachments,remarks,isRecurring,recurrenceRule,comments,createdAt,updatedAt"
-    )
-  );
-
-  const handleAddTask = (formData) => {
-    handleConfirm("Add Task", getConfirmText("add", "task"), () =>
-      addTask({
-        data: {
-          task: {
-            ...formData,
-            remarks: prepRemarks(formData?.remarks),
-          },
-        },
-      })
-    );
-    handleCloseDialog();
-  };
-
-  const handleUpdateTask = ({
-    id,
-    updates,
-    needsToConfirm = false,
-    actionToConfirm = "update",
-  }) => {
-    if (needsToConfirm) {
-      handleConfirm(
-        "Update Task",
-        getConfirmText(actionToConfirm, "task"),
-        () => updateTask({ id, updates })
-      );
-    } else {
-      updateTask({ id, updates });
-    }
-    handleCloseDialog();
-  };
+    tasks,
+    isLoading,
+    isError,
+    confirmHandlers,
+    updateWithOutConfirm,
+    renderConfirmActionDialog,
+  } = useTaskActions({
+    handleCloseDialog,
+  });
 
   const hasActiveFilters = Object.values(filters).some(
     (arr) => Array.isArray(arr) && arr.length > 0
   );
+
   // filter handlers
   const handleResetFilters = () =>
     setFilters((pv) => ({
@@ -158,18 +64,20 @@ const TasksPage = () => {
       onClickHandler: () => handleOpenDialog("add", null),
     },
     taskContainer: {
-      handleUpdateTask,
       handleOpenDialog,
+      confirmHandlers,
     },
     dialog: {
       ...dialogState,
       handleCloseDialog: handleCloseDialog,
       submitHandler:
-        dialogState?.action === "add" ? handleAddTask : handleUpdateTask,
+        dialogState?.action === "add"
+          ? confirmHandlers?.add
+          : confirmHandlers?.update,
     },
   };
 
-  const activeTasks = filterArrByStatus(tasksData?.data, "active");
+  const activeTasks = filterArrByStatus(tasks, "active");
   // const deletedTasks = filterArrByStatus(tasksData?.data, "deleted")
   // const cancelledTasks = filterArrByStatus(tasksData?.data, "cancelled")
 
@@ -211,8 +119,8 @@ const TasksPage = () => {
   // console logs
 
   // start of return
-  if (isLoadingInFetchingTasks) return <LoadingPage />;
-  if (isErrorInFetchingTasks) return <ErrorPage />;
+  if (isLoading) return <LoadingPage />;
+  if (isError) return <ErrorPage />;
 
   return (
     <BodyContainer justifyContent="flex-start">
@@ -268,6 +176,7 @@ const TasksPage = () => {
         </Stack>
         {sortedFilteredTasks?.length > 0 && (
           <TasksContainer
+            updateWithOutConfirm={updateWithOutConfirm}
             {...props?.taskContainer}
             tasks={sortedFilteredTasks}
           />

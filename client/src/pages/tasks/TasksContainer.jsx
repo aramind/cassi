@@ -23,7 +23,12 @@ import {
 import TaskDetails from "./TaskDetails";
 import { formatDate } from "../../utils/formatDate";
 
-const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
+const TasksContainer = ({
+  tasks,
+  updateWithOutConfirm,
+  handleOpenDialog,
+  confirmHandlers,
+}) => {
   const [doneTasks, setDoneTasks] = useState(
     Object.fromEntries(tasks.map((t) => [t._id, t.isCompleted]))
   );
@@ -32,7 +37,7 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
     e.stopPropagation();
     e.preventDefault();
     setDoneTasks((prev) => ({ ...prev, [taskId]: e.target.checked }));
-    handleUpdateTask({
+    updateWithOutConfirm({
       id: taskId,
       updates: { isCompleted: e.target.checked },
     });
@@ -137,12 +142,7 @@ const TasksContainer = ({ tasks, handleUpdateTask, handleOpenDialog }) => {
                       size="small"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleUpdateTask({
-                          id: t?._id,
-                          updates: { status: "deleted" },
-                          needsToConfirm: true,
-                          actionToConfirm: "delete",
-                        });
+                        confirmHandlers?.softDel(t?._id);
                       }}
                     >
                       <DeleteIcon fontSize="0.8rem" />
