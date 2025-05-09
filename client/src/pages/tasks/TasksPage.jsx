@@ -79,28 +79,11 @@ const TasksPage = () => {
     isLoading,
     isError,
     confirmHandlers,
+    updateWithOutConfirm,
     renderConfirmActionDialog,
   } = useTaskActions({
     handleCloseDialog,
   });
-
-  const handleUpdateTask = ({
-    id,
-    updates,
-    needsToConfirm = false,
-    actionToConfirm = "update",
-  }) => {
-    // if (needsToConfirm) {
-    //   handleConfirm(
-    //     "Update Task",
-    //     getConfirmText(actionToConfirm, "task"),
-    //     () => updateTask({ id, updates })
-    //   );
-    // } else {
-    //   updateTask({ id, updates });
-    // }
-    // handleCloseDialog();
-  };
 
   const hasActiveFilters = Object.values(filters).some(
     (arr) => Array.isArray(arr) && arr.length > 0
@@ -125,7 +108,6 @@ const TasksPage = () => {
       onClickHandler: () => handleOpenDialog("add", null),
     },
     taskContainer: {
-      handleUpdateTask,
       handleOpenDialog,
       confirmHandlers,
     },
@@ -238,6 +220,7 @@ const TasksPage = () => {
         </Stack>
         {sortedFilteredTasks?.length > 0 && (
           <TasksContainer
+            updateWithOutConfirm={updateWithOutConfirm}
             {...props?.taskContainer}
             tasks={sortedFilteredTasks}
           />

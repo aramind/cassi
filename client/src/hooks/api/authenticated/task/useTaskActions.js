@@ -59,6 +59,14 @@ const useTaskActions = ({ handleCloseDialog }) => {
     });
   };
 
+  const updateWithOutConfirm = async ({ id, updates }) => {
+    try {
+      await sendUpdate({ id, updates }, { showFeedbackMsg: false });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const softDel = (id) => {
     handleConfirm(
       "Delete",
@@ -100,6 +108,7 @@ const useTaskActions = ({ handleCloseDialog }) => {
   return {
     tasks: tasksData?.data,
     confirmHandlers,
+    updateWithOutConfirm,
     isLoading,
     isError,
     renderConfirmActionDialog,

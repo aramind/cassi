@@ -25,7 +25,7 @@ import { formatDate } from "../../utils/formatDate";
 
 const TasksContainer = ({
   tasks,
-  handleUpdateTask,
+  updateWithOutConfirm,
   handleOpenDialog,
   confirmHandlers,
 }) => {
@@ -37,7 +37,7 @@ const TasksContainer = ({
     e.stopPropagation();
     e.preventDefault();
     setDoneTasks((prev) => ({ ...prev, [taskId]: e.target.checked }));
-    handleUpdateTask({
+    updateWithOutConfirm({
       id: taskId,
       updates: { isCompleted: e.target.checked },
     });
