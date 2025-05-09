@@ -7,3 +7,9 @@ export const prepRemarks = (remarks) => {
   }
   return [];
 };
+
+export const PRIORITY_MAP = {
+  low: 1,
+  medium: 2,
+  high: 3,
+};
