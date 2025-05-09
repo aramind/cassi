@@ -14,19 +14,7 @@ import { Filter, Plus, Sort, UnFilterIcon } from "../../utils/muiIcons";
 import FilterOptionsMenu from "./FilterOptionsMenu";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
 import useTaskActions from "../../hooks/api/authenticated/task/useTaskActions";
-import { getSortedTasks } from "../../utils/taskUtils";
-
-const isMatchToFilters = (task, filters) => {
-  return (
-    (filters?.type?.length === 0 || filters?.type?.includes(task?.type)) &&
-    (filters?.priority?.length === 0 ||
-      filters?.priority?.includes(task?.priority)) &&
-    (filters?.isCompleted?.length === 0 ||
-      filters?.isCompleted?.includes(task?.isCompleted)) &&
-    (filters?.isRecurring?.length === 0 ||
-      filters?.isRecurring?.includes(task?.isRecurring))
-  );
-};
+import { getSortedTasks, isMatchToFilters } from "../../utils/taskUtils";
 
 const TasksPage = () => {
   // states

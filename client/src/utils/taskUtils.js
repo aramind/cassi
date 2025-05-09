@@ -40,3 +40,15 @@ export const getSortedTasks = (tasks, method) => {
       return sorted;
   }
 };
+
+export const isMatchToFilters = (task, filters) => {
+  return (
+    (filters?.type?.length === 0 || filters?.type?.includes(task?.type)) &&
+    (filters?.priority?.length === 0 ||
+      filters?.priority?.includes(task?.priority)) &&
+    (filters?.isCompleted?.length === 0 ||
+      filters?.isCompleted?.includes(task?.isCompleted)) &&
+    (filters?.isRecurring?.length === 0 ||
+      filters?.isRecurring?.includes(task?.isRecurring))
+  );
+};
