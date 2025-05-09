@@ -14,34 +14,7 @@ import { Filter, Plus, Sort, UnFilterIcon } from "../../utils/muiIcons";
 import FilterOptionsMenu from "./FilterOptionsMenu";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
 import useTaskActions from "../../hooks/api/authenticated/task/useTaskActions";
-import { PRIORITY_MAP } from "../../utils/taskUtils";
-
-const getSortedTasks = (tasks, method) => {
-  if (!tasks || !Array.isArray(tasks)) return [];
-
-  const sorted = [...tasks];
-
-  switch (method) {
-    case "DATE-NEWEST":
-      return sorted.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate));
-    case "DATE-OLDEST":
-      return sorted.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-    case "PRIORITY-HIGHEST":
-      return sorted.sort(
-        (a, b) => PRIORITY_MAP[b.priority] - PRIORITY_MAP[a.priority]
-      );
-    case "PRIORITY-LOWEST":
-      return sorted.sort(
-        (a, b) => PRIORITY_MAP[a.priority] - PRIORITY_MAP[b.priority]
-      );
-    case "NAME-ASC":
-      return sorted.sort((a, b) => a.title?.localeCompare(b.title));
-    case "NAME-DES":
-      return sorted.sort((a, b) => b.title?.localeCompare(a.title));
-    default:
-      return sorted;
-  }
-};
+import { getSortedTasks } from "../../utils/taskUtils";
 
 const isMatchToFilters = (task, filters) => {
   return (
