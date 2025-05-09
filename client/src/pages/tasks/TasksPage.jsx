@@ -15,12 +15,13 @@ import FilterOptionsMenu from "./FilterOptionsMenu";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
 
 import useTaskActions from "../../hooks/api/authenticated/task/useTaskActions";
+import { PRIORITY_MAP } from "../../utils/taskUtils";
 
-const PRIORITY_MAP = {
-  low: 1,
-  medium: 2,
-  high: 3,
-};
+// const PRIORITY_MAP = {
+//   low: 1,
+//   medium: 2,
+//   high: 3,
+// };
 
 const getSortedTasks = (tasks, method) => {
   if (!tasks || !Array.isArray(tasks)) return [];
@@ -88,6 +89,7 @@ const TasksPage = () => {
   const hasActiveFilters = Object.values(filters).some(
     (arr) => Array.isArray(arr) && arr.length > 0
   );
+
   // filter handlers
   const handleResetFilters = () =>
     setFilters((pv) => ({
