@@ -77,7 +77,7 @@ const OccupantCard = ({ occupant, index, onUpdate }) => {
         />
         <OccupantDetail
           label="emergency contact"
-          value={occupant.occupant?.emergencyContact}
+          value={occupant.occupant?.emergencyContact?.name}
         />
         <OccupantDetail
           label="preferences"

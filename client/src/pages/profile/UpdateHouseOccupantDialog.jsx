@@ -15,7 +15,6 @@ import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
 import ControlledLabelledSelect from "../../components/controlled/ControlledLabelledSelect";
 import LabelWrapper from "../../wrappers/LabelWrapper";
-import useHouseOccupantReq from "../../hooks/api/authenticated/useHouseOccupantReq";
 import useApiGet from "../../hooks/api/useApiGet";
 import useAuth from "../../hooks/useAuth";
 import LoadingPage from "../LoadingPage";
@@ -31,6 +30,7 @@ const statusOptions = options?.homeOccupantStatus;
 const UpdateHouseOccupantDialog = ({
   open,
   setOpen,
+  data,
   houseOccupantId,
   sendUpdateRequest,
 }) => {
@@ -39,20 +39,20 @@ const UpdateHouseOccupantDialog = ({
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
-  const { getHouseOccupant } = useHouseOccupantReq({
-    isPublic: false,
-    showAck: false,
-  });
+  // const { getHouseOccupant } = useHouseOccupantReq({
+  //   isPublic: false,
+  //   showAck: false,
+  // });
 
-  const {
-    data: houseOccupantData,
-    isLoading,
-    isError,
-  } = useApiGet("house-occupant", () => getHouseOccupant(houseOccupantId), {
-    refetchOnWindowFocus: true,
-    retry: 3,
-    enabled: !!auth?.houseInfo?._id,
-  });
+  // const {
+  //   data: houseOccupantData,
+  //   isLoading,
+  //   isError,
+  // } = useApiGet("house-occupant", () => getHouseOccupant(houseOccupantId), {
+  //   refetchOnWindowFocus: true,
+  //   retry: 3,
+  //   enabled: !!auth?.houseInfo?._id,
+  // });
 
   const {
     control,
@@ -68,9 +68,8 @@ const UpdateHouseOccupantDialog = ({
   };
 
   useEffect(() => {
-    if (houseOccupantData?.data) {
-      const { occupant, moveInDate, ...otherHouseOccupantInfo } =
-        houseOccupantData?.data;
+    if (data) {
+      const { occupant, moveInDate, ...otherHouseOccupantInfo } = data;
       const { contactNumbers, dateOfBirth, ...otherOccupantInfo } = occupant;
       const formattedDefaultValues = {
         occupant: {
@@ -84,7 +83,7 @@ const UpdateHouseOccupantDialog = ({
       setDefaultValues((pv) => formattedDefaultValues);
       reset(formattedDefaultValues);
     }
-  }, [houseOccupantData, reset, setDefaultValues]);
+  }, [data, reset, setDefaultValues]);
 
   //   handlers
   const handleClose = (e) => {
@@ -123,9 +122,6 @@ const UpdateHouseOccupantDialog = ({
       handleFormSubmit
     );
   };
-
-  if (isLoading) return <LoadingPage />;
-  if (isError) return <ErrorPage />;
 
   return (
     <>

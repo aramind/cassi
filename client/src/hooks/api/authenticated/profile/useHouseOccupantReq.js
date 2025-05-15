@@ -1,5 +1,5 @@
-import urls from "../../../constants/urls";
-import useRequest from "../useRequest";
+import urls from "../../../../constants/urls";
+import useRequest from "../../useRequest";
 
 const url = urls?.HOUSEOCCUPANT;
 
