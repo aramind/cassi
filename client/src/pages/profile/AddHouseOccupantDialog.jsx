@@ -26,8 +26,10 @@ import { options } from "../../constants/options";
 const genderOptions = options?.gender;
 const AddHouseOccupantDialog = ({
   open,
-  setOpen,
-  sendAddNewHouseOccupantReq,
+  handleCloseDialog,
+  action,
+  data,
+  submitHandler,
 }) => {
   // hooks
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
@@ -54,7 +56,7 @@ const AddHouseOccupantDialog = ({
   // handlers
   const handleClose = (e) => {
     e.stopPropagation();
-    setOpen(false);
+    handleCloseDialog();
   };
 
   // form handlers
@@ -63,13 +65,10 @@ const AddHouseOccupantDialog = ({
   };
 
   const onSubmit = async (formData) => {
-    handleSubmit(
-      sendAddNewHouseOccupantReq({ occupant: { occupant: formData } })
-    );
-  };
-  const handleFormSubmit = () => {
-    handleSubmit(onSubmit)();
-    setOpen(false);
+    if (action === "add") {
+      submitHandler({ occupant: { occupant: formData } });
+    } else if (action === "update") {
+    }
   };
 
   // confirm action dialog handlers
@@ -81,13 +80,13 @@ const AddHouseOccupantDialog = ({
     );
   };
 
-  const handleConfirmSubmit = () => {
-    handleConfirm(
-      "Confirm Submit",
-      <Typography>Are you sure you want to add new house occupant?</Typography>,
-      handleFormSubmit
-    );
-  };
+  // const handleConfirmSubmit = () => {
+  //   handleConfirm(
+  //     "Confirm Submit",
+  //     <Typography>Are you sure you want to add new house occupant?</Typography>,
+  //     handleFormSubmit
+  //   );
+  // };
 
   return (
     <>
@@ -183,7 +182,7 @@ const AddHouseOccupantDialog = ({
           <Button className="outlined" onClick={handleConfirmClear}>
             Reset
           </Button>
-          <Button className="contained" onClick={handleConfirmSubmit}>
+          <Button className="contained" onClick={handleSubmit(onSubmit)}>
             Add
           </Button>
         </DialogActions>

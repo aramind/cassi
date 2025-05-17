@@ -170,6 +170,13 @@ const ProfilePage = () => {
           sendUpdateRequest={sendUpdateRequest}
         />
       )} */}
+      <AddHouseOccupantDialog
+        {...dialogState}
+        handleCloseDialog={handleCloseDialog}
+        submitHandler={
+          dialogState?.action === "add" ? handleConfirmAddHouseOccupant : null
+        }
+      />
       {renderConfirmActionDialog()}
     </BodyContainer>
   );
