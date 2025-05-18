@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Stack,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import React, { useState } from "react";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
@@ -30,7 +23,7 @@ const OccupantDetail = ({ label, value }) => (
 const OccupantCard = ({
   occupant,
   index,
-  onUpdate,
+
   handleOpenDialog,
   confirmHandlers,
 }) => {
