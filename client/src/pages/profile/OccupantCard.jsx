@@ -107,7 +107,6 @@ const OccupantCard = ({
           justifyContent="space-between"
           direction="row"
           alignItems="center"
-          className="outlined"
         >
           <Typography>EMERGENCY CONTACT:</Typography>
           <IconButton
