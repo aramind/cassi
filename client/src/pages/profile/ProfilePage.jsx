@@ -1,12 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BodyContainer from "../../containers/BodyContainer";
 import { Button, Stack, Typography } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
-import AddHouseOccupantDialog from "./AddHouseOccupantDialog";
-import UpdateHouseOccupantDialog from "./UpdateHouseOccupantDialog";
-import useApiSend from "../../hooks/api/useApiSend";
 import OccupantByStatus from "./OccupantByStatus";
 import useProfileActions from "../../hooks/api/authenticated/profile/useProfileActions";
 import useDialogManager from "../../hooks/useDialogManager";
@@ -21,7 +18,6 @@ const Value = ({ transform, children }) => (
 
 const ProfilePage = () => {
   const [openedCategories, setOpenedCategories] = useState(["active"]);
-  const [selectedOccupantId, setSelectedOccupantId] = useState(null);
   // const [openDialog, setOpenDialog] = useState(false);
   // const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [houseProfile, setHouseProfile] = useState([]);
@@ -40,6 +36,7 @@ const ProfilePage = () => {
   const {
     houseProfileData,
     handleConfirmAddHouseOccupant,
+    handleConfirmUpdateHouseOccupant,
     isLoading,
     isError,
     renderConfirmActionDialog,
@@ -49,6 +46,7 @@ const ProfilePage = () => {
 
   const confirmHandlers = {
     handleConfirmAddHouseOccupant,
+    handleConfirmUpdateHouseOccupant,
   };
   // const { data, isLoading, isError } = useApiGet(
   //   "houseProfile",
@@ -149,6 +147,8 @@ const ProfilePage = () => {
                 occupants={occupants}
                 status={status}
                 label={status}
+                handleOpenDialog={handleOpenDialog}
+                confirmHandlers={confirmHandlers}
                 // onUpdate={updateOccupantHandler}
               />
             ))}
@@ -175,7 +175,9 @@ const ProfilePage = () => {
         {...dialogState}
         handleCloseDialog={handleCloseDialog}
         submitHandler={
-          dialogState?.action === "add" ? handleConfirmAddHouseOccupant : null
+          dialogState?.action === "add"
+            ? handleConfirmAddHouseOccupant
+            : handleConfirmUpdateHouseOccupant
         }
       />
       {renderConfirmActionDialog()}
