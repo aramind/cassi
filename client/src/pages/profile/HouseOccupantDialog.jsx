@@ -4,7 +4,7 @@ import { options } from "../../constants/options";
 import addNewOccupantSchema from "../../schemas/addNewOccupantSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { joinWithSymbol } from "../../utils/joinWithSymbol";
-import { formatToMMDDYYYY } from "../../utils/date";
+import { convertToISOFormat, formatToMMDDYYYY } from "../../utils/date";
 import {
   Button,
   Dialog,
@@ -14,6 +14,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { DevTool } from "@hookform/devtools";
 import DraggablePaperComponent from "../../components/DraggablePaperComponent";
 import FormWrapper from "../../wrappers/FormWrapper";
 import ControlledLabelledTextField from "../../components/controlled/ControlledLabelledTextField";
@@ -50,9 +51,17 @@ const HouseOccupantDialog = ({
     errors,
   };
 
+  console.log(data);
   // hooks
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
+
+  useEffect(() => {
+    if (action === "add") {
+      reset({});
+    }
+  }, [action, reset]);
+
   useEffect(() => {
     if (data) {
       const { occupant, moveInDate, ...otherHouseOccupantInfo } = data;
@@ -71,6 +80,7 @@ const HouseOccupantDialog = ({
     }
   }, [data, reset]);
 
+  console.log(defaultValues);
   // handlers
   const handleClose = (e) => {
     e.stopPropagation();
@@ -88,9 +98,16 @@ const HouseOccupantDialog = ({
 
   const onSubmit = async (formData, id) => {
     if (action === "add") {
-      submitHandler({ occupant: { occupant: formData } });
+      const formattedFormData = {
+        ...formData,
+        dateOfBirth: convertToISOFormat(formData?.dateOfBirth),
+        preferences: formData?.preferences?.split("/"),
+        contactNumbers: formData?.contactNumbers?.split("/"),
+      };
+      submitHandler({ occupant: { occupant: formattedFormData } });
     } else if (action === "update") {
-      submitHandler({ houseOccupantId: id, data: formData });
+      //   submitHandler({ houseOccupantId: id, data: formData });
+      console.log("UPDATING", formData);
     }
   };
 
@@ -146,8 +163,15 @@ const HouseOccupantDialog = ({
                   label="last name"
                   name="name.lastName"
                 />
-                <ControlledLabelledTextField label="nickname" name="nickName" />
+                <ControlledLabelledTextField
+                  label="nickname"
+                  name="name.nickName"
+                />
                 <ControlledLabelledTextField label="email" name="email" />
+                <ControlledLabelledTextField
+                  label='contact number(s) ( separate by " / " )'
+                  name="contactNumbers"
+                />
                 <ControlledLabelledSelect
                   id="gender-select"
                   label="gender"
@@ -169,35 +193,35 @@ const HouseOccupantDialog = ({
                   name="preferences"
                 />
 
-                <LabelWrapper label="emergency contacts" />
+                <LabelWrapper label="emergency contact" />
                 <Stack spacing={1} pl={2}>
                   <ControlledLabelledTextField
                     label="name"
-                    name="occupant.emergencyContact.name"
+                    name="emergencyContact.name"
                   />
                   <ControlledLabelledTextField
                     label="address"
-                    name="occupant.emergencyContact.address"
+                    name="emergencyContact.address"
                   />
                   <ControlledLabelledTextField
                     label="relation to occupant"
-                    name="occupant.emergencyContact.relationToOccupant"
+                    name="emergencyContact.relationToOccupant"
                   />
                   <ControlledLabelledTextField
                     label="relation to occupant"
-                    name="occupant.emergencyContact.relationToOccupant"
+                    name="emergencyContact.relationToOccupant"
                   />
                   <ControlledLabelledTextField
                     label="email"
-                    name="occupant.emergencyContact.email"
+                    name="emergencyContact.email"
                   />
                   <ControlledLabelledTextField
-                    label="mobile number(s)"
+                    label="mobile number"
                     name="emergencyContact.mobileNumber"
                   />
                   <ControlledLabelledTextField
-                    label="phone number(s)"
-                    name="occupant.emergencyContact.phoneNumber"
+                    label="phone number"
+                    name="emergencyContact.phoneNumber"
                   />
                 </Stack>
               </Stack>
@@ -216,6 +240,7 @@ const HouseOccupantDialog = ({
         </DialogActions>
       </Dialog>
       {renderConfirmActionDialog()}
+      <DevTool control={control} />
     </>
   );
 };
