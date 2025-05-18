@@ -46,10 +46,11 @@ const useProfileActions = ({ handleCloseDialog }) => {
     handleConfirm(
       "Confirm Submit",
       "Are you sure you want to add new house occupant?",
-      sendWithSuccessDialogClose(sendAddHouseOccupant, [
-        { occupant },
-        { showFeedbackMsg: true },
-      ])
+      () =>
+        sendWithSuccessDialogClose(sendAddHouseOccupant, [
+          { occupant },
+          { showFeedbackMsg: true },
+        ])
     );
   };
 
