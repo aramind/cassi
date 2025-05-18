@@ -98,7 +98,9 @@ const HouseOccupantDialog = ({
     if (action === "add") {
       const formattedFormData = {
         ...formData,
-        dateOfBirth: convertToISOFormat(formData?.dateOfBirth),
+        dateOfBirth: formData?.dateOfBirth
+          ? convertToISOFormat(formData?.dateOfBirth)
+          : null,
         preferences: formData?.preferences?.split("/"),
         contactNumbers: formData?.contactNumbers?.split("/"),
       };
@@ -111,7 +113,9 @@ const HouseOccupantDialog = ({
       console.log(occupantData);
       const formattedOccupantData = {
         ...occupantData,
-        dateOfBirth: convertToISOFormat(occupantData?.dateOfBirth),
+        dateOfBirth: formData?.dateOfBirth
+          ? convertToISOFormat(formData?.dateOfBirth)
+          : null,
         preferences: occupantData?.preferences?.split("/"),
         contactNumbers: occupantData?.contactNumbers?.split("/"),
         _id: data?.occupant?._id,
