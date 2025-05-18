@@ -18,20 +18,11 @@ const Value = ({ transform, children }) => (
 
 const ProfilePage = () => {
   const [openedCategories, setOpenedCategories] = useState(["active"]);
-  // const [openDialog, setOpenDialog] = useState(false);
-  // const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [houseProfile, setHouseProfile] = useState([]);
   const [occupants, setOccupants] = useState([]);
-  // const { auth } = useAuth();
-  // const { getHouseProfile } = useHouseReq({ isPublic: false, showAck: false });
 
   const { dialogState, handleOpenDialog, handleCloseDialog } =
     useDialogManager();
-
-  // const { updateHouseOccupant, addNewHouseOccupant } = useHouseOccupantReq({
-  //   isPublic: false,
-  //   showAck: true,
-  // });
 
   const {
     houseProfileData,
@@ -48,28 +39,6 @@ const ProfilePage = () => {
     handleConfirmAddHouseOccupant,
     handleConfirmUpdateHouseOccupant,
   };
-  // const { data, isLoading, isError } = useApiGet(
-  //   "houseProfile",
-  //   () => getHouseProfile(auth?.houseInfo?._id),
-  //   {
-  //     refetchOnWindowFocus: true,
-  //     retry: 3,
-  //     enabled: !!auth?.houseInfo?._id,
-  //   }
-  // );
-
-  // const { mutate: sendUpdateRequest, isLoadingInUpdate } = useApiSend(
-  //   updateHouseOccupant,
-  //   ["houseProfile"]
-  // );
-
-  // console.log(data?.data);
-  // console.log(auth);
-
-  // const { mutate: sendAddNewHouseOccupantReq, isLoadingInAdd } = useApiSend(
-  //   addNewHouseOccupant,
-  //   ["houseProfile", "house"]
-  // );
 
   useEffect(() => {
     if (houseProfileData) {
@@ -82,20 +51,6 @@ const ProfilePage = () => {
     }
   }, [houseProfileData]);
 
-  // callbacks
-
-  // const addOccupantHandler = () => {
-  //   setOpenDialog((pv) => true);
-  // };
-
-  // const updateOccupantHandler = useCallback((occupantId) => {
-  //   setSelectedOccupantId((pv) => occupantId);
-  //   setOpenUpdateDialog((pv) => true);
-  // }, []);
-
-  console.log(houseProfileData);
-  console.log(houseProfile);
-  console.log(occupants);
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
 
@@ -149,28 +104,13 @@ const ProfilePage = () => {
                 label={status}
                 handleOpenDialog={handleOpenDialog}
                 confirmHandlers={confirmHandlers}
-                // onUpdate={updateOccupantHandler}
               />
             ))}
           </Stack>
         )}
         <br />
       </Stack>
-      {/* {openDialog && (
-        <AddHouseOccupantDialog
-          open={openDialog}
-          setOpen={setOpenDialog}
-          sendAddNewHouseOccupantReq={sendAddNewHouseOccupantReq}
-        />
-      )} */}
-      {/* {openUpdateDialog && (
-        <UpdateHouseOccupantDialog
-          open={openUpdateDialog}
-          setOpen={setOpenUpdateDialog}
-          houseOccupantId={selectedOccupantId}
-          sendUpdateRequest={sendUpdateRequest}
-        />
-      )} */}
+
       <HouseOccupantDialog
         {...dialogState}
         handleCloseDialog={handleCloseDialog}
