@@ -28,7 +28,7 @@ const useProfileActions = ({ handleCloseDialog }) => {
     useApiSendAsync(addNewHouseOccupant, ["houseProfile"]);
 
   const { send: sendUpdateHouseOccupant, isLoadingInUpdateHouseOccupant } =
-    useApiSendAsync(addNewHouseOccupant, ["houseProfile", "house"]);
+    useApiSendAsync(updateHouseOccupant, ["houseProfile", "house"]);
 
   // fetching houseProfile
   const {
@@ -54,9 +54,22 @@ const useProfileActions = ({ handleCloseDialog }) => {
     );
   };
 
+  //adding new house occupant
+  const handleConfirmUpadateHouseOccupant = ({ houseOccupantId, data }) => {
+    handleConfirm("Confirm Submit", "Continue updating?", () =>
+      sendWithSuccessDialogClose(sendUpdateHouseOccupant, [
+        { houseOccupantId, data },
+        { showFeedbackMsg: true },
+      ])
+    );
+  };
+
   // updating house occupant
   // returns
-  const isLoading = isLoadingInHouseProfile;
+  const isLoading =
+    isLoadingInHouseProfile ||
+    isLoadingInAddHouseOccupant ||
+    isLoadingInUpdateHouseOccupant;
   const isError = isErrorInHouseProfile;
   return {
     houseProfileData: houseProfileData?.data,

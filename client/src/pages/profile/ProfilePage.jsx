@@ -10,6 +10,7 @@ import useApiSend from "../../hooks/api/useApiSend";
 import OccupantByStatus from "./OccupantByStatus";
 import useProfileActions from "../../hooks/api/authenticated/profile/useProfileActions";
 import useDialogManager from "../../hooks/useDialogManager";
+import HouseOccupantDialog from "./HouseOccupantDialog";
 
 const UNIQUESTATUSES = ["active", "suspended", "evicted", "banned"];
 const Value = ({ transform, children }) => (
@@ -170,7 +171,7 @@ const ProfilePage = () => {
           sendUpdateRequest={sendUpdateRequest}
         />
       )} */}
-      <AddHouseOccupantDialog
+      <HouseOccupantDialog
         {...dialogState}
         handleCloseDialog={handleCloseDialog}
         submitHandler={
