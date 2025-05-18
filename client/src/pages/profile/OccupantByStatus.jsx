@@ -17,7 +17,6 @@ const OccupantByStatus = ({
   occupants,
   status,
   label,
-  onUpdate,
   handleOpenDialog,
   confirmHandlers,
 }) => {
@@ -64,7 +63,6 @@ const OccupantByStatus = ({
             key={index}
             index={index}
             occupant={occupant}
-            onUpdate={onUpdate}
             handleOpenDialog={handleOpenDialog}
             confirmHandlers={confirmHandlers}
           />

@@ -67,11 +67,9 @@ const HouseOccupantDialog = ({
       const { occupant, moveInDate, ...otherHouseOccupantInfo } = data;
       const { contactNumbers, dateOfBirth, ...otherOccupantInfo } = occupant;
       const formattedDefaultValues = {
-        occupant: {
-          contactNumbers: joinWithSymbol(contactNumbers),
-          dateOfBirth: formatToMMDDYYYY(dateOfBirth),
-          ...otherOccupantInfo,
-        },
+        contactNumbers: joinWithSymbol(contactNumbers),
+        dateOfBirth: formatToMMDDYYYY(dateOfBirth),
+        ...otherOccupantInfo,
         moveInDate: formatToMMDDYYYY(moveInDate),
         ...otherHouseOccupantInfo,
       };

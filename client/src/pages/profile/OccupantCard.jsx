@@ -23,11 +23,12 @@ const OccupantDetail = ({ label, value }) => (
 const OccupantCard = ({
   occupant,
   index,
-
   handleOpenDialog,
   confirmHandlers,
 }) => {
   const [showEContact, setShowEContact] = useState(false);
+
+  console.log(occupant);
   return (
     <Stack
       key={index}
