@@ -51,7 +51,6 @@ const HouseOccupantDialog = ({
     errors,
   };
 
-  console.log(data);
   // hooks
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
@@ -65,9 +64,11 @@ const HouseOccupantDialog = ({
   useEffect(() => {
     if (data) {
       const { occupant, moveInDate, ...otherHouseOccupantInfo } = data;
-      const { contactNumbers, dateOfBirth, ...otherOccupantInfo } = occupant;
+      const { contactNumbers, dateOfBirth, preferences, ...otherOccupantInfo } =
+        occupant;
       const formattedDefaultValues = {
         contactNumbers: joinWithSymbol(contactNumbers),
+        preferences: joinWithSymbol(preferences),
         dateOfBirth: formatToMMDDYYYY(dateOfBirth),
         ...otherOccupantInfo,
         moveInDate: formatToMMDDYYYY(moveInDate),
@@ -78,7 +79,6 @@ const HouseOccupantDialog = ({
     }
   }, [data, reset]);
 
-  console.log(defaultValues);
   // handlers
   const handleClose = (e) => {
     e.stopPropagation();
@@ -105,7 +105,30 @@ const HouseOccupantDialog = ({
       submitHandler({ occupant: { occupant: formattedFormData } });
     } else if (action === "update") {
       //   submitHandler({ houseOccupantId: id, data: formData });
-      console.log("UPDATING", formData);
+      // console.log(data);
+      // console.log("UPDATING", formData);
+      const { moveInDate, status, ...occupantData } = formData;
+      console.log(occupantData);
+      const formattedOccupantData = {
+        ...occupantData,
+        dateOfBirth: convertToISOFormat(occupantData?.dateOfBirth),
+        preferences: occupantData?.preferences?.split("/"),
+        contactNumbers: occupantData?.contactNumbers?.split("/"),
+        _id: data?.occupant?._id,
+      };
+
+      const houseOccupantData = {
+        _id: data?._id,
+        status,
+        moveInDate: convertToISOFormat(moveInDate),
+        occupant: formattedOccupantData,
+      };
+      console.log(data);
+      console.log(houseOccupantData);
+      submitHandler({
+        houseOccupantId: data?._id,
+        data: houseOccupantData,
+      });
     }
   };
 

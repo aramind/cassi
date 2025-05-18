@@ -28,7 +28,6 @@ const OccupantCard = ({
 }) => {
   const [showEContact, setShowEContact] = useState(false);
 
-  console.log(occupant);
   return (
     <Stack
       key={index}
@@ -87,7 +86,6 @@ const OccupantCard = ({
           label="contact details"
           value={occupant.occupant?.contactNumbers.join("/")}
         />
-
         <OccupantDetail
           label="preferences"
           value={occupant.occupant?.preferences.join("/")}

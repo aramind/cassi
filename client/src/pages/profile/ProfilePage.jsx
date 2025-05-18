@@ -51,6 +51,7 @@ const ProfilePage = () => {
     }
   }, [houseProfileData]);
 
+  console.log(occupants);
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
 
