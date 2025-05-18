@@ -22,6 +22,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import addNewOccupantSchema from "../../schemas/addNewOccupantSchema";
 
 import { options } from "../../constants/options";
+import { convertToISOFormat } from "../../utils/date";
 
 const genderOptions = options?.gender;
 const AddHouseOccupantDialog = ({

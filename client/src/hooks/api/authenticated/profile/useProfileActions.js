@@ -55,7 +55,7 @@ const useProfileActions = ({ handleCloseDialog }) => {
   };
 
   //adding new house occupant
-  const handleConfirmUpadateHouseOccupant = ({ houseOccupantId, data }) => {
+  const handleConfirmUpdateHouseOccupant = ({ houseOccupantId, data }) => {
     handleConfirm("Confirm Submit", "Continue updating?", () =>
       sendWithSuccessDialogClose(sendUpdateHouseOccupant, [
         { houseOccupantId, data },
@@ -74,6 +74,7 @@ const useProfileActions = ({ handleCloseDialog }) => {
   return {
     houseProfileData: houseProfileData?.data,
     handleConfirmAddHouseOccupant,
+    handleConfirmUpdateHouseOccupant,
     isLoading,
     isError,
     renderConfirmActionDialog,
