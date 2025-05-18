@@ -19,7 +19,13 @@ const OccupantDetail = ({ label, value }) => (
   </Stack>
 );
 
-const OccupantCard = ({ occupant, index, onUpdate }) => {
+const OccupantCard = ({
+  occupant,
+  index,
+  onUpdate,
+  handleOpenDialog,
+  confirmHandlers,
+}) => {
   return (
     <Stack
       key={index}
@@ -49,7 +55,10 @@ const OccupantCard = ({ occupant, index, onUpdate }) => {
           )}
         </Tooltip>
 
-        <IconButton onClick={() => onUpdate(occupant?._id)} size="small">
+        <IconButton
+          onClick={() => handleOpenDialog("update", occupant)}
+          size="small"
+        >
           <EditRoundedIcon sx={{ fontSize: "1.2rem" }} />
         </IconButton>
         <IconButton>
@@ -73,7 +82,7 @@ const OccupantCard = ({ occupant, index, onUpdate }) => {
         />
         <OccupantDetail
           label="contact details"
-          value={occupant.occupant?.contactNumbers.join(",")}
+          value={occupant.occupant?.contactNumbers.join("/")}
         />
         <OccupantDetail
           label="emergency contact"
@@ -81,7 +90,7 @@ const OccupantCard = ({ occupant, index, onUpdate }) => {
         />
         <OccupantDetail
           label="preferences"
-          value={occupant.occupant?.preferences.join(",")}
+          value={occupant.occupant?.preferences.join("/")}
         />
         <OccupantDetail
           label="move in date"
