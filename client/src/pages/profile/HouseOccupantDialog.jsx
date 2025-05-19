@@ -24,6 +24,9 @@ import useConfirmActionDialog from "../../hooks/useConfirmActionDialog";
 
 const genderOptions = options?.gender;
 const statusOptions = options?.homeOccupantStatus;
+const initialValues = {
+  gender: genderOptions[genderOptions?.length - 1]?.value,
+};
 const HouseOccupantDialog = ({
   open,
   handleCloseDialog,
@@ -31,7 +34,6 @@ const HouseOccupantDialog = ({
   data,
   submitHandler,
 }) => {
-  const [defaultValues, setDefaultValues] = useState({ ...data });
   const {
     control,
     reset,
@@ -39,9 +41,6 @@ const HouseOccupantDialog = ({
     formState: { errors },
   } = useForm({
     mode: "onTouched",
-    defaultValues: defaultValues || {
-      gender: genderOptions[genderOptions?.length - 1]?.value,
-    },
     resolver: yupResolver(addNewOccupantSchema),
   });
 
@@ -57,7 +56,7 @@ const HouseOccupantDialog = ({
 
   useEffect(() => {
     if (action === "add") {
-      reset({});
+      reset(initialValues);
     }
   }, [action, reset]);
 
@@ -74,7 +73,7 @@ const HouseOccupantDialog = ({
         moveInDate: formatToMMDDYYYY(moveInDate),
         ...otherHouseOccupantInfo,
       };
-      setDefaultValues((pv) => formattedDefaultValues);
+      // setDefaultValues((pv) => formattedDefaultValues);
       reset(formattedDefaultValues);
     }
   }, [data, reset]);
