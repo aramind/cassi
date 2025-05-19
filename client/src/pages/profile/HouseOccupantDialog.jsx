@@ -104,9 +104,6 @@ const HouseOccupantDialog = ({
       };
       submitHandler({ occupant: { occupant: formattedFormData } });
     } else if (action === "update") {
-      //   submitHandler({ houseOccupantId: id, data: formData });
-      // console.log(data);
-      // console.log("UPDATING", formData);
       const { moveInDate, status, ...occupantData } = formData;
       console.log(occupantData);
       const formattedOccupantData = {
@@ -135,6 +132,7 @@ const HouseOccupantDialog = ({
   };
 
   const title = action === "add" ? "Add new house occupant" : "Update Info";
+
   return (
     <>
       <Dialog
