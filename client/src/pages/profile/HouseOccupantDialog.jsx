@@ -73,7 +73,6 @@ const HouseOccupantDialog = ({
         moveInDate: formatToMMDDYYYY(moveInDate),
         ...otherHouseOccupantInfo,
       };
-      // setDefaultValues((pv) => formattedDefaultValues);
       reset(formattedDefaultValues);
     }
   }, [data, reset]);
