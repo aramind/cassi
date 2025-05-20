@@ -18,6 +18,15 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
     getAnnouncements,
   } = useAnnouncementReq({ isPublic: false, showAck: false });
 
+  const sendWithSuccessDialogClose = async (sendFn, args) => {
+    try {
+      const res = await sendFn(...args);
+      if (res?.success) handleCloseDialog();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const { handleOpen: handleConfirm, renderConfirmActionDialog } =
     useConfirmActionDialog();
 
@@ -56,20 +65,24 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
           {formData?.title}
         </Typography>
       </Stack>,
-      async () => {
-        try {
-          const res = await sendAdd(
-            { data: { announcement: formData } },
-            { showFeedbackMsg: true }
-          );
+      sendWithSuccessDialogClose(sendAdd, [
+        { data: { announcement: formData } },
+        { showFeedbackMsg: true },
+      ])
+      // async () => {
+      //   try {
+      //     const res = await sendAdd(
+      // { data: { announcement: formData } },
+      // { showFeedbackMsg: true }
+      //     );
 
-          if (res?.success) {
-            handleCloseDialog();
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
+      //     if (res?.success) {
+      //       handleCloseDialog();
+      //     }
+      //   } catch (error) {
+      //     console.error(error);
+      //   }
+      // }
     );
   };
 

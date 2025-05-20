@@ -18,9 +18,9 @@ import ControlledLabelledSelect from "../../components/controlled/ControlledLabe
 import { DevTool } from "@hookform/devtools";
 import DraggableDialog from "../../components/DraggableDialog";
 import useApiGet from "../../hooks/api/useApiGet";
-import useHouseReq from "../../hooks/api/authenticated/useHouseReq";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
+import useHouseReq from "../../hooks/api/authenticated/profile/useHouseReq";
 
 const getTitle = (action) => {
   let title = "";

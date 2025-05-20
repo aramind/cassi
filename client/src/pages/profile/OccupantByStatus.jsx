@@ -17,7 +17,8 @@ const OccupantByStatus = ({
   occupants,
   status,
   label,
-  onUpdate,
+  handleOpenDialog,
+  confirmHandlers,
 }) => {
   const isStatusIncluded = open?.includes(status);
   const filtered = occupants?.filter((o) => o.status === status);
@@ -62,9 +63,11 @@ const OccupantByStatus = ({
             key={index}
             index={index}
             occupant={occupant}
-            onUpdate={onUpdate}
+            handleOpenDialog={handleOpenDialog}
+            confirmHandlers={confirmHandlers}
           />
         ))}
+      {filtered?.length === 1 && <Box height="2rem" />}
     </Stack>
   );
 };

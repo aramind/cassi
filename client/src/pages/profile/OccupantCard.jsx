@@ -1,10 +1,11 @@
-import { Box, IconButton, Stack, Tooltip, Typography } from "@mui/material";
-import React from "react";
+import { IconButton, Stack, Tooltip, Typography } from "@mui/material";
+import React, { useState } from "react";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
 import NewReleasesRoundedIcon from "@mui/icons-material/NewReleasesRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { formatDate } from "../../utils/formatDate";
+import { ExpandLessIcon, ExpandMoreIcon } from "../../utils/muiIcons";
 
 const Value = ({ transform, children }) => (
   <Typography fontWeight="bold" textTransform={transform}>
@@ -19,7 +20,14 @@ const OccupantDetail = ({ label, value }) => (
   </Stack>
 );
 
-const OccupantCard = ({ occupant, index, onUpdate }) => {
+const OccupantCard = ({
+  occupant,
+  index,
+  handleOpenDialog,
+  confirmHandlers,
+}) => {
+  const [showEContact, setShowEContact] = useState(false);
+
   return (
     <Stack
       key={index}
@@ -49,10 +57,17 @@ const OccupantCard = ({ occupant, index, onUpdate }) => {
           )}
         </Tooltip>
 
-        <IconButton onClick={() => onUpdate(occupant?._id)} size="small">
+        <IconButton
+          onClick={() => handleOpenDialog("update", occupant)}
+          size="small"
+        >
           <EditRoundedIcon sx={{ fontSize: "1.2rem" }} />
         </IconButton>
-        <IconButton>
+        <IconButton
+          onClick={() =>
+            confirmHandlers?.handleConfirmHardDelete(occupant?._id)
+          }
+        >
           <DeleteRoundedIcon sx={{ fontSize: "1.2rem" }} />
         </IconButton>
       </Stack>
@@ -73,20 +88,59 @@ const OccupantCard = ({ occupant, index, onUpdate }) => {
         />
         <OccupantDetail
           label="contact details"
-          value={occupant.occupant?.contactNumbers.join(",")}
-        />
-        <OccupantDetail
-          label="emergency contact"
-          value={occupant.occupant?.emergencyContact}
+          value={occupant.occupant?.contactNumbers.join("/")}
         />
         <OccupantDetail
           label="preferences"
-          value={occupant.occupant?.preferences.join(",")}
+          value={occupant.occupant?.preferences.join("/")}
         />
         <OccupantDetail
           label="move in date"
           value={formatDate(occupant.moveInDate)}
         />
+        <Stack
+          width={1}
+          justifyContent="space-between"
+          direction="row"
+          alignItems="center"
+        >
+          <Typography>EMERGENCY CONTACT:</Typography>
+          <IconButton
+            aria-label="expand"
+            onClick={() => setShowEContact((pv) => !pv)}
+          >
+            {showEContact ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </IconButton>
+        </Stack>
+
+        {showEContact && (
+          <Stack spacing={1} pl={2}>
+            <OccupantDetail
+              label="name"
+              value={occupant.occupant?.emergencyContact?.name}
+            />
+            <OccupantDetail
+              label="address"
+              value={occupant.occupant?.emergencyContact?.address}
+            />
+            <OccupantDetail
+              label="relation to occupant"
+              value={occupant.occupant?.emergencyContact?.relationToOccupant}
+            />
+            <OccupantDetail
+              label="email"
+              value={occupant.occupant?.emergencyContact?.email}
+            />
+            <OccupantDetail
+              label="mobile #"
+              value={occupant.occupant?.emergencyContact?.mobileNumber}
+            />
+            <OccupantDetail
+              label="phone #"
+              value={occupant.occupant?.emergencyContact?.phoneNumber}
+            />
+          </Stack>
+        )}
       </Stack>
     </Stack>
   );

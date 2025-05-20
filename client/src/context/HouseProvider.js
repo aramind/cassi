@@ -3,7 +3,7 @@ import LoadingPage from "../pages/LoadingPage";
 import ErrorPage from "../pages/ErrorPage";
 import useAuth from "../hooks/useAuth";
 import useApiGet from "../hooks/api/useApiGet";
-import useHouseReq from "../hooks/api/authenticated/useHouseReq";
+import useHouseReq from "../hooks/api/authenticated/profile/useHouseReq";
 
 export const HouseContext = createContext();
 

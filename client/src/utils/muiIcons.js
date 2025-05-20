@@ -1,5 +1,6 @@
 export {
   ExpandMoreRounded as ExpandMoreIcon,
+  ExpandLessRounded as ExpandLessIcon,
   CheckCircleRounded as CheckIcon,
   EventRounded as EventIcon,
   RepeatRounded as RepeatIcon,
