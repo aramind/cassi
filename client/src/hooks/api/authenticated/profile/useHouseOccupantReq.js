@@ -25,7 +25,7 @@ const useHouseOccupantReq = ({ isPublic, showAck }) => {
         data,
       }),
 
-    deleteHouseOccupant: async (id) => {
+    hardDelete: async (id) => {
       request({
         url: `${url}/${id}`,
         method: "DELETE",
