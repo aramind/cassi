@@ -63,7 +63,11 @@ const OccupantCard = ({
         >
           <EditRoundedIcon sx={{ fontSize: "1.2rem" }} />
         </IconButton>
-        <IconButton>
+        <IconButton
+          onClick={() =>
+            confirmHandlers?.handleConfirmHardDelete(occupant?._id)
+          }
+        >
           <DeleteRoundedIcon sx={{ fontSize: "1.2rem" }} />
         </IconButton>
       </Stack>

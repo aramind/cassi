@@ -114,11 +114,15 @@ const useProfileActions = ({ handleCloseDialog }) => {
     isLoadingInUpdateHouseOccupant ||
     isLoadingInHardDelete;
   const isError = isErrorInHouseProfile;
-  return {
-    houseProfileData: houseProfileData?.data,
+
+  const confirmHandlers = {
     handleConfirmAddHouseOccupant,
     handleConfirmUpdateHouseOccupant,
     handleConfirmHardDelete,
+  };
+  return {
+    houseProfileData: houseProfileData?.data,
+    confirmHandlers,
     isLoading,
     isError,
     renderConfirmActionDialog,

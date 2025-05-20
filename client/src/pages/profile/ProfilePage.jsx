@@ -26,19 +26,13 @@ const ProfilePage = () => {
 
   const {
     houseProfileData,
-    handleConfirmAddHouseOccupant,
-    handleConfirmUpdateHouseOccupant,
     isLoading,
     isError,
     renderConfirmActionDialog,
+    confirmHandlers,
   } = useProfileActions({
     handleCloseDialog,
   });
-
-  const confirmHandlers = {
-    handleConfirmAddHouseOccupant,
-    handleConfirmUpdateHouseOccupant,
-  };
 
   useEffect(() => {
     if (houseProfileData) {
@@ -51,7 +45,6 @@ const ProfilePage = () => {
     }
   }, [houseProfileData]);
 
-  console.log(occupants);
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
 
@@ -117,8 +110,8 @@ const ProfilePage = () => {
         handleCloseDialog={handleCloseDialog}
         submitHandler={
           dialogState?.action === "add"
-            ? handleConfirmAddHouseOccupant
-            : handleConfirmUpdateHouseOccupant
+            ? confirmHandlers?.handleConfirmAddHouseOccupant
+            : confirmHandlers?.handleConfirmUpdateHouseOccupant
         }
       />
       {renderConfirmActionDialog()}
