@@ -24,6 +24,13 @@ const useHouseOccupantReq = ({ isPublic, showAck }) => {
         method: "PATCH",
         data,
       }),
+
+    deleteHouseOccupant: async (id) => {
+      request({
+        url: `${url}/${id}`,
+        method: "DELETE",
+      });
+    },
   };
 
   return req;
