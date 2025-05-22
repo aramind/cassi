@@ -1,6 +1,7 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import BodyContainer from "../../containers/BodyContainer";
+import RMSolutions from "../../components/RMSolutions";
 import HeroImage from "./HeroImage";
 import { useNavigate } from "react-router-dom";
 
@@ -33,17 +34,18 @@ const Landing = () => {
         <Box
           sx={{ display: { xs: "none", md: "block" }, objectFit: "cover" }}
           component="img"
-          src="/assets/images/home/home1.jpg"
+          src="/assets/images/home/home5.jpg"
           height={1}
           flex={{ md: 2 }}
         />
         <Stack
           width={{ xs: "100%", md: "500px" }}
-          className=" centered outlined"
+          className=" centered"
           my="auto"
           px={{ xs: 0, md: 2 }}
           height={1}
         >
+          <Box flex={1} display={{ xs: "none", md: "block" }} />
           <Box sx={{ display: { xs: "block", md: "none" } }}>
             <HeroImage
               bgcolor={(theme) => theme.palette.accent.light}
@@ -99,6 +101,9 @@ const Landing = () => {
               onClickHandler={() => navigate("/login")}
             />
           </Stack>
+          <Box flex={1} />
+          <RMSolutions />
+          <Box height="0.5rem" />
         </Stack>
       </Stack>
     </BodyContainer>

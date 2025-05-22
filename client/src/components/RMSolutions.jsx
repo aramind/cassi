@@ -6,7 +6,7 @@ const RMSolutions = () => {
     <Stack justifyContent="center" width={1}>
       <Typography
         textAlign="center"
-        variant="caption"
+        variant="body2"
         sx={{ fontStyle: "italic", letterSpacing: "1px" }}
       >
         Powered by{" "}
