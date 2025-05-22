@@ -4,11 +4,16 @@ const sendResponse = require("../../utils/senResponse");
 const getAnnouncements = async (req, res) => {
   try {
     const { fields, ...queryParams } = req.query;
+    const houseId = req?.credentials?._id;
 
     const requestedFields = fields ? fields.split(",").join(" ").trim() : null;
 
+    const filter = {
+      ...queryParams,
+      house: houseId,
+    };
     const announcements = await Announcement.find(
-      queryParams,
+      filter,
       requestedFields || undefined
     );
 
