@@ -4,10 +4,15 @@ const sendResponse = require("../../utils/senResponse");
 const getTasks = async (req, res) => {
   try {
     const { fields, ...queryParams } = req.query;
+    const houseId = req?.credentials?._id;
 
     const requestedFields = fields ? fields.split(",").join(" ").trim() : null;
+    const filter = {
+      ...queryParams,
+      house: houseId,
+    };
 
-    const tasks = await Task.find(queryParams, requestedFields);
+    const tasks = await Task.find(filter, requestedFields);
 
     if (!tasks) {
       return sendResponse.failed(res, "Task(s) not found.", null, 404);
