@@ -12,6 +12,7 @@ import LoadingPage from "../LoadingPage";
 import RegisterSuccessDialog from "./RegisterSuccessDialog";
 import useAlerts from "../../hooks/useAlerts";
 import RMSolutions from "../../components/RMSolutions";
+import LargeScreenHeroImage from "./LargeScreenHeroImage";
 
 const LoginRegisterPage = ({ action }) => {
   const [openRegisterSuccessDialog, setOpenRegisterSuccessDialog] =
@@ -64,13 +65,7 @@ const LoginRegisterPage = ({ action }) => {
   return (
     <BodyContainer withTopBar={false} withInfoIcon={true}>
       <Stack direction={{ xs: "column", md: "row" }} width={1} height={1}>
-        <Box
-          sx={{ display: { xs: "none", md: "block" }, objectFit: "cover" }}
-          component="img"
-          src="/assets/images/home/home5.jpg"
-          height={1}
-          flex={{ md: 2 }}
-        />
+        <LargeScreenHeroImage />
         <Stack
           width={{ xs: "90%", md: "500px" }}
           className="centered"

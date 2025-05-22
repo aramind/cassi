@@ -4,6 +4,7 @@ import BodyContainer from "../../containers/BodyContainer";
 import RMSolutions from "../../components/RMSolutions";
 import HeroImage from "./HeroImage";
 import { useNavigate } from "react-router-dom";
+import LargeScreenHeroImage from "./LargeScreenHeroImage";
 
 const ActionButton = ({ bgcolor, sxProps, text, onClickHandler }) => {
   return (
@@ -31,13 +32,7 @@ const Landing = () => {
       justifyContent="flex-start"
     >
       <Stack direction={{ xs: "column", md: "row" }} width={1} height={1}>
-        <Box
-          sx={{ display: { xs: "none", md: "block" }, objectFit: "cover" }}
-          component="img"
-          src="/assets/images/home/home5.jpg"
-          height={1}
-          flex={{ md: 2 }}
-        />
+        <LargeScreenHeroImage />
         <Stack
           width={{ xs: "100%", md: "500px" }}
           className=" centered"
