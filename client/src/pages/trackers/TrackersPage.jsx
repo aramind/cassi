@@ -16,6 +16,7 @@ import TrackersContainer from "./TrackersContainer";
 import useDialogManager from "../../hooks/useDialogManager";
 import useTrackerActions from "../../hooks/api/authenticated/tracker/useTrackerActions";
 import EntryDialog from "./EntryDialog";
+import NothingImage from "../../components/NothingImage";
 
 const TrackersPage = () => {
   // states
@@ -88,7 +89,8 @@ const TrackersPage = () => {
       <Stack mt={2} alignItems="center" width={1} pb={4}>
         <PageHeader text="trackers " />
         <Today />
-        {activeTrackers && (
+
+        {activeTrackers.length > 0 ? (
           <TrackersContainer
             trackers={activeTrackers}
             handleUpdatingTrackerInfo={handleUpdatingTrackerInfo}
@@ -99,6 +101,8 @@ const TrackersPage = () => {
             handleOpenDialog={handleOpenDialog}
             handleOpenEntryDialog={handleOpenEntryDialog}
           />
+        ) : (
+          <NothingImage />
         )}
         {/* {activeTrackers && <Trackers trackers={activeTrackers} />} */}
         <br />
