@@ -15,6 +15,7 @@ import FilterOptionsMenu from "./FilterOptionsMenu";
 import { OPTIONS_FOR_FILTERS } from "../../constants/tasks";
 import useTaskActions from "../../hooks/api/authenticated/task/useTaskActions";
 import { getSortedTasks, isMatchToFilters } from "../../utils/taskUtils";
+import NothingImage from "../../components/NothingImage";
 
 const TasksPage = () => {
   // states
@@ -174,12 +175,14 @@ const TasksPage = () => {
             />
           </ButtonGroup>
         </Stack>
-        {sortedFilteredTasks?.length > 0 && (
+        {sortedFilteredTasks?.length > 0 ? (
           <TasksContainer
             updateWithOutConfirm={updateWithOutConfirm}
             {...props?.taskContainer}
             tasks={sortedFilteredTasks}
           />
+        ) : (
+          <NothingImage />
         )}
         <br />
       </Stack>

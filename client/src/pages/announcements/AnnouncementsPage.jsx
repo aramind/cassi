@@ -80,11 +80,11 @@ const AnnouncementsPage = () => {
         {publishedAnnouncements?.length > 0 ? (
           <>
             <AddButton />
+            <br />
             <PublishedSection
               announcements={publishedAnnouncements}
               {...props.sectionProps}
             />
-            <br />
           </>
         ) : (
           // <Typography variant="smallText" color="error" textAlign="center">
