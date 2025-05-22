@@ -3,7 +3,7 @@ import React from "react";
 
 const RMSolutions = () => {
   return (
-    <Stack justifyContent="center" width={1}>
+    <Stack justifyContent="center" width={1} mb={1}>
       <Typography
         textAlign="center"
         variant="body2"

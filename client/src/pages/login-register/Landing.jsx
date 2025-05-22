@@ -103,7 +103,6 @@ const Landing = () => {
           </Stack>
           <Box flex={1} />
           <RMSolutions />
-          <Box height="0.5rem" />
         </Stack>
       </Stack>
     </BodyContainer>
