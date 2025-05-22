@@ -77,16 +77,14 @@ const AnnouncementsPage = () => {
         <PageHeader text="announcements " />
         <Today />
         <br />
-        <AddButton />
-        <br />
         {publishedAnnouncements?.length > 0 ? (
           <>
+            <AddButton />
             <PublishedSection
               announcements={publishedAnnouncements}
               {...props.sectionProps}
             />
             <br />
-            <AddButton />
           </>
         ) : (
           // <Typography variant="smallText" color="error" textAlign="center">
@@ -96,6 +94,7 @@ const AnnouncementsPage = () => {
         )}
 
         <br />
+        <AddButton />
       </Stack>
       <AnnouncementDialog
         {...dialogState}
