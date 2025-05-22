@@ -4,7 +4,8 @@ import HeroImage from "../pages/login-register/HeroImage";
 const NothingImage = ({ text }) => {
   return (
     <>
-      <Typography mb={2} variant="h6" color="secondary">
+      <br />
+      <Typography mb={2} variant="h6" color="secondary" textAlign="center">
         {text || "It’s a bit quiet here..."}
       </Typography>
       <HeroImage

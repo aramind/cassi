@@ -8,6 +8,7 @@ import OccupantByStatus from "./OccupantByStatus";
 import useProfileActions from "../../hooks/api/authenticated/profile/useProfileActions";
 import useDialogManager from "../../hooks/useDialogManager";
 import HouseOccupantDialog from "./HouseOccupantDialog";
+import NothingImage from "../../components/NothingImage";
 
 const UNIQUESTATUSES = ["active", "suspended", "evicted", "banned"];
 const Value = ({ transform, children }) => (
@@ -48,6 +49,7 @@ const ProfilePage = () => {
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage />;
 
+  console.log(occupants);
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack mt={2} alignItems="center" width={1} spacing={1} p={0.5}>
@@ -86,7 +88,7 @@ const ProfilePage = () => {
           </Button>
         </Stack>
 
-        {occupants && (
+        {occupants?.length > 0 ? (
           <Stack spacing={1} width={1} mt={1}>
             {UNIQUESTATUSES?.map((status) => (
               <OccupantByStatus
@@ -101,6 +103,8 @@ const ProfilePage = () => {
               />
             ))}
           </Stack>
+        ) : (
+          <NothingImage />
         )}
         <br />
       </Stack>
