@@ -13,6 +13,7 @@ import DraftsSection from "./DraftsSection";
 import DeletedSection from "./DeletedSection";
 import PublishedSection from "./PublishedSection";
 import { filteredAnnouncementByStatus } from "../../utils/announcementUtils";
+import NothingImage from "../../components/NothingImage";
 
 const AnnouncementsPage = () => {
   // hooks
@@ -88,9 +89,10 @@ const AnnouncementsPage = () => {
             <AddButton />
           </>
         ) : (
-          <Typography variant="smallText" color="error" textAlign="center">
-            No published announcements to be displayed.
-          </Typography>
+          // <Typography variant="smallText" color="error" textAlign="center">
+          //   No published announcements to be displayed.
+          // </Typography>
+          <NothingImage />
         )}
 
         <br />
