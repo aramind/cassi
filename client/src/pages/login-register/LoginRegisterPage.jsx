@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingPage from "../LoadingPage";
 import RegisterSuccessDialog from "./RegisterSuccessDialog";
 import useAlerts from "../../hooks/useAlerts";
+import RMSolutions from "../../components/RMSolutions";
 
 const LoginRegisterPage = ({ action }) => {
   const [openRegisterSuccessDialog, setOpenRegisterSuccessDialog] =
@@ -62,35 +63,55 @@ const LoginRegisterPage = ({ action }) => {
   }
   return (
     <BodyContainer withTopBar={false} withInfoIcon={true}>
-      <Stack
-        width={{ xs: "90%", md: "500px" }}
-        className="centered"
-        mx="auto"
-        my="auto"
-      >
-        <HeroImage
-          bgcolor={(theme) =>
-            theme.palette[values?.color]?.light || defaultValues.color
-          }
-          width={{ xs: "150px", md: "300px" }}
-          height={{ xs: "150px", md: "300px" }}
-          src={`/assets/images/${action}.png`}
-          imageWidth={`70vw`}
+      <Stack direction={{ xs: "column", md: "row" }} width={1} height={1}>
+        <Box
+          sx={{ display: { xs: "none", md: "block" }, objectFit: "cover" }}
+          component="img"
+          src="/assets/images/home/home5.jpg"
+          height={1}
+          flex={{ md: 2 }}
         />
-        <Typography variant="h3">{values.headerText}</Typography>
-        <Typography variant="h6" textAlign="center">
-          {values?.subText}
-        </Typography>
-        <br />
-        <Box width={1}>
-          <LoginRegisterForm
-            action={action}
-            buttonColor={values?.color}
-            sendLogin={sendLogin}
-            sendSignUp={sendSignUp}
-          />
-        </Box>
-        <NavigateLink to={values?.navigateTo} />
+        <Stack
+          width={{ xs: "90%", md: "500px" }}
+          className="centered"
+          mx="auto"
+          my="auto"
+          px={{ xs: 0, md: 2 }}
+          height={1}
+        >
+          <Box flex={1} display={{ xs: "none", md: "block" }} />
+          <Box sx={{ display: { xs: "block", md: "none" } }}>
+            <HeroImage
+              bgcolor={(theme) =>
+                theme.palette[values?.color]?.light || defaultValues.color
+              }
+              width={{ xs: "150px", md: "300px" }}
+              height={{ xs: "150px", md: "300px" }}
+              src={`/assets/images/${action}.png`}
+              imageWidth={`70vw`}
+            />
+          </Box>
+          <Box width={1}>
+            <Typography variant="h3" textAlign="center">
+              {values.headerText}
+            </Typography>
+            <Typography variant="h6" textAlign="center">
+              {values?.subText}
+            </Typography>
+            <br />
+            <Box width={1}>
+              <LoginRegisterForm
+                action={action}
+                buttonColor={values?.color}
+                sendLogin={sendLogin}
+                sendSignUp={sendSignUp}
+              />
+            </Box>
+          </Box>
+          <NavigateLink to={values?.navigateTo} />
+          <Box flex={1} />
+          <RMSolutions />
+        </Stack>
       </Stack>
       <RegisterSuccessDialog
         open={openRegisterSuccessDialog}
