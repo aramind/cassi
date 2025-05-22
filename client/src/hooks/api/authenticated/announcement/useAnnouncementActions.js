@@ -21,7 +21,9 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
   const sendWithSuccessDialogClose = async (sendFn, args) => {
     try {
       const res = await sendFn(...args);
-      if (res?.success) handleCloseDialog();
+      if (res?.success) {
+        handleCloseDialog();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -65,10 +67,11 @@ const useAnnouncementActions = ({ handleCloseDialog }) => {
           {formData?.title}
         </Typography>
       </Stack>,
-      sendWithSuccessDialogClose(sendAdd, [
-        { data: { announcement: formData } },
-        { showFeedbackMsg: true },
-      ])
+      () =>
+        sendWithSuccessDialogClose(sendAdd, [
+          { data: { announcement: formData } },
+          { showFeedbackMsg: true },
+        ])
       // async () => {
       //   try {
       //     const res = await sendAdd(
