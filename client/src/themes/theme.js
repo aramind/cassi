@@ -75,7 +75,7 @@ const main = createTheme({
         fontSize: "3.8rem",
       },
       [`@media (min-width:960px)`]: {
-        fontSize: "4rem",
+        fontSize: "6rem",
       },
       ...headerStyles,
     },
