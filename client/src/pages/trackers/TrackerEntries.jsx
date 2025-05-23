@@ -7,6 +7,7 @@ import CustomPagination from "../../components/CustomPagination";
 import { formatDate } from "../../utils/formatDate";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import useIsDesktop from "../../hooks/useIsDesktop";
 
 const PAGE_SIZE = 5;
 
@@ -44,6 +45,7 @@ const TrackerEntries = ({
   handleOpenEntryDialog,
   handleConfirmDeleteEntry,
 }) => {
+  const isDesktop = useIsDesktop();
   const [page, setPage] = useState(1);
   const { occupantOptions } = useHouseProvider();
 
@@ -99,28 +101,30 @@ const TrackerEntries = ({
                 <Line />
               </Stack>
               <Stack direction="row">
-                <Stack flex={1}>
-                  <>
-                    <IconButton
-                      aria-label="edit"
-                      onClick={() =>
-                        handleOpenEntryDialog("update", {
-                          tracker,
-                          entryData: entry,
-                        })
-                      }
-                    >
-                      <EditRoundedIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="delete"
-                      onClick={() =>
-                        handleConfirmDeleteEntry(tracker, entry?._id)
-                      }
-                    >
-                      <DeleteRoundedIcon />
-                    </IconButton>
-                  </>
+                <Stack
+                  flex={1}
+                  className=" centered"
+                  direction={isDesktop ? "row" : "column"}
+                >
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() =>
+                      handleOpenEntryDialog("update", {
+                        tracker,
+                        entryData: entry,
+                      })
+                    }
+                  >
+                    <EditRoundedIcon />
+                  </IconButton>
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() =>
+                      handleConfirmDeleteEntry(tracker, entry?._id)
+                    }
+                  >
+                    <DeleteRoundedIcon />
+                  </IconButton>
                 </Stack>
                 <Stack flex={4} p={1} spacing={0.5}>
                   <Entry

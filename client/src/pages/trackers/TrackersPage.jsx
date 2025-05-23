@@ -86,7 +86,7 @@ const TrackersPage = () => {
   // console.log(dialogState?.data);
   return (
     <BodyContainer justifyContent="flex-start">
-      <Stack mt={2} alignItems="center" width={1} pb={4}>
+      <Stack mt={2} alignItems="center" width={{ xs: 1, md: "50%" }} pb={4}>
         <PageHeader text="trackers " />
         <Today />
 

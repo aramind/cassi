@@ -4,6 +4,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Stack,
   Typography,
 } from "@mui/material";
@@ -11,6 +12,7 @@ import { ExpandMoreIcon } from "../../utils/muiIcons";
 import TrackerActionsGroup from "./TrackerActionsGroup";
 import TrackerEntries from "./TrackerEntries";
 import MyButton from "../../components/buttons/MyButton";
+import useIsDesktop from "../../hooks/useIsDesktop";
 
 const TrackerAccordion = ({
   tracker,
@@ -25,6 +27,7 @@ const TrackerAccordion = ({
     false
   );
 
+  const isDesktop = useIsDesktop();
   const handleChange = (_, isExpanded) => setExpanded(isExpanded);
 
   return (
@@ -41,7 +44,9 @@ const TrackerAccordion = ({
             deleteHandler={() =>
               handleDeletingTrackerInfo(tracker, { status: "deleted" })
             }
+            direction={isDesktop ? "row" : "column"}
           />
+
           <Stack width={1} alignItems="flex-start">
             <Typography
               variant="h5"
