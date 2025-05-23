@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import { getCurrentDay } from "../../utils/date";
 import Board from "./Board";
@@ -13,6 +13,7 @@ import {
   TaskIcon,
   TrackerIcon,
 } from "../../utils/muiIcons";
+import useIsDesktop from "../../hooks/useIsDesktop";
 
 const randomEmojis = ["🪴", "🌻", "🌞", "🌈", "🌟 ", "🥳", "☕", "🐦"];
 const waveEmojis = ["👋🏻", "👋🏼", "👋🏽", "👋🏾", "👋🏿"];
@@ -48,34 +49,41 @@ const getItem = (array) => {
 const DashBoardMain = () => {
   const navigate = useNavigate();
 
+  const isDesktop = useIsDesktop();
+
+  const greetingSize = isDesktop ? "h3" : "h5";
+  const subtextSize = isDesktop ? "h4" : "h6";
   return (
     <BodyContainer justifyContent="flex-start" withTopBar={true}>
       <Stack
         width={1}
         height={1}
         pt={{ xs: "1rem" }}
+        px={{ md: "2rem" }}
         alignItems="center"
-        // className="outlined"
+        direction={{ xs: "column", md: "row" }}
       >
-        <Stack direction="row">
-          <Typography variant="h5" color="primary.dark">
-            {getItem(greetings)}!
-          </Typography>
-          <Typography variant="h5">
-            {getItem(waveEmojis)} Happy {getCurrentDay}!{getItem(randomEmojis)}
+        <Stack alignItems="center" flex={1} spacing={{ md: 2 }}>
+          <Stack direction="row">
+            <Typography variant={greetingSize} color="primary.dark">
+              {getItem(greetings)}!
+            </Typography>
+            <Typography variant={greetingSize}>
+              {getItem(waveEmojis)} Happy {getCurrentDay}!
+              {getItem(randomEmojis)}
+            </Typography>
+          </Stack>
+          <Today />
+          <Typography variant={subtextSize} textAlign="center">
+            What do you wan't us to check?🤔
           </Typography>
         </Stack>
-        <Today />
         <br />
         {/* <Box height="4rem" /> */}
         {/* <Button onClick={() => refresh()}>
           {" "}
           {`Refresh user ${auth?.houseInfo?.name}`}
         </Button> */}
-
-        <Typography variant="h6" textAlign="center">
-          What do you wan't us to check?🤔
-        </Typography>
 
         <br />
         <Stack
@@ -84,6 +92,7 @@ const DashBoardMain = () => {
           gap={2}
           justifyContent="center"
           alignItems="center"
+          flex={2}
         >
           {boards?.map((board, index) => {
             return (
