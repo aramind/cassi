@@ -125,7 +125,81 @@ const TasksPage = () => {
 
   return (
     <BodyContainer justifyContent="flex-start">
-      <Stack mt={2} alignItems="center" width={1} pb={2}>
+      <Box
+        // display={{ xs: "none", md: "flex" }}
+        sx={{
+          position: "fixed",
+          top: "50%",
+          left: "2rem",
+          transform: "translateY(-50%)",
+          height: "fit-content",
+          display: { xs: "none", md: "flex" },
+          flexDirection: "column",
+          justifyContent: "center",
+          width: "250px",
+          p: 2,
+          zIndex: 1,
+        }}
+      >
+        <Today />
+        <br />
+        <Button
+          variant="contained"
+          // endIcon={<Plus />}
+          sx={{ boxShadow: "none", fontSize: "2rem" }}
+          onClick={() => handleOpenDialog("add", null)}
+          fullWidth
+        >
+          ADD +
+        </Button>
+      </Box>
+      <Box
+        display={{ xs: "none", md: "block" }}
+        sx={{
+          position: "fixed",
+          top: "50%",
+          right: "2rem",
+          transform: "translateY(-50%)",
+          alignSelf: "flex-start",
+          height: "fit-content",
+
+          width: "250px",
+          p: 2,
+          zIndex: 1,
+        }}
+      >
+        <Stack spacing={2}>
+          <OptionsMenu
+            button={
+              <Button endIcon={<Sort />} variant="outlined" fullWidth>
+                sort
+              </Button>
+            }
+            menuItems={sortMenuItems}
+            width={1}
+          />
+          <FilterOptionsMenu
+            button={
+              <Button
+                fullWidth
+                endIcon={hasActiveFilters ? <Filter /> : <UnFilterIcon />}
+                variant={hasActiveFilters ? "contained" : "outlined"}
+                onClick={hasActiveFilters ? handleResetFilters : undefined}
+              >
+                {hasActiveFilters ? "reset" : "filter"}
+              </Button>
+            }
+            filters={filters}
+            setFilters={setFilters}
+            // menuItems={sortMenuItems}
+            width={1}
+            // disabled={true}
+            handleResetFilters={handleResetFilters}
+            handleSelectAllFilters={handleSelectAllFilters}
+          />
+        </Stack>
+      </Box>
+      <Stack mt={2} alignItems="center" width={{ xs: 1, md: "50%" }} pb={2}>
         <PageHeader text="tasks" />
         <Today />
         <br />
@@ -135,6 +209,7 @@ const TasksPage = () => {
           width={1}
           spacing={2}
           alignItems="center"
+          display={{ md: "none" }}
         >
           <Button
             variant="contained"
