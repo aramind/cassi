@@ -10,6 +10,7 @@ const AnnouncementsBox = ({ children }) => {
       gap={2}
       justifyContent="center"
       alignItems="stretch"
+      px={{ md: 2 }}
     >
       {children}
     </Stack>
