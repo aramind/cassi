@@ -1,7 +1,15 @@
-import { ButtonBase, Stack, Typography } from "@mui/material";
+import { Box, ButtonBase, Stack, Typography } from "@mui/material";
 import React from "react";
 
-const Board = ({ text, onClickHandler, width, height, bgcolor }) => {
+const Board = ({
+  text,
+  icon,
+  onClickHandler,
+  width,
+  height,
+  bgcolor,
+  iconColor,
+}) => {
   return (
     <ButtonBase
       onClick={onClickHandler}
@@ -17,14 +25,34 @@ const Board = ({ text, onClickHandler, width, height, bgcolor }) => {
           height: width,
           bgcolor: (theme) =>
             theme.palette[bgcolor]?.light || theme.palette.primary.light,
+          "& .icon-wrapper": {
+            color: "secondary.dark",
+          },
           "&:hover": {
             backgroundColor: (theme) =>
-              theme.palette[bgcolor]?.main || theme.palette.primary.main,
+              theme.palette.primary.dark ||
+              theme.palette[bgcolor]?.main ||
+              theme.palette.primary.main,
+            "& .icon-wrapper": {
+              color: "secondary.light",
+            },
+            "& .text-wrapper": {
+              color: "secondary.light",
+            },
           },
         }}
       >
+        <Box sx={{ fontSize: "4rem" }} className="icon-wrapper " height="auto">
+          {React.cloneElement(icon, {
+            sx: {
+              fontSize: { xs: "2rem", md: "4rem" },
+              color: "inherit",
+            },
+          })}
+        </Box>
         <Typography
-          variant="h4"
+          className="text-wrapper"
+          variant="h6"
           width="100%"
           sx={{
             whiteSpace: "normal", // allows the text to wrap
@@ -32,7 +60,7 @@ const Board = ({ text, onClickHandler, width, height, bgcolor }) => {
             overflowWrap: "break-word", // handles any overflow in long text
           }}
         >
-          {text}
+          {text.toUpperCase()}
         </Typography>
       </Stack>
     </ButtonBase>

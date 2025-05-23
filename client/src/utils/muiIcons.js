@@ -20,9 +20,10 @@ export {
   CheckBoxRounded as SquaredCheckIcon,
   InfoOutlined as InfoIcon,
   // for the dash and NavDial
-  CampaignRounded as AnnouncementIcon,
-  AssignmentRounded as TrackerIcon,
-  ChecklistRounded as TaskIcon,
-  AccountBoxRounded as ProfileIcon,
-  InsertDriveFileRounded as FileIcon,
+  CampaignOutlined as AnnouncementIcon,
+  AssignmentOutlined as TrackerIcon,
+  ChecklistOutlined as TaskIcon,
+  AccountBoxOutlined as ProfileIcon,
+  CalendarMonthOutlined as DuesIcon,
+  InsertDriveFileOutlined as FileIcon,
 } from "@mui/icons-material";

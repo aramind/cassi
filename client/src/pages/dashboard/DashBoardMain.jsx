@@ -5,6 +5,14 @@ import Board from "./Board";
 import { useNavigate } from "react-router-dom";
 import BodyContainer from "../../containers/BodyContainer";
 import Today from "../../components/Today";
+import {
+  AnnouncementIcon,
+  DuesIcon,
+  FileIcon,
+  ProfileIcon,
+  TaskIcon,
+  TrackerIcon,
+} from "../../utils/muiIcons";
 
 const randomEmojis = ["🪴", "🌻", "🌞", "🌈", "🌟 ", "🥳", "☕", "🐦"];
 const waveEmojis = ["👋🏻", "👋🏼", "👋🏽", "👋🏾", "👋🏿"];
@@ -20,13 +28,17 @@ const greetings = [
   "Hola",
 ];
 const colors = ["primary", "accent", "secondary"];
+// const iconColors = ["error.main", "info.main", "warning.main"];
 const boards = [
-  { text: "announcements" },
-  { text: "trackers" },
-  { text: "tasks" },
-  { text: "profile" },
-  { text: "dues" },
-  { text: "files" },
+  {
+    text: "announcements",
+    icon: <AnnouncementIcon />,
+  },
+  { text: "trackers", icon: <TrackerIcon /> },
+  { text: "tasks", icon: <TaskIcon /> },
+  { text: "profile", icon: <ProfileIcon /> },
+  { text: "dues", icon: <DuesIcon /> },
+  { text: "files", icon: <FileIcon /> },
 ];
 
 const getItem = (array) => {
@@ -77,9 +89,11 @@ const DashBoardMain = () => {
             return (
               <Board
                 key={index}
-                text={board.text}
+                text={board?.text}
+                icon={board?.icon}
                 width={{ xs: "40vw", md: "200px" }}
                 bgcolor={colors[index % colors?.length]}
+                // iconColor={iconColors[index % iconColors?.length]}
                 onClickHandler={() => navigate(`/${board.text}`)}
               />
             );
