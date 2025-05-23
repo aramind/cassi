@@ -36,7 +36,7 @@ const AnnouncementCard = ({
 
   return (
     <Stack
-      width="40vw"
+      width={{ xs: "40vw", md: "250px" }}
       //   minHeight="200px"
       height="auto"
       maxWidth="400px"
