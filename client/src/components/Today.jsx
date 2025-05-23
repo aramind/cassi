@@ -7,7 +7,9 @@ const Today = () => {
   const isDesktop = useIsDesktop();
   const variant = isDesktop ? "h5" : "h6";
   return (
-    <Typography variant={variant}>Today is {getCurrentDate}. 📅</Typography>
+    <Typography variant={variant} textAlign="center">
+      Today is {getCurrentDate}. 📅
+    </Typography>
   );
 };
 
