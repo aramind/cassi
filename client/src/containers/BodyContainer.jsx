@@ -12,17 +12,24 @@ const BodyContainer = ({
   return (
     <Stack
       bgcolor={(theme) => theme.palette.myWhite.main}
-      p={{ xs: 1, md: 2 }}
+      p={{ xs: 1, md: 0 }}
       alignItems="center"
       sx={{
-        minHeight: "100vh",
-        minWidth: "100vw",
+        height: "100vh",
+        width: "100%",
         justifyContent: justifyContent || "center",
+        overflowX: "hidden",
       }}
     >
       {withTopBar && <TopBar />}
       {withInfoIcon && (
-        <Stack width={1} direction="row" justifyContent="flex-end" spacing={1}>
+        <Stack
+          width={1}
+          direction="row"
+          justifyContent="flex-end"
+          spacing={1}
+          sx={{ display: { md: "none" } }}
+        >
           <IconButton color="info" disabled>
             {" "}
             <InfoIcon />
