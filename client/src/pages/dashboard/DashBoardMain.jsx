@@ -1,5 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
-import React from "react";
+import { Stack, Typography } from "@mui/material";
 import { getCurrentDay } from "../../utils/date";
 import Board from "./Board";
 import { useNavigate } from "react-router-dom";
@@ -79,12 +78,6 @@ const DashBoardMain = () => {
           </Typography>
         </Stack>
         <br />
-        {/* <Box height="4rem" /> */}
-        {/* <Button onClick={() => refresh()}>
-          {" "}
-          {`Refresh user ${auth?.houseInfo?.name}`}
-        </Button> */}
-
         <br />
         <Stack
           direction="row"
@@ -102,7 +95,6 @@ const DashBoardMain = () => {
                 icon={board?.icon}
                 width={{ xs: "40vw", md: "200px" }}
                 bgcolor={colors[index % colors?.length]}
-                // iconColor={iconColors[index % iconColors?.length]}
                 onClickHandler={() => navigate(`/${board.text}`)}
               />
             );

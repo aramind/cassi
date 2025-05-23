@@ -12,7 +12,10 @@ const Board = ({
   return (
     <ButtonBase
       onClick={onClickHandler}
-      sx={{ display: "block", width: width || "100%" }}
+      sx={{
+        display: "block",
+        width: width || "100%",
+      }}
     >
       <Stack
         justifyContent="center"
