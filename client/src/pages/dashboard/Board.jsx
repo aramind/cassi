@@ -6,9 +6,8 @@ const Board = ({
   icon,
   onClickHandler,
   width,
-  height,
+
   bgcolor,
-  iconColor,
 }) => {
   return (
     <ButtonBase
@@ -50,16 +49,8 @@ const Board = ({
             },
           })}
         </Box>
-        <Typography
-          className="text-wrapper"
-          variant="h6"
-          width="100%"
-          sx={{
-            whiteSpace: "normal", // allows the text to wrap
-            wordBreak: "break-word", // breaks long words if necessary
-            overflowWrap: "break-word", // handles any overflow in long text
-          }}
-        >
+
+        <Typography className="text-wrapper" variant="h6" sx={localStyles.text}>
           {text.toUpperCase()}
         </Typography>
       </Stack>
@@ -68,3 +59,12 @@ const Board = ({
 };
 
 export default Board;
+
+const localStyles = {
+  text: {
+    whiteSpace: "normal", // allows the text to wrap
+    wordBreak: "break-word", // breaks long words if necessary
+    overflowWrap: "break-word", // handles any overflow in long text
+    width: "100%",
+  },
+};
