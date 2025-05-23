@@ -19,4 +19,10 @@ export {
   RestartAltRounded as ResetIcon,
   CheckBoxRounded as SquaredCheckIcon,
   InfoOutlined as InfoIcon,
+  // for the dash and NavDial
+  CampaignRounded as AnnouncementIcon,
+  AssignmentRounded as TrackerIcon,
+  ChecklistRounded as TaskIcon,
+  AccountBoxRounded as ProfileIcon,
+  InsertDriveFileRounded as FileIcon,
 } from "@mui/icons-material";
