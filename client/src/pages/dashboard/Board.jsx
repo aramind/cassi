@@ -1,11 +1,21 @@
-import { ButtonBase, Stack, Typography } from "@mui/material";
+import { Box, ButtonBase, Stack, Typography } from "@mui/material";
 import React from "react";
 
-const Board = ({ text, onClickHandler, width, height, bgcolor }) => {
+const Board = ({
+  text,
+  icon,
+  onClickHandler,
+  width,
+
+  bgcolor,
+}) => {
   return (
     <ButtonBase
       onClick={onClickHandler}
-      sx={{ display: "block", width: width || "100%" }}
+      sx={{
+        display: "block",
+        width: width || "100%",
+      }}
     >
       <Stack
         justifyContent="center"
@@ -17,22 +27,34 @@ const Board = ({ text, onClickHandler, width, height, bgcolor }) => {
           height: width,
           bgcolor: (theme) =>
             theme.palette[bgcolor]?.light || theme.palette.primary.light,
+          "& .icon-wrapper": {
+            color: "secondary.dark",
+          },
           "&:hover": {
             backgroundColor: (theme) =>
-              theme.palette[bgcolor]?.main || theme.palette.primary.main,
+              theme.palette.primary.dark ||
+              theme.palette[bgcolor]?.main ||
+              theme.palette.primary.main,
+            "& .icon-wrapper": {
+              color: "secondary.light",
+            },
+            "& .text-wrapper": {
+              color: "secondary.light",
+            },
           },
         }}
       >
-        <Typography
-          variant="h4"
-          width="100%"
-          sx={{
-            whiteSpace: "normal", // allows the text to wrap
-            wordBreak: "break-word", // breaks long words if necessary
-            overflowWrap: "break-word", // handles any overflow in long text
-          }}
-        >
-          {text}
+        <Box sx={{ fontSize: "4rem" }} className="icon-wrapper " height="auto">
+          {React.cloneElement(icon, {
+            sx: {
+              fontSize: { xs: "2rem", md: "4rem" },
+              color: "inherit",
+            },
+          })}
+        </Box>
+
+        <Typography className="text-wrapper" variant="h6" sx={localStyles.text}>
+          {text.toUpperCase()}
         </Typography>
       </Stack>
     </ButtonBase>
@@ -40,3 +62,12 @@ const Board = ({ text, onClickHandler, width, height, bgcolor }) => {
 };
 
 export default Board;
+
+const localStyles = {
+  text: {
+    whiteSpace: "normal", // allows the text to wrap
+    wordBreak: "break-word", // breaks long words if necessary
+    overflowWrap: "break-word", // handles any overflow in long text
+    width: "100%",
+  },
+};
