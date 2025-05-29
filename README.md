@@ -1,6 +1,6 @@
 # CASSI
 
-**CASSI** (Convenient Assistant for Space Sharing Interactions)  
+**CASSI (Convenient Assistant for Space Sharing Interactions)**
 A full-stack web app for managing shared living spaces.
 
 ---
@@ -34,4 +34,23 @@ CASSI is a full-stack web application designed to help house occupants manage th
 
 ---
 
-## 📌 Tech Stack
+## 🛠 Tech Stack
+
+### Frontend
+
+- HTML  
+- CSS  
+- JavaScript  
+- React  
+- Material UI  
+
+### Backend
+
+- Node.js  
+- Express  
+- MongoDB  
+- Mongoose  
+
+### Tools
+
+- Git  
