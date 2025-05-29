@@ -1,6 +1,7 @@
 # CASSI
 
-**CASSI (Convenient Assistant for Space Sharing Interactions)**
+**Convenient Assistant for Space Sharing Interactions**
+
 A full-stack web app for managing shared living spaces.
 
 ---
