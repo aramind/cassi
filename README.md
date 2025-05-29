@@ -11,7 +11,7 @@ A full-stack web app for managing shared living spaces.
 CASSI is a full-stack web application designed to help house occupants manage their shared living space more efficiently.
 
 ### 📷 Screenshots
-![Screenshot5](client/public/assets/screenshots/5.png)
+![Screenshot1](client/public/assets/screenshots/1.png) ![Screenshot5](client/public/assets/screenshots/5.png)
 
 ### ✅ Core Features
 
